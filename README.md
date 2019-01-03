@@ -1,8 +1,10 @@
 # flutter_ide
 
-A Flutter-IDE proposal
+A Flutter-IDE proposal.
 
-## Table of contents
+I won't go too deep into the technicalities in this very first draft. I just want to get the point across the table
+and see if this, at its very core, makes sense. If people are interested in the idea, I will follow this up with
+more technical ideas.
 
 ### How would Flutter be possible
 
@@ -47,7 +49,47 @@ A few ideas how Live-Reload could be used:
 - Controlling/ Debugging an animation (even a hero animation) using a slider inside the IDE
 - Injecting data into Streams during runtime for testing and debugging purposes
 
+
+#### How this could be implemented
+
+
+
 ### Interactive rendering
+
+Because the IDE is Flutter, widgets from the app can be rendered inside the IDE.
+
+#### Working on isolated widgets
+
+Instead of first creating a page and putting the widget in there. You could select the widget in code and open
+a widget-renderer. Then, while changing the code, you can hot reload that single widget, or make it so it reloads
+automatically.
+
+This could especially be useful for widgets which take in data, which you'd first have to mock out. In the IDE you could
+provide the data to use and even change it (using Live-Reload). Think about a text card where you want to fine tune
+the behaviour with different text sizes.
+
+#### Storyboards
+
+Again, Flutter can render the pages (they are only widget).
+
+What needs to be done is:
+
+#### Figuring out the connections between the pages
+
+The problem is, that routes can be pushed from anywhere and in a lot of possible ways.
+
+Creating a well structured way of pushing page routes which makes it easy to understand for a computer would 
+probably be the easiest solution.
+
+
+#### Figuring out how to render a page
+
+The problem is, that pages can depend on all sorts of data. Data can either be passed to the page, the page can
+depend on an `InheritedWidget` or it could even depend on some static/ global variables.
+
+There are a couple of ways to solve this problem. But again, having a well structured page class which handles
+default parameters (for rendering in the IDE), would probably be the easiest solution.
+
 
 
 ### Plugin ideas
@@ -77,7 +119,3 @@ I have no doubt that there can be actually useful features finished in a reasona
 At first, it could be used for only a specific feature
 
 
-
-- IDE has runtime access to the application (values can be changed with a slider in the IDE for example text size)
-- Ios like storyboard with actual widget renders
-- Lightweight
