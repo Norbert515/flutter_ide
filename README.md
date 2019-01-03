@@ -52,6 +52,18 @@ A few ideas how Live-Reload could be used:
 
 #### How this could be implemented
 
+##### Multiple Flutter instances running through one engine
+
+Flutter Desktop is currently being developed and one tricky bit is supporting multiple Windows in one Flutter App.
+Without going into the details, splitting up the way code is run versus how it is displayed would possibly allow to have multiple Flutter instances running which are accessing the same code.
+
+##### As showcased in my experiments
+
+It could also utilize the hot-reload and source code manipulation trick which I used for the prototype.
+
+#### Isn't IntelliJ already doing this?
+Yes and no. IntelliJ has way to communicate with the runtime, but they are pretty restircted and hard to set up.
+IntelliJ can send messages to the dart vm which then gets passed to Flutter through the Flutter-engine. 
 
 
 ### Interactive rendering
@@ -116,6 +128,9 @@ the Flutter ecosystem.
 Flutter is fast. Not only in terms of execution but also in development. Even though this is a gigantic project
 I have no doubt that there can be actually useful features finished in a reasonable amount of time.
 
-At first, it could be used for only a specific feature
+Even if writing a complete IDE in Flutter might be too much, I'm confident that there are development tools that could be written in Flutter which provide real value.
+
+For example having a Flutter app called Widget Maker, which interactively helps building widgets.
+
 
 
