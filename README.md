@@ -113,7 +113,7 @@ For exmaple a `Column` would expose a slot at the top of the first widget and be
 FAB slot and so on.
 
 Then all default widgets and custom widgets would be displayed in a list, ready to drag in. 
-When this happens, the source code is actually changed.
+When this happens, the source code is changed.
 
 ## Plugin ideas
 
