@@ -1,6 +1,6 @@
 # A Flutter-IDE proposal.
 
-**Flutter is already super fast to develop with, but I have a vision that developing Apps of any kind can be ever faster**
+**Flutter is already super fast to develop with, but I have a vision that developing Apps of any kind can be even faster**
 
 I won't go too deep into the technicalities in this very first draft. I just want to get the point across the table
 and see if this, at its very core, makes sense. If people are interested in the idea, I will follow this up with
