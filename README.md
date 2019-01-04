@@ -1,5 +1,6 @@
 # A Flutter-IDE proposal.
 
+**Flutter is already super fast to develop with, but I have a vision that developing Apps of any kind can be ever faster**
 
 I won't go too deep into the technicalities in this very first draft. I just want to get the point across the table
 and see if this, at its very core, makes sense. If people are interested in the idea, I will follow this up with
@@ -105,7 +106,14 @@ depend on an `InheritedWidget` or it could even depend on some static/ global va
 There are a couple of ways to solve this problem. But again, having a well structured page class which handles
 default parameters (for rendering in the IDE), would probably be the easiest solution.
 
+## Layout-Editor
 
+When switching into layout mode, the current page could display all slots where widgets could be dropped into. 
+For exmaple a `Column` would expose a slot at the top of the first widget and beneath the last widget. A scaffold could expose the 
+FAB slot and so on.
+
+Then all default widgets and custom widgets would be displayed in a list, ready to drag in. 
+When this happens, the source code is actually changed.
 
 ## Plugin ideas
 
