@@ -1,20 +1,23 @@
-# flutter_ide
+# A Flutter-IDE proposal.
 
-A Flutter-IDE proposal.
 
 I won't go too deep into the technicalities in this very first draft. I just want to get the point across the table
 and see if this, at its very core, makes sense. If people are interested in the idea, I will follow this up with
 more technical ideas.
 
-### How would Flutter be possible
+## How would Flutter as an IDE be possible to begin with
 
-Flutter will run everywhere. Currently, Flutter Desktop is not finished yet but it will...
-It can also run on the Web and obviously phones. I could also run on a Raspbarry pi (So many posibillites).
+Flutter runs everywhere. 
+
+Flutter Desktop is not finished yet and so isn't Hummingbird (Flutter Web) but a lot has happend in the last few months and a lot will happen this year.
+
+Fun fact: it could also run on a Raspbarry-Pi (https://medium.com/flutter-io/flutter-on-raspberry-pi-mostly-from-scratch-2824c5e7dcb1).
+
+With Flutter, building beautiful UIs in a reasonable amount of time becomes possible. With Dart, which is an awesome language, building large scale software becomes fun, contrary to other languages (looking at you JS).
 
 Flutter is also pretty lightweight. It should work pretty well even on older machines.
 
-...
-
+## The advantages of using Flutter
 
 ### Plugins for a Flutter based IDE would be written in Flutter (obviously)
 
@@ -104,20 +107,20 @@ default parameters (for rendering in the IDE), would probably be the easiest sol
 
 
 
-### Plugin ideas
+## Plugin ideas
 
-#### Json-Dart manager
+### Json-Dart manager
 Copy a json schema into the plugin. Instead of just converting the JSON to a Dart Object, it keeps the json
 representation. You can then toggle between Dart-object/json reprenstation to make adjustments. Both are always in sync.
 
-#### Curve-Adjustments 
+### Curve-Adjustments 
 Like https://googlesamples.github.io/web-fundamentals/fundamentals/design-and-ux/animations/curve-playground.html
 but inside Flutter.
 
-#### Local-Database viewer/ manipulator
+### Local-Database viewer/ manipulator
 
 
-### Writing the IDE
+## Writing the IDE
 
 One of the biggest downsides to this project is, that most stuff will need to be done from scratch.
 There is no fully implemented file system manager or code editor. 
