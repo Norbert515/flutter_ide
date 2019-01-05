@@ -7,6 +7,9 @@
 I won't go too deep into the technicalities in this very first draft. I just want to get the point across the table
 and see if this, at its very core, makes sense. This might turn into an actual project if people are interested.
 
+All of the following gifs are highly experimental and if this turns into an actual project, the UX will get improved 
+drastically.
+
 ## How would Flutter as an IDE be possible to begin with
 
 Flutter runs everywhere. 
@@ -74,7 +77,6 @@ It could also utilize the hot-reload and source code manipulation trick which I 
 #### Isn't IntelliJ already doing this?
 Yes and no. IntelliJ has way to communicate with the runtime, but they are pretty restircted and hard to set up.
 IntelliJ can send messages to the dart vm which then gets passed to Flutter through the Flutter-engine. 
-
 
 ### Interactive rendering
 
