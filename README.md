@@ -147,7 +147,7 @@ the Flutter ecosystem.
 Flutter is fast. Not only in terms of execution but also in development. Even though this is a gigantic project
 I have no doubt that there can be useful features finished in a reasonable amount of time.
 
-For example having a Flutter-IDE app called Widget Maker, which allows to interactively build widgets.
+For example having a Flutter-IDE app called Widget Maker, which interactively helps to build widgets.
 
 ## Discussion
 
