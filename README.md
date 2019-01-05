@@ -1,6 +1,6 @@
 # A Flutter-IDE proposal
 
-![font_size](https://github.com/Norbert515/flutter_ide/tree/master/assets/font_size_cut_gif.gif)
+![font_size](https://github.com/Norbert515/flutter_ide/blob/master/assets/font_size_cut_gif.gif)
 
 **Flutter is already super fast to develop with, but I have a vision that developing Apps of any kind can be even faster.**
 
@@ -42,8 +42,8 @@ Before taking a look at how this could be implemented, let's explore why this co
 Runtime access means that the IDE not only has access to the source code, which is then compiled to machine
 code but also the complete state/ variables while the app is running.
 
-![font_size](https://github.com/Norbert515/flutter_ide/tree/master/assets/text_cut_gif.gif)
-![font_size](https://github.com/Norbert515/flutter_ide/tree/master/assets/material_color_cut_gif.gif)
+![font_size](https://github.com/Norbert515/flutter_ide/blob/master/assets/text_cut_gif.gif)
+![font_size](https://github.com/Norbert515/flutter_ide/blob/master/assets/material_color_cut_gif.gif)
 
 I've explored this idea under the name "Live-Reload". Hot-Reload is blazingly fast, but it still needs to
 compile the code and upload the changes. Interactively changing, for example, the font size using a slider is not possible.
@@ -78,7 +78,7 @@ It is possible to send messages to the dart VM which then gets passed to Flutter
 
 Because the IDE is Flutter, widgets from the app can be rendered inside the IDE.
 
-![font_size](https://github.com/Norbert515/flutter_ide/tree/master/assets/live_reloading_text_cut_gif.gif)
+![font_size](https://github.com/Norbert515/flutter_ide/blob/master/assets/live_reloading_text_cut_gif.gif)
 
 #### Working on isolated widgets
 
