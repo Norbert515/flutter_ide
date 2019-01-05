@@ -1,5 +1,7 @@
 # A Flutter-IDE proposal.
 
+![font_size](https://github.com/Norbert515/flutter_ide/tree/master/assets/font_size_cut_gif.gif)
+
 **Flutter is already super fast to develop with, but I have a vision that developing Apps of any kind can be even faster**
 
 I won't go too deep into the technicalities in this very first draft. I just want to get the point across the table
@@ -39,7 +41,7 @@ Before taking a look how this could be implemented, let's explore why this could
 Runtime access means that the IDE not only has access to the source code, which is then compiled to machine
 code, but also the complete state/ variables while the app is running.
 
-![font_size](https://github.com/Norbert515/flutter_ide/tree/master/assets/font_size_cut_gif.gif)
+![font_size](https://github.com/Norbert515/flutter_ide/tree/master/assets/text_cut_gif.gif)
 ![font_size](https://github.com/Norbert515/flutter_ide/tree/master/assets/material_color_cut_gif.gif)
 
 I've explored this idea under the name "Live-Reload". Hot-Reload is blazingly fast, but it still needs to
