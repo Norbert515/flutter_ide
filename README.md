@@ -16,17 +16,15 @@ Flutter runs everywhere.
 
 Flutter Desktop is not finished yet and so isn't Hummingbird (Flutter Web) but a lot has happend in the last few months and a lot will happen this year.
 
-Fun fact: it could also run on a Raspbarry-Pi (https://medium.com/flutter-io/flutter-on-raspberry-pi-mostly-from-scratch-2824c5e7dcb1).
+Fun fact: [it could also run on a Raspbarry-Pi](https://medium.com/flutter-io/flutter-on-raspberry-pi-mostly-from-scratch-2824c5e7dcb1).
 
-With Flutter, building beautiful UIs in a reasonable amount of time becomes possible. With Dart, which is an awesome language, building large scale software becomes fun, contrary to other languages (looking at you JS).
-
-Flutter is also pretty lightweight. It should work pretty well even on older machines.
+Also, let's not forget how much fun it is to build beautiful Flutter Apps.
 
 ## The advantages of using Flutter
 
 ### Plugins for a Flutter based IDE would be written in Flutter (obviously)
 
-Why is this great?
+**Why is this great?**
 
 Flutter developers know Flutter. Meaning the entry barrier to creating a plugin is very low. 
 
@@ -52,13 +50,14 @@ compile code and upload the changes. Interactively changing, for example, the fo
 
 (https://github.com/Norbert515/flutter_experiment_phone_ide)
 
-But because the IDE itself could have runtime access to the underlying code, all it would have to do is change
-a value to a variable and then change the variable and schedule a rebuild. 
+But because the IDE itself could have runtime access to the underlying code, all it would have to do is modify a variable
+and schedule a rebuild. 
 
 A few ideas how Live-Reload could be used:
 - Changing basic values for rendering (width/height/color/font-size etc.) with a slider/color-picker
 - Controlling/ Debugging an animation (even a hero animation) using a slider inside the IDE
 - Injecting data into Streams during runtime for testing and debugging purposes
+- Chaning values in a visual editor (which are reflected in the source ode)
 
 ![font_size](https://github.com/Norbert515/flutter_ide/tree/master/assets/color_cut_gif.gif)
 
