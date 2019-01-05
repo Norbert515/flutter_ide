@@ -26,14 +26,14 @@ Flutter is fun to build stuff in, but there is much more to it.
 
 **Why is this great?**
 
-Flutter developers know Flutter. Meaning the entry barrier to creating a plugin is very low. 
+Flutter developers know Flutter. Meaning, the entry barrier to creating a plugin is very low. 
 
 In addition, because this is Flutter - creating intuitive and beautiful UI's for the plugin is easier
 than ever before.
 
 Both of these properties have the following result:
 - Developers can quickly create a plugin for themselves before first learning something completely new.
-- More plugins are being developed and the ecosystem can quickly grow.
+- More plugins are being developed and the ecosystem can grow quickly.
 
 ### IDE can have runtime access to the App
 
