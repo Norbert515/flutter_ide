@@ -1,4 +1,4 @@
-# A Flutter-IDE proposal.
+# A Flutter-IDE proposal
 
 ![font_size](https://github.com/Norbert515/flutter_ide/tree/master/assets/font_size_cut_gif.gif)
 
@@ -65,17 +65,15 @@ A few ideas how Live-Reload could be used:
 #### How this could be implemented
 
 ##### Multiple Flutter instances running through one engine
-
 Flutter Desktop is currently being developed and one tricky bit is supporting multiple Windows in one Flutter App.
 Without going into the details, splitting up the way code is run versus how it is displayed would possibly allow to have multiple Flutter instances running which are accessing the same code.
 
 ##### As showcased in my experiments
-
-It could also utilize the hot-reload and source code manipulation trick which I used for the prototype.
+It could also utilize the hot-reload and source code manipulation which I used for the prototype.
 
 #### Isn't IntelliJ already doing this?
 Yes and no. IntelliJ has way to communicate with the runtime, but they are pretty restircted and hard to set up.
-IntelliJ can send messages to the dart vm which then gets passed to Flutter through the Flutter-engine. 
+It is possible to send messages to the dart vm which then gets passed to Flutter through the Flutter-engine. 
 
 ### Interactive rendering
 
@@ -91,11 +89,13 @@ automatically.
 
 This could especially be useful for widgets which take in data, which you'd first have to mock out. In the IDE you could
 provide the data to use and even change it (using Live-Reload). Think about a text card where you want to fine tune
-the behaviour with different text sizes.
+the behaviour using different text lengths.
 
-#### Storyboards
+#### iOS like Storyboards
 
-Again, Flutter can render the pages (they are only widget).
+**A visual overview over the pages in the app and their connections.**
+
+Again, Flutter can render the pages (they are only widget). 
 
 What needs to be done is:
 
@@ -105,7 +105,6 @@ The problem is, that routes can be pushed from anywhere and in a lot of possible
 
 Creating a well structured way of pushing page routes which makes it easy to understand for a computer would 
 probably be the easiest solution.
-
 
 #### Figuring out how to render a page
 
@@ -126,6 +125,8 @@ When this happens, the source code is changed.
 
 ## Plugin ideas
 
+Just a few ideas I thought I'd drop into (before I forget them myself).
+
 ### Json-Dart manager
 Copy a json schema into the plugin. Instead of just converting the JSON to a Dart Object, it keeps the json
 representation. You can then toggle between Dart-object/json reprenstation to make adjustments. Both are always in sync.
@@ -134,23 +135,24 @@ representation. You can then toggle between Dart-object/json reprenstation to ma
 Like https://googlesamples.github.io/web-fundamentals/fundamentals/design-and-ux/animations/curve-playground.html
 but inside Flutter.
 
-### Local-Database viewer/ manipulator
-
+### Local-Database viewer/ manipulator/ manager
 
 ## Writing the IDE
 
 One of the biggest downsides to this project is, that most stuff will need to be done from scratch.
 There is no fully implemented file system manager or code editor. 
 
-But on the other hand, this could also be a chance to make it right and to make it fit very well with
+But on the other hand, this could also be a chance to make it fit very well with
 the Flutter ecosystem.
 
 Flutter is fast. Not only in terms of execution but also in development. Even though this is a gigantic project
-I have no doubt that there can be actually useful features finished in a reasonable amount of time.
+I have no doubt that there can be useful features finished in a reasonable amount of time.
 
-Even if writing a complete IDE in Flutter might be too much, I'm confident that there are development tools that could be written in Flutter which provide real value.
+For example having a Flutter-IDE app called Widget Maker, which allows to interactively build widgets.
 
-For example having a Flutter app called Widget Maker, which interactively helps building widgets.
+## Discussion
 
+These are just a bunch of ideas written down and I'd love to have a discusson on this.
 
-
+### Open an issue
+Just open an issue for any topic you'd like to discuss.
