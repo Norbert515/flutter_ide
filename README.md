@@ -57,7 +57,7 @@ A few ideas how Live-Reload could be used:
 - Changing basic values for rendering (width/height/color/font-size etc.) with a slider/color-picker
 - Controlling/ Debugging an animation (even a hero animation) using a slider inside the IDE
 - Injecting data into Streams during runtime for testing and debugging purposes
-- Chaning values in a visual editor (which are reflected in the source ode)
+- Changing  values in a visual editor (which are reflected in the source code)
 
 ![font_size](https://github.com/Norbert515/flutter_ide/tree/master/assets/color_cut_gif.gif)
 
@@ -116,7 +116,7 @@ default parameters (for rendering in the IDE), would probably be the easiest sol
 ## Layout-Editor
 
 When switching into layout mode, the current page could display all slots where widgets could be dropped into. 
-For example a `Column` would expose a slot at the top of the first widget and beneath the last widget. A scaffold could expose the 
+For example, a `Column` would expose a slot at the top of the first widget and beneath the last widget. A scaffold could expose the 
 FAB slot and so on.
 
 Then all default widgets and custom widgets would be displayed in a list, ready to drag in. 
@@ -127,7 +127,7 @@ When this happens, the source code is changed.
 Just a few ideas I thought I'd drop into (before I forget them myself).
 
 ### JSON-Dart manager
-Copy a JSON schema into the plugin. Instead of just converting the JSON to a Dart Object, it keeps the json
+Copy a JSON schema into the plugin. Instead of just converting the JSON to a Dart Object, it keeps the JSON
 representation. You can then toggle between Dart-object/JSON representation to make adjustments. Both are always in sync.
 
 ### Curve-Adjustments 
@@ -151,7 +151,7 @@ For example having a Flutter-IDE app called Widget Maker, which interactively he
 
 ## Discussion
 
-These are just a bunch of ideas written down and I'd love to have a discusson on this.
+These are just a bunch of ideas written down and I'd love to have a discussion on this.
 
 ### Open an issue
 Just open an issue for any topic you'd like to discuss.
