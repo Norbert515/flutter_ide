@@ -3,8 +3,7 @@
 **Flutter is already super fast to develop with, but I have a vision that developing Apps of any kind can be even faster**
 
 I won't go too deep into the technicalities in this very first draft. I just want to get the point across the table
-and see if this, at its very core, makes sense. If people are interested in the idea, I will follow this up with
-more technical ideas.
+and see if this, at its very core, makes sense. This might turn into an actual project if people are interested.
 
 ## How would Flutter as an IDE be possible to begin with
 
@@ -24,7 +23,7 @@ Flutter is also pretty lightweight. It should work pretty well even on older mac
 
 Why is this great?
 
-Flutter developers know Flutter. This means the entry barrier to creating a plugin is very low. 
+Flutter developers know Flutter. Meaning the entry barrier to creating a plugin is very low. 
 
 In addition, because this is Flutter - creating intuitive and beautiful UI's for the plugin is easier
 than ever before.
@@ -78,6 +77,8 @@ IntelliJ can send messages to the dart vm which then gets passed to Flutter thro
 ### Interactive rendering
 
 Because the IDE is Flutter, widgets from the app can be rendered inside the IDE.
+
+![font_size](https://github.com/Norbert515/flutter_ide/tree/master/assets/live_reloading_text_cut_gif.gif)
 
 #### Working on isolated widgets
 
