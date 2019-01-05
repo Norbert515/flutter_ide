@@ -40,8 +40,8 @@ Before taking a look how this could be implemented, let's explore why this could
 Runtime access means that the IDE not only has access to the source code, which is then compiled to machine
 code, but also the complete state/ variables while the app is running.
 
-![font_size](https://github.com/Norbert515/flutter_ide/assets/font_size_cut.mp4)
-![font_size](https://github.com/Norbert515/flutter_ide/assets/material_color_cut.mp4)
+![font_size](https://github.com/Norbert515/flutter_ide/tree/master/assets/font_size_cut.mp4)
+![font_size](https://github.com/Norbert515/flutter_ide/tree/master/assets/material_color_cut.mp4)
 
 I've explored this idea under the name "Live-Reload". Hot-Reload is blazingly fast, but it still needs to
 compile code and upload the changes. Interactively changing, for example, the font size using a slider is not possible.
@@ -56,7 +56,7 @@ A few ideas how Live-Reload could be used:
 - Controlling/ Debugging an animation (even a hero animation) using a slider inside the IDE
 - Injecting data into Streams during runtime for testing and debugging purposes
 
-![font_size](https://github.com/Norbert515/flutter_ide/assets/color_cut.mp4)
+![font_size](https://github.com/Norbert515/flutter_ide/tree/master/assets/color_cut.mp4)
 
 
 #### How this could be implemented
