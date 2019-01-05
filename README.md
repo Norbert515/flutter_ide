@@ -18,9 +18,9 @@ Flutter Desktop is not finished yet and so isn't Hummingbird (Flutter Web) but a
 
 Fun fact: [it could also run on a Raspbarry-Pi](https://medium.com/flutter-io/flutter-on-raspberry-pi-mostly-from-scratch-2824c5e7dcb1).
 
-Also, let's not forget how much fun it is to build beautiful Flutter Apps.
-
 ## The advantages of using Flutter
+
+Flutter is fun to build stuff in, but there is much more.
 
 ### Plugins for a Flutter based IDE would be written in Flutter (obviously)
 
@@ -60,7 +60,6 @@ A few ideas how Live-Reload could be used:
 - Chaning values in a visual editor (which are reflected in the source ode)
 
 ![font_size](https://github.com/Norbert515/flutter_ide/tree/master/assets/color_cut_gif.gif)
-
 
 #### How this could be implemented
 
