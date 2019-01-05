@@ -20,7 +20,7 @@ Fun fact: [it could also run on a Raspbarry-Pi](https://medium.com/flutter-io/fl
 
 ## The advantages of using Flutter
 
-Flutter is fun to build stuff in, but there is much more.
+Flutter is fun to build stuff in, but there is much more to it.
 
 ### Plugins for a Flutter based IDE would be written in Flutter (obviously)
 
