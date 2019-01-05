@@ -4,7 +4,7 @@
 
 **Flutter is already super fast to develop with, but I have a vision that developing Apps of any kind can be even faster**
 
-I won't go too deep into the technicalities in this very first draft. I just want to get the point across the table
+Disclaimer: I won't go too deep into the technicalities in this very first draft. I just want to get the point across the table
 and see if this, at its very core, makes sense. This might turn into an actual project if people are interested.
 
 All of the following gifs are highly experimental and if this turns into an actual project, the UX will get improved 
