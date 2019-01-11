@@ -1,31 +1,21 @@
-import 'dart:io';
+import 'dart:async';
+import 'package:grpc/grpc.dart';
 
-import 'package:args/args.dart';
-import 'package:shelf/shelf.dart' as shelf;
-import 'package:shelf/shelf_io.dart' as io;
+import 'package:visual_server/src/generate/server.pb.dart';
+import 'package:visual_server/src/generate/server.pbgrpc.dart';
 
-main(List<String> args) async {
-  var parser = ArgParser()..addOption('port', abbr: 'p', defaultsTo: '8080');
+class ServerService extends ServerServiceBase {
 
-  var result = parser.parse(args);
-
-  var port = int.tryParse(result['port']);
-
-  if (port == null) {
-    stdout.writeln(
-        'Could not parse port value "${result['port']}" into a number.');
-    // 64: command line usage error
-    exitCode = 64;
-    return;
+  @override
+  Future<HelloReply> initialize(ServiceCall call, InitializeFileRequest request) {
+    return null;
   }
 
-  var handler = const shelf.Pipeline()
-      .addMiddleware(shelf.logRequests())
-      .addHandler(_echoRequest);
 
-  var server = await io.serve(handler, 'localhost', port);
-  print('Serving at http://${server.address.host}:${server.port}');
 }
 
-shelf.Response _echoRequest(shelf.Request request) =>
-    shelf.Response.ok('Request for "${request.url}"');
+Future<void> main(List<String> args) async {
+  final server = new Server([ServerService()]);
+  await server.serve(port: 50051);
+  print('Server listening on port ${server.port}...');
+}

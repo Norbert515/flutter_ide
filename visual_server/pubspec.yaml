@@ -10,6 +10,8 @@ environment:
 dependencies:
   args: ^1.4.2
   shelf: ^0.7.2
+  protobuf: ^0.10.1
+  grpc: ^1.0.0
 
 #dev_dependencies:
 #  test: ^1.0.0
