@@ -1,8 +1,77 @@
-
-
 import 'package:flutter/material.dart';
 import 'package:flutter_visual_builder/dynamic_widget.dart';
 import 'package:flutter_visual_builder/main.dart';
+
+
+
+/// Return back valid code.
+///
+/// return VisualScaffold(
+///      appBar: AppBar(
+///        title: Text("Test"),
+///      ),
+///      floatingActionButton: VisualFloatingActionButton(
+///          onPressed: (){
+///            print("Hey!");
+///          }
+///      ),
+///    );
+///
+///
+/// Needs to be turned back into source code after modification.
+mixin VisualMixin on Widget {
+
+  //VisualMixin({Key key}): super(key: key);
+
+  List<Property> properties;
+  List<WidgetProperty> widgetProperties;
+
+  String get originalClassName;
+
+  String buildSourceCode() {
+    return
+      '$originalClassName(\n'
+        '${properties.map((it) => '${it.name}:${it.value}').join(",\n")}\n'
+        '${widgetProperties.map((it) => '').join(",\n")}'
+        ')';
+  }
+
+}
+
+
+
+/// This contains the properties as source code which would be lost otherwise when accessed at runtime.
+///
+/// For example:
+///
+/// return Container(
+///   color: myColor,
+/// );
+///
+/// Would evaluate to "myColor" during runtime, but we'd like to keep the variable, therefore
+/// it is saved as:
+///
+/// Property("color", "myColor")
+class Property {
+
+  Property(this.name, this.value);
+
+  final String name;
+  final String value;
+
+}
+
+/// This is a property involving a layout widget.
+class WidgetProperty {
+
+  WidgetProperty(this.name, this.key);
+
+  final String name;
+  final GlobalKey<LayoutDragTargetState> key;
+
+
+}
+
 
 /// TODO
 /// Even though it is a bit tedious, each widget which should have the ability to change
@@ -27,7 +96,7 @@ import 'package:flutter_visual_builder/main.dart';
 /// access to the framework version)
 class VisualFloatingActionButton extends StatelessWidget {
 
-  const VisualFloatingActionButton({
+  VisualFloatingActionButton({
     Key key,
     this.child,
     this.tooltip,
@@ -42,6 +111,7 @@ class VisualFloatingActionButton extends StatelessWidget {
     this.clipBehavior = Clip.none,
     this.materialTapTargetSize,
     this.isExtended = false,
+    List<Property> properties,
   }) : super(key: key);
 
 
@@ -76,6 +146,7 @@ class VisualFloatingActionButton extends StatelessWidget {
     return FloatingActionButton(
       onPressed: onPressed,
       child: LayoutDragTarget(
+        key: GlobalKey<LayoutDragTargetState>(),
         child: child,
         replacementActive: Container(width: 20, height: 20, color: Colors.yellow,),
         replacementInactive: Container(width: 20, height: 20, color: Colors.red,),
@@ -96,7 +167,7 @@ class VisualFloatingActionButton extends StatelessWidget {
 }
 
 class VisualScaffold extends StatelessWidget {
-  const VisualScaffold({
+  VisualScaffold({
     Key key,
     this.visualMode,
     this.appBar,
@@ -112,6 +183,7 @@ class VisualScaffold extends StatelessWidget {
     this.backgroundColor,
     this.resizeToAvoidBottomPadding = true,
     this.primary = true,
+    List<Property> properties,
   }) : super(key: key);
 
   final bool visualMode;

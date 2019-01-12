@@ -1,8 +1,6 @@
-
-
 import 'package:flutter/material.dart';
+import 'package:flutter_visual_builder/components/visual_components.dart';
 import 'package:flutter_visual_builder/dynamic_widget.dart';
-import 'package:flutter_visual_builder/main.dart';
 
 class VisualEditor extends StatelessWidget {
 
@@ -33,5 +31,47 @@ class VisualEditor extends StatelessWidget {
         ),
         Expanded(child: AppWidget()),
       ],
-    );  }
+    );
+  }
+}
+
+
+class RootDraggable extends StatelessWidget {
+
+  const RootDraggable({Key key, this.widgetAndSourceCode}) : super(key: key);
+
+  final DynamicWidget widgetAndSourceCode;
+
+
+  @override
+  Widget build(BuildContext context) {
+    return Draggable<DynamicWidget>(
+      data: widgetAndSourceCode,
+      feedback: widgetAndSourceCode.feedback,
+      child: widgetAndSourceCode.widget,
+    );
+  }
+}
+
+
+class AppWidget extends StatelessWidget {
+
+
+  @override
+  Widget build(BuildContext context) {
+    return VisualScaffold(
+      appBar: AppBar(
+        title: Text("Test"),
+      ),
+      floatingActionButton: VisualFloatingActionButton(
+          onPressed: (){
+            print("Hey!");
+          }
+      ),
+    );
+  }
+
+
+
+
 }
