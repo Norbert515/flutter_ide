@@ -46,9 +46,10 @@ class RootDraggable extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Draggable<DynamicWidget>(
+      childWhenDragging: widgetAndSourceCode.feedback,
       data: widgetAndSourceCode,
       feedback: widgetAndSourceCode.feedback,
-      child: widgetAndSourceCode.widget,
+      child: widgetAndSourceCode.feedback,
     );
   }
 }
@@ -57,16 +58,30 @@ class RootDraggable extends StatelessWidget {
 class AppWidget extends StatelessWidget {
 
 
+  final GlobalKey<VisualRootState> rootKey = GlobalKey();
+
   @override
   Widget build(BuildContext context) {
-    return VisualScaffold(
-      appBar: AppBar(
-        title: Text("Test"),
-      ),
-      floatingActionButton: VisualFloatingActionButton(
-          onPressed: (){
-            print("Hey!");
-          }
+    return VisualRoot(
+      key: rootKey,
+      child: VisualScaffold(
+        properties: [],
+        widgetProperties: [],
+        appBar: AppBar(
+          title: Text("Test"),
+        ),
+        floatingActionButton: VisualFloatingActionButton(
+            onPressed: (){
+              print("Hey!");
+            }
+        ),
+        body: Center(
+          child: RaisedButton(onPressed: (){
+            String source = rootKey.currentState.buildSourceCode();
+            print("Here is the source: \n");
+            print(source);
+          }),
+        ),
       ),
     );
   }

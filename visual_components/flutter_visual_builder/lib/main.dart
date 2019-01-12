@@ -16,12 +16,6 @@ void main() {
 
 class MyApp extends StatelessWidget {
 
-  // TODO
-  // In the end the source code should be accessible like this
-  void todo() {
-    VisualScaffold visualScaffold = VisualScaffold();
-    String source = visualScaffold.buildSourceCode();
-  }
 
 
   @override

@@ -24,6 +24,9 @@ abstract class VisualWidget extends StatelessWidget {
 
 
   /// This is needed in the constructor because we need to save the widget properties so we can restore the source code during runtime
+  ///
+  /// FOR NOW THESE CAN NOT BE CHANGED
+  /// TODO when the server allows to change these, this need to be computed in a getter too.
   final List<Property> properties;
 
   /// Same for the widgets.
@@ -45,7 +48,7 @@ abstract class VisualWidget extends StatelessWidget {
     return
       '$originalClassName(\n'
         '${properties.map((it) => '${it.name}:${it.value}').join(",\n")}\n'
-        '${modifiedWidgetProperties.map((it) => '').join(",\n")}'
+        '${modifiedWidgetProperties.map((it) => '${it.name}:${it.dynamicWidget.sourceCode}').join(",\n")}'
         ')';
   }
 }
@@ -82,8 +85,36 @@ class WidgetProperty {
   final String name;
   final DynamicWidget dynamicWidget;
 
-
 }
+
+
+class VisualRoot extends StatefulWidget {
+
+  const VisualRoot({Key key, this.child}) : super(key: key);
+
+  final VisualWidget child;
+
+  @override
+  VisualRootState createState() => VisualRootState();
+}
+
+class VisualRootState extends State<VisualRoot> {
+
+
+  /// Builds the source code for this specific VisualWidget
+  ///
+  /// It does it by first looking at all the parameters which are not widgets (which need no recursive steps)
+  /// and then at the Dynamic widgets.
+  String buildSourceCode() {
+    return widget.child.buildSourceCode();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return widget.child;
+  }
+}
+
 
 
 /// TODO
@@ -189,7 +220,7 @@ class VisualFloatingActionButton extends VisualWidget {
   List<WidgetProperty> get modifiedWidgetProperties => [
     WidgetProperty(
       name: "child",
-      dynamicWidget: childKey.currentState.child,
+      dynamicWidget: childKey.currentState?.child,
     ),
   ];
 }
@@ -289,15 +320,15 @@ class VisualScaffold extends VisualWidget {
   List<WidgetProperty> get modifiedWidgetProperties => [
     WidgetProperty(
       name: "body",
-      dynamicWidget: bodyKey.currentState.child
+      dynamicWidget: bodyKey.currentState?.child
     ),
     WidgetProperty(
         name: "floatingActionButton",
-        dynamicWidget: fabKey.currentState.child
+        dynamicWidget: fabKey.currentState?.child
     ),
     WidgetProperty(
         name: "appBar",
-        dynamicWidget: appBarKey.currentState.child
+        dynamicWidget: appBarKey.currentState?.child
     ),
   ];
 }
@@ -353,7 +384,6 @@ class LayoutDragTargetState extends State<LayoutDragTarget> {
   @override
   void initState() {
     super.initState();
-   // child = DynamicWidget(widget.child, null);
     if(widget.child != null) {
 
       /// The visual editor only allows editing and changing widget which are
@@ -416,7 +446,10 @@ class LayoutDragTargetState extends State<LayoutDragTarget> {
   /// TODO The problem is that the state is lost when the widget is started to being dragged around.
   ///
   /// For example a FAB with a child in it is only treated as the FAB it was with the parameters it was constructed with.
+  ///
+  /// This can only be called if there is no widget in the slot
   DynamicWidget wrapInVisualDraggable(DynamicWidget newChild) {
+    assert(child == null || child.widget == null);
 
     // TODO this should be called when data is requested. It should get all Dynamic Widgets of VisualWidget and insert it into this one
     if(newChild.widget is VisualWidget) {

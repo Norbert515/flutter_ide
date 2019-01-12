@@ -5,9 +5,9 @@ import 'package:flutter_visual_builder/components/visual_components.dart';
 // Representation of a widget which can be moved around the screen
 class DynamicWidget {
 
-  DynamicWidget(this.widget, this.sourceCode, {Widget feedback}) : this.feedback = feedback ?? widget;
+  DynamicWidget(this.widget, this.sourceCode, {Widget feedback, this.child}) : this.feedback = feedback ?? widget;
 
-  DynamicWidget.empty(): widget = null, sourceCode = null, feedback = null;
+  DynamicWidget.empty(): widget = null, sourceCode = null, feedback = null, child = null;
 
 //  DynamicWidget copyWith({
   //  DynamicWidget
@@ -23,6 +23,7 @@ class DynamicWidget {
   final Widget widget;
 
   // The source code of this widget
+  // TODO this should be calculated
   final String sourceCode;
 
   /// The representation of the widget while being dragged around.
@@ -31,10 +32,17 @@ class DynamicWidget {
   final Widget feedback;
 
 
+  List<Property> properties;
+  List<WidgetProperty> widgetProperties;
+
+  String generateSourceCodeRecursive() {
+
+  }
+
   /// The child of this dynamic widget.
   ///
   ///
- // final DynamicWidget child;
+  final VisualWidget child;
 }
 
 DynamicWidget testWidget = DynamicWidget(
@@ -47,12 +55,13 @@ DynamicWidget testWidget = DynamicWidget(
 
 DynamicWidget testWidget2 = DynamicWidget(
     VisualFloatingActionButton(
+      backgroundColor: Colors.red,
       onPressed: (){},
     ),
-    'Container(color: Colors.green,width: 50,height: 100,)');
+    'FloatingActionButton(onPressed: (){}, backgroundColor: Colors.red,)', feedback: FloatingActionButton(onPressed: null, backgroundColor: Colors.red,));
 
 DynamicWidget testWidget3 = DynamicWidget(
     Icon(Icons.add),
-    'Container(color: Colors.green,width: 50,height: 100,)');
+    'Icon(Icons.add)');
 
 
