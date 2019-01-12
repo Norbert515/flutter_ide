@@ -19,6 +19,7 @@ import 'package:flutter_visual_builder/main.dart';
 ///
 ///
 /// Needs to be turned back into source code after modification.
+/// TODO probably want this as an abstract class so we can use the constructor
 mixin VisualMixin on Widget {
 
   //VisualMixin({Key key}): super(key: key);
