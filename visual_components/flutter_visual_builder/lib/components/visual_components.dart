@@ -17,25 +17,39 @@ import 'package:flutter_visual_builder/main.dart';
 ///
 ///
 /// Needs to be turned back into source code after modification.
-/// TODO probably want this as an abstract class so we can use the constructor
-mixin VisualMixin on Widget {
+/// TODO make it work with stateful too
+abstract class VisualWidget extends StatelessWidget {
 
-  //VisualMixin({Key key}): super(key: key);
+  VisualWidget({Key key, this.properties, this.widgetProperties}): super(key: key);
 
-  List<Property> properties;
-  List<WidgetProperty> widgetProperties;
 
+  /// This is needed in the constructor because we need to save the widget properties so we can restore the source code during runtime
+  final List<Property> properties;
+
+  /// Same for the widgets.
+  final List<WidgetProperty> widgetProperties;
+
+
+  /// The class name of the Widget which the Visual widget is replicating
   String get originalClassName;
 
+
+
+  List<WidgetProperty> get modifiedWidgetProperties;
+
+  /// Builds the source code for this specific VisualWidget
+  ///
+  /// It does it by first looking at all the parameters which are not widgets (which need no recursive steps)
+  /// and then at the Dynamic widgets.
   String buildSourceCode() {
     return
       '$originalClassName(\n'
         '${properties.map((it) => '${it.name}:${it.value}').join(",\n")}\n'
-        '${widgetProperties.map((it) => '').join(",\n")}'
+        '${modifiedWidgetProperties.map((it) => '').join(",\n")}'
         ')';
   }
-
 }
+
 
 
 
@@ -63,10 +77,10 @@ class Property {
 /// This is a property involving a layout widget.
 class WidgetProperty {
 
-  WidgetProperty(this.name, this.key);
+  WidgetProperty({this.name, this.dynamicWidget});
 
   final String name;
-  final GlobalKey<LayoutDragTargetState> key;
+  final DynamicWidget dynamicWidget;
 
 
 }
@@ -93,7 +107,7 @@ class WidgetProperty {
 /// This shouldn't be too much of a problem because the changes are minimal and there
 /// could be different widgets for each framework version (when starting this, we have
 /// access to the framework version)
-class VisualFloatingActionButton extends StatelessWidget {
+class VisualFloatingActionButton extends VisualWidget {
 
   VisualFloatingActionButton({
     Key key,
@@ -111,7 +125,8 @@ class VisualFloatingActionButton extends StatelessWidget {
     this.materialTapTargetSize,
     this.isExtended = false,
     List<Property> properties,
-  }) : super(key: key);
+    List<WidgetProperty> widgetProperties
+  }) : super(key: key, properties: properties, widgetProperties: widgetProperties);
 
 
   final Widget child;
@@ -140,12 +155,15 @@ class VisualFloatingActionButton extends StatelessWidget {
 
   final MaterialTapTargetSize materialTapTargetSize;
 
+  final GlobalKey<LayoutDragTargetState> childKey = GlobalKey();
+
+
   @override
   Widget build(BuildContext context) {
     return FloatingActionButton(
       onPressed: onPressed,
       child: LayoutDragTarget(
-        key: GlobalKey<LayoutDragTargetState>(),
+        key: childKey,
         child: child,
         replacementActive: Container(width: 20, height: 20, color: Colors.yellow,),
         replacementInactive: Container(width: 20, height: 20, color: Colors.red,),
@@ -163,9 +181,20 @@ class VisualFloatingActionButton extends StatelessWidget {
       tooltip: tooltip,
     );
   }
+
+  @override
+  String get originalClassName => "FloatingActionButton";
+
+  @override
+  List<WidgetProperty> get modifiedWidgetProperties => [
+    WidgetProperty(
+      name: "child",
+      dynamicWidget: childKey.currentState.child,
+    ),
+  ];
 }
 
-class VisualScaffold extends StatelessWidget {
+class VisualScaffold extends VisualWidget {
   VisualScaffold({
     Key key,
     this.visualMode,
@@ -183,10 +212,10 @@ class VisualScaffold extends StatelessWidget {
     this.resizeToAvoidBottomPadding = true,
     this.primary = true,
     List<Property> properties,
-  }) : super(key: key);
+    List<WidgetProperty> widgetProperties
+  }) : super(key: key, properties: properties, widgetProperties: widgetProperties);
 
   final bool visualMode;
-
 
   final PreferredSizeWidget appBar;
 
@@ -214,6 +243,10 @@ class VisualScaffold extends StatelessWidget {
 
   final bool primary;
 
+  final GlobalKey<LayoutDragTargetState> bodyKey = GlobalKey();
+  final GlobalKey<LayoutDragTargetState> fabKey= GlobalKey();
+  final GlobalKey<LayoutDragTargetState> appBarKey= GlobalKey();
+
   // TODO inside maybe differenciate between center and normal etc.
   @override
   Widget build(BuildContext context) {
@@ -224,16 +257,19 @@ class VisualScaffold extends StatelessWidget {
       floatingActionButtonLocation: floatingActionButtonLocation,
       resizeToAvoidBottomPadding: resizeToAvoidBottomPadding,
       body: LayoutDragTarget(
+        key: bodyKey,
         child: body,
         replacementActive: Container(constraints: BoxConstraints.expand(), color: Colors.yellow,),
         replacementInactive: Container(constraints: BoxConstraints.expand(), color: Colors.red,),
       ),
       floatingActionButton: LayoutDragTarget(
+        key: fabKey,
         child: floatingActionButton,
         replacementActive: Container(height: 50, width: 50, color: Colors.blue),
         replacementInactive: Container(height: 50, width: 50, color: Colors.pink),
       ),
       appBar: AppBarHeightWidgetWidget(child: LayoutDragTarget(
+        key: appBarKey,
         child: appBar,
         feedback: SizedBox(
           width: 200,
@@ -245,6 +281,25 @@ class VisualScaffold extends StatelessWidget {
       )),
     );
   }
+
+  @override
+  String get originalClassName => "Scaffold";
+
+  @override
+  List<WidgetProperty> get modifiedWidgetProperties => [
+    WidgetProperty(
+      name: "body",
+      dynamicWidget: bodyKey.currentState.child
+    ),
+    WidgetProperty(
+        name: "floatingActionButton",
+        dynamicWidget: fabKey.currentState.child
+    ),
+    WidgetProperty(
+        name: "appBar",
+        dynamicWidget: appBarKey.currentState.child
+    ),
+  ];
 }
 
 
@@ -358,13 +413,25 @@ class LayoutDragTargetState extends State<LayoutDragTarget> {
   }
 
 
-  DynamicWidget wrapInVisualDraggable(DynamicWidget widget) {
+  /// TODO The problem is that the state is lost when the widget is started to being dragged around.
+  ///
+  /// For example a FAB with a child in it is only treated as the FAB it was with the parameters it was constructed with.
+  DynamicWidget wrapInVisualDraggable(DynamicWidget newChild) {
+
+    // TODO this should be called when data is requested. It should get all Dynamic Widgets of VisualWidget and insert it into this one
+    if(newChild.widget is VisualWidget) {
+      VisualWidget visualWidget = newChild.widget as VisualWidget;
+      List<WidgetProperty> upToDateWidgetProperties = visualWidget.modifiedWidgetProperties;
+    }
+
     return DynamicWidget(
         Draggable<DynamicWidget>(
-          feedback: widget.feedback,
-          child: widget.widget,
+          feedback: newChild.feedback,
+          child: newChild.widget,
           childWhenDragging: SizedBox(),
-          data: widget,
+          // TODO data is currently only used as of the parent. This means any child data is lost
+          // Because the data is only read when the drag starts we can implement a method to get the data of the child recursively.
+          data: newChild,
           onDragCompleted: () {
             reset();
           },
@@ -373,7 +440,7 @@ class LayoutDragTargetState extends State<LayoutDragTarget> {
               reset();
             }
           },
-        ), widget.sourceCode);
+        ), newChild.sourceCode);
   }
 
   void reset() {
@@ -399,9 +466,28 @@ class LayoutDragTargetState extends State<LayoutDragTarget> {
           active = false;
         });
       },
-      onAccept: (it) {
+      onAccept: (DynamicWidget dynamicWidget) {
+        /// Here a dynamic widget is received.
+        ///
+        /// When this widget is moved around, the sub widgets also need to move.
+        /// This is the parent of dynamicWidget.
+        ///
+        /// The tree looks for a Scaffold containing a container in the body and a floating action button with an icon inside:
+        ///
+        /// The Scaffold has a [LayoutDragTarget] for the body and one for the FAB.
+        ///
+        /// The [DynamicWidget] of the body contains the container.
+        /// The [DynamicWidget] of the FAB contains the FAB and the the Icon (as a child in the [DynamicWidget])
+        ///
+        ///
+        ///
+        /// How does this work with a child which can accept multiple children?
+        ///
+        /// VisualScaffold has another VisualScaffold in the body:
+        ///
+        /// The body slot is a DragTarget with a DynamicWidget, it has a VisualScaffold in itself.
         setState(() {
-          child = wrapInVisualDraggable(it);
+          child = wrapInVisualDraggable(dynamicWidget);
         });
       },
 
