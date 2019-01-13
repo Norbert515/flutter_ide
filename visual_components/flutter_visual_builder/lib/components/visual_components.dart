@@ -119,11 +119,13 @@ class VisualRootState extends State<VisualRoot> {
 
 class VisualWrapper extends VisualWidget {
 
+  VisualWrapper({Key key, this.child}): super(key: key);
+
+  final Widget child;
 
   @override
   Widget build(BuildContext context) {
-    // TODO: implement build
-    return null;
+    return child;
   }
 
   @override
@@ -132,7 +134,7 @@ class VisualWrapper extends VisualWidget {
 
   @override
   // TODO: implement originalClassName
-  String get originalClassName => null;
+  String get originalClassName => "Custom element";
 
 }
 
@@ -482,13 +484,13 @@ class LayoutDragTargetState extends State<LayoutDragTarget> {
 
     DynamicWidget getData() {
       print("Requested data");
-
-
-      return newChild;
       if(newChild.widget is VisualWidget) {
-        VisualWidget visualWidget = newChild.widget as VisualWidget;
-        List<WidgetProperty> upToDateWidgetProperties = visualWidget.modifiedWidgetProperties;
         print("Had a visual widget inside");
+
+        VisualWidget visualWidget = newChild.widget as VisualWidget;
+        print("The widget is ${visualWidget.originalClassName}");
+
+        return newChild.copyWith(visualWidget: visualWidget);
       }
       return newChild;
     }

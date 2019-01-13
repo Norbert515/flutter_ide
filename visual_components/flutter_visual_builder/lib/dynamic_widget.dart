@@ -9,9 +9,7 @@ class DynamicWidget {
 
   DynamicWidget.empty(): widget = null, sourceCode = null, feedback = null, child = null;
 
-//  DynamicWidget copyWith({
-  //  DynamicWidget
-//})
+  DynamicWidget copyWith({VisualWidget visualWidget}) => DynamicWidget(this.widget, this.sourceCode, feedback: this.feedback, child: visualWidget);
 
   /// The widget which should be moved around
   ///
@@ -61,7 +59,7 @@ DynamicWidget testWidget2 = DynamicWidget(
     'FloatingActionButton(onPressed: (){}, backgroundColor: Colors.red,)', feedback: FloatingActionButton(onPressed: null, backgroundColor: Colors.red,));
 
 DynamicWidget testWidget3 = DynamicWidget(
-    Icon(Icons.add),
+    VisualWrapper(child: Icon(Icons.add)),
     'Icon(Icons.add)');
 
 
