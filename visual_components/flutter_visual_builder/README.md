@@ -33,3 +33,23 @@ which runs on the local machine. It has following tasks:
     - Handle live updates. If something is changed in the visual editor, it should
     be reflect in the code at the same time. This is also true if the code is changed
     the app should reflect those changes.
+
+
+
+# New Discovery
+
+The widget inspector does something very similar. 
+Using a Dart Kernel Transformer you can hook yourself into the compilation and change source code.
+/// [Dart Kernel Transformer](https://github.com/dart-lang/sdk/wiki/Kernel-Documentation).
+
+The widget inspector does this for example when adding the file path and line number to widgets.
+
+More links: https://github.com/flutter/engine/blob/master/frontend_server/lib/server.dart
+
+Here is the actual transformer code:
+
+https://github.com/flutter/engine/blob/70a1106b509ea3f34febca59967ed7a76c05ce33/flutter_kernel_transformers/lib/track_widget_constructor_locations.dart
+
+Dart Kernel:
+
+https://github.com/flutter/engine/blob/70a1106b509ea3f34febca59967ed7a76c05ce33/flutter_kernel_transformers/pubspec.yaml

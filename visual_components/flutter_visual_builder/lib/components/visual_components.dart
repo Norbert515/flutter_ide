@@ -117,6 +117,25 @@ class VisualRootState extends State<VisualRoot> {
 
 
 
+class VisualWrapper extends VisualWidget {
+
+
+  @override
+  Widget build(BuildContext context) {
+    // TODO: implement build
+    return null;
+  }
+
+  @override
+  // TODO: implement modifiedWidgetProperties
+  List<WidgetProperty> get modifiedWidgetProperties => null;
+
+  @override
+  // TODO: implement originalClassName
+  String get originalClassName => null;
+
+}
+
 /// TODO
 /// Even though it is a bit tedious, each widget which should have the ability to change
 /// needs to be wrapped in a corresponding visual element, which the App-Linker
@@ -377,8 +396,15 @@ class LayoutDragTarget extends StatefulWidget {
 
 class LayoutDragTargetState extends State<LayoutDragTarget> {
 
+
+  /// Whether it is currently hovered above
   bool active = false;
 
+
+  /// The child of this [LayoutDragTargetState].
+  ///
+  /// For example in a FAB, this is going to be the center slot.
+  /// In a Scaffold, this is the body, the FAB slot and the AppBar Slot.
   DynamicWidget child;
 
   @override
@@ -451,20 +477,35 @@ class LayoutDragTargetState extends State<LayoutDragTarget> {
   DynamicWidget wrapInVisualDraggable(DynamicWidget newChild) {
     assert(child == null || child.widget == null);
 
-    // TODO this should be called when data is requested. It should get all Dynamic Widgets of VisualWidget and insert it into this one
-    if(newChild.widget is VisualWidget) {
-      VisualWidget visualWidget = newChild.widget as VisualWidget;
-      List<WidgetProperty> upToDateWidgetProperties = visualWidget.modifiedWidgetProperties;
+
+    Widget feedback = newChild.feedback;
+
+    DynamicWidget getData() {
+      print("Requested data");
+
+
+      return newChild;
+      if(newChild.widget is VisualWidget) {
+        VisualWidget visualWidget = newChild.widget as VisualWidget;
+        List<WidgetProperty> upToDateWidgetProperties = visualWidget.modifiedWidgetProperties;
+        print("Had a visual widget inside");
+      }
+      return newChild;
     }
 
     return DynamicWidget(
         Draggable<DynamicWidget>(
-          feedback: newChild.feedback,
+          feedback: feedback,
           child: newChild.widget,
           childWhenDragging: SizedBox(),
           // TODO data is currently only used as of the parent. This means any child data is lost
           // Because the data is only read when the drag starts we can implement a method to get the data of the child recursively.
-          data: newChild,
+     //     data: newChild,
+          data: getData(),
+          onDragStarted: () {
+            LayoutDragTargetState it = this;
+            print("Drag started $it");
+          },
           onDragCompleted: () {
             reset();
           },
