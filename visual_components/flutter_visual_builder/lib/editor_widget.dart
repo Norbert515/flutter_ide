@@ -67,20 +67,19 @@ class AppWidget extends StatelessWidget {
       child: VisualScaffold(
         properties: [],
         widgetProperties: [],
-        appBar: AppBar(
-          title: Text("Test"),
-        ),
         floatingActionButton: VisualFloatingActionButton(
             onPressed: (){
               print("Hey!");
             }
         ),
-        body: Center(
-          child: RaisedButton(onPressed: (){
-            String source = rootKey.currentState.buildSourceCode();
-            print("Here is the source: \n");
-            print(source);
-          }),
+        body: VisualWrapper(
+          child: Center(
+            child: RaisedButton(onPressed: (){
+              String source = rootKey.currentState.buildSourceCode();
+              print("Here is the source: \n");
+              print(source);
+            }),
+          ),
         ),
       ),
     );

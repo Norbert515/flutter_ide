@@ -18,7 +18,7 @@ class DynamicWidget {
   /// 1. A normal Widget, something that does not accept any visual children itself.
   ///
   /// 2. A Visual child, like a FAB/ Scaffold/ Row etc.
-  final Widget widget;
+  final VisualWidget widget;
 
   // The source code of this widget
   // TODO this should be calculated
@@ -44,10 +44,12 @@ class DynamicWidget {
 }
 
 DynamicWidget testWidget = DynamicWidget(
-    Container(
-      color: Colors.green,
-      width: 50,
-      height: 100,
+    VisualWrapper(
+      child: Container(
+        color: Colors.green,
+        width: 50,
+        height: 100,
+      ),
     ),
     'Container(color: Colors.green,width: 50,height: 100,)');
 

@@ -352,6 +352,11 @@ class VisualScaffold extends VisualWidget {
         dynamicWidget: appBarKey.currentState?.child
     ),
   ];
+
+
+  Widget toWidget() {
+
+  }
 }
 
 
@@ -372,7 +377,7 @@ class AppBarHeightWidgetWidget extends StatelessWidget implements PreferredSizeW
 }
 
 
-
+// TODO need a way to restore the state
 class LayoutDragTarget extends StatefulWidget {
 
   const LayoutDragTarget({
@@ -496,26 +501,28 @@ class LayoutDragTargetState extends State<LayoutDragTarget> {
     }
 
     return DynamicWidget(
-        Draggable<DynamicWidget>(
-          feedback: feedback,
-          child: newChild.widget,
-          childWhenDragging: SizedBox(),
-          // TODO data is currently only used as of the parent. This means any child data is lost
-          // Because the data is only read when the drag starts we can implement a method to get the data of the child recursively.
+        VisualWrapper(
+          child: Draggable<DynamicWidget>(
+            feedback: feedback,
+            child: newChild.widget,
+            childWhenDragging: SizedBox(),
+            // TODO data is currently only used as of the parent. This means any child data is lost
+            // Because the data is only read when the drag starts we can implement a method to get the data of the child recursively.
      //     data: newChild,
-          data: getData(),
-          onDragStarted: () {
-            LayoutDragTargetState it = this;
-            print("Drag started $it");
-          },
-          onDragCompleted: () {
-            reset();
-          },
-          onDragEnd: (details) {
-            if(details.wasAccepted) {
+            data: getData(),
+            onDragStarted: () {
+              LayoutDragTargetState it = this;
+              print("Drag started $it");
+            },
+            onDragCompleted: () {
               reset();
-            }
-          },
+            },
+            onDragEnd: (details) {
+              if(details.wasAccepted) {
+                reset();
+              }
+            },
+          ),
         ), newChild.sourceCode);
   }
 
