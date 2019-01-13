@@ -52,7 +52,8 @@ abstract class VisualWidget extends StatelessWidget {
         '${modifiedWidgetProperties.map((it) {
           WidgetProperty that = it;
           if(it.dynamicWidget == null) {
-            that = widgetProperties.firstWhere((prop) => prop.name == it.name, orElse: () => WidgetProperty(name: "Error", dynamicWidget: VisualWrapper(child: Container(),)));
+            that = widgetProperties.firstWhere((prop) => prop.name == it.name, orElse: () => null);
+            if(that == null) return '';
           }
           return '${that.name}:${that.dynamicWidget?.buildSourceCode()}';
 
@@ -78,7 +79,7 @@ abstract class VisualWidget extends StatelessWidget {
 /// Property("color", "myColor")
 class Property {
 
-  Property(this.name, this.value);
+  Property({@required this.name, @required this.value});
 
   final String name;
   final String value;
@@ -140,12 +141,40 @@ class VisualWrapper extends VisualWidget {
   }
 
   @override
-  // TODO: implement modifiedWidgetProperties
   List<WidgetProperty> get modifiedWidgetProperties => [];
 
   @override
-  // TODO: implement originalClassName
   String get originalClassName => "Custom element";
+
+}
+
+
+class VisualProxyWrapper extends VisualWidget {
+
+
+
+  VisualProxyWrapper({Key key, this.child, this.visualWidget}): super(key: key);
+
+  final Widget child;
+  final VisualWidget visualWidget;
+
+
+  @override
+  Widget build(BuildContext context) {
+    return child;
+  }
+
+  @override
+  List<WidgetProperty> get modifiedWidgetProperties => visualWidget.modifiedWidgetProperties;
+
+  @override
+  String get originalClassName => visualWidget.originalClassName;
+
+
+  @override
+  String buildSourceCode() {
+    return visualWidget.buildSourceCode();
+  }
 
 }
 
@@ -479,7 +508,14 @@ class LayoutDragTargetState extends State<LayoutDragTarget> {
       ///
       ///
       /// When everything is converted back, TODO
-      child = wrapInVisualDraggable(VisualWrapper(child: widget.child,));
+
+      if(widget.child is VisualWidget) {
+        VisualWidget it = widget.child as VisualWidget;
+        child = wrapInVisualDraggable(VisualProxyWrapper(child: widget.child, visualWidget: it,));
+
+      } else {
+        child = wrapInVisualDraggable(VisualWrapper(child: widget.child,));
+      }
     } else {
       child = null;
     }
@@ -508,7 +544,8 @@ class LayoutDragTargetState extends State<LayoutDragTarget> {
       return newChild;
     }*/
 
-    return VisualWrapper(
+    return VisualProxyWrapper(
+      visualWidget: newChild,
       child: Draggable<VisualWidget>(
         feedback: newChild,
         child: newChild,

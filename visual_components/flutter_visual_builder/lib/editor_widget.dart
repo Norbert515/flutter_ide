@@ -66,6 +66,12 @@ class AppWidget extends StatelessWidget {
       key: rootKey,
       child: VisualScaffold(
         floatingActionButton: VisualFloatingActionButton(
+          properties: [
+            Property(
+              name: "onPressed",
+              value: '(){\nprint("Hey!");\n}'
+            ),
+          ],
             onPressed: (){
               print("Hey!");
             }
