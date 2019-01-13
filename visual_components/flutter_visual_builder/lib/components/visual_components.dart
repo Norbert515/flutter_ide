@@ -131,9 +131,12 @@ class VisualRootState extends State<VisualRoot> {
 
 class VisualWrapper extends VisualWidget {
 
-  VisualWrapper({Key key, this.child}): super(key: key);
+  VisualWrapper({Key key, this.child, this.className, this.sourceCode}): super(key: key);
 
   final Widget child;
+
+  final String className;
+  final String sourceCode;
 
   @override
   Widget build(BuildContext context) {
@@ -143,8 +146,14 @@ class VisualWrapper extends VisualWidget {
   @override
   List<WidgetProperty> get modifiedWidgetProperties => [];
 
+
   @override
-  String get originalClassName => "Custom element";
+  String buildSourceCode() {
+    return sourceCode;
+  }
+
+  @override
+  String get originalClassName => className;
 
 }
 
@@ -177,6 +186,50 @@ class VisualProxyWrapper extends VisualWidget {
   }
 
 }
+
+
+
+
+class VisualContainer extends StatefulWidget {
+
+  const VisualContainer({
+    Key key,
+    this.color,
+    this.width,
+    this.height,
+    this.child,
+    List<Property> properties,
+    List<WidgetProperty> widgetProperties
+  }) : super(key: key);
+
+  final Widget child;
+  final Color color;
+  final double width;
+  final double height;
+
+
+  @override
+  _VisualContainerState createState() => _VisualContainerState();
+}
+
+class _VisualContainerState extends State<VisualContainer> {
+  
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      child: LayoutDragTarget(
+          replacementActive: Container(height: 10, width: 10, color: Colors.orange,),
+          replacementInactive: Container(height: 10, width: 10, color: Colors.red,),
+          child: widget.child
+      ),
+      color: widget.color,
+      height: widget.height,
+      width: widget.width,
+    );
+  }
+}
+
 
 /// TODO
 /// Even though it is a bit tedious, each widget which should have the ability to change
