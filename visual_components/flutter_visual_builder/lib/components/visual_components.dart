@@ -20,7 +20,7 @@ import 'package:flutter_visual_builder/main.dart';
 /// TODO make it work with stateful too
 abstract class VisualWidget extends StatelessWidget {
 
-  VisualWidget({Key key, this.properties, this.widgetProperties}): super(key: key);
+  VisualWidget({Key key, this.properties = const [], this.widgetProperties = const []}): super(key: key);
 
 
   /// This is needed in the constructor because we need to save the widget properties so we can restore the source code during runtime
@@ -40,6 +40,7 @@ abstract class VisualWidget extends StatelessWidget {
 
   List<WidgetProperty> get modifiedWidgetProperties;
 
+
   /// Builds the source code for this specific VisualWidget
   ///
   /// It does it by first looking at all the parameters which are not widgets (which need no recursive steps)
@@ -48,7 +49,14 @@ abstract class VisualWidget extends StatelessWidget {
     return
       '$originalClassName(\n'
         '${properties.map((it) => '${it.name}:${it.value}').join(",\n")}\n'
-        '${modifiedWidgetProperties.map((it) => '${it.name}:${it.dynamicWidget.sourceCode}').join(",\n")}'
+        '${modifiedWidgetProperties.map((it) {
+          WidgetProperty that = it;
+          if(it.dynamicWidget == null) {
+            that = widgetProperties.firstWhere((prop) => prop.name == it.name, orElse: () => WidgetProperty(name: "Error", dynamicWidget: VisualWrapper(child: Container(),)));
+          }
+          return '${that.name}:${that.dynamicWidget?.buildSourceCode()}';
+
+      }).join(",\n")}'
         ')';
   }
 }
@@ -78,12 +86,15 @@ class Property {
 }
 
 /// This is a property involving a layout widget.
+///
+/// The difference to the Property is that this does not actually contain any code,
+/// it only contains a Visual widget which in turn has Properties and WidgetProperties
 class WidgetProperty {
 
   WidgetProperty({this.name, this.dynamicWidget});
 
   final String name;
-  final DynamicWidget dynamicWidget;
+  final VisualWidget dynamicWidget;
 
 }
 
@@ -130,7 +141,7 @@ class VisualWrapper extends VisualWidget {
 
   @override
   // TODO: implement modifiedWidgetProperties
-  List<WidgetProperty> get modifiedWidgetProperties => null;
+  List<WidgetProperty> get modifiedWidgetProperties => [];
 
   @override
   // TODO: implement originalClassName
@@ -178,7 +189,7 @@ class VisualFloatingActionButton extends VisualWidget {
     this.isExtended = false,
     List<Property> properties,
     List<WidgetProperty> widgetProperties
-  }) : super(key: key, properties: properties, widgetProperties: widgetProperties);
+  }) : super(key: key, properties: properties?? const [], widgetProperties: widgetProperties?? const []);
 
 
   final Widget child;
@@ -265,15 +276,18 @@ class VisualScaffold extends VisualWidget {
     this.primary = true,
     List<Property> properties,
     List<WidgetProperty> widgetProperties
-  }) : super(key: key, properties: properties, widgetProperties: widgetProperties);
+  }) : super(key: key, properties: properties?? const [], widgetProperties: widgetProperties?? [
+    WidgetProperty(name: "body", dynamicWidget: body),
+    WidgetProperty(name: "floatingActionButton", dynamicWidget: floatingActionButton)
+  ]);
 
   final bool visualMode;
 
   final PreferredSizeWidget appBar;
 
-  final Widget body;
+  final VisualWidget body;
 
-  final Widget floatingActionButton;
+  final VisualWidget floatingActionButton;
 
   final FloatingActionButtonLocation floatingActionButtonLocation;
 
@@ -354,9 +368,6 @@ class VisualScaffold extends VisualWidget {
   ];
 
 
-  Widget toWidget() {
-
-  }
 }
 
 
@@ -370,7 +381,6 @@ class AppBarHeightWidgetWidget extends StatelessWidget implements PreferredSizeW
   Widget build(BuildContext context) {
     return child;
   }
-
 
   @override
   Size get preferredSize => Size.fromHeight(kToolbarHeight);
@@ -412,7 +422,7 @@ class LayoutDragTargetState extends State<LayoutDragTarget> {
   ///
   /// For example in a FAB, this is going to be the center slot.
   /// In a Scaffold, this is the body, the FAB slot and the AppBar Slot.
-  DynamicWidget child;
+  VisualWidget child;
 
   @override
   void initState() {
@@ -469,9 +479,9 @@ class LayoutDragTargetState extends State<LayoutDragTarget> {
       ///
       ///
       /// When everything is converted back, TODO
-      child = wrapInVisualDraggable(DynamicWidget(widget.child, null, feedback: widget.feedback));
+      child = wrapInVisualDraggable(VisualWrapper(child: widget.child,));
     } else {
-      child = DynamicWidget(null, null, feedback: widget.feedback);
+      child = null;
     }
   }
 
@@ -481,13 +491,11 @@ class LayoutDragTargetState extends State<LayoutDragTarget> {
   /// For example a FAB with a child in it is only treated as the FAB it was with the parameters it was constructed with.
   ///
   /// This can only be called if there is no widget in the slot
-  DynamicWidget wrapInVisualDraggable(DynamicWidget newChild) {
-    assert(child == null || child.widget == null);
+  VisualWidget wrapInVisualDraggable(VisualWidget newChild) {
+    assert(child == null);
 
 
-    Widget feedback = newChild.feedback;
-
-    DynamicWidget getData() {
+    /*DynamicWidget getData() {
       print("Requested data");
       if(newChild.widget is VisualWidget) {
         print("Had a visual widget inside");
@@ -498,43 +506,42 @@ class LayoutDragTargetState extends State<LayoutDragTarget> {
         return newChild.copyWith(visualWidget: visualWidget);
       }
       return newChild;
-    }
+    }*/
 
-    return DynamicWidget(
-        VisualWrapper(
-          child: Draggable<DynamicWidget>(
-            feedback: feedback,
-            child: newChild.widget,
-            childWhenDragging: SizedBox(),
-            // TODO data is currently only used as of the parent. This means any child data is lost
-            // Because the data is only read when the drag starts we can implement a method to get the data of the child recursively.
-     //     data: newChild,
-            data: getData(),
-            onDragStarted: () {
-              LayoutDragTargetState it = this;
-              print("Drag started $it");
-            },
-            onDragCompleted: () {
-              reset();
-            },
-            onDragEnd: (details) {
-              if(details.wasAccepted) {
-                reset();
-              }
-            },
-          ),
-        ), newChild.sourceCode);
+    return VisualWrapper(
+      child: Draggable<VisualWidget>(
+        feedback: newChild,
+        child: newChild,
+        childWhenDragging: SizedBox(),
+        // TODO data is currently only used as of the parent. This means any child data is lost
+        // Because the data is only read when the drag starts we can implement a method to get the data of the child recursively.
+        data: newChild,
+       // data: getData(),
+        onDragStarted: () {
+          LayoutDragTargetState it = this;
+          print("Drag started $it");
+        },
+        onDragCompleted: () {
+          reset();
+        },
+        onDragEnd: (details) {
+          if(details.wasAccepted) {
+            reset();
+          }
+        },
+      ),
+    );
   }
 
   void reset() {
-    child = DynamicWidget.empty();
+    child = null;
     active = false;
     if(mounted) setState((){});
   }
 
   @override
   Widget build(BuildContext context) {
-    return child.widget?? DragTarget<DynamicWidget>(
+    return child?? DragTarget<VisualWidget>(
       builder: (context, it, it2) {
         return active? widget.replacementActive: widget.replacementInactive;
       },
@@ -549,7 +556,7 @@ class LayoutDragTargetState extends State<LayoutDragTarget> {
           active = false;
         });
       },
-      onAccept: (DynamicWidget dynamicWidget) {
+      onAccept: (VisualWidget dynamicWidget) {
         /// Here a dynamic widget is received.
         ///
         /// When this widget is moved around, the sub widgets also need to move.

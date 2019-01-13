@@ -9,7 +9,7 @@ class VisualEditor extends StatelessWidget {
   Widget build(BuildContext context) {
     return Row(
       children: <Widget>[
-        DragTarget<DynamicWidget>(
+        DragTarget<VisualWidget>(
           builder: (context, it ,it2) {
             return Container(
                 width: 200,
@@ -40,16 +40,16 @@ class RootDraggable extends StatelessWidget {
 
   const RootDraggable({Key key, this.widgetAndSourceCode}) : super(key: key);
 
-  final DynamicWidget widgetAndSourceCode;
+  final VisualWidget widgetAndSourceCode;
 
 
   @override
   Widget build(BuildContext context) {
-    return Draggable<DynamicWidget>(
-      childWhenDragging: widgetAndSourceCode.feedback,
+    return Draggable<VisualWidget>(
+      childWhenDragging: widgetAndSourceCode,
       data: widgetAndSourceCode,
-      feedback: widgetAndSourceCode.feedback,
-      child: widgetAndSourceCode.feedback,
+      feedback: widgetAndSourceCode,
+      child: widgetAndSourceCode,
     );
   }
 }
@@ -65,8 +65,6 @@ class AppWidget extends StatelessWidget {
     return VisualRoot(
       key: rootKey,
       child: VisualScaffold(
-        properties: [],
-        widgetProperties: [],
         floatingActionButton: VisualFloatingActionButton(
             onPressed: (){
               print("Hey!");
