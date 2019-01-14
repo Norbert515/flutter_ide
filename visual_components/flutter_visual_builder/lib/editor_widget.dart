@@ -50,6 +50,9 @@ class RootDraggable extends StatelessWidget {
       data: widgetAndSourceCode,
       feedback: widgetAndSourceCode,
       child: widgetAndSourceCode,
+      onDragStarted: () {
+        print("Started inital drag with id ${widgetAndSourceCode.id}");
+      },
     );
   }
 }
@@ -65,7 +68,9 @@ class AppWidget extends StatelessWidget {
     return VisualRoot(
       key: rootKey,
       child: VisualScaffold(
+        id: "YOOOO",
         floatingActionButton: VisualFloatingActionButton(
+          id: "BLUB",
           properties: [
             Property(
               name: "onPressed",
@@ -77,6 +82,10 @@ class AppWidget extends StatelessWidget {
             }
         ),
         body: VisualWrapper(
+          id: "SOME ID",
+          sourceCode: 'Center(child: RaisedButton(onPressed: ()'
+              '{String source = rootKey.currentState.buildSourceCode();'
+              'print("Here is the source: \n");print(source);}),),',
           child: Center(
             child: RaisedButton(onPressed: (){
               String source = rootKey.currentState.buildSourceCode();
