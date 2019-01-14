@@ -63,6 +63,7 @@ abstract class VisualState<T extends VisualStatefulWidget> extends State<T> {
   void initState() {
     super.initState();
     if(shouldRegister) {
+      // TODO this is getting called a bunch of times when hovering over the left size, why?
       print("New state with id registered: ${widget.id}");
       keyResolver.map[widget.id] = widget.key;
     }
@@ -96,8 +97,6 @@ abstract class VisualState<T extends VisualStatefulWidget> extends State<T> {
 
 }
 
-
-
 /// This contains the properties as source code which would be lost otherwise when accessed at runtime.
 ///
 /// For example:
@@ -116,7 +115,6 @@ class Property {
 
   final String name;
   final String value;
-
 }
 
 /// This is a property involving a layout widget.
@@ -234,25 +232,128 @@ class _VisualProxyWrapperState extends VisualState<VisualProxyWrapper> {
     return keyResolver.map[widget.visualWidget.id].currentState.buildSourceCode();
   }
 
-
   @override
   bool get shouldRegister => false;
 
 }
 
 
+class VisualColumn extends VisualStatefulWidget {
+
+  VisualColumn({
+    String id,
+    this.mainAxisAlignment = MainAxisAlignment.start,
+    this.mainAxisSize = MainAxisSize.max,
+    this.crossAxisAlignment = CrossAxisAlignment.center,
+    this.textDirection,
+    this.verticalDirection = VerticalDirection.down,
+    this.textBaseline,
+    this.children = const <Widget>[],
+    List<Property> properties,
+    List<WidgetProperty> widgetProperties,
+}): super(id: id, key: GlobalKey<VisualState>(), properties: properties, widgetProperties: widgetProperties );
+
+  final MainAxisAlignment mainAxisAlignment;
+  final MainAxisSize mainAxisSize;
+  final CrossAxisAlignment crossAxisAlignment;
+  final TextDirection textDirection;
+  final VerticalDirection verticalDirection;
+  final TextBaseline textBaseline;
+  final List<Widget> children;
+
+  @override
+  _VisualColumnState createState() => _VisualColumnState();
+
+  @override
+  String get originalClassName => "Column";
+}
+
+class _VisualColumnState extends VisualState<VisualColumn> {
+
+
+  /// TODO this is just for testing, this should be dynamicly sized
+  final GlobalKey<VisualState> one = GlobalKey();
+  final GlobalKey<VisualState> two = GlobalKey();
+  final GlobalKey<VisualState> three = GlobalKey();
+
+
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      mainAxisAlignment: widget.mainAxisAlignment,
+      textDirection: widget.textDirection,
+      crossAxisAlignment: widget.crossAxisAlignment,
+      mainAxisSize: widget.mainAxisSize,
+      verticalDirection: widget.verticalDirection,
+      textBaseline: widget.textBaseline,
+      children: <Widget>[
+        LayoutDragTarget(
+          replacementActive: Container(
+            margin: EdgeInsets.all(8),
+            height: 80,
+            width: 100,
+            color: Colors.indigo,
+          ),
+          replacementInactive: Container(
+            margin: EdgeInsets.all(8),
+            height: 80,
+            width: 100,
+            color: Colors.orange,
+          ),
+          child: null
+        ),
+        LayoutDragTarget(
+            replacementActive: Container(
+              margin: EdgeInsets.all(8),
+              height: 80,
+              width: 100,
+              color: Colors.indigo,
+            ),
+            replacementInactive: Container(
+              margin: EdgeInsets.all(8),
+              height: 80,
+              width: 100,
+              color: Colors.orange,
+            ),
+            child: null
+        ),
+        LayoutDragTarget(
+            replacementActive: Container(
+              margin: EdgeInsets.all(8),
+              height: 80,
+              width: 100,
+              color: Colors.indigo,
+            ),
+            replacementInactive: Container(
+              margin: EdgeInsets.all(8),
+              height: 80,
+              width: 100,
+              color: Colors.orange,
+            ),
+            child: null
+        ),
+      ],
+    );
+  }
+
+  @override
+  List<WidgetProperty> get modifiedWidgetProperties => null;
+}
+
+
+
 class VisualContainer extends VisualStatefulWidget {
 
   VisualContainer({
     String id,
-    Key key,
     this.color,
     this.width,
     this.height,
     this.child,
     List<Property> properties,
     List<WidgetProperty> widgetProperties
-  }) : super(id: id, key: key, properties: properties, widgetProperties: widgetProperties);
+  }) : super(id: id, key: GlobalKey<VisualState>(), properties: properties, widgetProperties: widgetProperties);
 
   final Widget child;
   final Color color;
@@ -278,7 +379,7 @@ class _VisualContainerState extends VisualState<VisualContainer> {
       child: LayoutDragTarget(
         key: childKey,
         replacementActive: Container(height: 10, width: 10, color: Colors.orange,),
-        replacementInactive: Container(height: 10, width: 10, color: Colors.red,),
+        replacementInactive: Container(height: 10, width: 10, color: Colors.indigo,),
         child: widget.child
       ),
       color: widget.color,
@@ -382,7 +483,6 @@ class VisualFloatingActionButton extends VisualStatefulWidget {
 }
 
 class _VisualFloatingActionButtonState extends VisualState<VisualFloatingActionButton> {
-
 
   final GlobalKey<LayoutDragTargetState> childKey = GlobalKey();
 
@@ -544,9 +644,6 @@ class _VisualScaffoldState extends VisualState<VisualScaffold> {
     ),
   ];
 }
-
-
-
 
 
 class AppBarHeightWidgetWidget extends StatelessWidget implements PreferredSizeWidget{

@@ -22,6 +22,8 @@ class VisualEditor extends StatelessWidget {
                     RootDraggable(widgetAndSourceCode: testWidget),
                     RootDraggable(widgetAndSourceCode: testWidget2),
                     RootDraggable(widgetAndSourceCode: testWidget3),
+                    RootDraggable(widgetAndSourceCode: testWidget4),
+                    Expanded(child: RootDraggable(widgetAndSourceCode: testWidget5)),
                   ],
                 )
             );

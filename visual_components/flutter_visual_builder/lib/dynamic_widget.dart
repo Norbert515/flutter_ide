@@ -5,8 +5,6 @@ import 'package:uuid/uuid.dart';
 var uuid = new Uuid();
 
 
-// TODO ID should be a UUID
-int id = 0;
 VisualStatefulWidget get testWidget => VisualWrapper(
   id: uuid.v1(),
   child: Container(
@@ -30,3 +28,14 @@ VisualStatefulWidget get testWidget3 => VisualWrapper(
 );
 
 
+
+VisualStatefulWidget get testWidget4 => VisualContainer(
+  color: Colors.green,
+  id: uuid.v1(),
+  height: 100,
+  width: 100,
+);
+
+VisualStatefulWidget get testWidget5 => VisualColumn(
+  id: uuid.v1(),
+);
