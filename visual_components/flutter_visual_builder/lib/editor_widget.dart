@@ -19,11 +19,10 @@ class VisualEditor extends StatelessWidget {
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: <Widget>[
-                    RootDraggable(widgetAndSourceCode: testWidget),
-                    RootDraggable(widgetAndSourceCode: testWidget2),
-                    RootDraggable(widgetAndSourceCode: testWidget3),
-                    RootDraggable(widgetAndSourceCode: testWidget4),
-                    Expanded(child: RootDraggable(widgetAndSourceCode: testWidget5)),
+                    RootDraggable(buildingBlock: test2),
+                    RootDraggable(buildingBlock: test3),
+                    RootDraggable(buildingBlock: test4),
+                    Expanded(child: RootDraggable(buildingBlock: test5)),
                   ],
                 )
             );
@@ -40,20 +39,20 @@ class VisualEditor extends StatelessWidget {
 
 class RootDraggable extends StatelessWidget {
 
-  const RootDraggable({Key key, this.widgetAndSourceCode}) : super(key: key);
+  const RootDraggable({Key key, this.buildingBlock}) : super(key: key);
 
-  final VisualStatefulWidget widgetAndSourceCode;
+  final BuildingBlock buildingBlock;
 
 
   @override
   Widget build(BuildContext context) {
     return Draggable<VisualStatefulWidget>(
-      childWhenDragging: widgetAndSourceCode,
-      data: widgetAndSourceCode,
-      feedback: widgetAndSourceCode,
-      child: widgetAndSourceCode,
+      childWhenDragging: buildingBlock.representation,
+      data: buildingBlock.visualWidget,
+      feedback: buildingBlock.representation,
+      child: buildingBlock.representation,
       onDragStarted: () {
-        print("Started inital drag with id ${widgetAndSourceCode.id}");
+        print("Started inital drag with id ${buildingBlock.visualWidget.id}");
       },
     );
   }

@@ -288,22 +288,10 @@ class _VisualColumnState extends VisualState<VisualColumn> {
       verticalDirection: widget.verticalDirection,
       textBaseline: widget.textBaseline,
       children: <Widget>[
-        LayoutDragTarget(
-          replacementActive: Container(
-            margin: EdgeInsets.all(8),
-            height: 80,
-            width: 100,
-            color: Colors.indigo,
-          ),
-          replacementInactive: Container(
-            margin: EdgeInsets.all(8),
-            height: 80,
-            width: 100,
-            color: Colors.orange,
-          ),
-          child: null
-        ),
-        LayoutDragTarget(
+        SizedBox(
+          height: 100,
+          child: LayoutDragTarget(
+            key: one,
             replacementActive: Container(
               margin: EdgeInsets.all(8),
               height: 80,
@@ -317,21 +305,45 @@ class _VisualColumnState extends VisualState<VisualColumn> {
               color: Colors.orange,
             ),
             child: null
+          ),
         ),
-        LayoutDragTarget(
-            replacementActive: Container(
-              margin: EdgeInsets.all(8),
-              height: 80,
-              width: 100,
-              color: Colors.indigo,
-            ),
-            replacementInactive: Container(
-              margin: EdgeInsets.all(8),
-              height: 80,
-              width: 100,
-              color: Colors.orange,
-            ),
-            child: null
+        SizedBox(
+          height: 100,
+          child: LayoutDragTarget(
+            key: two,
+              replacementActive: Container(
+                margin: EdgeInsets.all(8),
+                height: 80,
+                width: 100,
+                color: Colors.indigo,
+              ),
+              replacementInactive: Container(
+                margin: EdgeInsets.all(8),
+                height: 80,
+                width: 100,
+                color: Colors.orange,
+              ),
+              child: null
+          ),
+        ),
+        SizedBox(
+          height: 100,
+          child: LayoutDragTarget(
+            key: three,
+              replacementActive: Container(
+                margin: EdgeInsets.all(8),
+                height: 80,
+                width: 100,
+                color: Colors.indigo,
+              ),
+              replacementInactive: Container(
+                margin: EdgeInsets.all(8),
+                height: 80,
+                width: 100,
+                color: Colors.orange,
+              ),
+              child: null
+          ),
         ),
       ],
     );
