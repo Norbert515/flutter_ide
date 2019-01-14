@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_visual_builder/dynamic_widget.dart';
 import 'package:flutter_visual_builder/main.dart';
+import 'package:flutter_visual_builder/key_resolver.dart';
 
 /// Return back valid code.
 ///
@@ -68,6 +69,72 @@ abstract class VisualWidget extends StatelessWidget {
   }
 }
 
+
+abstract class VisualStatefulWidget extends StatefulWidget {
+
+  VisualStatefulWidget({
+    Key key,
+    this.properties = const [],
+    this.widgetProperties = const [],
+    @required this.id
+  }): super(key: key);
+
+
+  /// This is needed in the constructor because we need to save the widget properties so we can restore the source code during runtime
+  ///
+  /// FOR NOW THESE CAN NOT BE CHANGED
+  /// TODO when the server allows to change these, this need to be computed in a getter too.
+  final List<Property> properties;
+
+  /// Same for the widgets.
+  final List<WidgetProperty> widgetProperties;
+
+
+  /// The class name of the Widget which the Visual widget is replicating
+  String get originalClassName;
+
+  final String id;
+
+}
+
+abstract class VisualState<T extends VisualStatefulWidget> extends State<T> {
+
+  List<WidgetProperty> get modifiedWidgetProperties;
+
+
+  @override
+  void initState() {
+    super.initState();
+    keyResolver.map[widget.id] = widget.key;
+  }
+
+  @override
+  void dispose() {
+    keyResolver.map.remove(widget.id);
+    super.dispose();
+  }
+
+  /// Builds the source code for this specific VisualWidget
+  ///
+  /// It does it by first looking at all the parameters which are not widgets (which need no recursive steps)
+  /// and then at the Dynamic widgets.
+  String buildSourceCode() {
+    return
+      '${widget.originalClassName}(\n'
+          '${widget.properties.map((it) => '${it.name}:${it.value}').join(",\n")}\n'
+          '${modifiedWidgetProperties.map((it) {
+        WidgetProperty that = it;
+        if(it.dynamicWidget == null) {
+          that = widget.widgetProperties.firstWhere((prop) => prop.name == it.name, orElse: () => null);
+          if(that == null) return '';
+        }
+        return '${that.name}:${that.dynamicWidget?.buildSourceCode()}';
+
+      }).join(",\n")}'
+          ')';
+  }
+
+}
 
 
 
@@ -138,11 +205,10 @@ class VisualRootState extends State<VisualRoot> {
 class VisualWrapper extends VisualWidget {
 
   VisualWrapper({
-    Key key,
     this.child,
     @required String id,
     @required this.sourceCode
-  }): super(key: key, id:id);
+  }): super(key: GlobalKey(), id:id);
 
   final Widget child;
 
@@ -199,9 +265,10 @@ class VisualProxyWrapper extends VisualWidget {
 
 }
 
-class VisualContainer extends StatefulWidget {
+class VisualContainer extends VisualStatefulWidget {
 
-  const VisualContainer({
+  VisualContainer({
+    String id,
     Key key,
     this.color,
     this.width,
@@ -209,7 +276,7 @@ class VisualContainer extends StatefulWidget {
     this.child,
     List<Property> properties,
     List<WidgetProperty> widgetProperties
-  }) : super(key: key);
+  }) : super(id: id, key: key, properties: properties, widgetProperties: widgetProperties);
 
   final Widget child;
   final Color color;
@@ -219,24 +286,38 @@ class VisualContainer extends StatefulWidget {
 
   @override
   _VisualContainerState createState() => _VisualContainerState();
+
+  @override
+  String get originalClassName => "Container";
 }
 
-class _VisualContainerState extends State<VisualContainer> {
+class _VisualContainerState extends VisualState<VisualContainer> {
 
+
+  final GlobalKey<LayoutDragTargetState> childKey = GlobalKey();
 
   @override
   Widget build(BuildContext context) {
     return Container(
       child: LayoutDragTarget(
-          replacementActive: Container(height: 10, width: 10, color: Colors.orange,),
-          replacementInactive: Container(height: 10, width: 10, color: Colors.red,),
-          child: widget.child
+        key: childKey,
+        replacementActive: Container(height: 10, width: 10, color: Colors.orange,),
+        replacementInactive: Container(height: 10, width: 10, color: Colors.red,),
+        child: widget.child
       ),
       color: widget.color,
       height: widget.height,
       width: widget.width,
     );
   }
+
+  @override
+  List<WidgetProperty> get modifiedWidgetProperties => [
+    WidgetProperty(
+      name: "child",
+      dynamicWidget: childKey.currentState?.child,
+    ),
+  ];
 }
 
 
@@ -264,7 +345,6 @@ class _VisualContainerState extends State<VisualContainer> {
 class VisualFloatingActionButton extends VisualWidget {
 
   VisualFloatingActionButton({
-    Key key,
     this.child,
     this.tooltip,
     this.foregroundColor,
@@ -282,7 +362,7 @@ class VisualFloatingActionButton extends VisualWidget {
     List<WidgetProperty> widgetProperties,
     @required String id,
   }) : super(
-      key: key,
+      key: GlobalKey(),
       id: id,
       properties: properties?? const [],
       widgetProperties: widgetProperties?? const [],
@@ -356,7 +436,6 @@ class VisualFloatingActionButton extends VisualWidget {
 
 class VisualScaffold extends VisualWidget {
   VisualScaffold({
-    Key key,
     this.visualMode,
     this.appBar,
     this.body,
@@ -375,7 +454,7 @@ class VisualScaffold extends VisualWidget {
     List<WidgetProperty> widgetProperties,
     @required String id,
   }) : super(
-      key: key,
+      key: GlobalKey(),
       id: id,
       properties: properties?? const [],
       widgetProperties: widgetProperties?? [

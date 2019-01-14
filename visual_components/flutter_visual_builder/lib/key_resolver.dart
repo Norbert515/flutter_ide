@@ -1,6 +1,9 @@
 
 
 
+import 'package:flutter/material.dart';
+import 'package:flutter_visual_builder/components/visual_components.dart';
+
 KeyResolver keyResolver = KeyResolver();
 
 class KeyResolver {
@@ -11,6 +14,6 @@ class KeyResolver {
   ///
   /// This is used when generating source code (so the parent can find its
   /// children) and the server used this to update specific widgets.
-  Map<String, String> map = {};
+  Map<String, GlobalKey<VisualState>> map = {};
 
 }
