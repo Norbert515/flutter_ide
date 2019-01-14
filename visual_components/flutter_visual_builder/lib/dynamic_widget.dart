@@ -7,7 +7,7 @@ var uuid = new Uuid();
 
 // TODO ID should be a UUID
 int id = 0;
-VisualWidget get testWidget => VisualWrapper(
+VisualStatefulWidget get testWidget => VisualWrapper(
   id: uuid.v1(),
   child: Container(
     color: Colors.green,
@@ -17,13 +17,13 @@ VisualWidget get testWidget => VisualWrapper(
   sourceCode: 'Container(color: Colors.green, width: 50, height: 100,),',
 );
 
-VisualWidget get testWidget2 => VisualFloatingActionButton(
+VisualStatefulWidget get testWidget2 => VisualFloatingActionButton(
   id: uuid.v1(),
   backgroundColor: Colors.red,
   onPressed: (){},
 );
 
-VisualWidget get testWidget3 => VisualWrapper(
+VisualStatefulWidget get testWidget3 => VisualWrapper(
     id: uuid.v1(),
     child: Icon(Icons.add),
     sourceCode: 'Icon(Icons.add)',

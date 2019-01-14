@@ -9,7 +9,7 @@ class VisualEditor extends StatelessWidget {
   Widget build(BuildContext context) {
     return Row(
       children: <Widget>[
-        DragTarget<VisualWidget>(
+        DragTarget<VisualStatefulWidget>(
           builder: (context, it ,it2) {
             return Container(
                 width: 200,
@@ -40,12 +40,12 @@ class RootDraggable extends StatelessWidget {
 
   const RootDraggable({Key key, this.widgetAndSourceCode}) : super(key: key);
 
-  final VisualWidget widgetAndSourceCode;
+  final VisualStatefulWidget widgetAndSourceCode;
 
 
   @override
   Widget build(BuildContext context) {
-    return Draggable<VisualWidget>(
+    return Draggable<VisualStatefulWidget>(
       childWhenDragging: widgetAndSourceCode,
       data: widgetAndSourceCode,
       feedback: widgetAndSourceCode,
