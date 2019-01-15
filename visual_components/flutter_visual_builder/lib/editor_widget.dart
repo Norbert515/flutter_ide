@@ -5,6 +5,13 @@ import 'package:flutter_visual_builder/dynamic_widget.dart';
 class VisualEditor extends StatelessWidget {
 
 
+  // TODO, the editor should be able to simulate the same widgets in different
+  // settings. Because of that we need to have a way to draw the same widget
+  // (with the same state and same global keys etc.) multiple times.
+  //
+  // This is somewhat a difficult problem. Will probably have to create a custom
+  // element which lays out the same widget multiple times and draws it multiple
+  // times.
   @override
   Widget build(BuildContext context) {
     return Row(
