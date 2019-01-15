@@ -302,32 +302,60 @@ class _VisualColumnState extends VisualState<VisualColumn> {
       mainAxisSize: widget.mainAxisSize,
       verticalDirection: widget.verticalDirection,
       textBaseline: widget.textBaseline,
-      children: keys.map((it) {
-        return _getTargetWidget(it);
-      }).toList(),
+      children: _getChildren(),
     );
   }
 
-  Widget _getTargetWidget(GlobalKey<VisualState> key) {
-    return SizedBox(
-      height: 100,
-      child: LayoutDragTarget(
-          key: key,
-          replacementActive: Container(
-            margin: EdgeInsets.all(8),
-            height: 80,
-            width: 100,
-            color: Colors.indigo,
-          ),
-          replacementInactive: Container(
-            margin: EdgeInsets.all(8),
-            height: 80,
-            width: 100,
-            color: Colors.orange,
-          ),
-          child: null
-      ),
+
+  List<Widget> _getChildren() {
+    if(keys.length == 1)
+      return [_getTargetWidget(keys[0], first: true)];
+
+    return keys.map((it) {
+      return _getTargetWidget(it);
+    }).toList();
+  }
+
+  Widget _getTargetWidget(GlobalKey<VisualState> key, {bool first = false}) {
+    Widget result =  LayoutDragTarget(
+        onLeave: () {
+          if(!keys.contains(key)) return;
+          setState(() {
+            int index = keys.indexOf(key);
+            keys.removeAt(index);
+            keys.removeAt(index - 1);
+          });
+        },
+        onAccept: () {
+          setState(() {
+            int index = keys.indexOf(key);
+            keys.insert(index + 1 , GlobalKey());
+            keys.insert(index, GlobalKey());
+          });
+        },
+        key: key,
+        replacementActive: Container(
+          margin: EdgeInsets.all(8),
+          height: 20,
+          width: 100,
+          color: Colors.indigo,
+        ),
+        replacementInactive: Container(
+          margin: EdgeInsets.all(8),
+          height: 5,
+          width: 100,
+          color: Colors.orange,
+        ),
+        child: null
     );
+
+    if(first) {
+      return SizedBox(
+        height: 40,
+        child: result,
+      );
+    }
+    return result;
   }
 
   @override
