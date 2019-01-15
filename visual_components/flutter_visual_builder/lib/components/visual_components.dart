@@ -292,7 +292,7 @@ class _VisualColumnState extends VisualState<VisualColumn> {
 
   List<GlobalKey<VisualState>> keys = [GlobalKey()];
 
-  
+
   @override
   Widget build(BuildContext context) {
     return Column(
