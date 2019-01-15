@@ -36,7 +36,7 @@ BuildingBlock get test3 => BuildingBlock(
       child: Icon(Icons.add),
       sourceCode: 'Icon(Icons.add)',
     ),
-    representation: BlockWidget("Icon")
+    representation: Icon(Icons.add)
 );
 
 BuildingBlock get test4 => BuildingBlock(

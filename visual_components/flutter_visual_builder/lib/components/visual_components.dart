@@ -97,6 +97,24 @@ abstract class VisualState<T extends VisualStatefulWidget> extends State<T> {
 
 }
 
+
+mixin RemoteStateMixin<T extends VisualStatefulWidget> on State<T> {
+
+  Map<String, RemoteValue> get remoteValues;
+
+  K getValue<K>(String key) {
+    return remoteValues[key].value;
+  }
+
+}
+
+class RemoteValue<T> {
+
+  RemoteValue(this.value);
+
+  final T value;
+}
+
 /// This contains the properties as source code which would be lost otherwise when accessed at runtime.
 ///
 /// For example:
@@ -271,10 +289,9 @@ class VisualColumn extends VisualStatefulWidget {
 class _VisualColumnState extends VisualState<VisualColumn> {
 
 
-  /// TODO this is just for testing, this should be dynamicly sized
-  final GlobalKey<VisualState> one = GlobalKey();
-  final GlobalKey<VisualState> two = GlobalKey();
-  final GlobalKey<VisualState> three = GlobalKey();
+
+  List<GlobalKey<VisualState>> keys = [GlobalKey()];
+
 
 
 
@@ -287,65 +304,31 @@ class _VisualColumnState extends VisualState<VisualColumn> {
       mainAxisSize: widget.mainAxisSize,
       verticalDirection: widget.verticalDirection,
       textBaseline: widget.textBaseline,
-      children: <Widget>[
-        SizedBox(
-          height: 100,
-          child: LayoutDragTarget(
-            key: one,
-            replacementActive: Container(
-              margin: EdgeInsets.all(8),
-              height: 80,
-              width: 100,
-              color: Colors.indigo,
-            ),
-            replacementInactive: Container(
-              margin: EdgeInsets.all(8),
-              height: 80,
-              width: 100,
-              color: Colors.orange,
-            ),
-            child: null
+      children: keys.map((it) {
+        return _getTargetWidget(it);
+      }).toList(),
+    );
+  }
+
+  Widget _getTargetWidget(GlobalKey<VisualState> key) {
+    return SizedBox(
+      height: 100,
+      child: LayoutDragTarget(
+          key: key,
+          replacementActive: Container(
+            margin: EdgeInsets.all(8),
+            height: 80,
+            width: 100,
+            color: Colors.indigo,
           ),
-        ),
-        SizedBox(
-          height: 100,
-          child: LayoutDragTarget(
-            key: two,
-              replacementActive: Container(
-                margin: EdgeInsets.all(8),
-                height: 80,
-                width: 100,
-                color: Colors.indigo,
-              ),
-              replacementInactive: Container(
-                margin: EdgeInsets.all(8),
-                height: 80,
-                width: 100,
-                color: Colors.orange,
-              ),
-              child: null
+          replacementInactive: Container(
+            margin: EdgeInsets.all(8),
+            height: 80,
+            width: 100,
+            color: Colors.orange,
           ),
-        ),
-        SizedBox(
-          height: 100,
-          child: LayoutDragTarget(
-            key: three,
-              replacementActive: Container(
-                margin: EdgeInsets.all(8),
-                height: 80,
-                width: 100,
-                color: Colors.indigo,
-              ),
-              replacementInactive: Container(
-                margin: EdgeInsets.all(8),
-                height: 80,
-                width: 100,
-                color: Colors.orange,
-              ),
-              child: null
-          ),
-        ),
-      ],
+          child: null
+      ),
     );
   }
 
@@ -380,7 +363,7 @@ class VisualContainer extends VisualStatefulWidget {
   String get originalClassName => "Container";
 }
 
-class _VisualContainerState extends VisualState<VisualContainer> {
+class _VisualContainerState extends VisualState<VisualContainer> with RemoteStateMixin{
 
 
   final GlobalKey<LayoutDragTargetState> childKey = GlobalKey();
@@ -394,7 +377,7 @@ class _VisualContainerState extends VisualState<VisualContainer> {
         replacementInactive: Container(height: 10, width: 10, color: Colors.indigo,),
         child: widget.child
       ),
-      color: widget.color,
+      color: getValue<Color>('color'),
       height: widget.height,
       width: widget.width,
     );
@@ -407,6 +390,11 @@ class _VisualContainerState extends VisualState<VisualContainer> {
       dynamicWidget: childKey.currentState?.child,
     ),
   ];
+
+  @override
+  Map<String, RemoteValue> get remoteValues => {
+    "color": RemoteValue<Color>(widget.color),
+  };
 }
 
 
@@ -681,6 +669,8 @@ class LayoutDragTarget extends StatefulWidget {
     @required this.replacementActive,
     @required this.replacementInactive,
     @required this.child,
+    this.onAccept,
+    this.onLeave,
     Widget feedback
   }) : feedback = feedback?? child, super(key: key);
 
@@ -691,6 +681,9 @@ class LayoutDragTarget extends StatefulWidget {
 
   final Widget replacementActive;
   final Widget replacementInactive;
+
+  final VoidCallback onAccept;
+  final VoidCallback onLeave;
 
   @override
   LayoutDragTargetState createState() => LayoutDragTargetState();
@@ -812,6 +805,9 @@ class LayoutDragTargetState extends State<LayoutDragTarget> {
   }
 
   void reset() {
+    if(widget.onLeave != null) {
+      widget.onLeave();
+    }
     child = null;
     active = false;
     if(mounted) setState((){});
@@ -854,6 +850,12 @@ class LayoutDragTargetState extends State<LayoutDragTarget> {
         /// VisualScaffold has another VisualScaffold in the body:
         ///
         /// The body slot is a DragTarget with a DynamicWidget, it has a VisualScaffold in itself.
+
+
+        if(widget.onAccept != null) {
+          widget.onAccept();
+        }
+
         setState(() {
           child = wrapInVisualDraggable(dynamicWidget);
         });
