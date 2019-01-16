@@ -2,6 +2,57 @@
 
 An IDE for Flutter written in Flutter.
 
+
+TODO insert 3D rendered mac with the Flutter-IDE running on it image.
+
+TODO Flutter style "landing-page", short descriptive summary of this project.
+
+
+## Uniqueness
+
+### Stateful visual builder.
+
+Work on the layout while keeping state.
+
+### Drag and drop that produces quality code
+
+Number one goal is not to replace coding layouts but enhance it.
+
+### Building for different screens at the same time
+
+Preview your live changes on as many different screen sizes as you want.
+
+### Extensible and hackable
+
+Don't want to use the Flutter-IDE but like the visual editor? Use the plugin!
+
+Need new tools? Write a plugin for this IDE!
+
+
+
+# Road-map
+
+- Creating new layouts and exporting the source code.
+
+- Tweaking values through the server
+
+- Writing a lot of tests
+
+- Building the basics IDE interface
+
+- Integrating the XI-Editor & implementing Dart features (syntax highlighting, 
+analysis, dartfm)
+
+- Dynamically changing existing source code (using dart kernel transformers)
+
+- Advanced layouting with CustomPainter, CustomMultiChildLayout
+
+- Advanced layouting through different tools (snapping, absolute values/ 
+percentages)
+
+- IntelliJ and VSCode plugin for visual builder
+
+
 ## Module overview
 
 ### Visual Components
