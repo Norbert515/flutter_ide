@@ -52,6 +52,10 @@ percentages)
 
 - IntelliJ and VSCode plugin for visual builder
 
+- Getting a solid build system set up
+
+- Set automated testing and building artifacts 
+
 
 ## Module overview
 
