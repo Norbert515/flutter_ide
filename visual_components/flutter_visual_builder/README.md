@@ -99,3 +99,12 @@ fully connected and set up widget which can be directly used.
 Or it can start up and manage a separate Flutter instance. In this cause
 is is possible to choose the medium it should run Flutter on (Desktop or
 any mobile phone).
+
+## Generating grpc code
+
+Run the following command in the project root
+
+```
+ protoc -I protos/ protos/server.proto --dart_out=grpc:lib/generated --plugin=protoc-gen-dart=c:\Users\[youruser]\AppData\Roaming\Pub\Cache\bin\protoc-gen-dart.bat
+
+```

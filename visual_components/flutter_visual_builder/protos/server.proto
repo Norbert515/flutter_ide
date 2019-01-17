@@ -11,11 +11,32 @@ service Server {
 
     rpc Initialize (InitializeFileRequest) returns (HelloReply) {}
 
+
 }
 
-message DoubleFieldUpdate {
-    string value = 1;
+
+// All the different properties that can be sent over grpc.
+// This is using the nested extensions to emulate polymorphism
+
+message Field {
+
+    oneof it {
+        DoubleField double = 1;
+        AlignmentField align = 2;
+    }
 }
+
+
+message DoubleField
+{
+    double value = 1;
+}
+
+message AlignmentField {
+    double x = 1;
+    double y = 2;
+}
+
 
 // The request message containing the user's name.
 message InitializeFileRequest {
