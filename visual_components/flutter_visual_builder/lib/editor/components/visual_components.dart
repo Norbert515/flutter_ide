@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_visual_builder/dynamic_widget.dart';
-import 'package:flutter_visual_builder/main.dart';
-import 'package:flutter_visual_builder/key_resolver.dart';
+import 'package:flutter_visual_builder/editor/dynamic_widget.dart';
+import 'package:flutter_visual_builder/editor/main.dart';
+import 'package:flutter_visual_builder/editor/key_resolver.dart';
 
 // TODO MetaData widget might also be interesting
 

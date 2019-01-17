@@ -4,6 +4,7 @@ This module contains the server and a dart client for this server.
 
 It is using gRPC.
 
+# deprecated, will be removed soon
 
 ## Usage
 

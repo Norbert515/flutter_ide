@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_visual_builder/components/list_components.dart';
-import 'package:flutter_visual_builder/components/visual_components.dart';
+import 'package:flutter_visual_builder/editor/components/list_components.dart';
+import 'package:flutter_visual_builder/editor/components/visual_components.dart';
 import 'package:uuid/uuid.dart';
 
 var uuid = new Uuid();
