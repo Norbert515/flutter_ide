@@ -3,6 +3,9 @@ import 'package:flutter_visual_builder/dynamic_widget.dart';
 import 'package:flutter_visual_builder/main.dart';
 import 'package:flutter_visual_builder/key_resolver.dart';
 
+// TODO MetaData widget might also be interesting
+
+
 /// Return back valid code.
 ///
 /// return VisualScaffold(

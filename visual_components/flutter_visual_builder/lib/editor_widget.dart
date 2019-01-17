@@ -1,8 +1,36 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_visual_builder/components/visual_components.dart';
 import 'package:flutter_visual_builder/dynamic_widget.dart';
+import 'package:grpc/grpc.dart';
+import 'package:visual_server/src/server/visual_server.dart';
 
-class VisualEditor extends StatelessWidget {
+class VisualEditor extends StatefulWidget {
+
+
+
+  @override
+  VisualEditorState createState() {
+    return new VisualEditorState();
+  }
+}
+
+class VisualEditorState extends State<VisualEditor> {
+
+
+
+  @override
+  void initState() {
+    super.initState();
+    initServer();
+  }
+
+
+  Future initServer() async {
+    final server = new Server([ServerService()]);
+    await server.serve(port: 50051);
+    print('Server listening on port ${server.port}...');
+
+  }
 
 
   // TODO, the editor should be able to simulate the same widgets in different
@@ -41,6 +69,7 @@ class VisualEditor extends StatelessWidget {
       ],
     );
   }
+
 }
 
 
