@@ -114,4 +114,7 @@ class _VisualColumnState extends VisualState<VisualColumn> with _ListComponentMi
     );
   }
 
+  @override
+  Map<String, Property> get remoteValues => null;
+
 }

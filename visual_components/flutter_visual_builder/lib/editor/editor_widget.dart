@@ -110,12 +110,11 @@ class AppWidget extends StatelessWidget {
         id: "YOOOO",
         floatingActionButton: VisualFloatingActionButton(
           id: "BLUB",
-          properties: [
-            UnknownProperty(
-              name: "onPressed",
+          properties: {
+           "onPressed": UnknownProperty(
               sourceCode: '(){\nprint("Hey!");\n}'
             ),
-          ],
+          },
             onPressed: (){
               print("Hey!");
             }

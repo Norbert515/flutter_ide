@@ -15,9 +15,8 @@ import 'package:meta/meta.dart';
 /// Property("color", "myColor")
 abstract class Property<T> {
 
-  Property({@required this.name});
+  Property(this.data);
 
-  final String name;
   String get sourceCode;
 
   T data;
@@ -27,22 +26,33 @@ abstract class Property<T> {
 /// A property which can not be changed from the outside
 ///
 /// It only contains the source code used to reconstruct the original
-class UnknownProperty extends Property<dynamic> {
+class UnknownProperty extends Property<String> {
 
-  UnknownProperty({@required String name, @required this.sourceCode}): super(name: name);
+  UnknownProperty({@required String sourceCode}) : super(sourceCode);
 
 
-  final String sourceCode;
+  @override
+  String get sourceCode => data;
 }
 
 
 
 class AlignmentProperty extends Property<Alignment> {
 
- AlignmentProperty({@required String name}): super(name: name);
+ AlignmentProperty({Alignment alignment}): super(alignment);
+
 
   @override
-  // TODO: implement sourceCode
-  String get sourceCode => null;
+  String get sourceCode => "Alignment(TODO)";
 
+}
+
+
+class ColorProperty extends Property<Color> {
+
+  ColorProperty({Color color}): super(color);
+
+
+  @override
+  String get sourceCode => "Color(${data.value})";
 }

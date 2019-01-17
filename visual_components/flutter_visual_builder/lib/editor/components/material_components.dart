@@ -27,7 +27,7 @@ class VisualContainer extends VisualStatefulWidget {
   String get originalClassName => "Container";
 }
 
-class _VisualContainerState extends VisualState<VisualContainer> with PropertyStateMixin{
+class _VisualContainerState extends VisualState<VisualContainer> {
 
 
   final GlobalKey<LayoutDragTargetState> childKey = GlobalKey();
@@ -57,7 +57,7 @@ class _VisualContainerState extends VisualState<VisualContainer> with PropertySt
 
   @override
   Map<String, Property> get remoteValues => {
-    //"color": Property<Color>(widget.color),
+    "color": ColorProperty(color: widget.color),
   };
 }
 
@@ -101,7 +101,7 @@ class VisualFloatingActionButton extends VisualStatefulWidget {
     this.clipBehavior = Clip.none,
     this.materialTapTargetSize,
     this.isExtended = false,
-    List<Property> properties,
+    Map<String, Property> properties,
     List<WidgetProperty> widgetProperties,
     @required String id,
   }) : super(
@@ -182,6 +182,10 @@ class _VisualFloatingActionButtonState extends VisualState<VisualFloatingActionB
       dynamicWidget: childKey.currentState?.child,
     ),
   ];
+
+  @override
+  // TODO: implement remoteValues
+  Map<String, Property> get remoteValues => null;
 }
 
 
@@ -202,7 +206,7 @@ class VisualScaffold extends VisualStatefulWidget {
     this.backgroundColor,
     this.resizeToAvoidBottomPadding = true,
     this.primary = true,
-    List<Property> properties,
+    Map<String, Property> properties,
     List<WidgetProperty> widgetProperties,
     @required String id,
   }) : super(
@@ -308,6 +312,10 @@ class _VisualScaffoldState extends VisualState<VisualScaffold> {
         dynamicWidget: appBarKey.currentState?.child
     ),
   ];
+
+  @override
+  // TODO: implement remoteValues
+  Map<String, Property> get remoteValues => null;
 }
 
 

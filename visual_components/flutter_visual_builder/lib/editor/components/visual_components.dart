@@ -48,7 +48,7 @@ abstract class VisualStatefulWidget extends StatefulWidget {
 
   final String id;
 }
-abstract class VisualState<T extends VisualStatefulWidget> extends State<T> {
+abstract class VisualState<T extends VisualStatefulWidget> extends State<T> with PropertyStateMixin{
 
   List<WidgetProperty> get modifiedWidgetProperties;
 
@@ -85,7 +85,7 @@ abstract class VisualState<T extends VisualStatefulWidget> extends State<T> {
   String buildSourceCode() {
     return
       '${widget.originalClassName}(\n'
-          '${widget.properties.map((it) => '${it.name}:${it.sourceCode}').join(",\n")}\n'
+          '${remoteValues.map((key, value) => MapEntry(key, '$key:${value.sourceCode}')).entries.join(",\n")}\n'
           '${modifiedWidgetProperties.map((it) {
         WidgetProperty that = it;
         if(it.dynamicWidget == null) {
@@ -103,6 +103,7 @@ abstract class VisualState<T extends VisualStatefulWidget> extends State<T> {
 
 mixin PropertyStateMixin<T extends VisualStatefulWidget> on State<T> {
 
+  /// TODO, this is a map, widgets is a list - choose one
   Map<String, Property> get remoteValues;
 
   K getValue<K>(String key) {
@@ -189,6 +190,9 @@ class _VisualWrapperState extends VisualState<VisualWrapper> {
   @override
   List<WidgetProperty> get modifiedWidgetProperties => [];
 
+  @override
+  Map<String, Property> get remoteValues => {};
+
 }
 
 class VisualProxyWrapper extends VisualStatefulWidget {
@@ -229,6 +233,10 @@ class _VisualProxyWrapperState extends VisualState<VisualProxyWrapper> {
 
   @override
   bool get shouldRegister => false;
+
+  @override
+  Map<String, Property> get remoteValues => keyResolver.map[widget.visualWidget.id].currentState
+  .remoteValues;
 
 }
 
