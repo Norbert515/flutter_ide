@@ -5,57 +5,6 @@ import 'package:flutter_visual_builder/editor/components/visual_components.dart'
 mixin _ListComponentMixin<T extends VisualStatefulWidget> on VisualState<T> {
 
   List<GlobalKey<VisualState>> keys = [GlobalKey()];
-}
-
-class VisualColumn extends VisualStatefulWidget {
-
-  VisualColumn({
-    String id,
-    this.mainAxisAlignment = MainAxisAlignment.start,
-    this.mainAxisSize = MainAxisSize.max,
-    this.crossAxisAlignment = CrossAxisAlignment.center,
-    this.textDirection,
-    this.verticalDirection = VerticalDirection.down,
-    this.textBaseline,
-    this.children = const <Widget>[],
-    List<Property> properties,
-    List<WidgetProperty> widgetProperties,
-}): super(id: id, key: GlobalKey<VisualState>(), properties: properties, widgetProperties: widgetProperties );
-
-  final MainAxisAlignment mainAxisAlignment;
-  final MainAxisSize mainAxisSize;
-  final CrossAxisAlignment crossAxisAlignment;
-  final TextDirection textDirection;
-  final VerticalDirection verticalDirection;
-  final TextBaseline textBaseline;
-  final List<Widget> children;
-
-  @override
-  _VisualColumnState createState() => _VisualColumnState();
-
-  @override
-  String get originalClassName => "Column";
-}
-
-class _VisualColumnState extends VisualState<VisualColumn> {
-
-
-
-  List<GlobalKey<VisualState>> keys = [GlobalKey()];
-
-
-  @override
-  Widget build(BuildContext context) {
-    return Column(
-      mainAxisAlignment: widget.mainAxisAlignment,
-      textDirection: widget.textDirection,
-      crossAxisAlignment: widget.crossAxisAlignment,
-      mainAxisSize: widget.mainAxisSize,
-      verticalDirection: widget.verticalDirection,
-      textBaseline: widget.textBaseline,
-      children: _getChildren(),
-    );
-  }
 
 
   List<Widget> _getChildren() {
@@ -66,6 +15,8 @@ class _VisualColumnState extends VisualState<VisualColumn> {
       return _getTargetWidget(it);
     }).toList();
   }
+
+
 
   Widget _getTargetWidget(GlobalKey<VisualState> key, {bool first = false}) {
     Widget result =  LayoutDragTarget(
@@ -109,6 +60,57 @@ class _VisualColumnState extends VisualState<VisualColumn> {
     return result;
   }
 
+}
+
+class VisualColumn extends VisualStatefulWidget {
+
+  VisualColumn({
+    String id,
+    this.mainAxisAlignment = MainAxisAlignment.start,
+    this.mainAxisSize = MainAxisSize.max,
+    this.crossAxisAlignment = CrossAxisAlignment.center,
+    this.textDirection,
+    this.verticalDirection = VerticalDirection.down,
+    this.textBaseline,
+    this.children = const <Widget>[],
+    List<Property> properties,
+    List<WidgetProperty> widgetProperties,
+}): super(id: id, key: GlobalKey<VisualState>(), properties: properties, widgetProperties: widgetProperties );
+
+  final MainAxisAlignment mainAxisAlignment;
+  final MainAxisSize mainAxisSize;
+  final CrossAxisAlignment crossAxisAlignment;
+  final TextDirection textDirection;
+  final VerticalDirection verticalDirection;
+  final TextBaseline textBaseline;
+  final List<Widget> children;
+
+  @override
+  _VisualColumnState createState() => _VisualColumnState();
+
+  @override
+  String get originalClassName => "Column";
+}
+
+class _VisualColumnState extends VisualState<VisualColumn> with _ListComponentMixin{
+
+
   @override
   List<WidgetProperty> get modifiedWidgetProperties => null;
+
+
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      mainAxisAlignment: widget.mainAxisAlignment,
+      textDirection: widget.textDirection,
+      crossAxisAlignment: widget.crossAxisAlignment,
+      mainAxisSize: widget.mainAxisSize,
+      verticalDirection: widget.verticalDirection,
+      textBaseline: widget.textBaseline,
+      children: _getChildren(),
+    );
+  }
+
 }

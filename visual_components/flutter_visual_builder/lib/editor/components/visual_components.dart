@@ -51,7 +51,6 @@ abstract class VisualState<T extends VisualStatefulWidget> extends State<T> {
 
   List<WidgetProperty> get modifiedWidgetProperties;
 
-
   bool get shouldRegister => true;
 
   @override

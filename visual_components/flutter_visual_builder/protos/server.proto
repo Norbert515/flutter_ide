@@ -11,12 +11,17 @@ service Server {
 
     rpc Initialize (InitializeFileRequest) returns (HelloReply) {}
 
+    rpc GetFields(GetFieldsRequest) returns (GetFieldsResponse) {}
+
+    rpc StreamUpdate(stream FieldUpdate) returns (HelloReply) {}
 
 }
 
 
-// All the different properties that can be sent over grpc.
-// This is using the nested extensions to emulate polymorphism
+message FieldUpdate {
+    Field field = 1;
+    string id = 2;
+}
 
 message Field {
 
@@ -46,4 +51,13 @@ message InitializeFileRequest {
 // The response message containing the greetings
 message HelloReply {
     string message = 1;
+}
+
+message GetFieldsRequest {
+    string id = 1;
+}
+
+message GetFieldsResponse {
+    string id = 1;
+    map<string, Field> fields = 2;
 }

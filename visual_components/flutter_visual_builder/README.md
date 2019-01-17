@@ -106,5 +106,9 @@ Run the following command in the project root
 
 ```
  protoc -I protos/ protos/server.proto --dart_out=grpc:lib/generated --plugin=protoc-gen-dart=c:\Users\[youruser]\AppData\Roaming\Pub\Cache\bin\protoc-gen-dart.bat
+```
 
+in my case:
+```
+ protoc -I protos/ protos/server.proto --dart_out=grpc:lib/generated --plugin=protoc-gen-dart=c:\Users\Norbert\AppData\Roaming\Pub\Cache\bin\protoc-gen-dart.bat
 ```
