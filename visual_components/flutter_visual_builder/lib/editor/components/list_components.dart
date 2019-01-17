@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_visual_builder/editor/components/visual_components.dart';
+import 'package:flutter_visual_builder/editor/properties/property.dart';
 
 
 mixin _ListComponentMixin<T extends VisualStatefulWidget> on VisualState<T> {

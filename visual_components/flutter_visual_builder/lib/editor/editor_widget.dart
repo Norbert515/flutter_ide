@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_visual_builder/editor/components/material_components.dart';
 import 'package:flutter_visual_builder/editor/components/visual_components.dart';
 import 'package:flutter_visual_builder/editor/dynamic_widget.dart';
+import 'package:flutter_visual_builder/editor/properties/property.dart';
 import 'package:grpc/grpc.dart';
 import 'package:visual_server/src/server/visual_server.dart';
 
@@ -109,9 +111,9 @@ class AppWidget extends StatelessWidget {
         floatingActionButton: VisualFloatingActionButton(
           id: "BLUB",
           properties: [
-            Property(
+            UnknownProperty(
               name: "onPressed",
-              value: '(){\nprint("Hey!");\n}'
+              sourceCode: '(){\nprint("Hey!");\n}'
             ),
           ],
             onPressed: (){
