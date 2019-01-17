@@ -27,7 +27,7 @@ class VisualContainer extends VisualStatefulWidget {
   String get originalClassName => "Container";
 }
 
-class _VisualContainerState extends VisualState<VisualContainer> with RemoteStateMixin{
+class _VisualContainerState extends VisualState<VisualContainer> with PropertyStateMixin{
 
 
   final GlobalKey<LayoutDragTargetState> childKey = GlobalKey();
@@ -56,8 +56,8 @@ class _VisualContainerState extends VisualState<VisualContainer> with RemoteStat
   ];
 
   @override
-  Map<String, RemoteValue> get remoteValues => {
-    "color": RemoteValue<Color>(widget.color),
+  Map<String, Property> get remoteValues => {
+    //"color": Property<Color>(widget.color),
   };
 }
 

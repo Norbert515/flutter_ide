@@ -101,21 +101,14 @@ abstract class VisualState<T extends VisualStatefulWidget> extends State<T> {
 }
 
 
-mixin RemoteStateMixin<T extends VisualStatefulWidget> on State<T> {
+mixin PropertyStateMixin<T extends VisualStatefulWidget> on State<T> {
 
-  Map<String, RemoteValue> get remoteValues;
+  Map<String, Property> get remoteValues;
 
   K getValue<K>(String key) {
-    return remoteValues[key].value;
+    return remoteValues[key].data;
   }
 
-}
-
-class RemoteValue<T> {
-
-  RemoteValue(this.value);
-
-  final T value;
 }
 
 

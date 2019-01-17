@@ -1,3 +1,4 @@
+import 'package:flutter/material.dart';
 import 'package:meta/meta.dart';
 
 /// This contains the properties as source code which would be lost otherwise when accessed at runtime.
@@ -12,19 +13,21 @@ import 'package:meta/meta.dart';
 /// it is saved as:
 ///
 /// Property("color", "myColor")
-abstract class Property {
+abstract class Property<T> {
 
   Property({@required this.name});
 
   final String name;
   String get sourceCode;
+
+  T data;
 }
 
 
 /// A property which can not be changed from the outside
 ///
 /// It only contains the source code used to reconstruct the original
-class UnknownProperty extends Property {
+class UnknownProperty extends Property<dynamic> {
 
   UnknownProperty({@required String name, @required this.sourceCode}): super(name: name);
 
@@ -34,7 +37,7 @@ class UnknownProperty extends Property {
 
 
 
-class AlignmentProperty extends Property {
+class AlignmentProperty extends Property<Alignment> {
 
  AlignmentProperty({@required String name}): super(name: name);
 
