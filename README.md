@@ -56,6 +56,8 @@ percentages)
 
 - Set automated testing and building artifacts 
 
+- Integrations test GUI (like espresso)
+
 
 ## Module overview
 

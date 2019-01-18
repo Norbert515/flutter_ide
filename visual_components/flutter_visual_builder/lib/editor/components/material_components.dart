@@ -10,7 +10,7 @@ class VisualContainer extends VisualStatefulWidget {
     this.width,
     this.height,
     this.child,
-    List<Property> properties,
+    Map<String, Property> properties,
     List<WidgetProperty> widgetProperties
   }) : super(id: id, key: GlobalKey<VisualState>(), properties: properties, widgetProperties: widgetProperties);
 
@@ -107,7 +107,7 @@ class VisualFloatingActionButton extends VisualStatefulWidget {
   }) : super(
     key: GlobalKey<VisualState>(),
     id: id,
-    properties: properties?? const [],
+    properties: properties?? const {},
     widgetProperties: widgetProperties?? const [],
   );
 
@@ -212,7 +212,7 @@ class VisualScaffold extends VisualStatefulWidget {
   }) : super(
       key: GlobalKey<VisualState>(),
       id: id,
-      properties: properties?? const [],
+      properties: properties?? const {},
       widgetProperties: widgetProperties?? [
         WidgetProperty(name: "body", dynamicWidget: body),
         WidgetProperty(name: "floatingActionButton", dynamicWidget: floatingActionButton)

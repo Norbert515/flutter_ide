@@ -17,6 +17,15 @@ class ServerClient extends Client {
           '/helloworld.Server/Initialize',
           (InitializeFileRequest value) => value.writeToBuffer(),
           (List<int> value) => new HelloReply.fromBuffer(value));
+  static final _$getFields =
+      new ClientMethod<GetFieldsRequest, GetFieldsResponse>(
+          '/helloworld.Server/GetFields',
+          (GetFieldsRequest value) => value.writeToBuffer(),
+          (List<int> value) => new GetFieldsResponse.fromBuffer(value));
+  static final _$streamUpdate = new ClientMethod<FieldUpdate, HelloReply>(
+      '/helloworld.Server/StreamUpdate',
+      (FieldUpdate value) => value.writeToBuffer(),
+      (List<int> value) => new HelloReply.fromBuffer(value));
 
   ServerClient(ClientChannel channel, {CallOptions options})
       : super(channel, options: options);
@@ -26,6 +35,20 @@ class ServerClient extends Client {
     final call = $createCall(
         _$initialize, new $async.Stream.fromIterable([request]),
         options: options);
+    return new ResponseFuture(call);
+  }
+
+  ResponseFuture<GetFieldsResponse> getFields(GetFieldsRequest request,
+      {CallOptions options}) {
+    final call = $createCall(
+        _$getFields, new $async.Stream.fromIterable([request]),
+        options: options);
+    return new ResponseFuture(call);
+  }
+
+  ResponseFuture<HelloReply> streamUpdate($async.Stream<FieldUpdate> request,
+      {CallOptions options}) {
+    final call = $createCall(_$streamUpdate, request, options: options);
     return new ResponseFuture(call);
   }
 }
@@ -41,6 +64,20 @@ abstract class ServerServiceBase extends Service {
         false,
         (List<int> value) => new InitializeFileRequest.fromBuffer(value),
         (HelloReply value) => value.writeToBuffer()));
+    $addMethod(new ServiceMethod<GetFieldsRequest, GetFieldsResponse>(
+        'GetFields',
+        getFields_Pre,
+        false,
+        false,
+        (List<int> value) => new GetFieldsRequest.fromBuffer(value),
+        (GetFieldsResponse value) => value.writeToBuffer()));
+    $addMethod(new ServiceMethod<FieldUpdate, HelloReply>(
+        'StreamUpdate',
+        streamUpdate,
+        true,
+        false,
+        (List<int> value) => new FieldUpdate.fromBuffer(value),
+        (HelloReply value) => value.writeToBuffer()));
   }
 
   $async.Future<HelloReply> initialize_Pre(
@@ -48,6 +85,15 @@ abstract class ServerServiceBase extends Service {
     return initialize(call, await request);
   }
 
+  $async.Future<GetFieldsResponse> getFields_Pre(
+      ServiceCall call, $async.Future request) async {
+    return getFields(call, await request);
+  }
+
   $async.Future<HelloReply> initialize(
       ServiceCall call, InitializeFileRequest request);
+  $async.Future<GetFieldsResponse> getFields(
+      ServiceCall call, GetFieldsRequest request);
+  $async.Future<HelloReply> streamUpdate(
+      ServiceCall call, $async.Stream<FieldUpdate> request);
 }

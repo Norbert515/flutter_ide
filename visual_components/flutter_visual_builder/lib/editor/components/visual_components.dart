@@ -27,7 +27,7 @@ abstract class VisualStatefulWidget extends StatefulWidget {
 
   VisualStatefulWidget({
     GlobalKey<VisualState> key,
-    this.properties = const [],
+    this.properties = const {},
     this.widgetProperties = const [],
     @required this.id
   }): super(key: key);
@@ -36,8 +36,9 @@ abstract class VisualStatefulWidget extends StatefulWidget {
   /// This is needed in the constructor because we need to save the widget properties so we can restore the source code during runtime
   ///
   /// FOR NOW THESE CAN NOT BE CHANGED
-  /// TODO when the server allows to change these, this need to be computed in a getter too.
-  final List<Property> properties;
+  /// TODO when the server allows to change these, this need to be computed in a getter too
+  /// TODO think of a way of handling these
+  final Map<String, Property> properties;
 
   /// Same for the widgets.
   final List<WidgetProperty> widgetProperties;
@@ -105,6 +106,16 @@ mixin PropertyStateMixin<T extends VisualStatefulWidget> on State<T> {
 
   /// TODO, this is a map, widgets is a list - choose one
   Map<String, Property> get remoteValues;
+
+  void setValue<K>(String key, K value) {
+   if(remoteValues[key].data.runtimeType != value.runtimeType) {
+      throw Exception("${remoteValues[key].data.runtimeType} and ${value.runtimeType}"
+"do not have the same runtime type");
+    }
+    setState(() {
+     remoteValues[key].data = value;
+    });
+  }
 
   K getValue<K>(String key) {
     return remoteValues[key].data;

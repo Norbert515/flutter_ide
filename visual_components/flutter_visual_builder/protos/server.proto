@@ -28,6 +28,7 @@ message Field {
     oneof it {
         DoubleField double = 1;
         AlignmentField align = 2;
+        ColorField color = 3;
     }
 }
 
@@ -40,6 +41,10 @@ message DoubleField
 message AlignmentField {
     double x = 1;
     double y = 2;
+}
+
+message ColorField {
+    int32 color = 1;
 }
 
 

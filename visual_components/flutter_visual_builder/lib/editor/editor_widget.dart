@@ -3,8 +3,8 @@ import 'package:flutter_visual_builder/editor/components/material_components.dar
 import 'package:flutter_visual_builder/editor/components/visual_components.dart';
 import 'package:flutter_visual_builder/editor/dynamic_widget.dart';
 import 'package:flutter_visual_builder/editor/properties/property.dart';
+import 'package:flutter_visual_builder/server/server.dart';
 import 'package:grpc/grpc.dart';
-import 'package:visual_server/src/server/visual_server.dart';
 
 class VisualEditor extends StatefulWidget {
 
@@ -28,7 +28,7 @@ class VisualEditorState extends State<VisualEditor> {
 
 
   Future initServer() async {
-    final server = new Server([ServerService()]);
+    final server = new Server([EditorServer()]);
     await server.serve(port: 50051);
     print('Server listening on port ${server.port}...');
 

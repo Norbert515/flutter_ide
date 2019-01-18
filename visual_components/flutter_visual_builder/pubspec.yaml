@@ -16,8 +16,12 @@ dependencies:
   flutter:
     sdk: flutter
 
-  visual_server:
-    path: ..\..\visual_server
+
+  protobuf: ^0.12.0
+  grpc: ^1.0.0
+
+  #visual_server:
+   # path: ..\..\visual_server
   uuid: ^1.0.3
   vm_service_lib: ^0.3.10
   # The following adds the Cupertino Icons font to your application.

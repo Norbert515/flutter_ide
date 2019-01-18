@@ -74,7 +74,7 @@ class VisualColumn extends VisualStatefulWidget {
     this.verticalDirection = VerticalDirection.down,
     this.textBaseline,
     this.children = const <Widget>[],
-    List<Property> properties,
+    Map<String, Property> properties,
     List<WidgetProperty> widgetProperties,
 }): super(id: id, key: GlobalKey<VisualState>(), properties: properties, widgetProperties: widgetProperties );
 
