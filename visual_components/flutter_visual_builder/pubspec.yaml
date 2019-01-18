@@ -20,6 +20,10 @@ dependencies:
   protobuf: ^0.12.0
   grpc: ^1.0.0
 
+  rxdart: ^0.20.0
+
+  provider: ^1.1.1
+
   #visual_server:
    # path: ..\..\visual_server
   uuid: ^1.0.3

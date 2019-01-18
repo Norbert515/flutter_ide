@@ -58,6 +58,10 @@ percentages)
 
 - Integrations test GUI (like espresso)
 
+- Adding and managing packages with a GUI and a in-IDE browser
+
+- Widget catalog (create a widget - publish it and drag and drop in a widget)
+
 
 ## Module overview
 

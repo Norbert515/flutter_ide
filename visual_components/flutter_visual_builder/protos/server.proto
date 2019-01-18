@@ -15,6 +15,9 @@ service Server {
 
     rpc StreamUpdate(stream FieldUpdate) returns (HelloReply) {}
 
+    rpc StreamSelected(SelectStream) returns (stream SelectedWidgetWithProperties ) {}
+
+
 }
 
 
@@ -65,4 +68,14 @@ message GetFieldsRequest {
 message GetFieldsResponse {
     string id = 1;
     map<string, Field> fields = 2;
+}
+
+message SelectStream {
+
+}
+
+message SelectedWidgetWithProperties {
+    string id = 1;
+    string type = 2;
+    map<string, Field> properties = 3;
 }

@@ -102,7 +102,7 @@ class _VisualColumnState extends VisualState<VisualColumn> with _ListComponentMi
 
 
   @override
-  Widget build(BuildContext context) {
+  Widget buildWidget(BuildContext context) {
     return Column(
       mainAxisAlignment: widget.mainAxisAlignment,
       textDirection: widget.textDirection,

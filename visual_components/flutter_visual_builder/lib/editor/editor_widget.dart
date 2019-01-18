@@ -5,6 +5,7 @@ import 'package:flutter_visual_builder/editor/dynamic_widget.dart';
 import 'package:flutter_visual_builder/editor/properties/property.dart';
 import 'package:flutter_visual_builder/server/server.dart';
 import 'package:grpc/grpc.dart';
+import 'package:provider/provider.dart';
 
 class VisualEditor extends StatefulWidget {
 
@@ -19,6 +20,8 @@ class VisualEditor extends StatefulWidget {
 class VisualEditorState extends State<VisualEditor> {
 
 
+  // TODO clean up form here
+  final EditorServer editorServer = EditorServer();
 
   @override
   void initState() {
@@ -28,7 +31,7 @@ class VisualEditorState extends State<VisualEditor> {
 
 
   Future initServer() async {
-    final server = new Server([EditorServer()]);
+    final server = new Server([editorServer]);
     await server.serve(port: 50051);
     print('Server listening on port ${server.port}...');
 
@@ -44,31 +47,34 @@ class VisualEditorState extends State<VisualEditor> {
   // times.
   @override
   Widget build(BuildContext context) {
-    return Row(
-      children: <Widget>[
-        DragTarget<VisualStatefulWidget>(
-          builder: (context, it ,it2) {
-            return Container(
-                width: 200,
-                height: double.infinity,
-                alignment: Alignment.center,
-                color: Colors.blue,
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: <Widget>[
-                    RootDraggable(buildingBlock: test2),
-                    RootDraggable(buildingBlock: test3),
-                    RootDraggable(buildingBlock: test4),
-                    Expanded(child: RootDraggable(buildingBlock: test5)),
-                  ],
-                )
-            );
-          },
-          onWillAccept: (it) => true,
+    return Provider<EditorServer>(
+      value: editorServer,
+      child: Row(
+        children: <Widget>[
+          DragTarget<VisualStatefulWidget>(
+            builder: (context, it ,it2) {
+              return Container(
+                  width: 200,
+                  height: double.infinity,
+                  alignment: Alignment.center,
+                  color: Colors.blue,
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: <Widget>[
+                      RootDraggable(buildingBlock: test2),
+                      RootDraggable(buildingBlock: test3),
+                      RootDraggable(buildingBlock: test4),
+                      Expanded(child: RootDraggable(buildingBlock: test5)),
+                    ],
+                  )
+              );
+            },
+            onWillAccept: (it) => true,
 
-        ),
-        Expanded(child: AppWidget()),
-      ],
+          ),
+          Expanded(child: AppWidget()),
+        ],
+      ),
     );
   }
 

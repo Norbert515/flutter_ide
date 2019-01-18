@@ -296,3 +296,60 @@ class GetFieldsResponse extends $pb.GeneratedMessage {
   Map<String, Field> get fields => $_getMap(1);
 }
 
+class SelectStream extends $pb.GeneratedMessage {
+  static final $pb.BuilderInfo _i = new $pb.BuilderInfo('SelectStream', package: const $pb.PackageName('helloworld'))
+    ..hasRequiredFields = false
+  ;
+
+  SelectStream() : super();
+  SelectStream.fromBuffer(List<int> i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) : super.fromBuffer(i, r);
+  SelectStream.fromJson(String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) : super.fromJson(i, r);
+  SelectStream clone() => new SelectStream()..mergeFromMessage(this);
+  SelectStream copyWith(void Function(SelectStream) updates) => super.copyWith((message) => updates(message as SelectStream));
+  $pb.BuilderInfo get info_ => _i;
+  static SelectStream create() => new SelectStream();
+  SelectStream createEmptyInstance() => create();
+  static $pb.PbList<SelectStream> createRepeated() => new $pb.PbList<SelectStream>();
+  static SelectStream getDefault() => _defaultInstance ??= create()..freeze();
+  static SelectStream _defaultInstance;
+  static void $checkItem(SelectStream v) {
+    if (v is! SelectStream) $pb.checkItemFailed(v, _i.qualifiedMessageName);
+  }
+}
+
+class SelectedWidgetWithProperties extends $pb.GeneratedMessage {
+  static final $pb.BuilderInfo _i = new $pb.BuilderInfo('SelectedWidgetWithProperties', package: const $pb.PackageName('helloworld'))
+    ..aOS(1, 'id')
+    ..aOS(2, 'type')
+    ..m<String, Field>(3, 'properties', 'SelectedWidgetWithProperties.PropertiesEntry',$pb.PbFieldType.OS, $pb.PbFieldType.OM, Field.create, null, null , const $pb.PackageName('helloworld'))
+    ..hasRequiredFields = false
+  ;
+
+  SelectedWidgetWithProperties() : super();
+  SelectedWidgetWithProperties.fromBuffer(List<int> i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) : super.fromBuffer(i, r);
+  SelectedWidgetWithProperties.fromJson(String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) : super.fromJson(i, r);
+  SelectedWidgetWithProperties clone() => new SelectedWidgetWithProperties()..mergeFromMessage(this);
+  SelectedWidgetWithProperties copyWith(void Function(SelectedWidgetWithProperties) updates) => super.copyWith((message) => updates(message as SelectedWidgetWithProperties));
+  $pb.BuilderInfo get info_ => _i;
+  static SelectedWidgetWithProperties create() => new SelectedWidgetWithProperties();
+  SelectedWidgetWithProperties createEmptyInstance() => create();
+  static $pb.PbList<SelectedWidgetWithProperties> createRepeated() => new $pb.PbList<SelectedWidgetWithProperties>();
+  static SelectedWidgetWithProperties getDefault() => _defaultInstance ??= create()..freeze();
+  static SelectedWidgetWithProperties _defaultInstance;
+  static void $checkItem(SelectedWidgetWithProperties v) {
+    if (v is! SelectedWidgetWithProperties) $pb.checkItemFailed(v, _i.qualifiedMessageName);
+  }
+
+  String get id => $_getS(0, '');
+  set id(String v) { $_setString(0, v); }
+  bool hasId() => $_has(0);
+  void clearId() => clearField(1);
+
+  String get type => $_getS(1, '');
+  set type(String v) { $_setString(1, v); }
+  bool hasType() => $_has(1);
+  void clearType() => clearField(2);
+
+  Map<String, Field> get properties => $_getMap(2);
+}
+

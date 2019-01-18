@@ -33,7 +33,7 @@ class _VisualContainerState extends VisualState<VisualContainer> {
   final GlobalKey<LayoutDragTargetState> childKey = GlobalKey();
 
   @override
-  Widget build(BuildContext context) {
+  Widget buildWidget(BuildContext context) {
     return Container(
       child: LayoutDragTarget(
         key: childKey,
@@ -152,7 +152,7 @@ class _VisualFloatingActionButtonState extends VisualState<VisualFloatingActionB
   final GlobalKey<LayoutDragTargetState> childKey = GlobalKey();
 
   @override
-  Widget build(BuildContext context) {
+  Widget buildWidget(BuildContext context) {
     return FloatingActionButton(
       onPressed: widget.onPressed,
       child: LayoutDragTarget(
@@ -265,7 +265,7 @@ class _VisualScaffoldState extends VisualState<VisualScaffold> {
 
   // TODO inside maybe differenciate between center and normal etc.
   @override
-  Widget build(BuildContext context) {
+  Widget buildWidget(BuildContext context) {
     return Scaffold(
       backgroundColor: widget.backgroundColor,
       primary: widget.primary,

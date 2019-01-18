@@ -3,6 +3,9 @@ import 'package:flutter_visual_builder/editor/dynamic_widget.dart';
 import 'package:flutter_visual_builder/editor/main.dart';
 import 'package:flutter_visual_builder/editor/key_resolver.dart';
 import 'package:flutter_visual_builder/editor/properties/property.dart';
+import 'package:flutter_visual_builder/generated/server.pb.dart';
+import 'package:flutter_visual_builder/server/server.dart';
+import 'package:provider/provider.dart';
 
 // TODO MetaData widget might also be interesting
 
@@ -73,6 +76,30 @@ abstract class VisualState<T extends VisualStatefulWidget> extends State<T> with
     }
   }
 
+  /// Instead of overwriting the build method overwrite this one
+  Widget buildWidget(BuildContext context);
+
+  @override
+  Widget build(BuildContext context) {
+    return GestureDetector(
+      behavior: HitTestBehavior.opaque,
+      onTap: onTap,
+      child: buildWidget(context),
+    );
+  }
+
+
+  void onTap() {
+    // TODO Maybe move this out of there?
+    EditorServer server = Provider.of<EditorServer>(context, listen: false);
+    var result = SelectedWidgetWithProperties()
+      ..id = widget.id
+      ..type = widget.originalClassName;
+
+    var field = Field();
+    server.updateSubject.add(result);
+  }
+
   @override
   void dispose() {
 //    keyResolver.map.remove(widget.id);
@@ -84,7 +111,8 @@ abstract class VisualState<T extends VisualStatefulWidget> extends State<T> with
   /// It does it by first looking at all the parameters which are not widgets (which need no recursive steps)
   /// and then at the Dynamic widgets.
   String buildSourceCode() {
-    return
+    return "Comment back in because this slows down code, but it looks cool";
+   /* return
       '${widget.originalClassName}(\n'
           '${remoteValues.map((key, value) => MapEntry(key, '$key:${value.sourceCode}')).entries.join(",\n")}\n'
           '${modifiedWidgetProperties.map((it) {
@@ -96,7 +124,7 @@ abstract class VisualState<T extends VisualStatefulWidget> extends State<T> with
         return '${that.name}:${keyResolver.map[that.dynamicWidget.id]?.currentState?.buildSourceCode()}';
 
       }).join(",\n")}'
-          ')';
+          ')';*/
   }
 
 }
@@ -189,7 +217,7 @@ class _VisualWrapperState extends VisualState<VisualWrapper> {
 
 
   @override
-  Widget build(BuildContext context) {
+  Widget buildWidget(BuildContext context) {
     return widget.child;
   }
 
@@ -230,7 +258,7 @@ class _VisualProxyWrapperState extends VisualState<VisualProxyWrapper> {
 
 
   @override
-  Widget build(BuildContext context) {
+  Widget buildWidget(BuildContext context) {
     return widget.child;
   }
 

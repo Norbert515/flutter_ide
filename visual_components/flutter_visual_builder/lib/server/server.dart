@@ -1,7 +1,11 @@
 import 'package:flutter_visual_builder/generated/server.pbgrpc.dart';
 import 'package:grpc/grpc.dart';
+import 'package:rxdart/rxdart.dart';
 
 class EditorServer extends ServerServiceBase {
+
+
+  PublishSubject<SelectedWidgetWithProperties> updateSubject = PublishSubject();
 
   @override
   Future<HelloReply> initialize(ServiceCall call, InitializeFileRequest request) {
@@ -14,14 +18,17 @@ class EditorServer extends ServerServiceBase {
 
   @override
   Future<GetFieldsResponse> getFields(ServiceCall call, GetFieldsRequest request) {
-    // TODO: implement getFields
     return null;
   }
 
   @override
   Future<HelloReply> streamUpdate(ServiceCall call, Stream<FieldUpdate> request) {
-    // TODO: implement streamUpdate
     return null;
+  }
+
+  @override
+  Stream<SelectedWidgetWithProperties> streamSelected(ServiceCall call, SelectStream request) {
+    return updateSubject.stream;
   }
 
 
