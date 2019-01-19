@@ -7,6 +7,7 @@ TODO insert 3D rendered mac with the Flutter-IDE running on it image.
 
 TODO Flutter style "landing-page", short descriptive summary of this project.
 
+Disclaimed: This is not an official Google product, I'm working on this in my free time.
 
 ## Uniqueness
 
@@ -65,6 +66,8 @@ percentages)
 - Interactive layout tutorial (step by step guide to understanding layouts
 and experimenting with it)
 
+- Infer common widget usage (for example, when being in a Flex it adds the ability to change the expanded behavior without
+explicitly wrapping it in a Expanded)
 ## Module overview
 
 ### Visual Components

@@ -2,16 +2,17 @@ import 'dart:convert';
 
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_visual_builder/editor/properties/property.dart';
+import 'package:flutter_visual_builder/editor/properties/property.dart' as prop;
 import 'package:flutter_visual_builder/generated/server.pb.dart';
 import 'package:ide/ui/home_page.dart';
+import 'package:ide/ui/widget_editors/property_changers/numeric_values.dart';
 
 
 mixin EditorMixin {
 
   String get id;
 
-  void sendUpdate(String propertyName, Property property) {
+  void sendUpdate(String propertyName, prop.Property property) {
     serverClient.fieldUpdates.add(
       FieldUpdate()
         ..id = id
@@ -33,21 +34,23 @@ class ContainerEditor extends StatelessWidget with EditorMixin{
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children: <Widget>[
-        Text("Container Editor"),
-        Text("Width"),
-        TextField(controller: widthController,),
-        Text("Height"),
-        TextField(controller: heightController),
-        RaisedButton(
-          onPressed: () {
-            print("Submitted");
-            sendUpdate("color", ColorProperty(color: Color(0xffff0000)));
-          },
-          child: Text("Submit"),
-        ),
-      ],
+    return Container(
+      padding: EdgeInsets.all(16),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: <Widget>[
+          Text("Container Editor", style: TextStyle(fontSize: 25),),
+          Text("Id: $id"),
+          Divider(),
+          NumericChangeableTextField(
+            name: "Width",
+            onUpdate: (it) {
+              print("sending $it");
+              sendUpdate("width", prop.DoubleProperty(data: it));
+            },
+          ),
+        ],
+      ),
     );
   }
 }

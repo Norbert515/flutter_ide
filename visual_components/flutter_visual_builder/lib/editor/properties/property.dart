@@ -105,7 +105,7 @@ class ColorProperty extends Property<Color> {
   @override
   PropertyType get type => PropertyType.color;
 }
-
+// TODO name collision with diagnostics
 class DoubleProperty extends Property<double> {
   DoubleProperty({double data}) : super(data);
   DoubleProperty.fromMap(Map map): super(map["double"]);
@@ -155,20 +155,22 @@ class EdgeInsertsProperty extends Property<EdgeInsets> {
 class BoxConstraintsProperty extends Property<BoxConstraints> {
   BoxConstraintsProperty({BoxConstraints data}) : super(data);
   BoxConstraintsProperty.fromMap(Map map) : super(BoxConstraints(
-    minWidth: map['minWidth']?? 0,
-    maxWidth: map['maxWidth']?? double.infinity,
-    minHeight: map['minHeight']?? 0,
-    maxHeight: map['maxHeight']?? double.infinity,
+    minWidth: double.tryParse(map['minWidth'])?? 0,
+    maxWidth: double.tryParse(map['maxWidth'])?? double.infinity,
+    minHeight: double.tryParse(map['minHeight'])?? 0,
+    maxHeight: double.tryParse(map['maxHeight'])?? double.infinity,
   ));
   
   
   @override
   Map getMapData() => {
-    'minWidth': data.minWidth,
-    'maxWidth': data.maxWidth,
-    'minHeight': data.minHeight,
-    'maxHeight': data.maxHeight,
-  }; 
+    'minWidth': data.minWidth.toString(),
+    'maxWidth': data.maxWidth.toString(),
+    'minHeight': data.minHeight.toString(),
+    'maxHeight': data.maxHeight.toString(),
+  };
+
+
 
   @override
   String get sourceCode => "TODO";

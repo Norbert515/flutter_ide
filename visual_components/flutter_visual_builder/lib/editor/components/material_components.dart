@@ -69,7 +69,7 @@ class _VisualContainerState extends VisualState<VisualContainer> {
     'alignment': AlignmentProperty(alignment: Alignment.center),
     'padding': EdgeInsertsProperty(data: EdgeInsets.all(0)),
     'margin': EdgeInsertsProperty(data: EdgeInsets.all(0)),
-    'constraints': BoxConstraintsProperty(data: widget.constraints),
+    'constraints': BoxConstraintsProperty(data: BoxConstraints()),
 
   };
 }

@@ -19,6 +19,9 @@ dependencies:
   flutter_visual_builder:
     path: ..\visual_components\flutter_visual_builder
 
+
+  flutter_desktop_widgets:
+    path: ..\..\flutter_desktop_widgets
   grpc: ^1.0.0
 
   rxdart: ^0.20.0

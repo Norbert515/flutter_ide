@@ -54,7 +54,7 @@ class PropertySettingSection extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return new Container(
-      width: 200,
+      width: 400,
       height: double.infinity,
       child: StreamBuilder<SelectedWidgetWithProperties>(
         stream: serverClient.serverClient.streamSelected(SelectStream()),
