@@ -62,6 +62,8 @@ percentages)
 
 - Widget catalog (create a widget - publish it and drag and drop in a widget)
 
+- Interactive layout tutorial (step by step guide to understanding layouts
+and experimenting with it)
 
 ## Module overview
 
