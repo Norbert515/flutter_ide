@@ -28,6 +28,10 @@ Property convertToProperty(String data) {
       return ColorProperty.fromMap(pMap);
     case PropertyType.double:
       return DoubleProperty.fromMap(pMap);
+    case PropertyType.edgeInserts:
+      return EdgeInsertsProperty.fromMap(pMap);
+    case PropertyType.boxConstraints:
+      return BoxConstraintsProperty.fromMap(pMap);
 
   }
 

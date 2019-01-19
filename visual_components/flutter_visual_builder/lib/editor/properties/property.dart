@@ -7,6 +7,8 @@ enum PropertyType{
   alignment,
   color,
   double,
+  edgeInserts,
+  boxConstraints,
 
 }
 
@@ -65,6 +67,8 @@ class UnknownProperty extends Property<String> {
 
 
 
+// TODO this uses the specific Alignment subclass of AlignmentGeometry. 
+// Think of something ot make it work with that instead
 class AlignmentProperty extends Property<Alignment> {
 
  AlignmentProperty({Alignment alignment}): super(alignment);
@@ -118,4 +122,58 @@ class DoubleProperty extends Property<double> {
   @override
   PropertyType get type => PropertyType.double;
 
+}
+
+class EdgeInsertsProperty extends Property<EdgeInsets> {
+  EdgeInsertsProperty({EdgeInsets data}) : super(data);
+  EdgeInsertsProperty.fromMap(Map map): super(EdgeInsets.only(
+    left: map["left"] ?? 0,
+    right: map["right"] ?? 0,
+    top: map["top"] ?? 0,
+    bottom: map["bottom"] ?? 0,
+  ));
+
+
+
+  @override
+  Map getMapData() => {
+    "left": data.left,
+    "right": data.right,
+    "top": data.top,
+    "bottom": data.bottom,
+  }; 
+
+  @override
+  String get sourceCode => "TODO";
+
+  @override
+  PropertyType get type => PropertyType.edgeInserts;
+
+}
+
+
+class BoxConstraintsProperty extends Property<BoxConstraints> {
+  BoxConstraintsProperty({BoxConstraints data}) : super(data);
+  BoxConstraintsProperty.fromMap(Map map) : super(BoxConstraints(
+    minWidth: map['minWidth']?? 0,
+    maxWidth: map['maxWidth']?? double.infinity,
+    minHeight: map['minHeight']?? 0,
+    maxHeight: map['maxHeight']?? double.infinity,
+  ));
+  
+  
+  @override
+  Map getMapData() => {
+    'minWidth': data.minWidth,
+    'maxWidth': data.maxWidth,
+    'minHeight': data.minHeight,
+    'maxHeight': data.maxHeight,
+  }; 
+
+  @override
+  String get sourceCode => "TODO";
+
+  @override
+  PropertyType get type => PropertyType.boxConstraints;
+  
 }

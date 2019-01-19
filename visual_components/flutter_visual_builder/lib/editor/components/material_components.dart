@@ -10,6 +10,7 @@ class VisualContainer extends VisualStatefulWidget {
     this.width,
     this.height,
     this.child,
+    this.constraints,
     Map<String, Property> properties,
     List<WidgetProperty> widgetProperties
   }) : super(id: id, key: GlobalKey<VisualState>(), properties: properties, widgetProperties: widgetProperties);
@@ -18,6 +19,7 @@ class VisualContainer extends VisualStatefulWidget {
   final Color color;
   final double width;
   final double height;
+  final BoxConstraints constraints;
 
 
   @override
@@ -35,7 +37,6 @@ class _VisualContainerState extends VisualState<VisualContainer> {
   @override
   Widget buildWidget(BuildContext context) {
     return Container(
-
       child: LayoutDragTarget(
         key: childKey,
         replacementActive: Container(height: 10, width: 10, color: Colors.orange,),
@@ -43,8 +44,12 @@ class _VisualContainerState extends VisualState<VisualContainer> {
         child: widget.child
       ),
       color: getValue<Color>('color'),
-      height: widget.height,
-      width: widget.width,
+      width: getValue<double>('width'),
+      height: getValue<double>('height'),
+      padding: getValue<EdgeInsets>('padding'),
+      margin: getValue<EdgeInsets>('margin'),
+      alignment: getValue<Alignment>('alignment'),
+      constraints: getValue<BoxConstraints>('constraints'),
     );
   }
 
@@ -58,7 +63,14 @@ class _VisualContainerState extends VisualState<VisualContainer> {
 
   @override
   Map<String, Property> initRemoteValues() => {
-    "color": ColorProperty(color: widget.color),
+    'color': ColorProperty(color: widget.color),
+    'width': DoubleProperty(data: widget.width),
+    'height': DoubleProperty(data: widget.height),
+    'alignment': AlignmentProperty(alignment: Alignment.center),
+    'padding': EdgeInsertsProperty(data: EdgeInsets.all(0)),
+    'margin': EdgeInsertsProperty(data: EdgeInsets.all(0)),
+    'constraints': BoxConstraintsProperty(data: widget.constraints),
+
   };
 }
 
