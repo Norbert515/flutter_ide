@@ -35,6 +35,7 @@ class _VisualContainerState extends VisualState<VisualContainer> {
   @override
   Widget buildWidget(BuildContext context) {
     return Container(
+
       child: LayoutDragTarget(
         key: childKey,
         replacementActive: Container(height: 10, width: 10, color: Colors.orange,),

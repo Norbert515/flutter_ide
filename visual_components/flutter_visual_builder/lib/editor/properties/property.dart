@@ -5,7 +5,9 @@ import 'package:meta/meta.dart';
 enum PropertyType{
   unknown,
   alignment,
-  color
+  color,
+  double,
+
 }
 
 /// This contains the properties as source code which would be lost otherwise when accessed at runtime.
@@ -98,4 +100,22 @@ class ColorProperty extends Property<Color> {
 
   @override
   PropertyType get type => PropertyType.color;
+}
+
+class DoubleProperty extends Property<double> {
+  DoubleProperty({double data}) : super(data);
+  DoubleProperty.fromMap(Map map): super(map["double"]);
+
+
+  @override
+  Map getMapData() => {
+    "double": data,
+  };
+
+  @override
+  String get sourceCode => data.toString();
+
+  @override
+  PropertyType get type => PropertyType.double;
+
 }

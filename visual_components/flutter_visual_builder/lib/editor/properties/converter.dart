@@ -26,6 +26,9 @@ Property convertToProperty(String data) {
       return AlignmentProperty.fromMap(pMap);
     case PropertyType.color:
       return ColorProperty.fromMap(pMap);
+    case PropertyType.double:
+      return DoubleProperty.fromMap(pMap);
+
   }
 
   throw Exception("Paring unknonw value");
