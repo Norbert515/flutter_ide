@@ -20,6 +20,14 @@ abstract class Property<T> {
   String get sourceCode;
 
   T data;
+
+  Map toMap() {
+    return {
+      "type": runtimeType.toString(),
+      "property": getMapData()
+    };
+  }
+  Map getMapData();
 }
 
 
@@ -33,6 +41,11 @@ class UnknownProperty extends Property<String> {
 
   @override
   String get sourceCode => data;
+
+  @override
+  Map getMapData() => {
+    "sourceCode" : data,
+  };
 }
 
 
@@ -45,6 +58,11 @@ class AlignmentProperty extends Property<Alignment> {
   @override
   String get sourceCode => "Alignment(TODO)";
 
+  @override
+  Map getMapData() => {
+    "x": data.x,
+    "y": data.y,
+  };
 }
 
 
@@ -52,7 +70,11 @@ class ColorProperty extends Property<Color> {
 
   ColorProperty({Color color}): super(color);
 
-
   @override
   String get sourceCode => "Color(${data.value})";
+
+  @override
+  Map getMapData() => {
+    "color": data.value,
+  };
 }

@@ -11,8 +11,9 @@ import 'package:protobuf/protobuf.dart' as $pb;
 
 class FieldUpdate extends $pb.GeneratedMessage {
   static final $pb.BuilderInfo _i = new $pb.BuilderInfo('FieldUpdate', package: const $pb.PackageName('helloworld'))
-    ..a<Field>(1, 'field_1', $pb.PbFieldType.OM, Field.getDefault, Field.create)
-    ..aOS(2, 'id')
+    ..aOS(1, 'id')
+    ..aOS(2, 'propertyName')
+    ..aOS(3, 'property')
     ..hasRequiredFields = false
   ;
 
@@ -31,36 +32,24 @@ class FieldUpdate extends $pb.GeneratedMessage {
     if (v is! FieldUpdate) $pb.checkItemFailed(v, _i.qualifiedMessageName);
   }
 
-  Field get field_1 => $_getN(0);
-  set field_1(Field v) { setField(1, v); }
-  bool hasField_1() => $_has(0);
-  void clearField_1() => clearField(1);
+  String get id => $_getS(0, '');
+  set id(String v) { $_setString(0, v); }
+  bool hasId() => $_has(0);
+  void clearId() => clearField(1);
 
-  String get id => $_getS(1, '');
-  set id(String v) { $_setString(1, v); }
-  bool hasId() => $_has(1);
-  void clearId() => clearField(2);
-}
+  String get propertyName => $_getS(1, '');
+  set propertyName(String v) { $_setString(1, v); }
+  bool hasPropertyName() => $_has(1);
+  void clearPropertyName() => clearField(2);
 
-enum Field_It {
-  double, 
-  align, 
-  color, 
-  notSet
+  String get property => $_getS(2, '');
+  set property(String v) { $_setString(2, v); }
+  bool hasProperty() => $_has(2);
+  void clearProperty() => clearField(3);
 }
 
 class Field extends $pb.GeneratedMessage {
-  static const Map<int, Field_It> _Field_ItByTag = {
-    1 : Field_It.double,
-    2 : Field_It.align,
-    3 : Field_It.color,
-    0 : Field_It.notSet
-  };
   static final $pb.BuilderInfo _i = new $pb.BuilderInfo('Field', package: const $pb.PackageName('helloworld'))
-    ..a<DoubleField>(1, 'double', $pb.PbFieldType.OM, DoubleField.getDefault, DoubleField.create)
-    ..a<AlignmentField>(2, 'align', $pb.PbFieldType.OM, AlignmentField.getDefault, AlignmentField.create)
-    ..a<ColorField>(3, 'color', $pb.PbFieldType.OM, ColorField.getDefault, ColorField.create)
-    ..oo(0, [1, 2, 3])
     ..hasRequiredFields = false
   ;
 
@@ -78,24 +67,6 @@ class Field extends $pb.GeneratedMessage {
   static void $checkItem(Field v) {
     if (v is! Field) $pb.checkItemFailed(v, _i.qualifiedMessageName);
   }
-
-  Field_It whichIt() => _Field_ItByTag[$_whichOneof(0)];
-  void clearIt() => clearField($_whichOneof(0));
-
-  DoubleField get double => $_getN(0);
-  set double(DoubleField v) { setField(1, v); }
-  bool hasDouble() => $_has(0);
-  void clearDouble() => clearField(1);
-
-  AlignmentField get align => $_getN(1);
-  set align(AlignmentField v) { setField(2, v); }
-  bool hasAlign() => $_has(1);
-  void clearAlign() => clearField(2);
-
-  ColorField get color => $_getN(2);
-  set color(ColorField v) { setField(3, v); }
-  bool hasColor() => $_has(2);
-  void clearColor() => clearField(3);
 }
 
 class DoubleField extends $pb.GeneratedMessage {
@@ -321,7 +292,7 @@ class SelectedWidgetWithProperties extends $pb.GeneratedMessage {
   static final $pb.BuilderInfo _i = new $pb.BuilderInfo('SelectedWidgetWithProperties', package: const $pb.PackageName('helloworld'))
     ..aOS(1, 'id')
     ..aOS(2, 'type')
-    ..m<String, Field>(3, 'properties', 'SelectedWidgetWithProperties.PropertiesEntry',$pb.PbFieldType.OS, $pb.PbFieldType.OM, Field.create, null, null , const $pb.PackageName('helloworld'))
+    ..m<String, String>(3, 'properties', 'SelectedWidgetWithProperties.PropertiesEntry',$pb.PbFieldType.OS, $pb.PbFieldType.OS, null, null, null , const $pb.PackageName('helloworld'))
     ..hasRequiredFields = false
   ;
 
@@ -350,6 +321,6 @@ class SelectedWidgetWithProperties extends $pb.GeneratedMessage {
   bool hasType() => $_has(1);
   void clearType() => clearField(2);
 
-  Map<String, Field> get properties => $_getMap(2);
+  Map<String, String> get properties => $_getMap(2);
 }
 

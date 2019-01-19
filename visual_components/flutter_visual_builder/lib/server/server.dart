@@ -1,3 +1,4 @@
+import 'package:flutter_visual_builder/editor/key_resolver.dart';
 import 'package:flutter_visual_builder/generated/server.pbgrpc.dart';
 import 'package:grpc/grpc.dart';
 import 'package:rxdart/rxdart.dart';
@@ -9,10 +10,7 @@ class EditorServer extends ServerServiceBase {
 
   @override
   Future<HelloReply> initialize(ServiceCall call, InitializeFileRequest request) {
-    Field f = Field()..double = (DoubleField()..value = 4.0);
-
-    f.getField(f.whichIt().index);
-
+    print("Got init!");
     return null;
   }
 
@@ -23,7 +21,16 @@ class EditorServer extends ServerServiceBase {
 
   @override
   Future<HelloReply> streamUpdate(ServiceCall call, Stream<FieldUpdate> request) {
-    return null;
+    // TODO move this logic out of here
+
+    request.listen((it) {
+      var widgetId = it.id;
+      var propertyName = it.propertyName;
+      var state = keyResolver.map[widgetId];
+      state.currentState.setValue(propertyName, null);
+    });
+
+    return Future(() => HelloReply());
   }
 
   @override

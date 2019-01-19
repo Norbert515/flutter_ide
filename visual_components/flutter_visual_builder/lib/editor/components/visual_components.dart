@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_visual_builder/editor/dynamic_widget.dart';
 import 'package:flutter_visual_builder/editor/main.dart';
@@ -25,7 +27,7 @@ import 'package:provider/provider.dart';
 ///
 ///
 /// Needs to be turned back into source code after modification.
-/// TODO make it work with stateful too
+/// TODO maybe make this a mixin?
 abstract class VisualStatefulWidget extends StatefulWidget {
 
   VisualStatefulWidget({
@@ -96,7 +98,11 @@ abstract class VisualState<T extends VisualStatefulWidget> extends State<T> with
       ..id = widget.id
       ..type = widget.originalClassName;
 
-    var field = Field();
+    for(var key in remoteValues.keys) {
+      Property property = remoteValues[key];
+      result.properties[key] = json.encode(property.toMap());
+    }
+    print("Sending $result");
     server.updateSubject.add(result);
   }
 
