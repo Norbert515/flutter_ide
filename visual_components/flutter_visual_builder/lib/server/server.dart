@@ -2,6 +2,7 @@ import 'package:flutter_visual_builder/editor/key_resolver.dart';
 import 'package:flutter_visual_builder/generated/server.pbgrpc.dart';
 import 'package:grpc/grpc.dart';
 import 'package:rxdart/rxdart.dart';
+import 'package:flutter_visual_builder/editor/properties/converter.dart';
 
 class EditorServer extends ServerServiceBase {
 
@@ -20,17 +21,18 @@ class EditorServer extends ServerServiceBase {
   }
 
   @override
-  Future<HelloReply> streamUpdate(ServiceCall call, Stream<FieldUpdate> request) {
-    // TODO move this logic out of here
+  Future<HelloReply> streamUpdate(ServiceCall call, Stream<FieldUpdate> request) async {
 
-    request.listen((it) {
+    print("Inited");
+    // TODO move this logic out of here
+    await for (var it in request) {
+      print("Resceived ${it.toString()}");
       var widgetId = it.id;
       var propertyName = it.propertyName;
       var state = keyResolver.map[widgetId];
-      state.currentState.setValue(propertyName, null);
-    });
-
-    return Future(() => HelloReply());
+      state.currentState.setValue(propertyName, convertToProperty(it.property));
+    }
+    return HelloReply();
   }
 
   @override

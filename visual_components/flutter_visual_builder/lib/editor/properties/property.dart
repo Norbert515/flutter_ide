@@ -1,6 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:meta/meta.dart';
 
+
+enum PropertyType{
+  unknown,
+  alignment,
+  color
+}
+
 /// This contains the properties as source code which would be lost otherwise when accessed at runtime.
 ///
 /// For example:
@@ -21,9 +28,11 @@ abstract class Property<T> {
 
   T data;
 
+  PropertyType get type;
+
   Map toMap() {
     return {
-      "type": runtimeType.toString(),
+      "type": type.toString(),
       "property": getMapData()
     };
   }
@@ -37,6 +46,7 @@ abstract class Property<T> {
 class UnknownProperty extends Property<String> {
 
   UnknownProperty({@required String sourceCode}) : super(sourceCode);
+  UnknownProperty.fromMap(Map map): super(map["sourceCode"]);
 
 
   @override
@@ -46,6 +56,9 @@ class UnknownProperty extends Property<String> {
   Map getMapData() => {
     "sourceCode" : data,
   };
+
+  @override
+  PropertyType get type => PropertyType.unknown;
 }
 
 
@@ -53,6 +66,7 @@ class UnknownProperty extends Property<String> {
 class AlignmentProperty extends Property<Alignment> {
 
  AlignmentProperty({Alignment alignment}): super(alignment);
+ AlignmentProperty.fromMap(Map map): super(Alignment(map["x"], map["y"]));
 
 
   @override
@@ -63,12 +77,16 @@ class AlignmentProperty extends Property<Alignment> {
     "x": data.x,
     "y": data.y,
   };
+
+  @override
+  PropertyType get type => PropertyType.alignment;
 }
 
 
 class ColorProperty extends Property<Color> {
 
   ColorProperty({Color color}): super(color);
+  ColorProperty.fromMap(Map map): super(Color(map["color"]));
 
   @override
   String get sourceCode => "Color(${data.value})";
@@ -77,4 +95,7 @@ class ColorProperty extends Property<Color> {
   Map getMapData() => {
     "color": data.value,
   };
+
+  @override
+  PropertyType get type => PropertyType.color;
 }

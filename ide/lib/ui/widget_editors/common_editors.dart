@@ -43,7 +43,7 @@ class ContainerEditor extends StatelessWidget with EditorMixin{
         RaisedButton(
           onPressed: () {
             print("Submitted");
-            sendUpdate("width", ColorProperty(color: Colors.red));
+            sendUpdate("color", ColorProperty(color: Color(0xffff0000)));
           },
           child: Text("Submit"),
         ),

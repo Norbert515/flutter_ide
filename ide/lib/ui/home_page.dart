@@ -3,6 +3,7 @@ import 'package:flutter_visual_builder/generated/server.pbgrpc.dart';
 import 'package:grpc/grpc.dart';
 import 'package:flutter_visual_builder/editor/editor_widget.dart';
 import 'package:ide/client/client.dart';
+import 'package:ide/ui/widget_editors/common_editors.dart';
 
 // TODO move out of here
 VisualClient serverClient;
@@ -60,6 +61,11 @@ class PropertySettingSection extends StatelessWidget {
         builder: (context, snapshot) {
           if(!snapshot.hasData) return Center(child: CircularProgressIndicator(),);
 
+          return Material(
+            child: ContainerEditor(
+             id: snapshot.requireData.id,
+            ),
+          );
           return Center(
             child: Material(child: Text(snapshot.requireData.properties.values.reduce((it, it2) => it + it2))),
           );

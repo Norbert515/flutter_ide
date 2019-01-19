@@ -139,15 +139,22 @@ abstract class VisualState<T extends VisualStatefulWidget> extends State<T> with
 mixin PropertyStateMixin<T extends VisualStatefulWidget> on State<T> {
 
   /// TODO, this is a map, widgets is a list - choose one
-  Map<String, Property> get remoteValues;
+  Map<String, Property> remoteValues;
+  Map<String, Property> initRemoteValues();
 
-  void setValue<K>(String key, K value) {
-   if(remoteValues[key].data.runtimeType != value.runtimeType) {
-      throw Exception("${remoteValues[key].data.runtimeType} and ${value.runtimeType}"
+  @override
+  void initState() {
+    super.initState();
+    remoteValues = initRemoteValues();
+  }
+
+  void setValue<K>(String key, Property value) {
+   if(remoteValues[key].runtimeType != value.runtimeType) {
+      throw Exception("${remoteValues[key].runtimeType} and ${value.runtimeType}"
 "do not have the same runtime type");
     }
     setState(() {
-     remoteValues[key].data = value;
+     remoteValues[key] = value;
     });
   }
 
@@ -236,7 +243,7 @@ class _VisualWrapperState extends VisualState<VisualWrapper> {
   List<WidgetProperty> get modifiedWidgetProperties => [];
 
   @override
-  Map<String, Property> get remoteValues => {};
+  Map<String, Property> initRemoteValues() => {};
 
 }
 
@@ -278,11 +285,13 @@ class _VisualProxyWrapperState extends VisualState<VisualProxyWrapper> {
 
   @override
   bool get shouldRegister => false;
-
+/*
   @override
-  Map<String, Property> get remoteValues => keyResolver.map[widget.visualWidget.id].currentState
+  Map<String, Property> initRemoteValues() => keyResolver.map[widget.visualWidget.id].currentState
   .remoteValues;
-
+*/
+  @override
+  Map<String, Property> initRemoteValues() => {};
 }
 
 
