@@ -63,6 +63,7 @@ class PropertySettingSection extends StatelessWidget {
 
           return Material(
             child: ContainerEditor(
+             key: ValueKey(snapshot.requireData.id),
              id: snapshot.requireData.id,
             ),
           );

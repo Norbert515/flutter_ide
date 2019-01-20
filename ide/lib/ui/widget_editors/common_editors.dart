@@ -42,11 +42,12 @@ class ContainerEditor extends StatelessWidget with EditorMixin{
           Text("Container Editor", style: TextStyle(fontSize: 25),),
           Text("Id: $id"),
           Divider(),
-          NumericChangeableTextField(
-            name: "Width",
-            onUpdate: (it) {
-              print("sending $it");
+          ChangeableSize(
+            onWidthChange: (it) {
               sendUpdate("width", prop.DoubleProperty(data: it));
+            },
+            onHeightChange: (it) {
+              sendUpdate("height", prop.DoubleProperty(data: it));
             },
           ),
         ],

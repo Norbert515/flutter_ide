@@ -68,6 +68,8 @@ and experimenting with it)
 
 - Infer common widget usage (for example, when being in a Flex it adds the ability to change the expanded behavior without
 explicitly wrapping it in a Expanded)
+
+- Keyframing animations (like in AE or similar - it automatically generates animation code needed)
 ## Module overview
 
 ### Visual Components
