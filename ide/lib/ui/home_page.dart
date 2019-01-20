@@ -67,9 +67,6 @@ class PropertySettingSection extends StatelessWidget {
              id: snapshot.requireData.id,
             ),
           );
-          return Center(
-            child: Material(child: Text(snapshot.requireData.properties.values.reduce((it, it2) => it + it2))),
-          );
         },
       ),
     );

@@ -20,6 +20,8 @@ dependencies:
     path: ..\visual_components\flutter_visual_builder
 
 
+  provider: ^1.1.1
+
   flutter_desktop_widgets:
     path: ..\..\flutter_desktop_widgets
   grpc: ^1.0.0
