@@ -117,10 +117,9 @@ abstract class VisualState<T extends VisualStatefulWidget> extends State<T> with
   /// It does it by first looking at all the parameters which are not widgets (which need no recursive steps)
   /// and then at the Dynamic widgets.
   String buildSourceCode() {
-    return "Comment back in because this slows down code, but it looks cool";
-   /* return
+    return
       '${widget.originalClassName}(\n'
-          '${remoteValues.map((key, value) => MapEntry(key, '$key:${value.sourceCode}')).entries.join(",\n")}\n'
+          '${remoteValues.map((key, value) => MapEntry(key, '$key:${value.sourceCode}')).values.join(",\n")}\n'
           '${modifiedWidgetProperties.map((it) {
         WidgetProperty that = it;
         if(it.dynamicWidget == null) {
@@ -130,7 +129,7 @@ abstract class VisualState<T extends VisualStatefulWidget> extends State<T> with
         return '${that.name}:${keyResolver.map[that.dynamicWidget.id]?.currentState?.buildSourceCode()}';
 
       }).join(",\n")}'
-          ')';*/
+          ')';
   }
 
 }
@@ -146,6 +145,7 @@ mixin PropertyStateMixin<T extends VisualStatefulWidget> on State<T> {
   void initState() {
     super.initState();
     remoteValues = initRemoteValues();
+    assert(remoteValues != null);
   }
 
   void setValue<K>(String key, Property value) {
@@ -213,7 +213,7 @@ class VisualWrapper extends VisualStatefulWidget {
     this.child,
     @required String id,
     @required this.sourceCode
-  }): super(key: GlobalKey(), id:id);
+  }): super(key: GlobalObjectKey<VisualState>(id), id:id);
 
   final Widget child;
 
@@ -253,7 +253,7 @@ class VisualProxyWrapper extends VisualStatefulWidget {
     this.child,
     this.visualWidget,
     @required String id,
-  }): super(key: GlobalKey(), id: id);
+  }): super(id: id);
 
 
   final Widget child;

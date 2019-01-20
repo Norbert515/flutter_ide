@@ -40,7 +40,7 @@ class _VisualContainerState extends VisualState<VisualContainer> {
       child: LayoutDragTarget(
         key: childKey,
         replacementActive: Container(height: 10, width: 10, color: Colors.orange,),
-        replacementInactive: Container(height: 10, width: 10, color: Colors.transparent,),
+        replacementInactive: Container(height: double.infinity, width: double.infinity, color: Colors.transparent,),
         child: widget.child
       ),
       color: getValue<Color>('color'),
@@ -118,7 +118,7 @@ class VisualFloatingActionButton extends VisualStatefulWidget {
     List<WidgetProperty> widgetProperties,
     @required String id,
   }) : super(
-    key: GlobalKey<VisualState>(),
+    key: GlobalObjectKey<VisualState>(id),
     id: id,
     properties: properties?? const {},
     widgetProperties: widgetProperties?? const [],
@@ -198,7 +198,7 @@ class _VisualFloatingActionButtonState extends VisualState<VisualFloatingActionB
 
   @override
   // TODO: implement remoteValues
-  Map<String, Property> initRemoteValues() => null;
+  Map<String, Property> initRemoteValues() => {};
 }
 
 
@@ -223,7 +223,7 @@ class VisualScaffold extends VisualStatefulWidget {
     List<WidgetProperty> widgetProperties,
     @required String id,
   }) : super(
-      key: GlobalKey<VisualState>(),
+      key: GlobalObjectKey<VisualState>(id),
       id: id,
       properties: properties?? const {},
       widgetProperties: widgetProperties?? [
@@ -328,7 +328,7 @@ class _VisualScaffoldState extends VisualState<VisualScaffold> {
 
   @override
   // TODO: implement remoteValues
-  Map<String, Property> initRemoteValues() => null;
+  Map<String, Property> initRemoteValues() => {};
 }
 
 

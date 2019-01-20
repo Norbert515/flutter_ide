@@ -70,6 +70,11 @@ and experimenting with it)
 explicitly wrapping it in a Expanded)
 
 - Keyframing animations (like in AE or similar - it automatically generates animation code needed)
+
+- Theme manager
+
+
+
 ## Module overview
 
 ### Visual Components

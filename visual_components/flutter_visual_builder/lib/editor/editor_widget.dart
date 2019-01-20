@@ -64,7 +64,7 @@ class VisualEditorState extends State<VisualEditor> {
                       RootDraggable(buildingBlock: test2),
                       RootDraggable(buildingBlock: test3),
                       RootDraggable(buildingBlock: test4),
-                      Expanded(child: RootDraggable(buildingBlock: test5)),
+                      RootDraggable(buildingBlock: test5),
                     ],
                   )
               );

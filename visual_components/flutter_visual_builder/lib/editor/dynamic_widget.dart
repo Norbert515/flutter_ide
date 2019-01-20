@@ -38,7 +38,7 @@ BuildingBlock get test3 => BuildingBlock(
       child: Icon(Icons.add),
       sourceCode: 'Icon(Icons.add)',
     ),
-    representation: Icon(Icons.add)
+    representation: BlockWidget('Icon'),
 );
 
 BuildingBlock get test4 => BuildingBlock(
@@ -74,9 +74,9 @@ class BlockWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return Material(
       child: Container(
-        margin: EdgeInsets.all(16),
+        alignment: Alignment.center,
         width: 100,
-        height: 100,
+        height: 40,
         color: Colors.pink,
         child: Text(text),
       ),
