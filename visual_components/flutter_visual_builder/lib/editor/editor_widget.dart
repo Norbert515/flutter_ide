@@ -20,8 +20,6 @@ class VisualEditor extends StatefulWidget {
 class VisualEditorState extends State<VisualEditor> {
 
 
-  // TODO clean up form here
-  final EditorServer editorServer = EditorServer();
 
   @override
   void initState() {
@@ -108,9 +106,14 @@ class AppWidget extends StatelessWidget {
 
   final GlobalKey<VisualRootState> rootKey = GlobalKey();
 
+  void onChanged() {
+    String source = rootKey.currentState.buildSourceCode();
+  }
+
   @override
   Widget build(BuildContext context) {
     return VisualRoot(
+      onChanged: onChanged,
       key: rootKey,
       child: VisualScaffold(
         id: "YOOOO",

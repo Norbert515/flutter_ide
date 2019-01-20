@@ -181,9 +181,10 @@ class WidgetProperty {
 
 class VisualRoot extends StatefulWidget {
 
-  const VisualRoot({Key key, this.child}) : super(key: key);
+  const VisualRoot({Key key, this.child, this.onChanged}) : super(key: key);
 
   final VisualStatefulWidget child;
+  final VoidCallback onChanged;
 
   @override
   VisualRootState createState() => VisualRootState();
@@ -202,10 +203,43 @@ class VisualRootState extends State<VisualRoot> {
 
   @override
   Widget build(BuildContext context) {
-    return widget.child;
+    return SomethingChanged(
+      onChange: widget.onChanged,
+      child: widget.child
+    );
   }
 }
 
+/// Used to notify the widget tree changed and thus the source code
+/// needs to updated.
+///
+/// This is called when:
+/// 1. A widget is inserted/deleted or moved
+/// 2. A property is changed
+///
+/// To make adaption easier, instead of making the client invalidate itself
+/// it gets a stream over the grpc connection delivering the latest source code
+/// each change.
+class SomethingChanged extends InheritedWidget {
+
+
+  const SomethingChanged ({
+    this.onChange,
+    Widget child,
+  }) : super(child: child);
+
+  final VoidCallback onChange;
+
+  static void notify(BuildContext context) {
+    SomethingChanged it = context.inheritFromWidgetOfExactType(SomethingChanged);
+    it.onChange();
+  }
+
+  @override
+  bool updateShouldNotify(SomethingChanged oldWidget) {
+    return true;
+  }
+}
 
 class VisualWrapper extends VisualStatefulWidget {
 
@@ -497,6 +531,7 @@ class LayoutDragTargetState extends State<LayoutDragTarget> {
         if(widget.onAccept != null) {
           widget.onAccept();
         }
+        SomethingChanged.notify(context);
 
         setState(() {
           child = wrapInVisualDraggable(dynamicWidget);

@@ -17,9 +17,18 @@ service Server {
 
     rpc StreamSelected(SelectStream) returns (stream SelectedWidgetWithProperties ) {}
 
+    rpc StreamSourceCode(InitSourceCodeStream) returns (stream SourceCode){}
+
 
 }
 
+message SourceCode {
+    string sourceCode = 1;
+}
+
+message InitSourceCodeStream {
+
+}
 
 message FieldUpdate {
     string id = 1;

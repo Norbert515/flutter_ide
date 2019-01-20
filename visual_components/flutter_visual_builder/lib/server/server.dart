@@ -4,6 +4,9 @@ import 'package:grpc/grpc.dart';
 import 'package:rxdart/rxdart.dart';
 import 'package:flutter_visual_builder/editor/properties/converter.dart';
 
+final EditorServer editorServer = EditorServer();
+
+
 class EditorServer extends ServerServiceBase {
 
 
