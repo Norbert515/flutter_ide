@@ -3,8 +3,10 @@ import 'package:flutter_visual_builder/generated/server.pbgrpc.dart';
 import 'package:grpc/grpc.dart';
 import 'package:flutter_visual_builder/editor/editor_widget.dart';
 import 'package:ide/client/client.dart';
+import 'package:ide/themeing/ide_theme.dart';
 import 'package:ide/ui/text_editor/basic.dart';
 import 'package:ide/ui/widget_editors/common_editors.dart';
+import 'package:provider/provider.dart';
 
 // TODO move out of here
 VisualClient serverClient;
@@ -42,6 +44,7 @@ class HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
       children: <Widget>[
         Expanded(
           child: Row(

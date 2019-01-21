@@ -57,7 +57,7 @@ class VisualEditorState extends State<VisualEditor> {
                   width: 200,
                   height: double.infinity,
                   alignment: Alignment.center,
-                  color: Colors.blue,
+                  color: Color(0xff313131),
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: <Widget>[

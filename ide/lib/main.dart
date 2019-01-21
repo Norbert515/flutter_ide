@@ -14,7 +14,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Provider<IDETheme>(
-      value: IDETheme(),
+      value: IDETheme.standard(),
       updateShouldNotify: (it, i2) => false,
       child: new MaterialApp(
         title: 'Flutter Demo',
