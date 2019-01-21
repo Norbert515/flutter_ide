@@ -9,6 +9,54 @@ import 'dart:core' show int, bool, double, String, List, Map, override;
 
 import 'package:protobuf/protobuf.dart' as $pb;
 
+class SourceCode extends $pb.GeneratedMessage {
+  static final $pb.BuilderInfo _i = new $pb.BuilderInfo('SourceCode', package: const $pb.PackageName('helloworld'))
+    ..aOS(1, 'sourceCode')
+    ..hasRequiredFields = false
+  ;
+
+  SourceCode() : super();
+  SourceCode.fromBuffer(List<int> i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) : super.fromBuffer(i, r);
+  SourceCode.fromJson(String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) : super.fromJson(i, r);
+  SourceCode clone() => new SourceCode()..mergeFromMessage(this);
+  SourceCode copyWith(void Function(SourceCode) updates) => super.copyWith((message) => updates(message as SourceCode));
+  $pb.BuilderInfo get info_ => _i;
+  static SourceCode create() => new SourceCode();
+  SourceCode createEmptyInstance() => create();
+  static $pb.PbList<SourceCode> createRepeated() => new $pb.PbList<SourceCode>();
+  static SourceCode getDefault() => _defaultInstance ??= create()..freeze();
+  static SourceCode _defaultInstance;
+  static void $checkItem(SourceCode v) {
+    if (v is! SourceCode) $pb.checkItemFailed(v, _i.qualifiedMessageName);
+  }
+
+  String get sourceCode => $_getS(0, '');
+  set sourceCode(String v) { $_setString(0, v); }
+  bool hasSourceCode() => $_has(0);
+  void clearSourceCode() => clearField(1);
+}
+
+class InitSourceCodeStream extends $pb.GeneratedMessage {
+  static final $pb.BuilderInfo _i = new $pb.BuilderInfo('InitSourceCodeStream', package: const $pb.PackageName('helloworld'))
+    ..hasRequiredFields = false
+  ;
+
+  InitSourceCodeStream() : super();
+  InitSourceCodeStream.fromBuffer(List<int> i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) : super.fromBuffer(i, r);
+  InitSourceCodeStream.fromJson(String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) : super.fromJson(i, r);
+  InitSourceCodeStream clone() => new InitSourceCodeStream()..mergeFromMessage(this);
+  InitSourceCodeStream copyWith(void Function(InitSourceCodeStream) updates) => super.copyWith((message) => updates(message as InitSourceCodeStream));
+  $pb.BuilderInfo get info_ => _i;
+  static InitSourceCodeStream create() => new InitSourceCodeStream();
+  InitSourceCodeStream createEmptyInstance() => create();
+  static $pb.PbList<InitSourceCodeStream> createRepeated() => new $pb.PbList<InitSourceCodeStream>();
+  static InitSourceCodeStream getDefault() => _defaultInstance ??= create()..freeze();
+  static InitSourceCodeStream _defaultInstance;
+  static void $checkItem(InitSourceCodeStream v) {
+    if (v is! InitSourceCodeStream) $pb.checkItemFailed(v, _i.qualifiedMessageName);
+  }
+}
+
 class FieldUpdate extends $pb.GeneratedMessage {
   static final $pb.BuilderInfo _i = new $pb.BuilderInfo('FieldUpdate', package: const $pb.PackageName('helloworld'))
     ..aOS(1, 'id')

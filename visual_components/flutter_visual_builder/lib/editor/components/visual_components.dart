@@ -35,7 +35,7 @@ abstract class VisualStatefulWidget extends StatefulWidget {
     this.properties = const {},
     this.widgetProperties = const [],
     @required this.id
-  }): super(key: key);
+  }): assert(widgetProperties != null), assert(properties != null),super(key: key);
 
 
   /// This is needed in the constructor because we need to save the widget properties so we can restore the source code during runtime

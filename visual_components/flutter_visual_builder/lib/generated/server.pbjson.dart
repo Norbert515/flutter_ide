@@ -4,6 +4,17 @@
 ///
 // ignore_for_file: non_constant_identifier_names,library_prefixes,unused_import
 
+const SourceCode$json = const {
+  '1': 'SourceCode',
+  '2': const [
+    const {'1': 'sourceCode', '3': 1, '4': 1, '5': 9, '10': 'sourceCode'},
+  ],
+};
+
+const InitSourceCodeStream$json = const {
+  '1': 'InitSourceCodeStream',
+};
+
 const FieldUpdate$json = const {
   '1': 'FieldUpdate',
   '2': const [

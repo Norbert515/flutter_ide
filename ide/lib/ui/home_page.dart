@@ -3,6 +3,7 @@ import 'package:flutter_visual_builder/generated/server.pbgrpc.dart';
 import 'package:grpc/grpc.dart';
 import 'package:flutter_visual_builder/editor/editor_widget.dart';
 import 'package:ide/client/client.dart';
+import 'package:ide/ui/text_editor/basic.dart';
 import 'package:ide/ui/widget_editors/common_editors.dart';
 
 // TODO move out of here
@@ -40,10 +41,17 @@ class HomePageState extends State<HomePage> {
 
   @override
   Widget build(BuildContext context) {
-    return Row(
+    return Column(
       children: <Widget>[
-        Expanded(child: VisualEditor()),
-        inited? PropertySettingSection(): SizedBox(),
+        Expanded(
+          child: Row(
+            children: <Widget>[
+              Expanded(child: VisualEditor()),
+              inited? PropertySettingSection(): SizedBox(),
+            ],
+          ),
+        ),
+        Expanded(child: inited? TextEditor() : SizedBox()),
       ],
     );
   }

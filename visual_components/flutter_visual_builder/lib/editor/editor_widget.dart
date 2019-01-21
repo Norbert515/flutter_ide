@@ -3,6 +3,7 @@ import 'package:flutter_visual_builder/editor/components/material_components.dar
 import 'package:flutter_visual_builder/editor/components/visual_components.dart';
 import 'package:flutter_visual_builder/editor/dynamic_widget.dart';
 import 'package:flutter_visual_builder/editor/properties/property.dart';
+import 'package:flutter_visual_builder/generated/server.pb.dart';
 import 'package:flutter_visual_builder/server/server.dart';
 import 'package:grpc/grpc.dart';
 import 'package:provider/provider.dart';
@@ -108,6 +109,7 @@ class AppWidget extends StatelessWidget {
 
   void onChanged() {
     String source = rootKey.currentState.buildSourceCode();
+    editorServer.updateSourceCode.add(SourceCode()..sourceCode = source);
   }
 
   @override

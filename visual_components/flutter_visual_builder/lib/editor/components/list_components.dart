@@ -76,7 +76,7 @@ class VisualColumn extends VisualStatefulWidget {
     this.children = const <Widget>[],
     Map<String, Property> properties,
     List<WidgetProperty> widgetProperties,
-}): super(id: id, key: GlobalObjectKey<VisualState>(id), properties: properties, widgetProperties: widgetProperties );
+}): super(id: id, key: GlobalObjectKey<VisualState>(id), properties: properties?? const {}, widgetProperties: widgetProperties ?? const [] );
 
   final MainAxisAlignment mainAxisAlignment;
   final MainAxisSize mainAxisSize;

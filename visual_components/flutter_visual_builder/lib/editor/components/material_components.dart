@@ -13,7 +13,7 @@ class VisualContainer extends VisualStatefulWidget {
     this.constraints,
     Map<String, Property> properties,
     List<WidgetProperty> widgetProperties
-  }) : super(id: id, key: GlobalKey<VisualState>(), properties: properties, widgetProperties: widgetProperties);
+  }) : super(id: id, key: GlobalKey<VisualState>(), properties: properties ?? const {}, widgetProperties: widgetProperties?? const []);
 
   final Widget child;
   final Color color;

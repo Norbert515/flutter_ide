@@ -11,6 +11,8 @@ class EditorServer extends ServerServiceBase {
 
 
   PublishSubject<SelectedWidgetWithProperties> updateSubject = PublishSubject();
+  
+  PublishSubject<SourceCode> updateSourceCode = PublishSubject();
 
   @override
   Future<HelloReply> initialize(ServiceCall call, InitializeFileRequest request) {
@@ -41,6 +43,11 @@ class EditorServer extends ServerServiceBase {
   @override
   Stream<SelectedWidgetWithProperties> streamSelected(ServiceCall call, SelectStream request) {
     return updateSubject.stream;
+  }
+
+  @override
+  Stream<SourceCode> streamSourceCode(ServiceCall call, InitSourceCodeStream request) {
+    return updateSourceCode;
   }
 
 
