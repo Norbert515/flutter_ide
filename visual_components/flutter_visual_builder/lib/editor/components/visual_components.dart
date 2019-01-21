@@ -8,6 +8,7 @@ import 'package:flutter_visual_builder/editor/properties/property.dart';
 import 'package:flutter_visual_builder/generated/server.pb.dart';
 import 'package:flutter_visual_builder/server/server.dart';
 import 'package:provider/provider.dart';
+import 'package:flutter/scheduler.dart';
 
 // TODO MetaData widget might also be interesting
 
@@ -486,6 +487,9 @@ class LayoutDragTargetState extends State<LayoutDragTarget> {
     }
     child = null;
     active = false;
+    SchedulerBinding.instance.addPostFrameCallback((_) {
+      SomethingChanged.notify(context);
+    });
     if(mounted) setState((){});
   }
 
@@ -531,7 +535,9 @@ class LayoutDragTargetState extends State<LayoutDragTarget> {
         if(widget.onAccept != null) {
           widget.onAccept();
         }
-        SomethingChanged.notify(context);
+        SchedulerBinding.instance.addPostFrameCallback((_) {
+          SomethingChanged.notify(context);
+        });
 
         setState(() {
           child = wrapInVisualDraggable(dynamicWidget);

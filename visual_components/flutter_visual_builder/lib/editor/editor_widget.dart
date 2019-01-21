@@ -7,6 +7,7 @@ import 'package:flutter_visual_builder/generated/server.pb.dart';
 import 'package:flutter_visual_builder/server/server.dart';
 import 'package:grpc/grpc.dart';
 import 'package:provider/provider.dart';
+import 'package:flutter/scheduler.dart';
 
 class VisualEditor extends StatefulWidget {
 
