@@ -47,12 +47,9 @@ class ContainerEditor extends StatelessWidget with EditorMixin{
           Text("Id: $id"),
           Divider(),
           ChangeableSize(
-            onWidthChange: (it) {
-              sendUpdate("width", prop.DoubleProperty(data: it));
-            },
-            onHeightChange: (it) {
-              sendUpdate("height", prop.DoubleProperty(data: it));
-            },
+            id: id,
+            widthKey: "width",
+            heightKey: "height",
           ),
         ],
       ),

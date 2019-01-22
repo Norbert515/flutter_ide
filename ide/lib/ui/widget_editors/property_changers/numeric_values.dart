@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_desktop_widgets/desktop/hover/cursor_widget.dart';
 import 'package:flutter_desktop_widgets/desktop/hover/hoverable_element.dart';
+import 'package:flutter_visual_builder/editor/properties/property.dart';
+import 'package:ide/ui/widget_editors/common_editors.dart';
 
 class NumericChangeableTextField extends StatefulWidget {
   NumericChangeableTextField({Key key, this.name, this.onUpdate}) : super(key: key);
@@ -93,13 +95,16 @@ class NumericChangeableTextFieldState extends State<NumericChangeableTextField> 
   }
 }
 
-class ChangeableSize extends StatelessWidget {
+class ChangeableSize extends StatelessWidget with EditorMixin {
 
-  const ChangeableSize({Key key, this.onWidthChange, this.onHeightChange}) : super(key: key);
+  ChangeableSize({Key key, this.id, this.widthKey, this.heightKey}) : super(key: key);
 
-  final ValueChanged<double> onWidthChange;
-  final ValueChanged<double> onHeightChange;
 
+  // TODO, optimally id won't have to be passed every time but it could use
+  // a provider, need to figure out a nice way to incorporate that without hassle
+  final String id;
+  final String widthKey;
+  final String heightKey;
 
   @override
   Widget build(BuildContext context) {
@@ -109,13 +114,13 @@ class ChangeableSize extends StatelessWidget {
         Expanded(
           child: NumericChangeableTextField(
             name: "Width",
-            onUpdate: onWidthChange,
+            onUpdate: (it) => sendUpdate(widthKey, DoubleProperty(data: it)),
           ),
         ),
        Expanded(
          child: NumericChangeableTextField(
            name: "Height",
-           onUpdate: onHeightChange,
+           onUpdate: (it) => sendUpdate(heightKey, DoubleProperty(data: it)),
          ),
        ),
       ],
