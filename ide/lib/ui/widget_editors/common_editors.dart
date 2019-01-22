@@ -14,6 +14,7 @@ mixin EditorMixin {
 
   String get id;
 
+
   void sendUpdate(String propertyName, prop.Property property) {
     serverClient.fieldUpdates.add(
       FieldUpdate()
