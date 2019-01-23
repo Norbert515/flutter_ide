@@ -73,6 +73,8 @@ explicitly wrapping it in a Expanded)
 
 - Theme manager
 
+- Loading background image with transparency to match design
+
 
 
 ## Module overview
