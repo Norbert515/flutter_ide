@@ -39,8 +39,6 @@ class _VisualContainerState extends VisualState<VisualContainer> {
     return Container(
       child: LayoutDragTarget(
         key: childKey,
-        replacementActive: Container(height: 10, width: 10, color: Colors.orange,),
-        replacementInactive: Container(height: double.infinity, width: double.infinity, color: Colors.transparent,),
         child: widget.child
       ),
       color: getValue<Color>('color'),
@@ -171,8 +169,6 @@ class _VisualFloatingActionButtonState extends VisualState<VisualFloatingActionB
       child: LayoutDragTarget(
         key: childKey,
         child: widget.child,
-        replacementActive: Container(width: 20, height: 20, color: Colors.yellow,),
-        replacementInactive: Container(width: 20, height: 20, color: Colors.red,),
       ),
       backgroundColor: widget.backgroundColor,
       elevation: widget.elevation,
@@ -288,14 +284,10 @@ class _VisualScaffoldState extends VisualState<VisualScaffold> {
       body: LayoutDragTarget(
         key: bodyKey,
         child: widget.body,
-        replacementActive: Container(constraints: BoxConstraints.expand(), color: Colors.yellow,),
-        replacementInactive: Container(constraints: BoxConstraints.expand(), color: Colors.red,),
       ),
       floatingActionButton: LayoutDragTarget(
         key: fabKey,
         child: widget.floatingActionButton,
-        replacementActive: Container(height: 50, width: 50, color: Colors.blue),
-        replacementInactive: Container(height: 50, width: 50, color: Colors.pink),
       ),
       appBar: AppBarHeightWidgetWidget(child: LayoutDragTarget(
         key: appBarKey,
@@ -305,8 +297,6 @@ class _VisualScaffoldState extends VisualState<VisualScaffold> {
           height: 52,
           child: widget.appBar,
         ),
-        replacementActive: Container(color: Colors.yellow, width: double.infinity,),
-        replacementInactive: Container(color: Colors.purple, width: double.infinity,),
       )),
     );
   }

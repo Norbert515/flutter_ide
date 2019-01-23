@@ -36,17 +36,13 @@ mixin _ListComponentMixin<T extends VisualStatefulWidget> on VisualState<T> {
           });
         },
         key: key,
-        replacementActive: Container(
-          margin: EdgeInsets.all(8),
-          height: 20,
-          width: 100,
-          color: Colors.indigo,
+        replacementActive: Placeholder(
+          color: Colors.green,
+          fallbackHeight: 20,
         ),
-        replacementInactive: Container(
-          margin: EdgeInsets.all(8),
-          height: 5,
-          width: 100,
-          color: Colors.orange,
+        replacementInactive: Placeholder(
+          color: Colors.blue,
+          fallbackHeight: 20,
         ),
         child: null
     );

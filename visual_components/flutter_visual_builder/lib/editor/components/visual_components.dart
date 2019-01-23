@@ -9,6 +9,7 @@ import 'package:flutter_visual_builder/generated/server.pb.dart';
 import 'package:flutter_visual_builder/server/server.dart';
 import 'package:provider/provider.dart';
 import 'package:flutter/scheduler.dart';
+import 'package:flutter/widgets.dart';
 
 // TODO MetaData widget might also be interesting
 
@@ -343,8 +344,12 @@ class LayoutDragTarget extends StatefulWidget {
 
   const LayoutDragTarget({
     Key key,
-    @required this.replacementActive,
-    @required this.replacementInactive,
+    this.replacementActive = const Placeholder(
+      color: Colors.green,
+    ),
+    this.replacementInactive = const Placeholder(
+      color: Colors.blue,
+    ),
     @required this.child,
     this.onAccept,
     this.onLeave,
