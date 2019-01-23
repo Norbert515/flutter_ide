@@ -51,7 +51,10 @@ class ContainerEditor extends StatelessWidget with EditorMixin{
           AlignmentChanger(
             value: Alignment.center,
             size: Size(100,100),
-            onUpdate: (it) {},
+            onUpdate: (it) {
+             sendUpdate("alignment", prop.AlignmentProperty(alignment: it));
+            },
+            propertyName: "Alignment",
           ),
         ],
       ),

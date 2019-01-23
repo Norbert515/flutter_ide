@@ -1,15 +1,47 @@
-
-
-
 import 'package:flutter/material.dart';
+import 'package:ide/themeing/ide_theme.dart';
+import 'package:ide/ui/widgets/general/text_fields.dart';
 import 'value_changer.dart';
+
+
+
+class AlignmentChanger extends StatelessWidget {
+
+  const AlignmentChanger({Key key, this.propertyName, this.onUpdate, this.value, this.size}) : super(key: key);
+
+  final String propertyName;
+
+  final ValueChanged<Alignment> onUpdate;
+  final Alignment value;
+  final Size size;
+
+  @override
+  Widget build(BuildContext context) {
+    return Row(
+      children: <Widget>[
+        Text(propertyName, style: IDETheme.of(context).propertyChangerTheme.propertyContainer,),
+        AlignmentBox(
+          size: size,
+          onUpdate: onUpdate,
+          value: value,
+        ),
+        NumericChangeableTextField(
+          name: "X",
+        ),
+        NumericChangeableTextField(
+          name: "X",
+        ),
+      ],
+    );
+  }
+}
+
 
 // TODO mixin best option?
 /// Currently it is capped to alignment between -1 and 1
-class AlignmentChanger extends StatefulWidget with ValueChanger<Alignment>{
-
-
-  AlignmentChanger({Key key, this.onUpdate, this.value, this.size}) : super(key: key);
+class AlignmentBox extends StatefulWidget with ValueChanger<Alignment> {
+  AlignmentBox({Key key, this.onUpdate, this.value, this.size})
+      : super(key: key);
 
   final ValueChanged<Alignment> onUpdate;
   final Alignment value;
@@ -17,14 +49,11 @@ class AlignmentChanger extends StatefulWidget with ValueChanger<Alignment>{
 
 
   @override
-  _AlignmentChangerState createState() => _AlignmentChangerState();
+  _AlignmentBoxState createState() => _AlignmentBoxState();
 }
 
-class _AlignmentChangerState extends State<AlignmentChanger> {
-
-
+class _AlignmentBoxState extends State<AlignmentBox> {
   Alignment alignment = Alignment.center;
-
 
   Offset offset;
 
@@ -34,22 +63,41 @@ class _AlignmentChangerState extends State<AlignmentChanger> {
     offset = Offset(widget.size.width / 2, widget.size.height / 2);
   }
 
+  void _updateAlignment() {
+    var x = offset.dx / widget.size.width;
+    var y = offset.dy / widget.size.height;
+
+    // translate 0 - 1 to (-1) - 1
+    var scaledX = x * 2 - 1;
+    var scaledY = y * 2 - 1;
+
+    if (widget.onUpdate != null) {
+      // Cap the offset, even though this is allowed in Flutter, most of the times
+      // it doesn't make sense.
+      //
+      // In the future there might be a way to remove this cap an visualize it neatly.
+      // The problems were: Widget net being able to be dragged when outside of the align
+      Offset cappedOffset = _capOffset(minX: -1, maxX: 1, minY: -1, maxY: 1, offset: Offset(scaledX, scaledY));
+      widget.onUpdate(Alignment(cappedOffset.dx, cappedOffset.dy));
+    }
+  }
+
   void onPanUpdate(DragUpdateDetails details) {
     var delta = details.delta;
 
-    setState(() {
-      offset += delta;
-    });
+    offset += delta;
+    _updateAlignment();
+    setState(() {});
   }
 
   void onPanStart(DragStartDetails details) {
     RenderBox getBox = context.findRenderObject();
     var local = getBox.globalToLocal(details.globalPosition);
-    setState(() {
-      offset = local;
-    });
-  }
 
+    offset = local;
+    _updateAlignment();
+    setState(() {});
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -67,14 +115,9 @@ class _AlignmentChangerState extends State<AlignmentChanger> {
       ),
     );
   }
-
-
 }
 
-
 class AlignmentPainter extends CustomPainter {
-
-
   AlignmentPainter({this.offset});
 
   final Offset offset;
@@ -84,26 +127,39 @@ class AlignmentPainter extends CustomPainter {
     var paint = Paint()..color = Colors.white;
 
     // Draw border
-    canvas.drawLine(Offset(0.0,0.0), Offset(size.width, 0.0), paint);
-    canvas.drawLine(Offset(0.0,0.0), Offset(0.0, size.height), paint);
-    canvas.drawLine(Offset(0.0,size.height), Offset(size.width, size.height), paint);
-    canvas.drawLine(Offset(size.width,0.0), Offset(size.width, size.height), paint);
+    canvas.drawLine(Offset(0.0, 0.0), Offset(size.width, 0.0), paint);
+    canvas.drawLine(Offset(0.0, 0.0), Offset(0.0, size.height), paint);
+    canvas.drawLine(
+        Offset(0.0, size.height), Offset(size.width, size.height), paint);
+    canvas.drawLine(
+        Offset(size.width, 0.0), Offset(size.width, size.height), paint);
 
-
-
-    double x = offset.dx;
-    double y = offset.dy;
-
-    if(x < 0) x = 0;
-    if(y < 0) y = 0;
-    if(x > size.width) x = size.width;
-    if(y > size.height) y = size.height;
-
-    canvas.drawRect(Rect.fromCircle(center: Offset(x,y), radius: 5), paint);
+    canvas.drawRect(
+        Rect.fromCircle(
+            center:
+                _capOffset(maxX: size.width, maxY: size.height, offset: offset),
+            radius: 5),
+        paint);
   }
 
   @override
-  bool shouldRepaint(AlignmentPainter oldDelegate)
-    => oldDelegate.offset != offset;
+  bool shouldRepaint(AlignmentPainter oldDelegate) =>
+      oldDelegate.offset != offset;
+}
 
+Offset _capOffset(
+    {double minX = 0,
+    double minY = 0,
+    @required double maxX,
+    @required double maxY,
+    @required Offset offset}) {
+  double x = offset.dx;
+  double y = offset.dy;
+
+  if (x < minX) x = minX;
+  if (y < minY) y = minY;
+  if (x > maxX) x = maxX;
+  if (y > maxY) y = maxY;
+
+  return Offset(x, y);
 }
