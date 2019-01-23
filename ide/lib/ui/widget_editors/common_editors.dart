@@ -6,7 +6,7 @@ import 'package:flutter_visual_builder/editor/properties/property.dart' as prop;
 import 'package:flutter_visual_builder/generated/server.pb.dart';
 import 'package:ide/themeing/ide_theme.dart';
 import 'package:ide/ui/home_page.dart';
-import 'package:ide/ui/widget_editors/property_changers/numeric_values.dart';
+import 'package:ide/ui/widgets/value_changers/numeric_values.dart';
 import 'package:provider/provider.dart';
 
 
@@ -43,8 +43,8 @@ class ContainerEditor extends StatelessWidget with EditorMixin{
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
-          Text("Container Editor", style: TextStyle(fontSize: 25),),
-          Text("Id: $id"),
+          Text("Container Editor", style: IDETheme.of(context).propertyChangerTheme.widgetName),
+          Text("Id: $id", style: IDETheme.of(context).propertyChangerTheme.widgetId,),
           Divider(),
           ChangeableSize(
             id: id,

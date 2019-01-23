@@ -39,7 +39,7 @@ class WIPTextEditor extends StatelessWidget {
       child: Material(
         color: IDETheme.of(context).lightBackground,
         child: SingleChildScrollView(
-          child: Text(text),
+          child: Text(text, style: IDETheme.of(context).textEditorTheme.text,),
         ),
       ),
     );

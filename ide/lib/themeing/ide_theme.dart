@@ -23,15 +23,34 @@ class IDETheme {
   factory IDETheme.standard() {
 
 
+    final Color darkBackground = Color(0xff1d1d1d);
+    final Color darkerBackground = Color(0xff1f1f1f);
+    final Color lightBackground = Color(0xff313131);
+
     Color fontColor = Colors.white;
+
+
+    final TextEditorTheme textEditorTheme = TextEditorTheme(
+      text: TextStyle(color: fontColor)
+    );
+
+    // TODO use default text theme instead of wrapping each in a color?
+    final PropertyChangerTheme propertyChangerTheme = PropertyChangerTheme(
+      widgetName: TextStyle(fontSize: 25, color: fontColor),
+      widgetId: TextStyle(color: fontColor),
+      propertyContainer: TextStyle(color: fontColor),
+      propertyName: TextStyle(color: fontColor),
+      propertyNumericValue: TextStyle(color: fontColor)
+    );
 
 
     // TODO implement all the themes
     return IDETheme(
-      darkBackground: Color(0xff1d1d1d),
-      darkerBackground: Color(0xff1f1f1f),
-      lightBackground: Color(0xff313131),
-
+      darkBackground: darkBackground,
+      darkerBackground: darkerBackground,
+      lightBackground: lightBackground,
+      textEditorTheme: textEditorTheme,
+      propertyChangerTheme: propertyChangerTheme
     );
   }
 
@@ -64,7 +83,8 @@ class PropertyChangerTheme {
     this.widgetName,
     this.widgetId,
     this.propertyContainer,
-    this.propertyName
+    this.propertyName,
+    this.propertyNumericValue,
   });
 
 
@@ -75,6 +95,7 @@ class PropertyChangerTheme {
   /// Would be "size" for x/y
   final TextStyle propertyContainer;
   final TextStyle propertyName;
+  final TextStyle propertyNumericValue;
 
 
 }
