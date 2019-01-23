@@ -31,10 +31,6 @@ class ContainerEditor extends StatelessWidget with EditorMixin{
 
   final String id;
 
-  final TextEditingController widthController = TextEditingController();
-  final TextEditingController heightController = TextEditingController();
-
-
   @override
   Widget build(BuildContext context) {
     return Container(
