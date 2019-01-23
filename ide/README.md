@@ -10,6 +10,9 @@ Each property has a corresponding value changer.
 For example, a double might have a TextInputField, an alignment might have a 2D box with a pixel in it and a color
 might have a color chooser.
 
+In each value changer class there are two widgets, one which only manages the actual value change and
+the other which also manager metadata.
+
 Each value changer has a uniform signature to make it decoupled and easy to reuse.
 
 - It takes in a value of its corresponding type

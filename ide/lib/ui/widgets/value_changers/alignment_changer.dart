@@ -23,11 +23,26 @@ class _AlignmentChangerState extends State<AlignmentChanger> {
 
   Alignment alignment = Alignment.center;
 
+  BoxConstraints _currentConstraints;
 
+
+  void onPanUpdate(DragUpdateDetails details) {
+
+  }
 
   @override
   Widget build(BuildContext context) {
-    return Container();
+    return LayoutBuilder(
+      builder: (context, constraints) {
+        _currentConstraints = constraints;
+        return GestureDetector(
+          onPanUpdate: onPanUpdate,
+          child: CustomPaint(
+            painter: AlignmentPainter(),
+          ),
+        );
+      },
+    );
   }
 }
 
