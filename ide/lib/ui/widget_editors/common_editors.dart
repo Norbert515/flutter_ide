@@ -6,6 +6,7 @@ import 'package:flutter_visual_builder/editor/properties/property.dart' as prop;
 import 'package:flutter_visual_builder/generated/server.pb.dart';
 import 'package:ide/themeing/ide_theme.dart';
 import 'package:ide/ui/home_page.dart';
+import 'package:ide/ui/widgets/value_changers/alignment_changer.dart';
 import 'package:ide/ui/widgets/value_changers/numeric_values.dart';
 import 'package:provider/provider.dart';
 
@@ -46,6 +47,11 @@ class ContainerEditor extends StatelessWidget with EditorMixin{
             id: id,
             widthKey: "width",
             heightKey: "height",
+          ),
+          AlignmentChanger(
+            value: Alignment.center,
+            size: Size(100,100),
+            onUpdate: (it) {},
           ),
         ],
       ),
