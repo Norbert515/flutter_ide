@@ -3,6 +3,7 @@ import 'package:flutter_visual_builder/editor/properties/property.dart';
 import 'package:flutter_visual_builder/generated/server.pb.dart';
 import 'package:ide/client/client.dart';
 import 'package:ide/ui/widget_editors/property_changers/property_editor.dart';
+import 'package:ide/ui/widgets/value_changers/color_changer.dart';
 import 'package:ide/ui/widgets/value_changers/double_changer.dart';
 import 'package:rxdart/rxdart.dart';
 import 'package:flutter_visual_builder/editor/properties/converter.dart';
@@ -62,7 +63,11 @@ class PropertyBloc {
       case PropertyType.boxConstraints:
         return SizedBox();
       case PropertyType.color:
-        return SizedBox();
+        return ColorChanger(
+          id: id,
+          value: property.data,
+          propertyKey: key,
+        );
       case PropertyType.edgeInserts:
         return SizedBox();
       case PropertyType.unknown:

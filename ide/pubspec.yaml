@@ -19,6 +19,7 @@ dependencies:
   flutter_visual_builder:
     path: ..\visual_components\flutter_visual_builder
 
+  flutter_colorpicker: ^0.2.1
 
   provider: ^1.1.1
 
