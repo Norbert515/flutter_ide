@@ -28,7 +28,6 @@ class EditorServer extends ServerServiceBase {
   @override
   Future<HelloReply> streamUpdate(ServiceCall call, Stream<FieldUpdate> request) async {
 
-    print("Inited");
     // TODO move this logic out of here
     await for (var it in request) {
       print("Resceived ${it.toString()}");

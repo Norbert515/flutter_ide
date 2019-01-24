@@ -1,5 +1,4 @@
 import 'dart:convert';
-
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_visual_builder/editor/properties/property.dart' as prop;
@@ -7,7 +6,6 @@ import 'package:flutter_visual_builder/generated/server.pb.dart';
 import 'package:ide/themeing/ide_theme.dart';
 import 'package:ide/ui/home_page.dart';
 import 'package:ide/ui/widgets/value_changers/alignment_changer.dart';
-import 'package:ide/ui/widgets/value_changers/numeric_values.dart';
 import 'package:provider/provider.dart';
 
 
@@ -25,7 +23,7 @@ mixin EditorMixin {
     );
   }
 }
-
+/*
 class ContainerEditor extends StatelessWidget with EditorMixin{
 
   ContainerEditor({Key key, this.id}) : super(key: key);
@@ -43,11 +41,11 @@ class ContainerEditor extends StatelessWidget with EditorMixin{
           Text("Container Editor", style: IDETheme.of(context).propertyChangerTheme.widgetName),
           Text("Id: $id", style: IDETheme.of(context).propertyChangerTheme.widgetId,),
           Divider(),
-          ChangeableSize(
+          /*ChangeableSize(
             id: id,
             widthKey: "width",
             heightKey: "height",
-          ),
+          ),*/
           AlignmentChanger(
             value: Alignment.center,
             size: Size(100,100),
@@ -60,4 +58,5 @@ class ContainerEditor extends StatelessWidget with EditorMixin{
       ),
     );
   }
-}
+
+}*/

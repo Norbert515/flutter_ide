@@ -1,13 +1,33 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_visual_builder/editor/properties/property.dart';
 import 'package:ide/themeing/ide_theme.dart';
 import 'package:ide/ui/widgets/general/text_fields.dart';
 import 'value_changer.dart';
+import 'package:ide/ui/widget_editors/common_editors.dart';
+
+class AlignmentChanger extends StatelessWidget with EditorMixin {
+
+  AlignmentChanger({Key key, this.propertyName, this.id, this.value}) : super(key: key);
+
+  final String propertyName;
+  final String id;
+  final Alignment value;
 
 
+  @override
+  Widget build(BuildContext context) {
+    return _AlignmentChanger(
+      onUpdate: (it) =>  sendUpdate(propertyName, AlignmentProperty(alignment: it)),
+      value: value,
+      size: Size(100, 100),
 
-class AlignmentChanger extends StatelessWidget {
+    );
+  }
+}
 
-  const AlignmentChanger({Key key, this.propertyName, this.onUpdate, this.value, this.size}) : super(key: key);
+class _AlignmentChanger extends StatelessWidget with ValueChanger<Alignment>{
+
+  _AlignmentChanger({Key key, this.propertyName, this.onUpdate, this.value, this.size}) : super(key: key);
 
   final String propertyName;
 
@@ -19,7 +39,7 @@ class AlignmentChanger extends StatelessWidget {
   Widget build(BuildContext context) {
     return Row(
       children: <Widget>[
-        Text(propertyName, style: IDETheme.of(context).propertyChangerTheme.propertyContainer,),
+        //Text(propertyName, style: IDETheme.of(context).propertyChangerTheme.propertyContainer,),
         AlignmentBox(
           size: size,
           onUpdate: onUpdate,
@@ -29,7 +49,7 @@ class AlignmentChanger extends StatelessWidget {
           name: "X",
         ),
         NumericChangeableTextField(
-          name: "X",
+          name: "Y",
         ),
       ],
     );
@@ -39,7 +59,7 @@ class AlignmentChanger extends StatelessWidget {
 
 // TODO mixin best option?
 /// Currently it is capped to alignment between -1 and 1
-class AlignmentBox extends StatefulWidget with ValueChanger<Alignment> {
+class AlignmentBox extends StatefulWidget {
   AlignmentBox({Key key, this.onUpdate, this.value, this.size})
       : super(key: key);
 

@@ -85,6 +85,10 @@ abstract class VisualState<T extends VisualStatefulWidget> extends State<T> with
 
   @override
   Widget build(BuildContext context) {
+    // TODO a widget becomes tappable (can modify local state etc) when
+    // a key modifier is pressed (for example strg). When that happens
+    // the ignore pointer will be removed else it is there and the IDE
+    // can intercept the events
     return GestureDetector(
       behavior: HitTestBehavior.opaque,
       onTap: onTap,

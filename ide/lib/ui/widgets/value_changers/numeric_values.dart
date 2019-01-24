@@ -6,8 +6,7 @@ import 'package:ide/themeing/ide_theme.dart';
 import 'package:ide/ui/widget_editors/common_editors.dart';
 import 'package:ide/ui/widgets/general/text_fields.dart';
 
-
-class ChangeableSize extends StatelessWidget with EditorMixin {
+/*class ChangeableSize extends StatelessWidget with EditorMixin {
   ChangeableSize({Key key, this.id, this.widthKey, this.heightKey})
       : super(key: key);
 
@@ -41,7 +40,27 @@ class ChangeableSize extends StatelessWidget with EditorMixin {
       ],
     );
   }
+}*/
+
+
+class ChangeableDouble extends StatelessWidget with EditorMixin {
+
+  ChangeableDouble({Key key, this.id, this.propertyKey, this.value}) : super(key: key);
+
+  final String id;
+  final String propertyKey;
+  final double value;
+
+  @override
+  Widget build(BuildContext context) {
+    return NumericChangeableTextField(
+      name: propertyKey ,
+      onUpdate: (it) => sendUpdate(propertyKey, DoubleProperty(data: it)),
+      value: value,
+    );
+  }
 }
+
 
 class ChangeableConstraints extends StatelessWidget {
   const ChangeableConstraints(

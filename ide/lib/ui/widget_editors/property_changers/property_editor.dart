@@ -1,7 +1,5 @@
-
 import 'package:flutter/material.dart';
 import 'package:ide/themeing/ide_theme.dart';
-import 'package:ide/ui/widgets/value_changers/value_changer.dart';
 import 'package:provider/provider.dart';
 
 
@@ -16,7 +14,7 @@ class PropertyEditor extends StatelessWidget {
 
   final String widgetName;
   final String id;
-  final List<ValueChanger> properties;
+  final List<MapEntry<String, Widget>> properties;
 
   @override
   Widget build(BuildContext context) {
@@ -29,8 +27,19 @@ class PropertyEditor extends StatelessWidget {
           Text("Container Editor", style: IDETheme.of(context).propertyChangerTheme.widgetName),
           Text("Id: $id", style: IDETheme.of(context).propertyChangerTheme.widgetId,),
           Divider(),
-        ],
+        ]..addAll(properties.map((entry) {
+          return Row(
+            crossAxisAlignment: CrossAxisAlignment.end,
+            children: <Widget>[
+              Text(entry.key, style: IDETheme.of(context).propertyChangerTheme.propertyContainer,),
+              SizedBox(width: 8,),
+              Expanded(child: entry.value,),
+            ],
+          );
+        }).toList()),
       ),
     );
   }
+
+
 }

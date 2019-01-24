@@ -4,12 +4,14 @@ import 'package:flutter_desktop_widgets/desktop/hover/hoverable_element.dart';
 import 'package:ide/themeing/ide_theme.dart';
 
 class NumericChangeableTextField extends StatefulWidget {
-  NumericChangeableTextField({Key key, this.name, this.onUpdate})
+  NumericChangeableTextField({Key key, this.name, this.onUpdate, this.value})
       : super(key: key);
 
   final String name;
 
   final ValueChanged<double> onUpdate;
+  
+  final double value;
 
   @override
   NumericChangeableTextFieldState createState() {
@@ -24,6 +26,13 @@ class NumericChangeableTextFieldState
 
   bool dragging = false;
   bool hovering = false;
+  
+  
+  @override
+  void initState() {
+    super.initState();
+    textEditingController.text = widget.value.toString();
+  }
 
   double stringToNumber(String value) {
     return double.tryParse(value);

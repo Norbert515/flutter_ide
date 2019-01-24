@@ -3,6 +3,7 @@ import 'package:flutter_visual_builder/generated/server.pbgrpc.dart';
 import 'package:grpc/grpc.dart';
 import 'package:flutter_visual_builder/editor/editor_widget.dart';
 import 'package:ide/client/client.dart';
+import 'package:ide/logic/property_bloc.dart';
 import 'package:ide/themeing/ide_theme.dart';
 import 'package:ide/ui/text_editor/basic.dart';
 import 'package:ide/ui/widget_editors/common_editors.dart';
@@ -25,6 +26,8 @@ class HomePageState extends State<HomePage> {
 
   bool inited = false;
 
+  PropertyBloc propertyBloc;
+
   @override
   void initState(){
     super.initState();
@@ -36,6 +39,7 @@ class HomePageState extends State<HomePage> {
     await Future.delayed(Duration(seconds: 2));
     serverClient = VisualClient(ServerClient(ClientChannel("localhost", port: 50051, options: ChannelOptions(credentials: ChannelCredentials.insecure()))));
     serverClient.init();
+    propertyBloc = PropertyBloc(serverClient);
     setState(() {
       inited = true;
   });
@@ -50,7 +54,7 @@ class HomePageState extends State<HomePage> {
           child: Row(
             children: <Widget>[
               Expanded(child: VisualEditor()),
-              inited? PropertySettingSection(): SizedBox(),
+              inited? PropertySettingSection(propertyBloc: propertyBloc,): SizedBox(),
             ],
           ),
         ),
@@ -62,21 +66,24 @@ class HomePageState extends State<HomePage> {
 }
 
 class PropertySettingSection extends StatelessWidget {
+
+
+  const PropertySettingSection({Key key, this.propertyBloc}) : super(key: key);
+
+  final PropertyBloc propertyBloc;
+
   @override
   Widget build(BuildContext context) {
     return new Container(
       width: 400,
       height: double.infinity,
-      child: StreamBuilder<SelectedWidgetWithProperties>(
-        stream: serverClient.serverClient.streamSelected(SelectStream()),
+      child: StreamBuilder<Widget>(
+        stream: propertyBloc.editor,
         builder: (context, snapshot) {
           if(!snapshot.hasData) return Center(child: CircularProgressIndicator(),);
 
           return Material(
-            child: ContainerEditor(
-             key: ValueKey(snapshot.requireData.id),
-             id: snapshot.requireData.id,
-            ),
+            child: snapshot.requireData,
           );
         },
       ),

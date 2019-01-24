@@ -86,8 +86,12 @@ message SelectStream {
 
 
 message SelectedWidgetWithProperties {
+    // The id of the widget
     string id = 1;
+
+    // A string reprensetation of the widget type
     string type = 2;
+
     /// Json encoded
     map<string, string> properties = 3;
 }
