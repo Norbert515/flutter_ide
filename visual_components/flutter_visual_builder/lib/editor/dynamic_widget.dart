@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_visual_builder/editor/components/list_components.dart';
 import 'package:flutter_visual_builder/editor/components/material_components.dart';
 import 'package:flutter_visual_builder/editor/components/visual_components.dart';
+import 'package:flutter_visual_builder/editor/widget_palette/palette_items.dart';
 import 'package:uuid/uuid.dart';
 
 var uuid = new Uuid();
@@ -27,7 +28,10 @@ BuildingBlock get test2  => BuildingBlock(
     backgroundColor: Colors.red,
     onPressed: (){},
   ),
-  representation: BlockWidget("FAB")
+  representation: PaletteItem(
+    icon: Icon(Icons.radio_button_unchecked),
+    name: "Floating Action Button",
+  )
 );
 
 
@@ -38,7 +42,10 @@ BuildingBlock get test3 => BuildingBlock(
       child: Icon(Icons.add),
       sourceCode: 'Icon(Icons.add)',
     ),
-    representation: BlockWidget('Icon'),
+    representation: PaletteItem(
+      icon: Icon(Icons.add),
+      name: "Icon",
+    ),
 );
 
 BuildingBlock get test4 => BuildingBlock(
@@ -48,7 +55,10 @@ BuildingBlock get test4 => BuildingBlock(
       height: 100,
       width: 100,
     ),
-    representation: BlockWidget("Container")
+    representation: PaletteItem(
+      icon: Icon(Icons.check_box_outline_blank),
+      name: "Container",
+    ),
 );
 
 
@@ -57,7 +67,10 @@ BuildingBlock get test5 => BuildingBlock(
       id: uuid.v1(),
       mainAxisSize: MainAxisSize.min,
     ),
-    representation: BlockWidget("Column")
+    representation: PaletteItem(
+      icon: Icon(Icons.format_list_bulleted),
+      name: "Column",
+    ),
 );
 
 

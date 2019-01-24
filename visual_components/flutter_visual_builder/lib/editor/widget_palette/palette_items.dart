@@ -11,16 +11,18 @@ class PaletteCategory extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      width: double.infinity,
-      height: 50,
-      color: Colors.blue,
-      child: Row(
-        children: <Widget>[
-          Icon(Icons.folder),
-          Text(title),
-          Spacer(),
-        ],
+    return Material(
+      child: Container(
+        width: double.infinity,
+        height: 50,
+        color: Colors.blue,
+        child: Row(
+          children: <Widget>[
+            Icon(Icons.folder),
+            Text(title),
+            Spacer(),
+          ],
+        ),
       ),
     );
   }
@@ -36,6 +38,13 @@ class PaletteItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container();
+    return Material(
+      child: Row(
+        children: <Widget>[
+          icon,
+          Text(name),
+        ],
+      ),
+    );
   }
 }
