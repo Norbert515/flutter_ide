@@ -3,7 +3,7 @@ import 'package:flutter_visual_builder/editor/properties/property.dart';
 import 'package:flutter_visual_builder/generated/server.pb.dart';
 import 'package:ide/client/client.dart';
 import 'package:ide/ui/widget_editors/property_changers/property_editor.dart';
-import 'package:ide/ui/widgets/value_changers/numeric_values.dart';
+import 'package:ide/ui/widgets/value_changers/double_changer.dart';
 import 'package:rxdart/rxdart.dart';
 import 'package:flutter_visual_builder/editor/properties/converter.dart';
 import 'package:ide/ui/widgets/value_changers/alignment_changer.dart';
