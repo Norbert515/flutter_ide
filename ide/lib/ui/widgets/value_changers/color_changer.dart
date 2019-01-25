@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_colorpicker/flutter_colorpicker.dart';
 import 'package:flutter_visual_builder/editor/properties/property.dart';
-import 'package:ide/ui/widget_editors/common_editors.dart';
-
+import 'package:ide/ui/widget_editors/property_changers/property_editor.dart';
 
 
 class ColorChanger extends StatefulWidget {

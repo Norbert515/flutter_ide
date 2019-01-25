@@ -38,8 +38,11 @@ class WIPTextEditor extends StatelessWidget {
       width: double.infinity,
       child: Material(
         color: IDETheme.of(context).lightBackground,
-        child: SingleChildScrollView(
-          child: Text(text, style: IDETheme.of(context).textEditorTheme.text,),
+        child: Padding(
+          padding: const EdgeInsets.all(16),
+          child: SingleChildScrollView(
+            child: Text(text, style: IDETheme.of(context).textEditorTheme.text,),
+          ),
         ),
       ),
     );

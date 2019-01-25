@@ -3,8 +3,9 @@ import 'package:flutter_desktop_widgets/desktop/hover/cursor_widget.dart';
 import 'package:flutter_desktop_widgets/desktop/hover/hoverable_element.dart';
 import 'package:flutter_visual_builder/editor/properties/property.dart';
 import 'package:ide/themeing/ide_theme.dart';
-import 'package:ide/ui/widget_editors/common_editors.dart';
 import 'package:ide/ui/widgets/general/text_fields.dart';
+import 'package:ide/ui/widget_editors/property_changers/property_editor.dart';
+
 
 /*class ChangeableSize extends StatelessWidget with EditorMixin {
   ChangeableSize({Key key, this.id, this.widthKey, this.heightKey})

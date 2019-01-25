@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_visual_builder/editor/components/material_components.dart';
 import 'package:flutter_visual_builder/editor/components/visual_components.dart';
-import 'package:flutter_visual_builder/editor/dynamic_widget.dart';
 import 'package:flutter_visual_builder/editor/properties/property.dart';
 import 'package:flutter_visual_builder/editor/widget_palette/palette.dart';
 import 'package:flutter_visual_builder/generated/server.pb.dart';
@@ -9,10 +8,8 @@ import 'package:flutter_visual_builder/server/server.dart';
 import 'package:grpc/grpc.dart';
 import 'package:ide/themeing/ide_theme.dart';
 import 'package:provider/provider.dart';
-import 'package:flutter/scheduler.dart';
 
 class VisualEditor extends StatefulWidget {
-
 
 
   @override
@@ -24,13 +21,11 @@ class VisualEditor extends StatefulWidget {
 class VisualEditorState extends State<VisualEditor> {
 
 
-
   @override
   void initState() {
     super.initState();
     initServer();
   }
-
 
   Future initServer() async {
     final server = new Server([editorServer]);
@@ -38,7 +33,6 @@ class VisualEditorState extends State<VisualEditor> {
     print('Server listening on port ${server.port}...');
 
   }
-
 
   // TODO, the editor should be able to simulate the same widgets in different
   // settings. Because of that we need to have a way to draw the same widget
@@ -56,24 +50,12 @@ class VisualEditorState extends State<VisualEditor> {
         child: Builder(
           builder: (newContext) {
             return Material(
-              color: IDETheme.of(newContext).lightBackground,
-              child: Row(
-                children: <Widget>[
-                  DragTarget<VisualStatefulWidget>(
-                    builder: (context, it ,it2) {
-                      return WidgetPalette();
-                    },
-                    onWillAccept: (it) => true,
-
-                  ),
-                  Spacer(),
-                  AspectRatio(
-                    aspectRatio: 9/16,
-                    child: AppWidget(),
-                  ),
-                  Spacer(),
-                  // Expanded(child: AppWidget()),
-                ],
+              color: IDETheme.of(newContext).darkerBackground,
+              child: Center(
+                child: AspectRatio(
+                  aspectRatio: 9/16,
+                  child: AppWidget(),
+                ),
               ),
             );
           },

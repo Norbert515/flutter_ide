@@ -21,6 +21,7 @@ class PaletteCategory extends StatelessWidget {
         child: Row(
           children: <Widget>[
             Icon(Icons.folder, color: IDETheme.of(context).widgetSelectorTheme.iconColor,),
+            SizedBox(width: 4,),
             Text(title, style: IDETheme.of(context).widgetSelectorTheme.sectionTextItem),
             Spacer(),
           ],
@@ -50,6 +51,7 @@ class PaletteItem extends StatelessWidget {
               data: IconThemeData(color: IDETheme.of(context).widgetSelectorTheme.iconColor),
               child: icon,
             ),
+            SizedBox(width: 4,),
             Text(name, style: IDETheme.of(context).widgetSelectorTheme.widgetTextItem,),
           ],
         ),

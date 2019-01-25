@@ -3,7 +3,7 @@ import 'package:flutter_visual_builder/editor/properties/property.dart';
 import 'package:ide/themeing/ide_theme.dart';
 import 'package:ide/ui/widgets/general/text_fields.dart';
 import 'value_changer.dart';
-import 'package:ide/ui/widget_editors/common_editors.dart';
+import 'package:ide/ui/widget_editors/property_changers/property_editor.dart';
 
 class AlignmentChanger extends StatelessWidget with EditorMixin {
 
@@ -16,45 +16,15 @@ class AlignmentChanger extends StatelessWidget with EditorMixin {
 
   @override
   Widget build(BuildContext context) {
-    return _AlignmentChanger(
+    return AlignmentBox(
       onUpdate: (it) =>  sendUpdate(propertyName, AlignmentProperty(alignment: it)),
       value: value,
-      size: Size(100, 100),
+      size: Size(50, 50),
 
     );
   }
 }
 
-class _AlignmentChanger extends StatelessWidget with ValueChanger<Alignment>{
-
-  _AlignmentChanger({Key key, this.propertyName, this.onUpdate, this.value, this.size}) : super(key: key);
-
-  final String propertyName;
-
-  final ValueChanged<Alignment> onUpdate;
-  final Alignment value;
-  final Size size;
-
-  @override
-  Widget build(BuildContext context) {
-    return Row(
-      children: <Widget>[
-        //Text(propertyName, style: IDETheme.of(context).propertyChangerTheme.propertyContainer,),
-        AlignmentBox(
-          size: size,
-          onUpdate: onUpdate,
-          value: value,
-        ),
-        NumericChangeableTextField(
-          name: "X",
-        ),
-        NumericChangeableTextField(
-          name: "Y",
-        ),
-      ],
-    );
-  }
-}
 
 
 // TODO mixin best option?
@@ -91,15 +61,16 @@ class _AlignmentBoxState extends State<AlignmentBox> {
     var scaledX = x * 2 - 1;
     var scaledY = y * 2 - 1;
 
+    Offset cappedOffset = _capOffset(minX: -1, maxX: 1, minY: -1, maxY: 1, offset: Offset(scaledX, scaledY));
     if (widget.onUpdate != null) {
       // Cap the offset, even though this is allowed in Flutter, most of the times
       // it doesn't make sense.
       //
       // In the future there might be a way to remove this cap an visualize it neatly.
       // The problems were: Widget net being able to be dragged when outside of the align
-      Offset cappedOffset = _capOffset(minX: -1, maxX: 1, minY: -1, maxY: 1, offset: Offset(scaledX, scaledY));
       widget.onUpdate(Alignment(cappedOffset.dx, cappedOffset.dy));
     }
+    alignment = Alignment(cappedOffset.dy, cappedOffset.dy);
   }
 
   void onPanUpdate(DragUpdateDetails details) {
@@ -121,18 +92,33 @@ class _AlignmentBoxState extends State<AlignmentBox> {
 
   @override
   Widget build(BuildContext context) {
-    return SizedBox(
-      height: widget.size.height,
-      width: widget.size.width,
-      child: GestureDetector(
-        onPanUpdate: onPanUpdate,
-        onPanStart: onPanStart,
-        child: CustomPaint(
-          painter: AlignmentPainter(
-            offset: offset,
+    return Row(
+      children: <Widget>[
+        SizedBox(
+          height: widget.size.height,
+          width: widget.size.width,
+          child: GestureDetector(
+            onPanUpdate: onPanUpdate,
+            onPanStart: onPanStart,
+            child: CustomPaint(
+              painter: AlignmentPainter(
+                offset: offset,
+              ),
+            ),
           ),
         ),
-      ),
+        NumericChangeableTextField(
+          name: "X",
+          value: alignment.x,
+        ),
+        NumericChangeableTextField(
+          name: "Y",
+          value: alignment.y,
+          onUpdate: (it) {
+            
+          },
+        ),
+      ],
     );
   }
 }

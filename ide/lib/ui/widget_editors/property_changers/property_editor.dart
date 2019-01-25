@@ -1,8 +1,26 @@
 import 'package:flutter/material.dart';
 import 'package:ide/themeing/ide_theme.dart';
 import 'package:provider/provider.dart';
+import 'dart:convert';
+import 'package:flutter/foundation.dart';
+import 'package:flutter_visual_builder/editor/properties/property.dart' as prop;
+import 'package:flutter_visual_builder/generated/server.pb.dart';
+import 'package:ide/ui/home_page.dart';
+
+mixin EditorMixin {
+
+  String get id;
 
 
+  void sendUpdate(String propertyName, prop.Property property) {
+    serverClient.fieldUpdates.add(
+        FieldUpdate()
+          ..id = id
+          ..propertyName = propertyName
+          ..property = json.encode(property.toMap())
+    );
+  }
+}
 
 
 // TODO making an editor for a widget should be as easy
@@ -27,24 +45,54 @@ class PropertyEditor extends StatelessWidget {
           Text(widgetName, style: IDETheme.of(context).propertyChangerTheme.widgetName),
           Text("Id: $id", style: IDETheme.of(context).propertyChangerTheme.widgetId,),
           Divider(),
-        ]..addAll(properties.map((entry) {
-          return Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: Row(
-              //crossAxisAlignment: CrossAxisAlignment.baseline,
-              //textBaseline: TextBaseline.alphabetic,
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: <Widget>[
-                Text(entry.key, style: IDETheme.of(context).propertyChangerTheme.propertyContainer,),
-                SizedBox(width: 8,),
-                Expanded(child: entry.value,),
-              ],
+          /*Expanded(
+            child: Column(
+              children: _oneLiners(context),
             ),
-          );
-        }).toList()),
+          ),*/
+          Row(
+            children: <Widget>[
+              Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: _getIdentifiers(context),
+              ),
+              SizedBox(width: 4,),
+              Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: _getValueChangers(context),
+              ),
+            ],
+          ),
+        ],
       ),
     );
   }
 
+  List<Widget> _oneLiners(BuildContext context) {
+    return properties.map((entry) {
+      return Row(
+        children: <Widget>[
+          Text(entry.key, style: IDETheme.of(context).propertyChangerTheme.propertyContainer),
+          Spacer(),
+          entry.value,
+          Spacer(),
+        ],
+      );
+    }).toList();
+  }
+
+  List<Widget> _getIdentifiers(BuildContext context) {
+    return properties.map((entry) {
+      return SizedBox(height:70,child: Center(child: Text(entry.key, style: IDETheme.of(context).propertyChangerTheme.propertyContainer)));
+    }).toList();
+
+  }
+
+  List<Widget> _getValueChangers(BuildContext context) {
+    return properties.map((entry) {
+      return SizedBox(height:70,child: entry.value);
+    }).toList();
+  }
 
 }

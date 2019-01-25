@@ -122,10 +122,11 @@ abstract class VisualState<T extends VisualStatefulWidget> extends State<T> with
   ///
   /// It does it by first looking at all the parameters which are not widgets (which need no recursive steps)
   /// and then at the Dynamic widgets.
+  /// TODO make this code cleaner PLEASE
   String buildSourceCode() {
     return
       '${widget.originalClassName}(\n'
-          '${remoteValues.map((key, value) => MapEntry(key, '$key:${value.sourceCode}')).values.join(",\n")}\n'
+          '${remoteValues.map(_generateProperty).values.join(",\n")}\n'
           '${modifiedWidgetProperties.map((it) {
         WidgetProperty that = it;
         if(it.dynamicWidget == null) {
@@ -136,6 +137,14 @@ abstract class VisualState<T extends VisualStatefulWidget> extends State<T> with
 
       }).join(",\n")}'
           ')';
+  }
+
+  MapEntry<String, String> _generateProperty(String key, Property property) {
+    if(property.data == null)
+      return MapEntry(key, "");
+    return MapEntry(key, '$key:${property.sourceCode}');
+
+
   }
 
 }
@@ -204,7 +213,17 @@ class VisualRootState extends State<VisualRoot> {
   /// It does it by first looking at all the parameters which are not widgets (which need no recursive steps)
   /// and then at the Dynamic widgets.
   String buildSourceCode() {
-    return keyResolver.map[widget.child.id].currentState.buildSourceCode();
+    try {
+      return keyResolver.map[widget.child.id].currentState.buildSourceCode();
+    } catch(e) {
+
+      if(e is Error) {
+        print("Error $e \n ${e.stackTrace}");
+      } else {
+        print("Error $e");
+      }
+      return "Something went wrong";
+    }
   }
 
   @override

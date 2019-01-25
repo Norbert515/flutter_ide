@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_visual_builder/editor/components/list_components.dart';
+import 'package:flutter_visual_builder/editor/components/layout/container_component.dart';
+import 'package:flutter_visual_builder/editor/components/layout/list_components.dart';
 import 'package:flutter_visual_builder/editor/components/material_components.dart';
 import 'package:flutter_visual_builder/editor/components/visual_components.dart';
 import 'package:flutter_visual_builder/editor/widget_palette/palette_items.dart';

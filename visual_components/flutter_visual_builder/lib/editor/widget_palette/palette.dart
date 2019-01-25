@@ -8,30 +8,35 @@ import 'package:ide/themeing/ide_theme.dart';
 class WidgetPalette extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return Material(
-      child: Container(
-          width: 200,
-          height: double.infinity,
-          alignment: Alignment.center,
-          color: IDETheme.of(context).darkBackground,
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.start,
-            children: <Widget>[
-              PaletteCategory(
-                title: "Layout",
-              ),
-              RootDraggable(buildingBlock: test2),
-              RootDraggable(buildingBlock: test3),
-              RootDraggable(buildingBlock: test4),
-              RootDraggable(buildingBlock: test5),
-              PaletteCategory(
-                title: "Input",
-              ),
-              PaletteCategory(
-                title: "Stuff",
-              ),
-            ],
-          )),
+    return DragTarget(
+      onWillAccept: (_) => true,
+      builder: (context, one, two) {
+        return Material(
+          child: Container(
+              width: 200,
+              height: double.infinity,
+              alignment: Alignment.center,
+              color: IDETheme.of(context).lightBackground,
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.start,
+                children: <Widget>[
+                  PaletteCategory(
+                    title: "Layout",
+                  ),
+                  RootDraggable(buildingBlock: test2),
+                  RootDraggable(buildingBlock: test3),
+                  RootDraggable(buildingBlock: test4),
+                  RootDraggable(buildingBlock: test5),
+                  PaletteCategory(
+                    title: "Input",
+                  ),
+                  PaletteCategory(
+                    title: "Stuff",
+                  ),
+                ],
+              )),
+        );
+      },
     );
   }
 }
