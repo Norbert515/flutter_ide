@@ -115,7 +115,7 @@ class _AlignmentBoxState extends State<AlignmentBox> {
           name: "Y",
           value: alignment.y,
           onUpdate: (it) {
-            
+
           },
         ),
       ],

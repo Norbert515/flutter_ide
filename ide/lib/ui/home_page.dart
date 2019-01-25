@@ -83,6 +83,14 @@ class PropertySettingSection extends StatelessWidget {
       child: StreamBuilder<Widget>(
         stream: propertyBloc.editor,
         builder: (context, snapshot) {
+          if(snapshot.hasError) {
+            if(snapshot.error is Error) {
+              Error error = snapshot.error;
+              print("Error $error \n ${error.stackTrace}");
+            }
+            print("Error ${snapshot.error}");
+
+          }
           if(!snapshot.hasData) return Center(child: CircularProgressIndicator(),);
 
           return Material(

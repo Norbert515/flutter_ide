@@ -8,7 +8,7 @@ import 'package:ide/themeing/ide_theme.dart';
 class WidgetPalette extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return DragTarget(
+    return DragTarget<VisualStatefulWidget>(
       onWillAccept: (_) => true,
       builder: (context, one, two) {
         return Material(

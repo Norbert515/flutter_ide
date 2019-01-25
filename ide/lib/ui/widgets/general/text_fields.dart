@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_desktop_widgets/desktop/hover/cursor_widget.dart';
 import 'package:flutter_desktop_widgets/desktop/hover/hoverable_element.dart';
 import 'package:ide/themeing/ide_theme.dart';
-
+/// Widget outside has to keep track of its state, similar to the radio button
 class NumericChangeableTextField extends StatefulWidget {
   NumericChangeableTextField({Key key, this.name, this.onUpdate, this.value})
       : super(key: key);
@@ -34,6 +34,11 @@ class NumericChangeableTextFieldState
     textEditingController.text = widget.value.toString();
   }
 
+  @override
+  void didUpdateWidget(NumericChangeableTextField oldWidget) {
+    super.didUpdateWidget(oldWidget);
+    textEditingController.text = widget.value.toString();
+  }
   double stringToNumber(String value) {
     return double.tryParse(value);
   }
@@ -52,7 +57,7 @@ class NumericChangeableTextFieldState
 
     newNumber += update.primaryDelta * -1;
     widget.onUpdate(newNumber);
-    textEditingController.text = newNumber.toString();
+    //textEditingController.text = newNumber.toString();
   }
 
   void setCursor() {

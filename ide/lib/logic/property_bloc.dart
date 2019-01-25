@@ -4,7 +4,9 @@ import 'package:flutter_visual_builder/generated/server.pb.dart';
 import 'package:ide/client/client.dart';
 import 'package:ide/ui/widget_editors/property_changers/property_editor.dart';
 import 'package:ide/ui/widgets/value_changers/color_changer.dart';
+import 'package:ide/ui/widgets/value_changers/constraints_changer.dart';
 import 'package:ide/ui/widgets/value_changers/double_changer.dart';
+import 'package:ide/ui/widgets/value_changers/edge_insets_changer.dart';
 import 'package:rxdart/rxdart.dart';
 import 'package:flutter_visual_builder/editor/properties/converter.dart';
 import 'package:ide/ui/widgets/value_changers/alignment_changer.dart';
@@ -61,7 +63,11 @@ class PropertyBloc {
           value: property.data,
         );
       case PropertyType.boxConstraints:
-        return SizedBox();
+        return ChangeableConstraints(
+          id: id,
+          value: property.data,
+          propertyKey: key,
+        );
       case PropertyType.color:
         return ColorChanger(
           id: id,
@@ -69,7 +75,11 @@ class PropertyBloc {
           propertyKey: key,
         );
       case PropertyType.edgeInserts:
-        return SizedBox();
+        return ChangeableEdgeInsets(
+          id: id,
+          value: property.data,
+          propertyKey: key,
+        );
       case PropertyType.unknown:
         return Text("Unknown");
     }
