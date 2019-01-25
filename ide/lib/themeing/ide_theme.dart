@@ -18,6 +18,7 @@ class IDETheme {
     this.lightBackground,
     this.textEditorTheme,
     this.propertyChangerTheme,
+    this.widgetSelectorTheme,
 });
 
   factory IDETheme.standard() {
@@ -43,6 +44,13 @@ class IDETheme {
       propertyNumericValue: TextStyle(color: fontColor)
     );
 
+    final WidgetSelectorTheme widgetSelectorTheme = WidgetSelectorTheme(
+      iconColor: fontColor,
+      sectionTextItem: TextStyle(color: fontColor),
+      widgetTextItem: TextStyle(color: fontColor),
+      sectionBackgroundColor: Colors.blue,
+    );
+
 
     // TODO implement all the themes
     return IDETheme(
@@ -50,7 +58,8 @@ class IDETheme {
       darkerBackground: darkerBackground,
       lightBackground: lightBackground,
       textEditorTheme: textEditorTheme,
-      propertyChangerTheme: propertyChangerTheme
+      propertyChangerTheme: propertyChangerTheme,
+      widgetSelectorTheme: widgetSelectorTheme,
     );
   }
 
@@ -64,9 +73,21 @@ class IDETheme {
 
   final PropertyChangerTheme propertyChangerTheme;
 
+  final WidgetSelectorTheme widgetSelectorTheme;
+
 
 }
 
+class WidgetSelectorTheme {
+
+  WidgetSelectorTheme({this.iconColor, this.sectionTextItem, this.widgetTextItem, this.sectionBackgroundColor});
+
+  final Color iconColor;
+  final TextStyle sectionTextItem;
+  final TextStyle widgetTextItem;
+
+  final Color sectionBackgroundColor;
+}
 
 class TextEditorTheme {
 

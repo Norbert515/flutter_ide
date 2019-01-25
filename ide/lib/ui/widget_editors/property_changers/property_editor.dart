@@ -20,21 +20,26 @@ class PropertyEditor extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       color: Provider.of<IDETheme>(context).lightBackground,
-      padding: EdgeInsets.all(16),
+      padding: EdgeInsets.all(32),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
-          Text("Container Editor", style: IDETheme.of(context).propertyChangerTheme.widgetName),
+          Text(widgetName, style: IDETheme.of(context).propertyChangerTheme.widgetName),
           Text("Id: $id", style: IDETheme.of(context).propertyChangerTheme.widgetId,),
           Divider(),
         ]..addAll(properties.map((entry) {
-          return Row(
-            crossAxisAlignment: CrossAxisAlignment.end,
-            children: <Widget>[
-              Text(entry.key, style: IDETheme.of(context).propertyChangerTheme.propertyContainer,),
-              SizedBox(width: 8,),
-              Expanded(child: entry.value,),
-            ],
+          return Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: Row(
+              //crossAxisAlignment: CrossAxisAlignment.baseline,
+              //textBaseline: TextBaseline.alphabetic,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: <Widget>[
+                Text(entry.key, style: IDETheme.of(context).propertyChangerTheme.propertyContainer,),
+                SizedBox(width: 8,),
+                Expanded(child: entry.value,),
+              ],
+            ),
           );
         }).toList()),
       ),

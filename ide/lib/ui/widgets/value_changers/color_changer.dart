@@ -66,18 +66,6 @@ class ColorChangerState extends State<ColorChanger> with EditorMixin{
             enableLabel: true,
             pickerAreaHeightPercent: 0.8,
           ),
-          // Use Material color picker
-          // child: MaterialPicker(
-          //   pickerColor: pickerColor,
-          //   onColorChanged: changeColor,
-          //   enableLabel: true, // only on portrait mode
-          // ),
-          //
-          // Use Block color picker
-          // child: BlockPicker(
-          //   pickerColor: currentColor,
-          //   onColorChanged: changeColor,
-          // ),
         ),
         actions: <Widget>[
           FlatButton(

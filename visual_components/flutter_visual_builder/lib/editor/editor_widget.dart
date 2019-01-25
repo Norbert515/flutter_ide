@@ -7,6 +7,7 @@ import 'package:flutter_visual_builder/editor/widget_palette/palette.dart';
 import 'package:flutter_visual_builder/generated/server.pb.dart';
 import 'package:flutter_visual_builder/server/server.dart';
 import 'package:grpc/grpc.dart';
+import 'package:ide/themeing/ide_theme.dart';
 import 'package:provider/provider.dart';
 import 'package:flutter/scheduler.dart';
 
@@ -50,17 +51,33 @@ class VisualEditorState extends State<VisualEditor> {
   Widget build(BuildContext context) {
     return Provider<EditorServer>(
       value: editorServer,
-      child: Row(
-        children: <Widget>[
-          DragTarget<VisualStatefulWidget>(
-            builder: (context, it ,it2) {
-              return WidgetPalette();
-            },
-            onWillAccept: (it) => true,
+      child: Provider<IDETheme>(
+        value: IDETheme.standard(),
+        child: Builder(
+          builder: (newContext) {
+            return Material(
+              color: IDETheme.of(newContext).lightBackground,
+              child: Row(
+                children: <Widget>[
+                  DragTarget<VisualStatefulWidget>(
+                    builder: (context, it ,it2) {
+                      return WidgetPalette();
+                    },
+                    onWillAccept: (it) => true,
 
-          ),
-          Expanded(child: AppWidget()),
-        ],
+                  ),
+                  Spacer(),
+                  AspectRatio(
+                    aspectRatio: 9/16,
+                    child: AppWidget(),
+                  ),
+                  Spacer(),
+                  // Expanded(child: AppWidget()),
+                ],
+              ),
+            );
+          },
+        ),
       ),
     );
   }

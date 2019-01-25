@@ -2,6 +2,7 @@
 
 
 import 'package:flutter/material.dart';
+import 'package:ide/themeing/ide_theme.dart';
 
 class PaletteCategory extends StatelessWidget {
 
@@ -13,13 +14,14 @@ class PaletteCategory extends StatelessWidget {
   Widget build(BuildContext context) {
     return Material(
       child: Container(
+        padding: EdgeInsets.all(8),
         width: double.infinity,
         height: 50,
-        color: Colors.blue,
+        color: IDETheme.of(context).widgetSelectorTheme.sectionBackgroundColor,
         child: Row(
           children: <Widget>[
-            Icon(Icons.folder),
-            Text(title),
+            Icon(Icons.folder, color: IDETheme.of(context).widgetSelectorTheme.iconColor,),
+            Text(title, style: IDETheme.of(context).widgetSelectorTheme.sectionTextItem),
             Spacer(),
           ],
         ),
@@ -38,12 +40,19 @@ class PaletteItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Material(
-      child: Row(
-        children: <Widget>[
-          icon,
-          Text(name),
-        ],
+    return Padding(
+      padding: const EdgeInsets.all(8.0),
+      child: Material(
+        color: Colors.transparent,
+        child: Row(
+          children: <Widget>[
+            IconTheme(
+              data: IconThemeData(color: IDETheme.of(context).widgetSelectorTheme.iconColor),
+              child: icon,
+            ),
+            Text(name, style: IDETheme.of(context).widgetSelectorTheme.widgetTextItem,),
+          ],
+        ),
       ),
     );
   }

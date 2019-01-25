@@ -22,6 +22,10 @@ dependencies:
 
   rxdart: ^0.20.0
 
+  # Only for now so theme can be shared, there will be a better solution some time
+  ide:
+    path: ..\..\ide
+
   provider: ^1.1.1
 
   #visual_server:
