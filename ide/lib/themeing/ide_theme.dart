@@ -19,6 +19,7 @@ class IDETheme {
     this.textEditorTheme,
     this.propertyChangerTheme,
     this.widgetSelectorTheme,
+    this.fontColor,
 });
 
   factory IDETheme.standard() {
@@ -57,6 +58,7 @@ class IDETheme {
       darkBackground: darkBackground,
       darkerBackground: darkerBackground,
       lightBackground: lightBackground,
+      fontColor: fontColor,
       textEditorTheme: textEditorTheme,
       propertyChangerTheme: propertyChangerTheme,
       widgetSelectorTheme: widgetSelectorTheme,
@@ -68,6 +70,7 @@ class IDETheme {
   final Color darkBackground;
   final Color darkerBackground;
   final Color lightBackground;
+  final Color fontColor;
 
   final TextEditorTheme textEditorTheme;
 

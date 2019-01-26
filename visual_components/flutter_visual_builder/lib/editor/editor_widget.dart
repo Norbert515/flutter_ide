@@ -50,7 +50,7 @@ class VisualEditorState extends State<VisualEditor> {
         child: Builder(
           builder: (newContext) {
             return Material(
-              color: IDETheme.of(newContext).darkerBackground,
+              color: IDETheme.of(newContext).darkBackground,
               child: Center(
                 child: AspectRatio(
                   aspectRatio: 9/16,

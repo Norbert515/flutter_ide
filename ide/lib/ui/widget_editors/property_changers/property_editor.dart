@@ -44,7 +44,9 @@ class PropertyEditor extends StatelessWidget {
         children: <Widget>[
           Text(widgetName, style: IDETheme.of(context).propertyChangerTheme.widgetName),
           Text("Id: $id", style: IDETheme.of(context).propertyChangerTheme.widgetId,),
-          Divider(),
+          Divider(
+            color: IDETheme.of(context).fontColor,
+          ),
           /*Expanded(
             child: Column(
               children: _oneLiners(context),
