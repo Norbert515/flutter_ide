@@ -1,0 +1,107 @@
+.list{
+    list-style: none;
+    margin: 0px;
+    padding: 0px;
+}
+
+a{
+    text-decoration:none;
+    transition: all 0.3s ease-in-out;
+    &:hover, &:focus{
+       text-decoration:none;
+       outline: none;
+    }
+}
+.row.m0{
+    margin: 0px;
+}
+
+body{
+    line-height: 24px;
+    font-size: 14px;
+    font-family: $rob;
+    font-weight: normal;
+    color: $pfont;
+}
+h1, h2, h3, h4, h5, h6{ 
+    font-family: $hee; 
+    font-weight: bold;
+}
+
+button:focus{
+    outline: none;
+	box-shadow: none;
+}
+
+.p_120{
+	padding-top: 120px;
+	padding-bottom: 120px;
+}
+.pad_top{
+	padding-top: 120px;
+}
+.pad_btm{
+	padding-bottom: 120px;
+}
+.mt-25{
+	margin-top: 25px;
+}
+.p0{
+	padding-left: 0px;
+	padding-right: 0px;
+}
+.container{
+    @media(min-width:1200px){
+        max-width: 1170px;
+    }
+}
+@media(min-width: 1620px){
+	.box_1620{
+		max-width: 1650px;
+		margin: auto;
+	}
+}
+
+
+.white_bg{
+	background: #fff !important;
+}
+
+/* Main Title Area css
+============================================================================================ */
+.main_title{
+	text-align: center;
+	margin-bottom: 75px;
+	h2{
+		font-family: $hee;
+		font-size: 36px;
+		color: $dip;
+		font-weight: bold;
+		margin-bottom: 15px;
+		text-transform: uppercase;
+	}
+	p{
+		font-size: 14px;
+		font-family: $rob;
+		line-height: 24px;
+		color: $pfont;
+		margin-bottom: 0px;
+		max-width: 570px;
+		margin: auto;
+	}
+	&.white{
+		h2{
+			color: #fff;
+		}
+		p{
+			color: #fff;
+			opacity: .6;
+		}
+	}
+}
+
+/* End Main Title Area css
+============================================================================================ */
+
+
+

@@ -1,0 +1,190 @@
+/* Main Button Area css
+============================================================================================ */
+.main_btn{
+	display: inline-block;
+	background-image: linear-gradient(to right, #4dabff 0%, #62ddff 48%, #4dabff 100%);
+    background-size: 200% auto;
+	padding: 0px 35px;
+	color: #fff;
+	font-family: $rob;
+	font-size: 13px;
+	font-weight: 500;
+	line-height: 50px;
+	border-radius: 5px;
+	outline: none !important;
+	box-shadow: none !important;
+	text-align: center;
+	cursor: pointer;
+	@include transition;
+	&:hover{
+		background-position: right center;
+        color: #fff;
+	}
+}
+.main_btn2{
+	display: inline-block;
+	background: $baseColor;
+	padding: 0px 32px;
+	color: #fff;
+	font-family: $rob;
+	font-size: 13px;
+	font-weight: 500;
+	line-height: 38px;
+	border-radius: 0px;
+	outline: none !important;
+	box-shadow: none !important;
+	text-align: center;
+	border: 1px solid $baseColor;
+	cursor: pointer;
+	@include transition;
+	&:hover{
+		background: transparent;
+		color: $baseColor;
+	}
+}
+.submit_btn{
+	width: auto;
+	display: inline-block;
+	background-image: linear-gradient(to right, #4dabff 0%, #62ddff 48%, #4dabff 100%);
+    background-size: 200% auto;
+	padding: 0px 50px;
+	color: #fff;
+	font-family: $rob;
+	font-size: 13px;
+	font-weight: 500;
+	line-height: 50px;
+	border-radius: 5px;
+	outline: none !important;
+	box-shadow: none !important;
+	text-align: center;
+	cursor: pointer;
+	@include transition;
+	&:hover{
+		background-position: right center;
+		color: #fff;
+	}
+}
+
+.white_btn{
+	display: inline-block;
+	background: #f9f9ff;
+	padding: 0px 50px;
+	color: $dip;
+	font-family: $rob;
+	font-size: 12px;
+	font-weight: 500;
+	line-height: 50px;
+	border-radius: 0px;
+	outline: none !important;
+	box-shadow: none !important;
+	text-align: center;
+	cursor: pointer;
+	@include transition;
+	&:hover{
+		background: $baseColor;
+		color: #fff;
+	}
+}
+.banner_btn{
+	display: inline-block;
+	background: rgba(255, 255, 255, .10);
+	color: #fff;
+	font-family: $rob;
+	width: 134px;
+	font-size: 14px;
+	font-weight: 500;
+	border: 1px solid rgba(255, 255, 255, .50);
+	line-height: 48px;
+	border-radius: 3px;
+	outline: none !important;
+	box-shadow: none !important;
+	text-align: center;
+	cursor: pointer;
+	@include transition;
+	&:hover{
+		background: #fff;
+		color: $dip;
+		border-color: #fff;
+	}
+}
+.banner_btn2{
+	display: inline-block;
+	background: rgba(255, 255, 255, 1);
+	color: $dip;
+	font-family: $rob;
+	width: 134px;
+	font-size: 14px;
+	font-weight: 500;
+	border: 1px solid rgba(255, 255, 255, .50);
+	line-height: 48px;
+	border-radius: 3px;
+	outline: none !important;
+	box-shadow: none !important;
+	text-align: center;
+	cursor: pointer;
+	@include transition;
+	&:hover{
+		background: rgba(255, 255, 255, .1);
+		color: #fff;
+		border-color: #fff;
+	}
+}
+.white_bg_btn{
+	background: #fff;
+	display: inline-block;
+	color: $dip;
+	line-height: 40px;
+	padding: 0px 28px;
+	font-size: 14px;
+	font-family: $rob;
+	font-weight: 500;
+	text-transform: uppercase;
+	@include transition;
+	border: none;
+	&:hover{
+		background: $baseColor;
+		color: #fff;
+	}
+}
+.blog_btn{
+	border: 1px solid #eeeeee;
+	background: #f9f9ff;
+	padding: 0px 32px;
+	font-size: 13px;
+	font-weight: 500;
+	font-family: $rob;
+	color: $dip;
+	line-height: 34px;
+	display: inline-block;
+	&:hover{
+		background: $baseColor;
+		border-color: $baseColor;
+		color: #fff;
+	}
+}
+
+.tickets_btn{
+	display: inline-block;
+	background: rgba(255, 255, 255, .10);
+	color: #fff;
+	font-family: $rob;
+	width: 134px;
+	font-size: 13px;
+	font-weight: 500;
+	border: 1px solid rgba(255, 255, 255, .50);
+	line-height: 48px;
+	border-radius: 3px;
+	outline: none !important;
+	box-shadow: none !important;
+	text-align: center;
+	cursor: pointer;
+	@include transition;
+	&:hover{
+		background: #fff;
+		color: $dip;
+		border-color: #fff;
+	}
+}
+
+/* End Main Button Area css
+============================================================================================ */
