@@ -82,9 +82,18 @@ class PropertyBloc {
           propertyKey: key,
         );
       case PropertyType.crossAxisAlignment:
-        return EnumChanger(enumProperty: property,);
+        return EnumChanger(
+          id: id,
+          propertyKey: key,
+          enumProperty: property,
+        );
+
       case PropertyType.mainAxisAlignment:
-        return EnumChanger(enumProperty: property,);
+        return EnumChanger(
+          id: id,
+          propertyKey: key,
+          enumProperty: property,
+        );
       case PropertyType.unknown:
         return Text("Unknown");
     }

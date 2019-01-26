@@ -214,6 +214,16 @@ class _VisualScaffoldState extends VisualState<VisualScaffold> {
         child: widget.body,
       ),
       floatingActionButton: LayoutDragTarget(
+        replacementActive: SizedBox(
+          height: 50,
+          width: 50,
+          child: ActivePlaceholder(),
+        ),
+        replacementInactive: SizedBox(
+          height: 50,
+          width: 50,
+          child: InactivePlaceholder(),
+        ),
         key: fabKey,
         child: widget.floatingActionButton,
       ),

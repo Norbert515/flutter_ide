@@ -9,8 +9,9 @@ abstract class EnumProperty<T> extends Property<T> {
   EnumProperty.fromMap(Map map, dynamic values): values = values,
         super(values.firstWhere((it) => it.toString() == map['value']));
 
-
   List<String> get stringValues => List<String>.from(values.map((it) => it.toString()));
+
+  EnumProperty copyWith(String value);
 
   /// This is a list of enums
   final dynamic values;

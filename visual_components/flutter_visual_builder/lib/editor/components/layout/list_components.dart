@@ -18,7 +18,6 @@ mixin _ListComponentMixin<T extends VisualStatefulWidget> on VisualState<T> {
   }
 
 
-
   Widget _getTargetWidget(GlobalKey<VisualState> key, {bool first = false}) {
     Widget result =  LayoutDragTarget(
         onLeave: () {

@@ -367,12 +367,8 @@ class LayoutDragTarget extends StatefulWidget {
 
   const LayoutDragTarget({
     Key key,
-    this.replacementActive = const Placeholder(
-      color: Colors.green,
-    ),
-    this.replacementInactive = const Placeholder(
-      color: Colors.blue,
-    ),
+    this.replacementActive = const ActivePlaceholder(),
+    this.replacementInactive = const InactivePlaceholder(),
     @required this.child,
     this.onAccept,
     this.onLeave,
@@ -575,4 +571,29 @@ class LayoutDragTargetState extends State<LayoutDragTarget> {
     );
   }
 }
+
+class ActivePlaceholder extends StatelessWidget {
+
+  const ActivePlaceholder();
+
+  @override
+  Widget build(BuildContext context) {
+    return Placeholder(
+      color: Colors.green,
+    );
+  }
+}
+
+class InactivePlaceholder extends StatelessWidget {
+
+  const InactivePlaceholder();
+
+  @override
+  Widget build(BuildContext context) {
+    return Placeholder(
+      color: Colors.blue,
+    );
+  }
+}
+
 
