@@ -1,0 +1,97 @@
+syntax = "proto3";
+
+option java_multiple_files = true;
+option java_package = "io.grpc.examples.helloworld";
+option java_outer_classname = "HelloWorldProto";
+option objc_class_prefix = "HLW";
+
+package helloworld;
+
+service Server {
+
+    rpc Initialize (InitializeFileRequest) returns (HelloReply) {}
+
+    rpc GetFields(GetFieldsRequest) returns (GetFieldsResponse) {}
+
+    rpc StreamUpdate(stream FieldUpdate) returns (HelloReply) {}
+
+    rpc StreamSelected(SelectStream) returns (stream SelectedWidgetWithProperties ) {}
+
+    rpc StreamSourceCode(InitSourceCodeStream) returns (stream SourceCode){}
+
+
+}
+
+message SourceCode {
+    string sourceCode = 1;
+}
+
+message InitSourceCodeStream {
+
+}
+
+message FieldUpdate {
+    string id = 1;
+    string propertyName = 2;
+    string property = 3;
+}
+
+message Field {
+
+   /* oneof it {
+        DoubleField double = 1;
+        AlignmentField align = 2;
+        ColorField color = 3;
+    }*/
+}
+
+
+message DoubleField
+{
+    double value = 1;
+}
+
+message AlignmentField {
+    double x = 1;
+    double y = 2;
+}
+
+message ColorField {
+    int32 color = 1;
+}
+
+
+// The request message containing the user's name.
+message InitializeFileRequest {
+    string path = 1;
+}
+
+// The response message containing the greetings
+message HelloReply {
+    string message = 1;
+}
+
+message GetFieldsRequest {
+    string id = 1;
+}
+
+message GetFieldsResponse {
+    string id = 1;
+    map<string, Field> fields = 2;
+}
+
+message SelectStream {
+
+}
+
+
+message SelectedWidgetWithProperties {
+    // The id of the widget
+    string id = 1;
+
+    // A string reprensetation of the widget type
+    string type = 2;
+
+    /// Json encoded
+    map<string, string> properties = 3;
+}

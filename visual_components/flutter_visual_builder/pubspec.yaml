@@ -16,6 +16,21 @@ dependencies:
   flutter:
     sdk: flutter
 
+
+  protobuf: ^0.12.0
+  grpc: ^1.0.0
+
+  rxdart: ^0.20.0
+
+  # Only for now so theme can be shared, there will be a better solution some time
+  ide:
+    path: ..\..\ide
+
+  provider: ^1.1.1
+
+  #visual_server:
+   # path: ..\..\visual_server
+  uuid: ^1.0.3
   vm_service_lib: ^0.3.10
   # The following adds the Cupertino Icons font to your application.
   # Use with the CupertinoIcons class for iOS style icons.

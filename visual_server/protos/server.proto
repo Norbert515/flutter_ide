@@ -13,6 +13,10 @@ service Server {
 
 }
 
+message DoubleFieldUpdate {
+    string value = 1;
+}
+
 // The request message containing the user's name.
 message InitializeFileRequest {
     string path = 1;
