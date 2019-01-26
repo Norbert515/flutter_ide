@@ -39,10 +39,16 @@ class ColorChangerState extends State<ColorChanger> with EditorMixin{
       onTap: () {
         pickColor(context);
       },
-      child: Container(
-        height: 50,
-        width: 100,
-        color: color,
+      child: Align(
+        alignment: Alignment.centerLeft,
+        child: Container(
+          height: 30,
+          width: 50,
+          decoration: BoxDecoration(
+            color: color,
+            borderRadius: BorderRadius.all(Radius.circular(4))
+          ),
+        ),
       ),
     );
   }

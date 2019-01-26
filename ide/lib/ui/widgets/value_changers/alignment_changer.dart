@@ -107,10 +107,12 @@ class _AlignmentBoxState extends State<AlignmentBox> {
             ),
           ),
         ),
+        Spacer(),
         NumericChangeableTextField(
           name: "X",
           value: alignment.x,
         ),
+        SizedBox(width: 8,),
         NumericChangeableTextField(
           name: "Y",
           value: alignment.y,
@@ -118,6 +120,7 @@ class _AlignmentBoxState extends State<AlignmentBox> {
 
           },
         ),
+        Spacer(),
       ],
     );
   }

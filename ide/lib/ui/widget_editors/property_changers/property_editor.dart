@@ -58,9 +58,11 @@ class PropertyEditor extends StatelessWidget {
                 children: _getIdentifiers(context),
               ),
               SizedBox(width: 4,),
-              Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: _getValueChangers(context),
+              Expanded(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: _getValueChangers(context),
+                ),
               ),
             ],
           ),

@@ -100,12 +100,24 @@ class NumericChangeableTextFieldState
             builder: (context, hovering) {
               return SizedBox(
                 width: 40,
-                child: TextField(
-                  controller: textEditingController,
-                  onSubmitted: update,
-                  style: IDETheme.of(context)
-                      .propertyChangerTheme
-                      .propertyNumericValue,
+                child: Theme(
+                  data: ThemeData(
+                    unselectedWidgetColor: Colors.red
+                  ),
+                  child: TextField(
+                    decoration: InputDecoration(
+                      enabledBorder: UnderlineInputBorder(
+                        borderSide: BorderSide(
+                          color: Colors.white,
+                        )
+                      )
+                    ),
+                    controller: textEditingController,
+                    onSubmitted: update,
+                    style: IDETheme.of(context)
+                        .propertyChangerTheme
+                        .propertyNumericValue,
+                  ),
                 ),
               );
             },
