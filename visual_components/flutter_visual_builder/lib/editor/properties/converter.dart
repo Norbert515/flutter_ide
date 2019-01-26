@@ -4,6 +4,7 @@
 
 import 'dart:convert';
 
+import 'package:flutter_visual_builder/editor/properties/enum_properties.dart';
 import 'package:flutter_visual_builder/editor/properties/property.dart';
 
 Property convertToProperty(String data) {
@@ -32,6 +33,10 @@ Property convertToProperty(String data) {
       return EdgeInsertsProperty.fromMap(pMap);
     case PropertyType.boxConstraints:
       return BoxConstraintsProperty.fromMap(pMap);
+    case PropertyType.mainAxisAlignment:
+      return MainAxisAlignmentProperty.fromMap(pMap);
+    case PropertyType.crossAxisAlignment:
+      return CrossAxisAlignmentProperty.fromMap(pMap);
 
   }
 

@@ -7,6 +7,7 @@ import 'package:ide/ui/widgets/value_changers/color_changer.dart';
 import 'package:ide/ui/widgets/value_changers/constraints_changer.dart';
 import 'package:ide/ui/widgets/value_changers/double_changer.dart';
 import 'package:ide/ui/widgets/value_changers/edge_insets_changer.dart';
+import 'package:ide/ui/widgets/value_changers/enum_changer.dart';
 import 'package:rxdart/rxdart.dart';
 import 'package:flutter_visual_builder/editor/properties/converter.dart';
 import 'package:ide/ui/widgets/value_changers/alignment_changer.dart';
@@ -80,6 +81,10 @@ class PropertyBloc {
           value: property.data,
           propertyKey: key,
         );
+      case PropertyType.crossAxisAlignment:
+        return EnumChanger(enumProperty: property,);
+      case PropertyType.mainAxisAlignment:
+        return EnumChanger(enumProperty: property,);
       case PropertyType.unknown:
         return Text("Unknown");
     }

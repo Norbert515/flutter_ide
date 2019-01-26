@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_visual_builder/editor/components/visual_components.dart';
+import 'package:flutter_visual_builder/editor/properties/enum_properties.dart';
 import 'package:flutter_visual_builder/editor/properties/property.dart';
 
 mixin _ListComponentMixin<T extends VisualStatefulWidget> on VisualState<T> {
@@ -99,9 +100,9 @@ class _VisualColumnState extends VisualState<VisualColumn> with _ListComponentMi
   @override
   Widget buildWidget(BuildContext context) {
     return Column(
-      mainAxisAlignment: widget.mainAxisAlignment,
+      mainAxisAlignment: getValue('mainAxisAlignment'),
       textDirection: widget.textDirection,
-      crossAxisAlignment: widget.crossAxisAlignment,
+      crossAxisAlignment: getValue('crossAxisAlignment'),
       mainAxisSize: widget.mainAxisSize,
       verticalDirection: widget.verticalDirection,
       textBaseline: widget.textBaseline,
@@ -110,6 +111,9 @@ class _VisualColumnState extends VisualState<VisualColumn> with _ListComponentMi
   }
 
   @override
-  Map<String, Property> initRemoteValues() => {};
+  Map<String, Property> initRemoteValues() => {
+    'mainAxisAlignment': MainAxisAlignmentProperty(widget.mainAxisAlignment),
+    'crossAxisAlignment': CrossAxisAlignmentProperty(widget.crossAxisAlignment),
+  };
 
 }

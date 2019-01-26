@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_visual_builder/editor/properties/enum_properties.dart';
 import 'package:meta/meta.dart';
 
 
@@ -9,8 +10,10 @@ enum PropertyType{
   double,
   edgeInserts,
   boxConstraints,
-
+  mainAxisAlignment,
+  crossAxisAlignment,
 }
+
 
 /// This contains the properties as source code which would be lost otherwise when accessed at runtime.
 ///
@@ -179,3 +182,8 @@ class BoxConstraintsProperty extends Property<BoxConstraints> {
   PropertyType get type => PropertyType.boxConstraints;
   
 }
+
+
+
+
+
