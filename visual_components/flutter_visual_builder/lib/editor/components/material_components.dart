@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_visual_builder/editor/components/visual_components.dart';
 import 'package:flutter_visual_builder/editor/properties/property.dart';
 
+// TODO split into different files and export all of them at once
 
 /// TODO
 /// Even though it is a bit tedious, each widget which should have the ability to change

@@ -8,6 +8,7 @@ enum PropertyType{
   alignment,
   color,
   double,
+  string,
   edgeInserts,
   boxConstraints,
   mainAxisAlignment,
@@ -181,6 +182,23 @@ class BoxConstraintsProperty extends Property<BoxConstraints> {
   @override
   PropertyType get type => PropertyType.boxConstraints;
   
+}
+
+class StringProperty extends Property<String> {
+  StringProperty(String data): super(data);
+  StringProperty.fromMap(Map map) : super(map['data']);
+
+  @override
+  Map getMapData() => {
+    'data': data,
+  };
+
+  @override
+  String get sourceCode => '"$data"';
+
+  @override
+  PropertyType get type => PropertyType.string;
+
 }
 
 

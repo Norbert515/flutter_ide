@@ -27,6 +27,7 @@ class WidgetPalette extends StatelessWidget {
                   RootDraggable(buildingBlock: test3),
                   RootDraggable(buildingBlock: test4),
                   RootDraggable(buildingBlock: test5),
+                  RootDraggable(buildingBlock: text),
                   PaletteCategory(
                     title: "Input",
                   ),

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_visual_builder/editor/components/general/text_component.dart';
 import 'package:flutter_visual_builder/editor/components/layout/container_component.dart';
 import 'package:flutter_visual_builder/editor/components/layout/list_components.dart';
 import 'package:flutter_visual_builder/editor/components/material_components.dart';
@@ -74,6 +75,16 @@ BuildingBlock get test5 => BuildingBlock(
     ),
 );
 
+BuildingBlock get text => BuildingBlock(
+  visualWidget: TextComponent(
+    id: uuid.v1(),
+    text: "...",
+  ),
+  representation: PaletteItem(
+    icon: Icon(Icons.text_fields),
+    name: "Text",
+  ),
+);
 
 
 

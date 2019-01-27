@@ -8,6 +8,7 @@ import 'package:ide/ui/widgets/value_changers/constraints_changer.dart';
 import 'package:ide/ui/widgets/value_changers/double_changer.dart';
 import 'package:ide/ui/widgets/value_changers/edge_insets_changer.dart';
 import 'package:ide/ui/widgets/value_changers/enum_changer.dart';
+import 'package:ide/ui/widgets/value_changers/string_changer.dart';
 import 'package:rxdart/rxdart.dart';
 import 'package:flutter_visual_builder/editor/properties/converter.dart';
 import 'package:ide/ui/widgets/value_changers/alignment_changer.dart';
@@ -49,6 +50,7 @@ class PropertyBloc {
 
   static Widget _convertToPropertyChanger(String id, String key, Property property) {
 
+    // TODO use a registry so each changer registers itself
     PropertyType type = property.type;
     switch(type) {
       case PropertyType.alignment:
@@ -93,6 +95,12 @@ class PropertyBloc {
           id: id,
           propertyKey: key,
           enumProperty: property,
+        );
+      case PropertyType.string:
+        return StringChanger(
+          id: id,
+          propertyKey: key,
+          value: property.data,
         );
       case PropertyType.unknown:
         return Text("Unknown");

@@ -21,6 +21,7 @@ Property convertToProperty(String data) {
   Map pMap = decoded["property"];
 
   switch(type) {
+    // TODO use a registry so each property registers itself
     case PropertyType.unknown:
       return UnknownProperty.fromMap(pMap);
     case PropertyType.alignment:
@@ -37,6 +38,8 @@ Property convertToProperty(String data) {
       return MainAxisAlignmentProperty.fromMap(pMap);
     case PropertyType.crossAxisAlignment:
       return CrossAxisAlignmentProperty.fromMap(pMap);
+    case PropertyType.string:
+      return StringProperty.fromMap(pMap);
 
   }
 
