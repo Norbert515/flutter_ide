@@ -80,7 +80,7 @@ class AlignmentProperty extends Property<Alignment> {
 
 
   @override
-  String get sourceCode => "Alignment(TODO)";
+  String get sourceCode => "Alignment(${data.x}, ${data.y})";
 
   @override
   Map getMapData() => {
@@ -99,7 +99,7 @@ class ColorProperty extends Property<Color> {
   ColorProperty.fromMap(Map map): super(Color(map["color"]));
 
   @override
-  String get sourceCode => "Color(${data.value})";
+  String get sourceCode => "Color(0x${data.value.toRadixString(16)})";
 
   @override
   Map getMapData() => {
@@ -148,7 +148,12 @@ class EdgeInsertsProperty extends Property<EdgeInsets> {
   }; 
 
   @override
-  String get sourceCode => "TODO";
+  String get sourceCode => "EdgeInsets.only(\n"
+  "left: ${data.left}\n"
+  "right: ${data.right}\n"
+  "top: ${data.top}\n"
+  "bottom: ${data.bottom}\n"
+      ")";
 
   @override
   PropertyType get type => PropertyType.edgeInserts;
@@ -177,7 +182,12 @@ class BoxConstraintsProperty extends Property<BoxConstraints> {
 
 
   @override
-  String get sourceCode => "TODO";
+  String get sourceCode => "BoxConstraints(\n"
+  "minWidth: ${data.minWidth}\n"
+  "maxWidth: ${data.maxWidth}\n"
+  "minHeight: ${data.minHeight}\n"
+  "maxHeight: ${data.maxHeight}\n"
+      ")";
 
   @override
   PropertyType get type => PropertyType.boxConstraints;
