@@ -92,3 +92,39 @@ goes through this server.
 
 ### The IDE, which contains all the IDE code.
 
+
+# Components
+
+## Naming conventions
+
+### Components
+Each element which can be edited is called $NAME$Component, for example the wrapped
+Text widget is called TextComponent.
+(There might be a few classes named Visual$NAME$, this was the old naming and it will disappear over time)
+
+### Property
+
+Right now every property is called $NAME$Property, so for String it is a StringProperty.
+Might be changed in the future because some names clash with flutters diagnostics.
+
+### PropertyChanger
+
+$NAME$Changer - StringChanger
+
+# Creating a new editable property
+
+## Creating new things
+
+### Creating a new property
+
+1. Creating the property class and updating the converter
+2. Implementing the changer and returning it in the propertyBloc
+
+
+### Creating a new widget
+
+1. Using the "component" live-template
+2. Creating a new BuildingBlock in "dynmaic_widget" returning it "editor_widget"
+
+If the widget has children itself wrap each child in a LayoutDragTarget, assign it a final GlobalKey. Then
+return each WidgetProperty

@@ -8,9 +8,9 @@ class TextComponent extends VisualStatefulWidget {
   TextComponent({
     String id,
     Map<String, Property> properties,
-    List<WidgetProperty> widgetProperties,
+    Map<String, WidgetProperty> widgetProperties,
     this.text,
-  }) : super(id: id, key: GlobalKey<VisualState>(), properties: properties ?? const {}, widgetProperties: widgetProperties?? const []);
+  }) : super(id: id, key: GlobalKey<VisualState>(), properties: properties ?? const {}, widgetProperties: widgetProperties?? const {});
 
 
   final String text;
@@ -32,8 +32,7 @@ class _TextComponentState extends VisualState<TextComponent> {
 
   @override
   // TODO implement
-  List<WidgetProperty> get modifiedWidgetProperties => [
-  ];
+  Map<String, WidgetProperty> get modifiedWidgetProperties => {};
 
   @override
   // TODO implement

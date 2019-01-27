@@ -12,8 +12,8 @@ class VisualContainer extends VisualStatefulWidget {
     this.child,
     this.constraints,
     Map<String, Property> properties,
-    List<WidgetProperty> widgetProperties
-  }) : super(id: id, key: GlobalKey<VisualState>(), properties: properties ?? const {}, widgetProperties: widgetProperties?? const []);
+    Map<String, WidgetProperty> widgetProperties
+  }) : super(id: id, key: GlobalKey<VisualState>(), properties: properties ?? const {}, widgetProperties: widgetProperties?? const {});
 
   final Widget child;
   final Color color;
@@ -52,12 +52,9 @@ class _VisualContainerState extends VisualState<VisualContainer> {
   }
 
   @override
-  List<WidgetProperty> get modifiedWidgetProperties => [
-    WidgetProperty(
-      name: "child",
-      dynamicWidget: childKey.currentState?.child,
-    ),
-  ];
+  Map<String, WidgetProperty> get modifiedWidgetProperties => {
+    'child': WidgetProperty.keyed(childKey),
+  };
 
   @override
   Map<String, Property> initRemoteValues() => {

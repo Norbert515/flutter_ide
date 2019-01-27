@@ -8,7 +8,7 @@ class AppBarComponent extends VisualStatefulWidget implements PreferredSizeWidge
   AppBarComponent({
     String id,
     Map<String, Property> properties,
-    List<WidgetProperty> widgetProperties,
+    Map<String, WidgetProperty> widgetProperties,
     this.leading,
     this.automaticallyImplyLeading,
     this.title,
@@ -26,7 +26,7 @@ class AppBarComponent extends VisualStatefulWidget implements PreferredSizeWidge
     this.toolbarOpacity,
     this.bottomOpacity,
   }) : preferredSize = Size.fromHeight(kToolbarHeight + (bottom?.preferredSize?.height ?? 0.0)),
-        super(id: id, key: GlobalKey<VisualState>(), properties: properties ?? const {}, widgetProperties: widgetProperties?? const []);
+        super(id: id, key: GlobalKey<VisualState>(), properties: properties ?? const {}, widgetProperties: widgetProperties?? const {});
 
 
   final Widget leading;
@@ -66,9 +66,7 @@ class _AppBarComponentState extends VisualState<AppBarComponent> {
 
   @override
   // TODO implement
-  List<WidgetProperty> get modifiedWidgetProperties => [
-
-  ];
+  Map<String, WidgetProperty> get modifiedWidgetProperties => {};
 
   @override
   // TODO implement

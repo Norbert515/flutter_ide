@@ -70,8 +70,8 @@ class VisualColumn extends VisualStatefulWidget {
     this.textBaseline,
     this.children = const <Widget>[],
     Map<String, Property> properties,
-    List<WidgetProperty> widgetProperties,
-}): super(id: id, key: GlobalObjectKey<VisualState>(id), properties: properties?? const {}, widgetProperties: widgetProperties ?? const [] );
+    Map<String, WidgetProperty> widgetProperties,
+}): super(id: id, key: GlobalObjectKey<VisualState>(id), properties: properties?? const {}, widgetProperties: widgetProperties ?? const {} );
 
   final MainAxisAlignment mainAxisAlignment;
   final MainAxisSize mainAxisSize;
@@ -91,9 +91,6 @@ class VisualColumn extends VisualStatefulWidget {
 class _VisualColumnState extends VisualState<VisualColumn> with _ListComponentMixin{
 
 
-  @override
-  List<WidgetProperty> get modifiedWidgetProperties => null;
-
 
 
   @override
@@ -108,6 +105,10 @@ class _VisualColumnState extends VisualState<VisualColumn> with _ListComponentMi
       children: _getChildren(),
     );
   }
+
+  @override
+  Map<String, WidgetProperty> get modifiedWidgetProperties => {};
+
 
   @override
   Map<String, Property> initRemoteValues() => {

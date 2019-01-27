@@ -35,20 +35,21 @@ abstract class VisualStatefulWidget extends StatefulWidget {
   VisualStatefulWidget({
     GlobalKey<VisualState> key,
     this.properties = const {},
-    this.widgetProperties = const [],
+    this.widgetProperties = const {},
     @required this.id
   }): assert(widgetProperties != null), assert(properties != null),super(key: key);
 
 
+  // TODO This currently isn't _really_ used. I'll need to figure out a clever way
+  // TODO of handling source code which is not trivial
+  // TODO for example Container(color: myColorField);
+  // In this case, should myColorField be editable? How is its value preserved
+  // etc. This will be relevant when importing widgets
   /// This is needed in the constructor because we need to save the widget properties so we can restore the source code during runtime
-  ///
-  /// FOR NOW THESE CAN NOT BE CHANGED
-  /// TODO when the server allows to change these, this need to be computed in a getter too
-  /// TODO think of a way of handling these
   final Map<String, Property> properties;
 
   /// Same for the widgets.
-  final List<WidgetProperty> widgetProperties;
+  final Map<String, WidgetProperty> widgetProperties;
 
 
   /// The class name of the Widget which the Visual widget is replicating
@@ -58,8 +59,10 @@ abstract class VisualStatefulWidget extends StatefulWidget {
 }
 abstract class VisualState<T extends VisualStatefulWidget> extends State<T> with PropertyStateMixin{
 
-  List<WidgetProperty> get modifiedWidgetProperties;
+  Map<String, WidgetProperty> get modifiedWidgetProperties;
 
+  /// This flag is only for the the Proxy width which should not register itself
+  /// as editable widget
   bool get shouldRegister => true;
 
   @override
@@ -122,21 +125,30 @@ abstract class VisualState<T extends VisualStatefulWidget> extends State<T> with
   ///
   /// It does it by first looking at all the parameters which are not widgets (which need no recursive steps)
   /// and then at the Dynamic widgets.
-  /// TODO make this code cleaner PLEASE
   String buildSourceCode() {
-    return
-      '${widget.originalClassName}(\n'
-          '${remoteValues.map(_generateProperty).values.join(",\n")}\n'
-          '${modifiedWidgetProperties.map((it) {
-        WidgetProperty that = it;
-        if(it.dynamicWidget == null) {
-          that = widget.widgetProperties.firstWhere((prop) => prop.name == it.name, orElse: () => null);
-          if(that == null) return '';
-        }
-        return '${that.name}:${keyResolver.map[that.dynamicWidget.id]?.currentState?.buildSourceCode()}';
+    return '${widget.originalClassName}(\n'
+    '${_buildProperties()}'
+    '${_buildWidgets()}'
+    ')';
+  }
 
-      }).join(",\n")}'
-          ')';
+  String _buildProperties() {
+    return '${remoteValues.map(_generateProperty).values.join(",\n")}\n';
+  }
+  String _buildWidgets() {
+    return modifiedWidgetProperties.entries.map((entry) {
+      WidgetProperty that = entry.value;
+      if(entry.value == null) {
+        if(widget.widgetProperties.containsKey(entry.key)) {
+          that = widget.widgetProperties[entry.key];
+        }
+        if(that == null) return '';
+      }
+      if(that.dynamicWidget == null) {
+        return '';
+      }
+      return '${entry.key}:${keyResolver.map[that.dynamicWidget.id]?.currentState?.buildSourceCode()}';
+    }).join(",\n");
   }
 
   MapEntry<String, String> _generateProperty(String key, Property property) {
@@ -186,9 +198,10 @@ mixin PropertyStateMixin<T extends VisualStatefulWidget> on State<T> {
 /// it only contains a Visual widget which in turn has Properties and WidgetProperties
 class WidgetProperty {
 
-  WidgetProperty({this.name, this.dynamicWidget});
+  WidgetProperty({this.dynamicWidget});
+  WidgetProperty.keyed(GlobalKey<LayoutDragTargetState> globalKey)
+    : dynamicWidget = globalKey.currentState?.child;
 
-  final String name;
   final VisualStatefulWidget dynamicWidget;
 
 }
@@ -299,7 +312,7 @@ class _VisualWrapperState extends VisualState<VisualWrapper> {
   }
 
   @override
-  List<WidgetProperty> get modifiedWidgetProperties => [];
+  Map<String, WidgetProperty> get modifiedWidgetProperties => {};
 
   @override
   Map<String, Property> initRemoteValues() => {};
@@ -335,7 +348,7 @@ class _VisualProxyWrapperState extends VisualState<VisualProxyWrapper> {
   }
 
   @override
-  List<WidgetProperty> get modifiedWidgetProperties => keyResolver.map[widget.visualWidget.id].currentState.modifiedWidgetProperties;
+  Map<String, WidgetProperty> get modifiedWidgetProperties => keyResolver.map[widget.visualWidget.id].currentState.modifiedWidgetProperties;
 
   @override
   String buildSourceCode() {

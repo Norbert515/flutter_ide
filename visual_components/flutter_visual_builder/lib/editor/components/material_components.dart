@@ -42,13 +42,13 @@ class VisualFloatingActionButton extends VisualStatefulWidget {
     this.materialTapTargetSize,
     this.isExtended = false,
     Map<String, Property> properties,
-    List<WidgetProperty> widgetProperties,
+    Map<String, WidgetProperty> widgetProperties,
     @required String id,
   }) : super(
     key: GlobalObjectKey<VisualState>(id),
     id: id,
     properties: properties?? const {},
-    widgetProperties: widgetProperties?? const [],
+    widgetProperties: widgetProperties?? const {},
   );
 
 
@@ -114,12 +114,9 @@ class _VisualFloatingActionButtonState extends VisualState<VisualFloatingActionB
   }
 
   @override
-  List<WidgetProperty> get modifiedWidgetProperties => [
-    WidgetProperty(
-      name: "child",
-      dynamicWidget: childKey.currentState?.child,
-    ),
-  ];
+  Map<String, WidgetProperty> get modifiedWidgetProperties => {
+    'child': WidgetProperty.keyed(childKey),
+  };
 
   @override
   // TODO: implement remoteValues
@@ -145,16 +142,16 @@ class VisualScaffold extends VisualStatefulWidget {
     this.resizeToAvoidBottomPadding = true,
     this.primary = true,
     Map<String, Property> properties,
-    List<WidgetProperty> widgetProperties,
+    Map<String, WidgetProperty> widgetProperties,
     @required String id,
   }) : super(
       key: GlobalObjectKey<VisualState>(id),
       id: id,
       properties: properties?? const {},
-      widgetProperties: widgetProperties?? [
-        WidgetProperty(name: "body", dynamicWidget: body),
-        WidgetProperty(name: "floatingActionButton", dynamicWidget: floatingActionButton)
-      ]);
+      widgetProperties: widgetProperties?? {
+        'body': WidgetProperty(dynamicWidget: body),
+        'floatingActionButton': WidgetProperty(dynamicWidget: floatingActionButton)
+      });
 
   final bool visualMode;
 
@@ -240,20 +237,11 @@ class _VisualScaffoldState extends VisualState<VisualScaffold> {
     );
   }
   @override
-  List<WidgetProperty> get modifiedWidgetProperties => [
-    WidgetProperty(
-        name: "body",
-        dynamicWidget: bodyKey.currentState?.child
-    ),
-    WidgetProperty(
-        name: "floatingActionButton",
-        dynamicWidget: fabKey.currentState?.child
-    ),
-    WidgetProperty(
-        name: "appBar",
-        dynamicWidget: appBarKey.currentState?.child
-    ),
-  ];
+  Map<String, WidgetProperty> get modifiedWidgetProperties => {
+    'body': WidgetProperty.keyed(bodyKey),
+    'floatingActionButton': WidgetProperty.keyed(fabKey),
+    'appBar': WidgetProperty.keyed(appBarKey),
+  };
 
   @override
   // TODO: implement remoteValues
