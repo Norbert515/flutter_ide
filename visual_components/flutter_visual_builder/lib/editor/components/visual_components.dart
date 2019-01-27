@@ -125,6 +125,7 @@ abstract class VisualState<T extends VisualStatefulWidget> extends State<T> with
   ///
   /// It does it by first looking at all the parameters which are not widgets (which need no recursive steps)
   /// and then at the Dynamic widgets.
+  /// TODO formatting of end code
   String buildSourceCode() {
     return '${widget.originalClassName}(\n'
     '${_buildProperties()}'
@@ -147,14 +148,14 @@ abstract class VisualState<T extends VisualStatefulWidget> extends State<T> with
       if(that.dynamicWidget == null) {
         return '';
       }
-      return '${entry.key}:${keyResolver.map[that.dynamicWidget.id]?.currentState?.buildSourceCode()}';
+      return '   ${entry.key}:${keyResolver.map[that.dynamicWidget.id]?.currentState?.buildSourceCode()}';
     }).join(",\n");
   }
 
   MapEntry<String, String> _generateProperty(String key, Property property) {
     if(property.data == null)
       return MapEntry(key, "");
-    return MapEntry(key, '$key:${property.sourceCode}');
+    return MapEntry(key, '   $key:${property.sourceCode}');
 
 
   }
