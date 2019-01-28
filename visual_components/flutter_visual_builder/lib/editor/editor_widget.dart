@@ -68,9 +68,16 @@ class VisualEditorState extends State<VisualEditor> {
 
 
 
-class AppWidget extends StatelessWidget {
+class AppWidget extends StatefulWidget {
 
 
+  @override
+  AppWidgetState createState() {
+    return new AppWidgetState();
+  }
+}
+
+class AppWidgetState extends State<AppWidget> {
   final GlobalKey<VisualRootState> rootKey = GlobalKey();
 
   void onChanged() {
@@ -94,6 +101,7 @@ class AppWidget extends StatelessWidget {
           },
             onPressed: (){
               print("Hey!");
+              setState((){});
             }
         ),
         body: VisualWrapper(
@@ -112,8 +120,4 @@ class AppWidget extends StatelessWidget {
       ),
     );
   }
-
-
-
-
 }

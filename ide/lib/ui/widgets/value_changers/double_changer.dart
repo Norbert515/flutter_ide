@@ -44,7 +44,7 @@ import 'package:ide/ui/widget_editors/property_changers/property_editor.dart';
 }*/
 
 
-class ChangeableDouble extends StatelessWidget with EditorMixin {
+class ChangeableDouble extends StatefulWidget {
 
   ChangeableDouble({Key key, this.id, this.propertyKey, this.value}) : super(key: key);
 
@@ -53,10 +53,34 @@ class ChangeableDouble extends StatelessWidget with EditorMixin {
   final double value;
 
   @override
+  ChangeableDoubleState createState() {
+    return new ChangeableDoubleState();
+  }
+}
+
+class ChangeableDoubleState extends State<ChangeableDouble> with EditorMixin{
+
+
+  double value;
+
+  String get id => widget.id;
+
+  @override
+  void initState() {
+    super.initState();
+    value = widget.value;
+  }
+
+  @override
   Widget build(BuildContext context) {
     return NumericChangeableTextField(
-      name: propertyKey ,
-      onUpdate: (it) => sendUpdate(propertyKey, DoubleProperty(data: it)),
+      name: widget.propertyKey ,
+      onUpdate: (it) {
+        sendUpdate(widget.propertyKey, DoubleProperty(data: it));
+        setState(() {
+          value = it;
+        });
+      },
       value: value,
     );
   }

@@ -55,36 +55,42 @@ class PropertyBloc {
     switch(type) {
       case PropertyType.alignment:
         return AlignmentChanger(
+          key: ObjectKey(id),
           id: id,
           propertyName: key,
           value: property.data,
         );
       case PropertyType.double:
         return ChangeableDouble(
+          key: ObjectKey(id),
           id: id,
           propertyKey: key,
           value: property.data,
         );
       case PropertyType.boxConstraints:
         return ChangeableConstraints(
+          key: ObjectKey(id),
           id: id,
           value: property.data,
           propertyKey: key,
         );
       case PropertyType.color:
         return ColorChanger(
+          key: ObjectKey(id),
           id: id,
           value: property.data,
           propertyKey: key,
         );
       case PropertyType.edgeInserts:
         return ChangeableEdgeInsets(
+          key: ObjectKey(id),
           id: id,
           value: property.data,
           propertyKey: key,
         );
       case PropertyType.crossAxisAlignment:
         return EnumChanger(
+          key: ObjectKey(id),
           id: id,
           propertyKey: key,
           enumProperty: property,
@@ -92,12 +98,14 @@ class PropertyBloc {
 
       case PropertyType.mainAxisAlignment:
         return EnumChanger(
+          key: ObjectKey(id),
           id: id,
           propertyKey: key,
           enumProperty: property,
         );
       case PropertyType.string:
         return StringChanger(
+          key: ObjectKey(id),
           id: id,
           propertyKey: key,
           value: property.data,
