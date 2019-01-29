@@ -91,6 +91,7 @@ class AppWidgetState extends State<AppWidget> {
       onChanged: onChanged,
       key: rootKey,
       child: VisualScaffold(
+        backgroundColor: Colors.white,
         id: "YOOOO",
       ),
     );

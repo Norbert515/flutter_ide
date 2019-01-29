@@ -34,7 +34,6 @@ class HomePageState extends State<HomePage> {
 
 
   void init() async {
-    await Future.delayed(Duration(seconds: 2));
     serverClient = VisualClient(ServerClient(ClientChannel("localhost", port: 50051, options: ChannelOptions(credentials: ChannelCredentials.insecure()))));
     serverClient.init();
     propertyBloc = PropertyBloc(serverClient);
@@ -61,7 +60,7 @@ class HomePageState extends State<HomePage> {
             ],
           ),
         ),
-        inited? PropertySettingSection(propertyBloc: propertyBloc,): SizedBox(),
+        PropertySettingSection(propertyBloc: propertyBloc,),
       ],
     );
   }
@@ -91,7 +90,7 @@ class PropertySettingSection extends StatelessWidget {
             print("Error ${snapshot.error}");
 
           }
-          if(!snapshot.hasData) return Center(child: CircularProgressIndicator(),);
+          if(!snapshot.hasData) return Center(child: Material(child: Text("Select something")));
 
           return Material(
             child: snapshot.requireData,
