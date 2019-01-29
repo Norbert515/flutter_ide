@@ -202,7 +202,7 @@ class _VisualScaffoldState extends VisualState<VisualScaffold> {
   @override
   Widget buildWidget(BuildContext context) {
     return Scaffold(
-      backgroundColor: getValue<Color>('color'),
+      backgroundColor: getValue<Color>('backgroundColor'),
       primary: widget.primary,
       floatingActionButtonAnimator: widget.floatingActionButtonAnimator,
       floatingActionButtonLocation: widget.floatingActionButtonLocation,
@@ -246,7 +246,7 @@ class _VisualScaffoldState extends VisualState<VisualScaffold> {
   @override
   // TODO: implement remoteValues
   Map<String, Property> initRemoteValues() => {
-    'color': ColorProperty(color: widget.backgroundColor),
+    'backgroundColor': ColorProperty(color: widget.backgroundColor),
   };
 }
 
