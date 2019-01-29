@@ -3,6 +3,7 @@ import 'package:flutter_visual_builder/editor/properties/property.dart';
 import 'package:flutter_visual_builder/generated/server.pb.dart';
 import 'package:ide/client/client.dart';
 import 'package:ide/ui/widget_editors/property_changers/property_editor.dart';
+import 'package:ide/ui/widgets/value_changers/bool_changer.dart';
 import 'package:ide/ui/widgets/value_changers/color_changer.dart';
 import 'package:ide/ui/widgets/value_changers/constraints_changer.dart';
 import 'package:ide/ui/widgets/value_changers/double_changer.dart';
@@ -105,6 +106,13 @@ class PropertyBloc {
         );
       case PropertyType.string:
         return StringChanger(
+          key: ObjectKey(id),
+          id: id,
+          propertyKey: key,
+          value: property.data,
+        );
+      case PropertyType.bool:
+        return BoolChanger(
           key: ObjectKey(id),
           id: id,
           propertyKey: key,

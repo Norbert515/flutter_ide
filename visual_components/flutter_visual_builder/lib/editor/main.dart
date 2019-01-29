@@ -5,7 +5,6 @@ import 'package:flutter/foundation.dart'
 import 'package:flutter_visual_builder/editor/editor_widget.dart';
 import 'package:vm_service_lib/vm_service_lib.dart';
 
-import 'package:vm_service_lib/vm_service_lib_io.dart';
 
 void main() {
   debugDefaultTargetPlatformOverride = TargetPlatform.fuchsia;
@@ -22,6 +21,7 @@ class MyApp extends StatelessWidget {
       title: 'Flutter Demo',
       theme: new ThemeData(
         primarySwatch: Colors.blue,
+        brightness: Brightness.dark,
       ),
       home: new MyHomePage(title: 'Flutter Demo Home Page'),
     );

@@ -61,6 +61,8 @@ class _AppBarComponentState extends VisualState<AppBarComponent> {
   @override
   Widget buildWidget(BuildContext context) {
     return AppBar(
+      backgroundColor: getValue('backgroundColor'),
+      centerTitle: getValue('centerTitle'),
     );
   }
 
@@ -71,6 +73,7 @@ class _AppBarComponentState extends VisualState<AppBarComponent> {
   @override
   // TODO implement
   Map<String, Property> initRemoteValues() => {
-
+    'backgroundColor': ColorProperty(color: widget.backgroundColor),
+    'centerTitle': BoolProperty(widget.centerTitle),
   };
 }

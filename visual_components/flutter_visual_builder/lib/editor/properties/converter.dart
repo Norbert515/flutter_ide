@@ -40,6 +40,8 @@ Property convertToProperty(String data) {
       return CrossAxisAlignmentProperty.fromMap(pMap);
     case PropertyType.string:
       return StringProperty.fromMap(pMap);
+    case PropertyType.bool:
+      return BoolProperty.fromMap(pMap);
 
   }
 

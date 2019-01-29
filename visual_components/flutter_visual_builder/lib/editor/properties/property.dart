@@ -10,6 +10,7 @@ enum PropertyType{
   color,
   double,
   string,
+  bool,
   edgeInserts,
   boxConstraints,
   mainAxisAlignment,
@@ -114,7 +115,7 @@ class ColorProperty extends Property<Color> {
 
   @override
   Map getMapData() => {
-    "color": data.value,
+    "color": data?.value,
   };
 
   @override
@@ -243,5 +244,22 @@ class StringProperty extends Property<String> {
 
 
 
+class BoolProperty extends Property<bool> {
 
+  BoolProperty(bool data): super(data);
+  BoolProperty.fromMap(Map map): super(map['data'] == 'true'? true: false);
+  @override
+  void fillSourceCode(StringBuilder builder) {
+    builder.writeNoIndent(data.toString());
+  }
+
+  @override
+  Map getMapData() => {
+    'data': data.toString(),
+  };
+
+  @override
+  PropertyType get type => PropertyType.bool;
+
+}
 

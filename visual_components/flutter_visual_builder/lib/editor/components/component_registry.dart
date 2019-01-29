@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_visual_builder/editor/components/general/text_component.dart';
 import 'package:flutter_visual_builder/editor/components/layout/container_component.dart';
 import 'package:flutter_visual_builder/editor/components/layout/list_components.dart';
+import 'package:flutter_visual_builder/editor/components/material/app_bar_component.dart';
 import 'package:flutter_visual_builder/editor/components/material_components.dart';
 import 'package:flutter_visual_builder/editor/components/visual_components.dart';
 import 'package:flutter_visual_builder/editor/widget_palette/palette.dart';
@@ -72,7 +73,16 @@ class ComponentRegistry {
           icon: Icon(Icons.text_fields),
           name: "Text",
         ),
-      )
+      ),
+      BuildingBlock(
+        visualWidget: AppBarComponent(
+          id: uuid.v1(),
+        ),
+        representation: PaletteItem(
+          icon: Icon(Icons.signal_wifi_4_bar),
+          name: "App Bar",
+        ),
+      ),
     ];
   }
 }
