@@ -211,6 +211,8 @@ mixin PropertyStateMixin<T extends VisualStatefulWidget> on State<T> {
     setState(() {
      remoteValues[key] = value;
     });
+
+   SomethingChanged.notify(context);
   }
 
   K getValue<K>(String key) {

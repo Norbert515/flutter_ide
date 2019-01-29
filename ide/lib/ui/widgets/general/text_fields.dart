@@ -106,10 +106,11 @@ class NumericChangeableTextFieldState
                   ),
                   child: TextField(
                     decoration: InputDecoration(
+                      contentPadding: EdgeInsets.all(1),
                       enabledBorder: UnderlineInputBorder(
                         borderSide: BorderSide(
-                          color: Colors.white,
-                        )
+                          color: Colors.white
+                        ),
                       )
                     ),
                     controller: textEditingController,

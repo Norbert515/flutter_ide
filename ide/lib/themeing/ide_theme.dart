@@ -29,7 +29,7 @@ class IDETheme {
     final Color darkerBackground = Color(0xff1f1f1f);
     final Color lightBackground = Color(0xff313131);
 
-    Color fontColor = Colors.white;
+    Color fontColor = Colors.white.withOpacity(0.9);
 
 
     final TextEditorTheme textEditorTheme = TextEditorTheme(
@@ -49,7 +49,7 @@ class IDETheme {
       iconColor: fontColor,
       sectionTextItem: TextStyle(color: fontColor),
       widgetTextItem: TextStyle(color: fontColor),
-      sectionBackgroundColor: Colors.blue,
+      sectionBackgroundColor: Colors.orange,
     );
 
 

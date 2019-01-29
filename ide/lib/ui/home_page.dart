@@ -5,6 +5,7 @@ import 'package:grpc/grpc.dart';
 import 'package:flutter_visual_builder/editor/editor_widget.dart';
 import 'package:ide/client/client.dart';
 import 'package:ide/logic/property_bloc.dart';
+import 'package:ide/themeing/ide_theme.dart';
 import 'package:ide/ui/text_editor/basic.dart';
 
 // TODO move out of here
@@ -44,27 +45,40 @@ class HomePageState extends State<HomePage> {
 
   @override
   Widget build(BuildContext context) {
-    return Row(
-      children: <Widget>[
-        WidgetPalette(),
-        Expanded(
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: <Widget>[
-              Expanded(
-                flex: 3,
-                child: VisualEditor(),
-              ),
-              Divider(),
-              Expanded(flex: 1, child: inited? TextEditor() : SizedBox()),
-            ],
-          ),
-        ),
-        PropertySettingSection(propertyBloc: propertyBloc,),
-      ],
+    return Material(
+      color: IDETheme.of(context).darkerBackground,
+      child: Row(
+        children: <Widget>[
+          WidgetPalette(),
+          Expanded(child: EditingSection()),
+          PropertySettingSection(propertyBloc: propertyBloc,),
+        ],
+      ),
     );
   }
+}
 
+class EditingSection extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.all(32.0),
+      child: Row(
+        mainAxisSize: MainAxisSize.max,
+        children: <Widget>[
+          Expanded(child: TextEditor()),
+          Expanded(
+            child: Container(
+              width: double.infinity,
+              color: IDETheme.of(context).darkerBackground,
+            ),
+          ),
+          VisualEditor(),
+          Spacer(),
+        ],
+      ),
+    );
+  }
 }
 
 class PropertySettingSection extends StatelessWidget {

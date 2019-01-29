@@ -35,9 +35,9 @@ class WIPTextEditor extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      width: double.infinity,
+      height: double.infinity,
       child: Material(
-        color: IDETheme.of(context).lightBackground,
+        color: IDETheme.of(context).darkerBackground,
         child: Padding(
           padding: const EdgeInsets.all(16),
           child: SingleChildScrollView(

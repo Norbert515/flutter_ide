@@ -24,7 +24,7 @@ class PropertyBloc {
 
 
     Observable<Widget> widgetStream = Observable(visualClient.serverClient.streamSelected(SelectStream())
-        .map(_convertToEditor));
+        .map(_convertToEditor)).asBroadcastStream();
 
     return PropertyBloc._(
       editor: widgetStream,
