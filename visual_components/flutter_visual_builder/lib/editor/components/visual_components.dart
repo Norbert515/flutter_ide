@@ -125,18 +125,16 @@ abstract class VisualState<T extends VisualStatefulWidget> extends State<T> with
   /// It does it by first looking at all the parameters which are not widgets (which need no recursive steps)
   /// and then at the Dynamic widgets.
   /// TODO formatting of end code
-  String buildSourceCode() {
-    StringBuilder stringBuilder = StringBuilder();
-    stringBuilder.write('${widget.originalClassName}(\n');
+  void buildSourceCode(StringBuilder stringBuilder) {
+    stringBuilder.writeNoIndent('${widget.originalClassName}(\n');
 
     stringBuilder.addIndent();
     _buildProperties(stringBuilder);
     _buildWidgets(stringBuilder);
+
     stringBuilder.removeIndent();
-    stringBuilder.writeNoIndent(")");
+    stringBuilder.write(")");
 
-
-    return stringBuilder.toString();
   }
 
   void _buildProperties(StringBuilder builder) {
@@ -155,7 +153,8 @@ abstract class VisualState<T extends VisualStatefulWidget> extends State<T> with
         }
       }
       if(that != null && that.dynamicWidget != null) {
-        builder.write('$key:${keyResolver.map[that.dynamicWidget.id]?.currentState?.buildSourceCode()}');
+        builder.write('$key: ');
+        keyResolver.map[that.dynamicWidget.id]?.currentState?.buildSourceCode(builder);
         builder.writeNoIndent(',\n');
       }
 
@@ -179,7 +178,7 @@ abstract class VisualState<T extends VisualStatefulWidget> extends State<T> with
 
   void  _generateProperty(String key, Property property, StringBuilder builder) {
     if(property.data != null) {
-      builder.write('$key:');
+      builder.write('$key: ');
       property.fillSourceCode(builder);
       builder.writeNoIndent(",\n");
     }
@@ -255,8 +254,10 @@ class VisualRootState extends State<VisualRoot> {
   /// It does it by first looking at all the parameters which are not widgets (which need no recursive steps)
   /// and then at the Dynamic widgets.
   String buildSourceCode() {
+    StringBuilder builder = StringBuilder();
     try {
-      return keyResolver.map[widget.child.id].currentState.buildSourceCode();
+      keyResolver.map[widget.child.id].currentState.buildSourceCode(builder);
+      return builder.toString();
     } catch(e) {
 
       if(e is Error) {
@@ -336,8 +337,8 @@ class _VisualWrapperState extends VisualState<VisualWrapper> {
   }
 
   @override
-  String buildSourceCode() {
-    return widget.sourceCode;
+  void buildSourceCode(StringBuilder builder) {
+    builder.write(widget.sourceCode);
   }
 
   @override
@@ -380,8 +381,8 @@ class _VisualProxyWrapperState extends VisualState<VisualProxyWrapper> {
   Map<String, WidgetProperty> get modifiedWidgetProperties => keyResolver.map[widget.visualWidget.id].currentState.modifiedWidgetProperties;
 
   @override
-  String buildSourceCode() {
-    return keyResolver.map[widget.visualWidget.id].currentState.buildSourceCode();
+  void buildSourceCode(StringBuilder builder) {
+    keyResolver.map[widget.visualWidget.id].currentState.buildSourceCode(builder);
   }
 
   @override
@@ -527,7 +528,13 @@ class LayoutDragTargetState extends State<LayoutDragTarget> {
       id: newChild.id,
       visualWidget: newChild,
       child: Draggable<VisualStatefulWidget>(
-        feedback: newChild,
+        feedback: ConstrainedBox(
+          constraints: BoxConstraints(
+            maxHeight: 500,
+            maxWidth: 500,
+          ),
+          child: newChild
+        ),
         child: newChild,
         childWhenDragging: SizedBox(),
         data: newChild,

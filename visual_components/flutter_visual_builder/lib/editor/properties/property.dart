@@ -102,6 +102,7 @@ class AlignmentProperty extends Property<Alignment> {
 }
 
 
+// TODO all properties should be able to hold null
 class ColorProperty extends Property<Color> {
 
   ColorProperty({Color color}): super(color);

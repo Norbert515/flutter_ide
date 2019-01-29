@@ -92,31 +92,6 @@ class AppWidgetState extends State<AppWidget> {
       key: rootKey,
       child: VisualScaffold(
         id: "YOOOO",
-        floatingActionButton: VisualFloatingActionButton(
-          id: "BLUB",
-          properties: {
-           "onPressed": UnknownProperty(
-              sourceCode: '(){\nprint("Hey!");\n}'
-            ),
-          },
-            onPressed: (){
-              print("Hey!");
-              setState((){});
-            }
-        ),
-        body: VisualWrapper(
-          id: "SOME ID",
-          sourceCode: 'Center(child: RaisedButton(onPressed: ()'
-              '{String source = rootKey.currentState.buildSourceCode();'
-              'print("Here is the source: \n");print(source);}),),',
-          child: Center(
-            child: RaisedButton(onPressed: (){
-              String source = rootKey.currentState.buildSourceCode();
-              print("Here is the source: \n");
-              print(source);
-            }),
-          ),
-        ),
       ),
     );
   }

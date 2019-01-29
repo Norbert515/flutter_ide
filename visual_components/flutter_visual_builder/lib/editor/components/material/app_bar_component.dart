@@ -57,23 +57,38 @@ class AppBarComponent extends VisualStatefulWidget implements PreferredSizeWidge
 
 class _AppBarComponentState extends VisualState<AppBarComponent> {
 
+  final GlobalKey<LayoutDragTargetState> leading = GlobalKey();
+  final GlobalKey<LayoutDragTargetState> title = GlobalKey();
 
   @override
   Widget buildWidget(BuildContext context) {
     return AppBar(
       backgroundColor: getValue('backgroundColor'),
       centerTitle: getValue('centerTitle'),
+      title: LayoutDragTarget(
+        key: title,
+        child: widget.title,
+      ),
+      leading: LayoutDragTarget(
+        key: leading,
+        child: widget.leading,
+      ),
+      elevation: getValue('elevation'),
     );
   }
 
   @override
   // TODO implement
-  Map<String, WidgetProperty> get modifiedWidgetProperties => {};
+  Map<String, WidgetProperty> get modifiedWidgetProperties => {
+    'leading': WidgetProperty.keyed(leading),
+    'title': WidgetProperty.keyed(title),
+  };
 
   @override
   // TODO implement
   Map<String, Property> initRemoteValues() => {
     'backgroundColor': ColorProperty(color: widget.backgroundColor),
     'centerTitle': BoolProperty(widget.centerTitle),
+    'elevation': DoubleProperty(data: widget.elevation)
   };
 }

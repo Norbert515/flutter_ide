@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_visual_builder/editor/components/visual_components.dart';
 import 'package:flutter_visual_builder/editor/properties/property.dart';
+import 'package:ide/utils/string_builder.dart';
 
 
 class TextComponent extends VisualStatefulWidget {
@@ -28,6 +29,11 @@ class _TextComponentState extends VisualState<TextComponent> {
   @override
   Widget buildWidget(BuildContext context) {
     return Text(getValue('text'));
+  }
+
+  @override
+  void buildSourceCode(StringBuilder stringBuilder) {
+    stringBuilder.writeNoIndent('${widget.originalClassName}("${remoteValues['text'].data}")');
   }
 
   @override

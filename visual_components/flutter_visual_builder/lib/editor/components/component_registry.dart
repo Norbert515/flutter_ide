@@ -77,6 +77,8 @@ class ComponentRegistry {
       BuildingBlock(
         visualWidget: AppBarComponent(
           id: uuid.v1(),
+          backgroundColor: Colors.yellow,
+          elevation: 4,
         ),
         representation: PaletteItem(
           icon: Icon(Icons.signal_wifi_4_bar),
