@@ -1,11 +1,16 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_visual_builder/editor/components/component_registry.dart';
 import 'package:flutter_visual_builder/editor/components/visual_components.dart';
-import 'package:flutter_visual_builder/editor/dynamic_widget.dart';
 import 'package:flutter_visual_builder/editor/editor_widget.dart';
 import 'package:flutter_visual_builder/editor/widget_palette/palette_items.dart';
 import 'package:ide/themeing/ide_theme.dart';
 
 class WidgetPalette extends StatelessWidget {
+
+
+  final ComponentRegistry componentRegistry = ComponentRegistry();
+
+
   @override
   Widget build(BuildContext context) {
     return DragTarget<VisualStatefulWidget>(
@@ -19,22 +24,18 @@ class WidgetPalette extends StatelessWidget {
               color: IDETheme.of(context).lightBackground,
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.start,
-                children: <Widget>[
-                  PaletteCategory(
-                    title: "Layout",
-                  ),
-                  RootDraggable(buildingBlock: test2),
-                  RootDraggable(buildingBlock: test3),
-                  RootDraggable(buildingBlock: test4),
-                  RootDraggable(buildingBlock: test5),
-                  RootDraggable(buildingBlock: text),
-                  PaletteCategory(
-                    title: "Input",
-                  ),
-                  PaletteCategory(
-                    title: "Stuff",
-                  ),
-                ],
+                children: <Widget>[]
+                ..add(PaletteCategory(
+                  title: "Layout",
+                ))
+                ..addAll(componentRegistry.getGeneral())
+                ..add(PaletteCategory(
+                  title: "Input",
+                ))
+                ..addAll([])
+                ..add(PaletteCategory(
+                  title: "Stuff",
+                )),
               )),
         );
       },

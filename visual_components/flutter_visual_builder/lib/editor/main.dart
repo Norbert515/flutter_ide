@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 
 import 'package:flutter/foundation.dart'
     show debugDefaultTargetPlatformOverride;
-import 'package:flutter_visual_builder/editor/dynamic_widget.dart';
 import 'package:flutter_visual_builder/editor/editor_widget.dart';
 import 'package:vm_service_lib/vm_service_lib.dart';
 

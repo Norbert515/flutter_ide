@@ -1,8 +1,6 @@
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
-import 'package:flutter_visual_builder/editor/dynamic_widget.dart';
-import 'package:flutter_visual_builder/editor/main.dart';
 import 'package:flutter_visual_builder/editor/key_resolver.dart';
 import 'package:flutter_visual_builder/editor/properties/property.dart';
 import 'package:flutter_visual_builder/generated/server.pb.dart';
