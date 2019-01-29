@@ -50,33 +50,41 @@ class ChangeableEdgeInsetsState extends State<ChangeableEdgeInsets> with EditorM
   Widget build(BuildContext context) {
     return Row(
       children: <Widget>[
-        NumericChangeableTextField(
-          onUpdate: (it) {
-            _update(left: it);
-          },
-          value: edgeInsets.left,
-          name: "left",
+        Flexible(
+          child: NumericChangeableTextField(
+            onUpdate: (it) {
+              _update(left: it);
+            },
+            value: edgeInsets.left,
+            name: "left",
+          ),
         ),
-        NumericChangeableTextField(
-          onUpdate: (it) {
-            _update(top: it);
-          },
-          value: edgeInsets.top,
-          name: "top",
+        Flexible(
+          child: NumericChangeableTextField(
+            onUpdate: (it) {
+              _update(top: it);
+            },
+            value: edgeInsets.top,
+            name: "top",
+          ),
         ),
-        NumericChangeableTextField(
-          onUpdate: (it) {
-            _update(right: it);
-          },
-          value: edgeInsets.right,
-          name: "right",
+        Flexible(
+          child: NumericChangeableTextField(
+            onUpdate: (it) {
+              _update(right: it);
+            },
+            value: edgeInsets.right,
+            name: "right",
+          ),
         ),
-        NumericChangeableTextField(
-          onUpdate: (it) {
-            _update(bottom: it);
-          },
-          value: edgeInsets.bottom,
-          name: "bottom",
+        Flexible(
+          child: NumericChangeableTextField(
+            onUpdate: (it) {
+              _update(bottom: it);
+            },
+            value: edgeInsets.bottom,
+            name: "bottom",
+          ),
         ),
       ],
     );

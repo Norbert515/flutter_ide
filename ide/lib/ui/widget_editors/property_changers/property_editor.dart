@@ -52,6 +52,9 @@ class PropertyEditor extends StatelessWidget {
               children: _oneLiners(context),
             ),
           ),*/
+          /*GridView.count(crossAxisCount: 2, children: <Widget>[
+
+          ],),*/
           Row(
             children: <Widget>[
               Column(
@@ -79,7 +82,7 @@ class PropertyEditor extends StatelessWidget {
         children: <Widget>[
           Text(entry.key, style: IDETheme.of(context).propertyChangerTheme.propertyContainer),
           Spacer(),
-          entry.value,
+          Flexible(child: ConstrainedBox(constraints: BoxConstraints(maxHeight: 200),child: entry.value)),
           Spacer(),
         ],
       );

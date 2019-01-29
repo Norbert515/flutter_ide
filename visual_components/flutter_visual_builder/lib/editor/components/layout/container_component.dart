@@ -20,6 +20,7 @@ class VisualContainer extends VisualStatefulWidget {
   final double width;
   final double height;
   final BoxConstraints constraints;
+  // TODO all properties
 
 
   @override

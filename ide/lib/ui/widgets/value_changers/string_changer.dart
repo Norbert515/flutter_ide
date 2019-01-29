@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_visual_builder/editor/properties/property.dart';
+import 'package:ide/themeing/ide_theme.dart';
 import 'package:ide/ui/widget_editors/property_changers/property_editor.dart';
 
 class StringChanger extends StatefulWidget {
@@ -33,8 +34,14 @@ class StringChangerState extends State<StringChanger> with EditorMixin {
 
   @override
   Widget build(BuildContext context) {
-    return TextField(
-      controller: controller,
+    return Center(
+      child: TextField(
+        style: IDETheme.of(context).propertyChangerTheme.propertyNumericValue,
+        decoration: InputDecoration(
+          contentPadding: EdgeInsets.all(1)
+        ),
+        controller: controller,
+      ),
     );
   }
 }

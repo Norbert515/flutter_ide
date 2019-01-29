@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_visual_builder/editor/properties/enum_properties.dart';
+import 'package:ide/utils/string_builder.dart';
 import 'package:meta/meta.dart';
 
 
@@ -32,7 +33,7 @@ abstract class Property<T> {
 
   Property(this.data);
 
-  String get sourceCode;
+  void fillSourceCode(StringBuilder builder);
 
   T data;
 
@@ -56,9 +57,10 @@ class UnknownProperty extends Property<String> {
   UnknownProperty({@required String sourceCode}) : super(sourceCode);
   UnknownProperty.fromMap(Map map): super(map["sourceCode"]);
 
-
   @override
-  String get sourceCode => data;
+  void fillSourceCode(StringBuilder builder) {
+    builder.writeNoIndent(data);
+  }
 
   @override
   Map getMapData() => {
@@ -67,6 +69,8 @@ class UnknownProperty extends Property<String> {
 
   @override
   PropertyType get type => PropertyType.unknown;
+
+
 }
 
 
@@ -79,8 +83,10 @@ class AlignmentProperty extends Property<Alignment> {
  AlignmentProperty.fromMap(Map map): super(Alignment(map["x"], map["y"]));
 
 
-  @override
-  String get sourceCode => "Alignment(${data.x}, ${data.y})";
+   @override
+   void fillSourceCode(StringBuilder builder) {
+     builder.writeNoIndent("Alignment(${data.x}, ${data.y})");
+   }
 
   @override
   Map getMapData() => {
@@ -90,6 +96,8 @@ class AlignmentProperty extends Property<Alignment> {
 
   @override
   PropertyType get type => PropertyType.alignment;
+
+
 }
 
 
@@ -98,8 +106,11 @@ class ColorProperty extends Property<Color> {
   ColorProperty({Color color}): super(color);
   ColorProperty.fromMap(Map map): super(Color(map["color"]));
 
+
   @override
-  String get sourceCode => "Color(0x${data.value.toRadixString(16)})";
+  void fillSourceCode(StringBuilder builder) {
+    builder.writeNoIndent("Color(0x${data.value.toRadixString(16)})");
+  }
 
   @override
   Map getMapData() => {
@@ -108,6 +119,8 @@ class ColorProperty extends Property<Color> {
 
   @override
   PropertyType get type => PropertyType.color;
+
+
 }
 // TODO name collision with diagnostics
 class DoubleProperty extends Property<double> {
@@ -121,10 +134,14 @@ class DoubleProperty extends Property<double> {
   };
 
   @override
-  String get sourceCode => data.toString();
+  void fillSourceCode(StringBuilder builder) {
+    builder.writeNoIndent(data.toString());
+  }
+
 
   @override
   PropertyType get type => PropertyType.double;
+
 
 }
 
@@ -138,6 +155,17 @@ class EdgeInsertsProperty extends Property<EdgeInsets> {
   ));
 
 
+  @override
+  void fillSourceCode(StringBuilder builder) {
+    builder.writeNoIndent("EdgeInsets.only(\n");
+    builder.addIndent();
+    builder.write("left: ${data.left},\n");
+    builder.write("right: ${data.right},\n");
+    builder.write("top: ${data.top},\n");
+    builder.write("bottom: ${data.bottom},\n");
+    builder.removeIndent();
+    builder.write(")");
+  }
 
   @override
   Map getMapData() => {
@@ -147,16 +175,10 @@ class EdgeInsertsProperty extends Property<EdgeInsets> {
     "bottom": data.bottom,
   }; 
 
-  @override
-  String get sourceCode => "EdgeInsets.only(\n"
-  "left: ${data.left}\n"
-  "right: ${data.right}\n"
-  "top: ${data.top}\n"
-  "bottom: ${data.bottom}\n"
-      ")";
 
   @override
   PropertyType get type => PropertyType.edgeInserts;
+
 
 }
 
@@ -179,18 +201,22 @@ class BoxConstraintsProperty extends Property<BoxConstraints> {
     'maxHeight': data.maxHeight.toString(),
   };
 
-
-
   @override
-  String get sourceCode => "BoxConstraints(\n"
-  "minWidth: ${data.minWidth}\n"
-  "maxWidth: ${data.maxWidth}\n"
-  "minHeight: ${data.minHeight}\n"
-  "maxHeight: ${data.maxHeight}\n"
-      ")";
+  void fillSourceCode(StringBuilder builder) {
+    builder.writeNoIndent("BoxConstraints(\n");
+    builder.addIndent();
+    builder.write("minWidth: ${data.minWidth},\n");
+    builder.write("maxWidth: ${data.maxWidth},\n");
+    builder.write("minHeight: ${data.minHeight},\n");
+    builder.write("maxHeight: ${data.maxHeight},\n");
+    builder.removeIndent();
+    builder.write(")");
+  }
+
 
   @override
   PropertyType get type => PropertyType.boxConstraints;
+
   
 }
 
@@ -204,10 +230,14 @@ class StringProperty extends Property<String> {
   };
 
   @override
-  String get sourceCode => '"$data"';
+  void fillSourceCode(StringBuilder builder) {
+    builder.writeNoIndent('"$data"');
+  }
+
 
   @override
   PropertyType get type => PropertyType.string;
+
 
 }
 

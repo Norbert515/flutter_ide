@@ -10,6 +10,7 @@ import 'package:flutter_visual_builder/server/server.dart';
 import 'package:provider/provider.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:flutter/widgets.dart';
+import 'package:ide/utils/string_builder.dart';
 
 // TODO MetaData widget might also be interesting
 
@@ -127,35 +128,64 @@ abstract class VisualState<T extends VisualStatefulWidget> extends State<T> with
   /// and then at the Dynamic widgets.
   /// TODO formatting of end code
   String buildSourceCode() {
-    return '${widget.originalClassName}(\n'
-    '${_buildProperties()}'
-    '${_buildWidgets()}'
-    ')';
+    StringBuilder stringBuilder = StringBuilder();
+    stringBuilder.write('${widget.originalClassName}(\n');
+
+    stringBuilder.addIndent();
+    _buildProperties(stringBuilder);
+    _buildWidgets(stringBuilder);
+    stringBuilder.removeIndent();
+    stringBuilder.writeNoIndent(")");
+
+
+    return stringBuilder.toString();
   }
 
-  String _buildProperties() {
-    return '${remoteValues.map(_generateProperty).values.join(",\n")}\n';
+  void _buildProperties(StringBuilder builder) {
+    remoteValues.forEach((key, property) {
+      _generateProperty(key, property, builder);
+    });
+   // return '${remoteValues.map((key, prop) => _generateProperty(key, prop, builder)).values.join(",\n")}\n';
   }
-  String _buildWidgets() {
-    return modifiedWidgetProperties.entries.map((entry) {
+  void _buildWidgets(StringBuilder builder) {
+
+    modifiedWidgetProperties.forEach((key, property) {
+      WidgetProperty that = property;
+      if(property == null) {
+        if(widget.widgetProperties.containsKey(key)) {
+          that = widget.widgetProperties[key];
+        }
+      }
+      if(that != null && that.dynamicWidget != null) {
+        builder.write('$key:${keyResolver.map[that.dynamicWidget.id]?.currentState?.buildSourceCode()}');
+        builder.writeNoIndent(',\n');
+      }
+
+    });
+
+ /*   return modifiedWidgetProperties.entries.map((entry) {
       WidgetProperty that = entry.value;
       if(entry.value == null) {
         if(widget.widgetProperties.containsKey(entry.key)) {
           that = widget.widgetProperties[entry.key];
         }
-        if(that == null) return '';
+        if(that == null) return;
       }
       if(that.dynamicWidget == null) {
-        return '';
+        return;
       }
+
       return '   ${entry.key}:${keyResolver.map[that.dynamicWidget.id]?.currentState?.buildSourceCode()}';
-    }).join(",\n");
+    }).join(",\n");*/
   }
 
-  MapEntry<String, String> _generateProperty(String key, Property property) {
-    if(property.data == null)
-      return MapEntry(key, "");
-    return MapEntry(key, '   $key:${property.sourceCode}');
+  void  _generateProperty(String key, Property property, StringBuilder builder) {
+    if(property.data != null) {
+      builder.write('$key:');
+      property.fillSourceCode(builder);
+      builder.writeNoIndent(",\n");
+    }
+   // return MapEntry(key, '   $key:${property.sourceCode}');
 
 
   }

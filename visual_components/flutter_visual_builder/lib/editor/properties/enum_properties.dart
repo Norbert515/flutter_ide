@@ -2,6 +2,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_visual_builder/editor/properties/property.dart';
+import 'package:ide/utils/string_builder.dart';
 
 abstract class EnumProperty<T> extends Property<T> {
 
@@ -22,9 +23,11 @@ abstract class EnumProperty<T> extends Property<T> {
   };
 
 
-
   @override
-  String get sourceCode => data.toString();
+  void fillSourceCode(StringBuilder builder) {
+    builder.write(data.toString());
+  }
+
 }
 
 class CrossAxisAlignmentProperty extends EnumProperty<CrossAxisAlignment> {
@@ -37,6 +40,7 @@ class CrossAxisAlignmentProperty extends EnumProperty<CrossAxisAlignment> {
 
   @override
   PropertyType get type => PropertyType.crossAxisAlignment;
+
 
 }
 
