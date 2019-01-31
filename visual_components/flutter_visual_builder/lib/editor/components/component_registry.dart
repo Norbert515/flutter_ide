@@ -2,7 +2,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_visual_builder/editor/components/general/text_component.dart';
 import 'package:flutter_visual_builder/editor/components/input/raised_button.dart';
-import 'package:flutter_visual_builder/editor/components/layout/center.dart';
+import 'package:flutter_visual_builder/editor/components/layout/center_component.dart';
 import 'package:flutter_visual_builder/editor/components/layout/container_component.dart';
 import 'package:flutter_visual_builder/editor/components/layout/list_components.dart';
 import 'package:flutter_visual_builder/editor/components/material/app_bar_component.dart';

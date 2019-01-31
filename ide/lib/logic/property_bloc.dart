@@ -9,6 +9,7 @@ import 'package:ide/ui/value_changers/constraints_changer.dart';
 import 'package:ide/ui/value_changers/double_changer.dart';
 import 'package:ide/ui/value_changers/edge_insets_changer.dart';
 import 'package:ide/ui/value_changers/enum_changer.dart';
+import 'package:ide/ui/value_changers/int_changer.dart';
 import 'package:ide/ui/value_changers/string_changer.dart';
 import 'package:ide/ui/widget_editors/property_changers/property_editor.dart';
 import 'package:rxdart/rxdart.dart';
@@ -124,6 +125,13 @@ class PropertyBloc {
           id: id,
           propertyKey: key,
           value: property.data,
+        );
+      case PropertyType.int:
+        return IntChanger(
+          key: ObjectKey(id),
+          id: id,
+          propertyKey:key,
+          value: property.data
         );
       case PropertyType.unknown:
         return Text("Unknown");

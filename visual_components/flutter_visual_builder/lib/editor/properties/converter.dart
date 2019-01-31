@@ -42,6 +42,8 @@ Property convertToProperty(String data) {
       return StringProperty.fromMap(pMap);
     case PropertyType.bool:
       return BoolProperty.fromMap(pMap);
+    case PropertyType.int:
+      return IntProperty.fromMap(pMap);
 
   }
 

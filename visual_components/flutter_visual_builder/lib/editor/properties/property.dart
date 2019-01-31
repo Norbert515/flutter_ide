@@ -9,6 +9,7 @@ enum PropertyType{
   alignment,
   color,
   double,
+  int,
   string,
   bool,
   edgeInserts,
@@ -143,6 +144,28 @@ class DoubleProperty extends Property<double> {
 
   @override
   PropertyType get type => PropertyType.double;
+
+
+}
+
+class IntProperty extends Property<int> {
+  IntProperty({int data}) : super(data);
+  IntProperty.fromMap(Map map): super(map["int"]);
+
+
+  @override
+  Map getMapData() => {
+    "int": data,
+  };
+
+  @override
+  void fillSourceCode(StringBuilder builder) {
+    builder.writeNoIndent(data.toString());
+  }
+
+
+  @override
+  PropertyType get type => PropertyType.int;
 
 
 }
