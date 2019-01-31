@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:ide/client/client.dart';
+import 'package:ide/logic/property_bloc.dart';
 import 'package:ide/themeing/ide_theme.dart';
 import 'package:provider/provider.dart';
 import 'dart:convert';
@@ -12,8 +14,8 @@ mixin EditorMixin {
   String get id;
 
 
-  void sendUpdate(String propertyName, prop.Property property) {
-    serverClient.fieldUpdates.add(
+  void sendUpdate(BuildContext context, String propertyName, prop.Property property) {
+    Provider.of<VisualClient>(context).fieldUpdates.add(
         FieldUpdate()
           ..id = id
           ..propertyName = propertyName

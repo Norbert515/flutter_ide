@@ -10,50 +10,56 @@ class WidgetPalette extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return DragTarget<VisualStatefulWidget>(
-      onWillAccept: (_) => true,
-      builder: (context, one, two) {
-        return Material(
-          child: Container(
-              width: 200,
-              height: double.infinity,
-              alignment: Alignment.center,
-              color: IDETheme.of(context).lightBackground,
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.start,
-                children: <Widget>[]
-                ..add(PaletteCategory(
-                  title: "Layout",
-                ))
-                ..addAll(componentRegistry.getGeneral())
-                ..add(PaletteCategory(
-                  title: "Input",
-                ))
-                ..addAll([])
-                ..add(PaletteCategory(
-                  title: "Stuff",
-                )),
+    return Material(
+      child: Container(
+          width: 200,
+          height: double.infinity,
+          alignment: Alignment.center,
+          color: IDETheme.of(context).lightBackground,
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.start,
+            children: <Widget>[]
+              ..add(PaletteCategory(
+                title: "Layout",
+              ))
+              ..addAll(componentRegistry.getGeneral())
+              ..add(PaletteCategory(
+                title: "Input",
+              ))
+              ..addAll([])
+              ..add(PaletteCategory(
+                title: "Stuff",
               )),
-        );
-      },
+          )),
     );
   }
 }
 
-class RootDraggable extends StatelessWidget {
+class RootDraggable extends StatefulWidget {
   const RootDraggable({Key key, this.buildingBlock}) : super(key: key);
 
   final BuildingBlock buildingBlock;
 
   @override
+  RootDraggableState createState() {
+    return new RootDraggableState();
+  }
+}
+
+class RootDraggableState extends State<RootDraggable> {
+  @override
   Widget build(BuildContext context) {
     return Draggable<VisualStatefulWidget>(
-      childWhenDragging: buildingBlock.representation,
-      data: buildingBlock.visualWidget,
-      feedback: buildingBlock.representation,
-      child: buildingBlock.representation,
+      childWhenDragging: widget.buildingBlock.representation,
+      data: widget.buildingBlock.visualWidget(),
+      feedback: widget.buildingBlock.representation,
+      child: widget.buildingBlock.representation,
       onDragStarted: () {
-        print("Started inital drag with id ${buildingBlock.visualWidget.id}");
+        // TODO this is so a new id is generated each drag, this should be cleaned
+        // up at some point
+        setState((){});
+        // TODO find a better solution of generating new ids
+        //print("Started inital drag with id ${buildingBlock.visualWidget.id}");
       },
     );
   }

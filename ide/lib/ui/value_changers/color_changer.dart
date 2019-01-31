@@ -66,7 +66,7 @@ class ColorChangerState extends State<ColorChanger> with EditorMixin{
               setState(() {
                 color = it;
               });
-              sendUpdate(widget.propertyKey, ColorProperty(color: it));
+              sendUpdate(context, widget.propertyKey, ColorProperty(color: it));
             },
             enableLabel: true,
             pickerAreaHeightPercent: 0.8,

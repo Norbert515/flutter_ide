@@ -4,6 +4,10 @@
 ///
 // ignore_for_file: non_constant_identifier_names,library_prefixes,unused_import
 
+const Empty$json = const {
+  '1': 'Empty',
+};
+
 const SourceCode$json = const {
   '1': 'SourceCode',
   '2': const [
@@ -91,6 +95,13 @@ const GetFieldsResponse_FieldsEntry$json = const {
 
 const SelectStream$json = const {
   '1': 'SelectStream',
+};
+
+const RemovedWidget$json = const {
+  '1': 'RemovedWidget',
+  '2': const [
+    const {'1': 'id', '3': 1, '4': 1, '5': 9, '10': 'id'},
+  ],
 };
 
 const SelectedWidgetWithProperties$json = const {

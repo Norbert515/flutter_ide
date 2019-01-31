@@ -2,6 +2,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_visual_builder/generated/server.pb.dart';
+import 'package:ide/client/client.dart';
 import 'package:ide/themeing/ide_theme.dart';
 import 'package:ide/ui/home_page.dart';
 import 'package:provider/provider.dart';
@@ -10,7 +11,7 @@ class TextEditor extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return StreamBuilder<SourceCode>(
-     stream: serverClient.serverClient.streamSourceCode(InitSourceCodeStream()),
+     stream: Provider.of<VisualClient>(context).serverClient.streamSourceCode(InitSourceCodeStream()),
       builder: (context, snapshot) {
        String source;
        if(!snapshot.hasData) {

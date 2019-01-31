@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_visual_builder/editor/components/visual_components.dart';
 import 'package:flutter_visual_builder/editor/widget_palette/palette.dart';
 import 'package:flutter_visual_builder/generated/server.pbgrpc.dart';
 import 'package:grpc/grpc.dart';
@@ -7,11 +8,7 @@ import 'package:ide/client/client.dart';
 import 'package:ide/logic/property_bloc.dart';
 import 'package:ide/themeing/ide_theme.dart';
 import 'package:ide/ui/text_editor/basic.dart';
-
-// TODO move out of here
-VisualClient serverClient;
-
-
+import 'package:provider/provider.dart';
 
 class HomePage extends StatefulWidget {
 
@@ -23,25 +20,6 @@ class HomePage extends StatefulWidget {
 
 class HomePageState extends State<HomePage> {
 
-  bool inited = false;
-
-  PropertyBloc propertyBloc;
-
-  @override
-  void initState(){
-    super.initState();
-    init();
-  }
-
-
-  void init() async {
-    serverClient = VisualClient(ServerClient(ClientChannel("localhost", port: 50051, options: ChannelOptions(credentials: ChannelCredentials.insecure()))));
-    serverClient.init();
-    propertyBloc = PropertyBloc(serverClient);
-    setState(() {
-      inited = true;
-  });
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -51,7 +29,7 @@ class HomePageState extends State<HomePage> {
         children: <Widget>[
           WidgetPalette(),
           Expanded(child: EditingSection()),
-          PropertySettingSection(propertyBloc: propertyBloc,),
+          PropertySettingSection(),
         ],
       ),
     );
@@ -74,7 +52,7 @@ class EditingSection extends StatelessWidget {
             ),
           ),
           VisualEditor(),
-          Spacer(),
+          Expanded(child: WidgetTrash()),
         ],
       ),
     );
@@ -84,9 +62,8 @@ class EditingSection extends StatelessWidget {
 class PropertySettingSection extends StatelessWidget {
 
 
-  const PropertySettingSection({Key key, this.propertyBloc}) : super(key: key);
+  const PropertySettingSection({Key key}) : super(key: key);
 
-  final PropertyBloc propertyBloc;
 
   @override
   Widget build(BuildContext context) {
@@ -94,7 +71,7 @@ class PropertySettingSection extends StatelessWidget {
       width: 400,
       height: double.infinity,
       child: StreamBuilder<Widget>(
-        stream: propertyBloc.editor,
+        stream: Provider.of<PropertyBloc>(context).editor,
         builder: (context, snapshot) {
           if(snapshot.hasError) {
             if(snapshot.error is Error) {
@@ -104,13 +81,65 @@ class PropertySettingSection extends StatelessWidget {
             print("Error ${snapshot.error}");
 
           }
-          if(!snapshot.hasData) return Center(child: Material(child: Text("Select something")));
+          if(!snapshot.hasData) {
+            return Material(
+              color: IDETheme
+                        .of(context)
+                        .lightBackground,
+              child: Center(
+                  child: Text("Select something", style: IDETheme.of(context).propertyChangerTheme.propertyContainer,)
+              ),
+            );
+          }
 
           return Material(
             child: snapshot.requireData,
           );
         },
       ),
+    );
+  }
+}
+
+class WidgetTrash extends StatefulWidget {
+  @override
+  WidgetTrashState createState() {
+    return new WidgetTrashState();
+  }
+}
+
+class WidgetTrashState extends State<WidgetTrash> {
+
+
+  bool acceptingTrash = false;
+
+
+  @override
+  Widget build(BuildContext context) {
+    return DragTarget<VisualStatefulWidget>(
+      onWillAccept: (_) {
+        setState(() {
+          acceptingTrash = true;
+        });
+        return true;
+      },
+      onAccept: (it) {
+        Provider.of<PropertyBloc>(context).removedIds.add(it.id);
+        setState(() {
+          acceptingTrash = false;
+        });
+      },
+      onLeave: (_) {
+        setState((){
+          acceptingTrash = false;
+        });
+      },
+      builder: (context, one, two) {
+        return Center(
+          child: Icon(Icons.delete, color:
+            acceptingTrash? IDETheme.of(context).deleteColor : IDETheme.of(context).fontColor,),
+        );
+      },
     );
   }
 }

@@ -35,7 +35,7 @@ class BoolChangerState extends State<BoolChanger> with EditorMixin {
     return Checkbox(
       value: value,
       onChanged: (value) {
-        sendUpdate(widget.propertyKey, BoolProperty(value));
+        sendUpdate(context, widget.propertyKey, BoolProperty(value));
         setState(() {
           this.value = value;
         });

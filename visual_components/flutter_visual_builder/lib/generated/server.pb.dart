@@ -9,6 +9,27 @@ import 'dart:core' show int, bool, double, String, List, Map, override;
 
 import 'package:protobuf/protobuf.dart' as $pb;
 
+class Empty extends $pb.GeneratedMessage {
+  static final $pb.BuilderInfo _i = new $pb.BuilderInfo('Empty', package: const $pb.PackageName('helloworld'))
+    ..hasRequiredFields = false
+  ;
+
+  Empty() : super();
+  Empty.fromBuffer(List<int> i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) : super.fromBuffer(i, r);
+  Empty.fromJson(String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) : super.fromJson(i, r);
+  Empty clone() => new Empty()..mergeFromMessage(this);
+  Empty copyWith(void Function(Empty) updates) => super.copyWith((message) => updates(message as Empty));
+  $pb.BuilderInfo get info_ => _i;
+  static Empty create() => new Empty();
+  Empty createEmptyInstance() => create();
+  static $pb.PbList<Empty> createRepeated() => new $pb.PbList<Empty>();
+  static Empty getDefault() => _defaultInstance ??= create()..freeze();
+  static Empty _defaultInstance;
+  static void $checkItem(Empty v) {
+    if (v is! Empty) $pb.checkItemFailed(v, _i.qualifiedMessageName);
+  }
+}
+
 class SourceCode extends $pb.GeneratedMessage {
   static final $pb.BuilderInfo _i = new $pb.BuilderInfo('SourceCode', package: const $pb.PackageName('helloworld'))
     ..aOS(1, 'sourceCode')
@@ -334,6 +355,33 @@ class SelectStream extends $pb.GeneratedMessage {
   static void $checkItem(SelectStream v) {
     if (v is! SelectStream) $pb.checkItemFailed(v, _i.qualifiedMessageName);
   }
+}
+
+class RemovedWidget extends $pb.GeneratedMessage {
+  static final $pb.BuilderInfo _i = new $pb.BuilderInfo('RemovedWidget', package: const $pb.PackageName('helloworld'))
+    ..aOS(1, 'id')
+    ..hasRequiredFields = false
+  ;
+
+  RemovedWidget() : super();
+  RemovedWidget.fromBuffer(List<int> i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) : super.fromBuffer(i, r);
+  RemovedWidget.fromJson(String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) : super.fromJson(i, r);
+  RemovedWidget clone() => new RemovedWidget()..mergeFromMessage(this);
+  RemovedWidget copyWith(void Function(RemovedWidget) updates) => super.copyWith((message) => updates(message as RemovedWidget));
+  $pb.BuilderInfo get info_ => _i;
+  static RemovedWidget create() => new RemovedWidget();
+  RemovedWidget createEmptyInstance() => create();
+  static $pb.PbList<RemovedWidget> createRepeated() => new $pb.PbList<RemovedWidget>();
+  static RemovedWidget getDefault() => _defaultInstance ??= create()..freeze();
+  static RemovedWidget _defaultInstance;
+  static void $checkItem(RemovedWidget v) {
+    if (v is! RemovedWidget) $pb.checkItemFailed(v, _i.qualifiedMessageName);
+  }
+
+  String get id => $_getS(0, '');
+  set id(String v) { $_setString(0, v); }
+  bool hasId() => $_has(0);
+  void clearId() => clearField(1);
 }
 
 class SelectedWidgetWithProperties extends $pb.GeneratedMessage {

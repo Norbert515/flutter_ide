@@ -42,7 +42,7 @@ class ChangeableConstraintsState extends State<ChangeableConstraints> with Edito
       maxHeight: maxHeight,
     );
 
-    sendUpdate(widget.propertyKey, BoxConstraintsProperty(data: constraints));
+    sendUpdate(context, widget.propertyKey, BoxConstraintsProperty(data: constraints));
     setState((){});
   }
 

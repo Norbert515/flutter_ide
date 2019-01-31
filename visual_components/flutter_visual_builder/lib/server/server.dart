@@ -14,6 +14,8 @@ class EditorServer extends ServerServiceBase {
   
   PublishSubject<SourceCode> updateSourceCode = PublishSubject();
 
+  PublishSubject<RemovedWidget> removedWidgetsSubject = PublishSubject();
+
   @override
   Future<HelloReply> initialize(ServiceCall call, InitializeFileRequest request) {
     print("Got init!");
@@ -47,6 +49,11 @@ class EditorServer extends ServerServiceBase {
   @override
   Stream<SourceCode> streamSourceCode(ServiceCall call, InitSourceCodeStream request) {
     return updateSourceCode;
+  }
+
+  @override
+  Stream<RemovedWidget> streamRemovedWidgets(ServiceCall call, Empty request) {
+    return removedWidgetsSubject.stream;
   }
 
 

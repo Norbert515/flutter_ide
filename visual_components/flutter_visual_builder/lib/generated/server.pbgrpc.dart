@@ -37,6 +37,10 @@ class ServerClient extends Client {
           '/helloworld.Server/StreamSourceCode',
           (InitSourceCodeStream value) => value.writeToBuffer(),
           (List<int> value) => new SourceCode.fromBuffer(value));
+  static final _$streamRemovedWidgets = new ClientMethod<Empty, RemovedWidget>(
+      '/helloworld.Server/StreamRemovedWidgets',
+      (Empty value) => value.writeToBuffer(),
+      (List<int> value) => new RemovedWidget.fromBuffer(value));
 
   ServerClient(ClientChannel channel, {CallOptions options})
       : super(channel, options: options);
@@ -76,6 +80,14 @@ class ServerClient extends Client {
       {CallOptions options}) {
     final call = $createCall(
         _$streamSourceCode, new $async.Stream.fromIterable([request]),
+        options: options);
+    return new ResponseStream(call);
+  }
+
+  ResponseStream<RemovedWidget> streamRemovedWidgets(Empty request,
+      {CallOptions options}) {
+    final call = $createCall(
+        _$streamRemovedWidgets, new $async.Stream.fromIterable([request]),
         options: options);
     return new ResponseStream(call);
   }
@@ -120,6 +132,13 @@ abstract class ServerServiceBase extends Service {
         true,
         (List<int> value) => new InitSourceCodeStream.fromBuffer(value),
         (SourceCode value) => value.writeToBuffer()));
+    $addMethod(new ServiceMethod<Empty, RemovedWidget>(
+        'StreamRemovedWidgets',
+        streamRemovedWidgets_Pre,
+        false,
+        true,
+        (List<int> value) => new Empty.fromBuffer(value),
+        (RemovedWidget value) => value.writeToBuffer()));
   }
 
   $async.Future<HelloReply> initialize_Pre(
@@ -142,6 +161,11 @@ abstract class ServerServiceBase extends Service {
     yield* streamSourceCode(call, (await request) as InitSourceCodeStream);
   }
 
+  $async.Stream<RemovedWidget> streamRemovedWidgets_Pre(
+      ServiceCall call, $async.Future request) async* {
+    yield* streamRemovedWidgets(call, (await request) as Empty);
+  }
+
   $async.Future<HelloReply> initialize(
       ServiceCall call, InitializeFileRequest request);
   $async.Future<GetFieldsResponse> getFields(
@@ -152,4 +176,6 @@ abstract class ServerServiceBase extends Service {
       ServiceCall call, SelectStream request);
   $async.Stream<SourceCode> streamSourceCode(
       ServiceCall call, InitSourceCodeStream request);
+  $async.Stream<RemovedWidget> streamRemovedWidgets(
+      ServiceCall call, Empty request);
 }

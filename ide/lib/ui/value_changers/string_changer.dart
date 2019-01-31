@@ -27,7 +27,7 @@ class StringChangerState extends State<StringChanger> with EditorMixin {
     super.initState();
     controller.text = widget.value;
     controller.addListener(() {
-      sendUpdate(widget.propertyKey, StringProperty(controller.text));
+      sendUpdate(context, widget.propertyKey, StringProperty(controller.text));
     });
 
   }

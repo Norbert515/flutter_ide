@@ -19,6 +19,12 @@ service Server {
 
     rpc StreamSourceCode(InitSourceCodeStream) returns (stream SourceCode){}
 
+    rpc StreamRemovedWidgets(Empty) returns (stream RemovedWidget) {}
+
+}
+
+
+message Empty {
 
 }
 
@@ -84,6 +90,9 @@ message SelectStream {
 
 }
 
+message RemovedWidget {
+    string id = 1;
+}
 
 message SelectedWidgetWithProperties {
     // The id of the widget

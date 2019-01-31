@@ -20,6 +20,7 @@ class IDETheme {
     this.propertyChangerTheme,
     this.widgetSelectorTheme,
     this.fontColor,
+    this.deleteColor,
 });
 
   factory IDETheme.standard() {
@@ -31,6 +32,7 @@ class IDETheme {
 
     Color fontColor = Colors.white.withOpacity(0.9);
 
+    Color deleteColor = Colors.redAccent;
 
     final TextEditorTheme textEditorTheme = TextEditorTheme(
       text: TextStyle(color: fontColor)
@@ -62,6 +64,7 @@ class IDETheme {
       textEditorTheme: textEditorTheme,
       propertyChangerTheme: propertyChangerTheme,
       widgetSelectorTheme: widgetSelectorTheme,
+      deleteColor: deleteColor
     );
   }
 
@@ -71,6 +74,8 @@ class IDETheme {
   final Color darkerBackground;
   final Color lightBackground;
   final Color fontColor;
+
+  final Color deleteColor;
 
   final TextEditorTheme textEditorTheme;
 

@@ -17,7 +17,7 @@ class AlignmentChanger extends StatelessWidget with EditorMixin {
   @override
   Widget build(BuildContext context) {
     return AlignmentBox(
-      onUpdate: (it) =>  sendUpdate(propertyName, AlignmentProperty(alignment: it)),
+      onUpdate: (it) =>  sendUpdate(context, propertyName, AlignmentProperty(alignment: it)),
       value: value,
       size: Size(50, 50),
 

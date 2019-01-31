@@ -78,7 +78,7 @@ class ChangeableDoubleState extends State<ChangeableDouble> with EditorMixin{
       child: NumericChangeableTextField(
         name: widget.propertyKey ,
         onUpdate: (it) {
-          sendUpdate(widget.propertyKey, DoubleProperty(data: it));
+          sendUpdate(context, widget.propertyKey, DoubleProperty(data: it));
           setState(() {
             value = it;
           });

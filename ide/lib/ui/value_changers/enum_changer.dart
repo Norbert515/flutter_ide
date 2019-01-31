@@ -53,7 +53,7 @@ class _EnumChangerState extends State<EnumChanger> with EditorMixin{
      }).toList(),
      onChanged: (string) {
        value = string;
-       sendUpdate(widget.propertyKey, widget.enumProperty.copyWith("$enumPrefix.$value"));
+       sendUpdate(context, widget.propertyKey, widget.enumProperty.copyWith("$enumPrefix.$value"));
        setState((){});
 
      },

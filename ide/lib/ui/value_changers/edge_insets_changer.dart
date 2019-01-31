@@ -42,7 +42,7 @@ class ChangeableEdgeInsetsState extends State<ChangeableEdgeInsets> with EditorM
       bottom: bottom,
     );
 
-    sendUpdate(widget.propertyKey, EdgeInsertsProperty (data: edgeInsets));
+    sendUpdate(context, widget.propertyKey, EdgeInsertsProperty (data: edgeInsets));
     setState((){});
   }
 

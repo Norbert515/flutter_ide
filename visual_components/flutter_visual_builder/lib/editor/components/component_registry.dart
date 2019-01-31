@@ -23,7 +23,7 @@ class ComponentRegistry {
   List<BuildingBlock> _getGeneral() {
     return [
       BuildingBlock(
-          visualWidget: VisualFloatingActionButton(
+          visualWidget: () => VisualFloatingActionButton(
             id: uuid.v1(),
             backgroundColor: Colors.red,
             onPressed: (){},
@@ -34,7 +34,7 @@ class ComponentRegistry {
           )
       ),
       BuildingBlock(
-        visualWidget: VisualWrapper(
+        visualWidget: () => VisualWrapper(
           id: uuid.v1(),
           child: Icon(Icons.add),
           sourceCode: 'Icon(Icons.add)',
@@ -45,7 +45,7 @@ class ComponentRegistry {
         ),
       ),
       BuildingBlock(
-        visualWidget: VisualContainer(
+        visualWidget: () => VisualContainer(
           color: Colors.green,
           id: uuid.v1(),
         ),
@@ -55,7 +55,7 @@ class ComponentRegistry {
         ),
       ),
       BuildingBlock(
-        visualWidget: VisualColumn(
+        visualWidget: () => VisualColumn(
           id: uuid.v1(),
           mainAxisSize: MainAxisSize.min,
         ),
@@ -65,7 +65,7 @@ class ComponentRegistry {
         ),
       ),
       BuildingBlock(
-        visualWidget: TextComponent(
+        visualWidget: () => TextComponent(
           id: uuid.v1(),
           text: "...",
         ),
@@ -75,7 +75,7 @@ class ComponentRegistry {
         ),
       ),
       BuildingBlock(
-        visualWidget: AppBarComponent(
+        visualWidget: () => AppBarComponent(
           id: uuid.v1(),
           backgroundColor: Colors.yellow,
           elevation: 4,
@@ -89,13 +89,14 @@ class ComponentRegistry {
   }
 }
 
+typedef VisualWidgetBuilder = VisualStatefulWidget Function();
 
 class BuildingBlock {
 
 
   BuildingBlock({this.visualWidget, this.representation});
 
-  final VisualStatefulWidget visualWidget;
+  final VisualWidgetBuilder visualWidget;
   final Widget representation;
 
 
