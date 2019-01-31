@@ -1,5 +1,6 @@
 
 import 'package:flutter/material.dart';
+import 'package:flutter_visual_builder/editor/components/general/network_image.dart';
 import 'package:flutter_visual_builder/editor/components/general/text_component.dart';
 import 'package:flutter_visual_builder/editor/components/input/raised_button.dart';
 import 'package:flutter_visual_builder/editor/components/layout/center_component.dart';
@@ -103,6 +104,15 @@ class ComponentRegistry {
         representation: PaletteItem(
           icon: Icon(Icons.center_focus_weak),
           name: "Center",
+        ),
+      ),
+      BuildingBlock(
+        visualWidget: () => NetworkImageComponent(
+          id: uuid.v1(),
+        ),
+        representation: PaletteItem(
+          icon: Icon(Icons.image),
+          name: "Image.network",
         ),
       ),
     ];
