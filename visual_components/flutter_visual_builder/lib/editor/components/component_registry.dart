@@ -1,6 +1,8 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_visual_builder/editor/components/general/text_component.dart';
+import 'package:flutter_visual_builder/editor/components/input/raised_button.dart';
+import 'package:flutter_visual_builder/editor/components/layout/center.dart';
 import 'package:flutter_visual_builder/editor/components/layout/container_component.dart';
 import 'package:flutter_visual_builder/editor/components/layout/list_components.dart';
 import 'package:flutter_visual_builder/editor/components/material/app_bar_component.dart';
@@ -83,6 +85,24 @@ class ComponentRegistry {
         representation: PaletteItem(
           icon: Icon(Icons.signal_wifi_4_bar),
           name: "App Bar",
+        ),
+      ),
+      BuildingBlock(
+        visualWidget: () => RaisedButtonComponent(
+          id: uuid.v1(),
+        ),
+        representation: PaletteItem(
+          icon: Icon(Icons.crop_16_9),
+          name: "Raised Button",
+        ),
+      ),
+      BuildingBlock(
+        visualWidget: () => CenterComponent(
+          id: uuid.v1(),
+        ),
+        representation: PaletteItem(
+          icon: Icon(Icons.center_focus_weak),
+          name: "Center",
         ),
       ),
     ];

@@ -625,26 +625,43 @@ class LayoutDragTargetState extends State<LayoutDragTarget> {
 
 class ActivePlaceholder extends StatelessWidget {
 
-  const ActivePlaceholder();
+  const ActivePlaceholder({
+    this.fallbackWidth = 400,
+    this.fallbackHeight = 400,
+  });
+
+  final double fallbackWidth;
+  final double fallbackHeight;
 
   @override
   Widget build(BuildContext context) {
     return Placeholder(
       color: Colors.green,
+      fallbackWidth: fallbackWidth,
+      fallbackHeight: fallbackHeight,
     );
   }
 }
 
 class InactivePlaceholder extends StatelessWidget {
 
-  const InactivePlaceholder();
+  const InactivePlaceholder({
+    this.fallbackWidth = 400,
+    this.fallbackHeight = 400,
+  });
+
+  final double fallbackWidth;
+  final double fallbackHeight;
 
   @override
   Widget build(BuildContext context) {
     return Placeholder(
       color: Colors.blue,
+      fallbackWidth: fallbackWidth,
+      fallbackHeight: fallbackHeight,
     );
   }
 }
+
 
 
