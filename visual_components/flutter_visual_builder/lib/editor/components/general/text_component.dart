@@ -28,13 +28,15 @@ class _TextComponentState extends VisualState<TextComponent> {
 
   @override
   Widget buildWidget(BuildContext context) {
-    return Text(getValue('text'));
+    return Text(getValue('text'), style: TextStyle(color: getValue('fontColor'), fontSize: getValue('fontSize')),);
   }
 
   @override
   void buildSourceCode(StringBuilder stringBuilder) {
     stringBuilder.writeNoIndent('${widget.originalClassName}("${remoteValues['text'].data}")');
   }
+
+
 
   @override
   // TODO implement
@@ -44,5 +46,7 @@ class _TextComponentState extends VisualState<TextComponent> {
   // TODO implement
   Map<String, Property> initRemoteValues() => {
     'text': StringProperty(widget.text),
+    'fontSize': DoubleProperty(data: 20),
+    'fontColor': ColorProperty(color: Colors.black),
   };
 }

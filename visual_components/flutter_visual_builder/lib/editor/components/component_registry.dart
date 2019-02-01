@@ -80,7 +80,7 @@ class ComponentRegistry {
       BuildingBlock(
         visualWidget: () => AppBarComponent(
           id: uuid.v1(),
-          backgroundColor: Colors.yellow,
+          backgroundColor: Colors.orange,
           elevation: 4,
         ),
         representation: PaletteItem(

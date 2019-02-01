@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_visual_builder/editor/components/general/text_component.dart';
 import 'package:flutter_visual_builder/editor/components/material_components.dart';
 import 'package:flutter_visual_builder/editor/components/visual_components.dart';
+import 'package:flutter_visual_builder/editor/global_settings/global_settings.dart';
 import 'package:flutter_visual_builder/editor/properties/property.dart';
 import 'package:flutter_visual_builder/editor/widget_palette/palette.dart';
 import 'package:flutter_visual_builder/generated/server.pb.dart';
@@ -92,8 +94,58 @@ class AppWidgetState extends State<AppWidget> {
       key: rootKey,
       child: VisualScaffold(
         backgroundColor: Colors.white,
-        id: "YOOOO",
+        id: "root",
       ),
     );
   }
 }
+
+
+/// TODO statefulness does not currently work because setState rebuild all widgets
+///
+/// There are also a few semantical problems, what happens when the widget
+/// receiving local input moves?  How is that dealt with.
+///
+/// Some thought - probably best to indentify it with it's id and then somehow
+/// manually call through.
+class StatefulEditorStuff extends StatefulWidget {
+  @override
+  _StatefulEditorStuffState createState() => _StatefulEditorStuffState();
+}
+
+class _StatefulEditorStuffState extends State<StatefulEditorStuff> {
+
+  final GlobalKey<VisualRootState> rootKey = GlobalKey();
+
+  void onChanged() {
+    String source = rootKey.currentState.buildSourceCode();
+    editorServer.updateSourceCode.add(SourceCode()..sourceCode = source);
+  }
+
+
+  int count = 0;
+
+  @override
+  Widget build(BuildContext context) {
+    return VisualRoot(
+      onChanged: onChanged,
+      key: rootKey,
+      child: VisualScaffold(
+        body: TextComponent(text: count.toString()),
+        id: "root",
+        floatingActionButton: VisualFloatingActionButton(
+          onPressed: () {
+            print("Yes");
+            setState(() {
+              count++;
+              print("Ye");
+            });
+            },
+          id: "FAB",
+        ),
+      )
+    );
+  }
+}
+
+

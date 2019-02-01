@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_visual_builder/editor/global_settings/global_settings.dart';
 import 'package:flutter_visual_builder/editor/key_resolver.dart';
 import 'package:flutter_visual_builder/editor/properties/property.dart';
 import 'package:flutter_visual_builder/generated/server.pb.dart';
@@ -213,6 +214,13 @@ mixin PropertyStateMixin<T extends VisualStatefulWidget> on State<T> {
     });
 
    SomethingChanged.notify(context);
+  }
+
+  /// This is called when the widget is rebuilt with didUpdateWidget
+  ///
+  /// this is necessary for statefulnes
+  void internalSet(String key, dynamic value) {
+    remoteValues[key] = value;
   }
 
   K getValue<K>(String key) {
@@ -519,6 +527,8 @@ class LayoutDragTargetState extends State<LayoutDragTarget> {
   }
 
 
+
+
   /// TODO The problem is that the state is lost when the widget is started to being dragged around.
   ///
   /// For example a FAB with a child in it is only treated as the FAB it was with the parameters it was constructed with.
@@ -570,6 +580,11 @@ class LayoutDragTargetState extends State<LayoutDragTarget> {
 
   @override
   Widget build(BuildContext context) {
+    bool showing = Provider.of<bool>(context);
+    // Showing == null is when its being dragged
+    if(showing == null || !showing) {
+      return child?? SizedBox();
+    }
     return child?? DragTarget<VisualStatefulWidget>(
       builder: (context, it, it2) {
         return active? widget.replacementActive: widget.replacementInactive;

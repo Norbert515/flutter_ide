@@ -69,10 +69,10 @@ class _AppBarComponentState extends VisualState<AppBarComponent> {
         key: title,
         child: widget.title,
       ),
-      leading: LayoutDragTarget(
+   /*   leading: LayoutDragTarget(
         key: leading,
         child: widget.leading,
-      ),
+      ),*/
       elevation: getValue('elevation'),
     );
   }
@@ -80,7 +80,8 @@ class _AppBarComponentState extends VisualState<AppBarComponent> {
   @override
   // TODO implement
   Map<String, WidgetProperty> get modifiedWidgetProperties => {
-    'leading': WidgetProperty.keyed(leading),
+    // No leader because it looks better without - later
+    //'leading': WidgetProperty.keyed(leading),
     'title': WidgetProperty.keyed(title),
   };
 

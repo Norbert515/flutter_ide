@@ -75,6 +75,7 @@ explicitly wrapping it in a Expanded)
 
 - Loading background image with transparency to match design
 
+- Loading images from disk (choose image & set up pubspec etc.) same for font
 
 
 ## Module overview

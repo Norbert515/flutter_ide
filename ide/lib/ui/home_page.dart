@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_visual_builder/editor/components/visual_components.dart';
+import 'package:flutter_visual_builder/editor/global_settings/global_settings.dart';
 import 'package:flutter_visual_builder/editor/widget_palette/palette.dart';
 import 'package:flutter_visual_builder/generated/server.pbgrpc.dart';
 import 'package:grpc/grpc.dart';
@@ -23,14 +24,16 @@ class HomePageState extends State<HomePage> {
 
   @override
   Widget build(BuildContext context) {
-    return Material(
-      color: IDETheme.of(context).darkerBackground,
-      child: Row(
-        children: <Widget>[
-          WidgetPalette(),
-          Expanded(child: EditingSection()),
-          PropertySettingSection(),
-        ],
+    return PlaceholderManager(
+      child: Material(
+        color: IDETheme.of(context).darkerBackground,
+        child: Row(
+          children: <Widget>[
+            WidgetPalette(),
+            Expanded(child: EditingSection()),
+            PropertySettingSection(),
+          ],
+        ),
       ),
     );
   }
@@ -39,12 +42,25 @@ class HomePageState extends State<HomePage> {
 class EditingSection extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+    print("REBuild");
     return Padding(
       padding: const EdgeInsets.all(32.0),
       child: Row(
         mainAxisSize: MainAxisSize.max,
         children: <Widget>[
-          Expanded(child: TextEditor()),
+          Expanded(child: Column(
+            children: <Widget>[
+              Row(
+                children: <Widget>[
+                  Text("Toggle placeholders", style: IDETheme.of(context).propertyChangerTheme.propertyContainer,),
+                  Switch(value: Provider.of<bool>(context), onChanged: (it) {
+                    PlaceholderManagerState.of(context).setShowing(it);
+                  }),
+                ],
+              ),
+              Expanded(child: TextEditor()),
+            ],
+          )),
           Expanded(
             child: Container(
               width: double.infinity,
