@@ -1,3 +1,4 @@
+import 'package:flutter_visual_builder/editor/config.dart';
 import 'package:flutter_visual_builder/editor/key_resolver.dart';
 import 'package:flutter_visual_builder/generated/server.pbgrpc.dart';
 import 'package:grpc/grpc.dart';
@@ -32,7 +33,9 @@ class EditorServer extends ServerServiceBase {
 
     // TODO move this logic out of here
     await for (var it in request) {
-      print("Resceived ${it.toString()}");
+      if(debug) {
+        print("Resceived ${it.toString()}");
+      }
       var widgetId = it.id;
       var propertyName = it.propertyName;
       var state = keyResolver.map[widgetId];
