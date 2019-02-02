@@ -23,7 +23,7 @@
 
     <!-- Custom styles for this template -->
     <link href="css/landing-page.min.css" rel="stylesheet">
-    <link href="css/creative.min.css" rel="stylesheet">
+    <link href="css/creative.css" rel="stylesheet">
     <style>
       .nopadding {
         padding: 0 !important;
@@ -68,12 +68,14 @@
     </nav>
 
     <header class="text-center text-white">
-      <video autoplay muted loop id="myVideo">
-        <source src="video.mp4" type="video/mp4">
-        Your browser does not support the video tag.
-      </video>
+      <div class="darken">
+        <video autoplay muted loop id="myVideo">
+          <source src="video.mp4" type="video/mp4">
+          Your browser does not support the video tag.
+        </video>
+      </div>
       <div class="content">
-        <p>HeyASDASDASDASDASDASDASD</p>
+        <h1 class="innerContent">HeyASDASDASDASDASDASDASD</h1>
       </div>
 <!--
       <div class="my-auto content">
@@ -141,7 +143,12 @@
     <section class="showcase nopadding">
       <div class="container-fluid p-0">
         <div class="row no-gutters">
-          <div class="col-lg-6 order-lg-2 text-white showcase-img" style="background-image: url('img/portfolio/fullsize/1.jpg');"></div>
+          <div class="col-lg-6 order-lg-2 text-white showcase-img vid">
+            <video autoplay muted loop>
+              <source src="video.mp4" type="video/mp4">
+              Your browser does not support the video tag.
+            </video>
+          </div>
           <div class="col-lg-6 order-lg-1 my-auto showcase-text">
             <h2>Seamless Integration</h2>
             <p class="lead mb-0">No need to annotate source code or use any predefined structure - just open up the file containing the widget and start editing!</p>

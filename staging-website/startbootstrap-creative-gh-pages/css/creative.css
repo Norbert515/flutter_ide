@@ -318,26 +318,46 @@ header.masthead p {
   box-shadow: 0 0 0 0.2rem rgba(240, 95, 64, 0.5) !important;
 }
 
-video {
-  width: 100%;
-  height: auto;
-}
+
+
 
 /* Style the video: 100% width and height to cover the entire window */
 #myVideo{
-  height: 32px;
-  width: 100px;
+  height: 80%;
+  width: 80%;
   z-index: 0;
   position: relative;
+  background-position: 50% !important;
   /*object-fit: cover;*/
 }
+
+.vid {
+  display: flex;
+  height: auto;
+  width: 100%;
+}
 .content {
-  z-index: 1;
+  z-index: 0;
   position: absolute;
   top: 0;
   left: 0;
-  background: rgba(0, 0, 0, 0.5);
   color: #f1f1f1;
+  text-align: center;
+  padding: 0;
+  background-color: rgba(0,0,0,0.5) ;
+  height: 100%;
   width: 100%;
-  padding: 20px;
+}
+.innerContent {
+  top: 50%;
+  left: 50%;
+  position: absolute;
+}
+
+.darken {
+  background-color: rgba(1,1,0,0.6);
+  z-index: 10;
+  text-align: center;
+  margin: 0%;
+  padding: 0;
 }
