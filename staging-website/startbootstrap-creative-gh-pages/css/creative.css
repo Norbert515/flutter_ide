@@ -178,7 +178,7 @@ img::-moz-selection {
 header.masthead {
   padding-top: 10rem;
   padding-bottom: calc(10rem - 56px);
-  background-image: url("../img/header.jpg");
+  background-image: url("../video.mp4");
   background-position: center center;
   background-size: cover;
 }
@@ -316,4 +316,28 @@ header.masthead p {
 .btn-primary:active, .btn-primary:focus {
   -webkit-box-shadow: 0 0 0 0.2rem rgba(240, 95, 64, 0.5) !important;
   box-shadow: 0 0 0 0.2rem rgba(240, 95, 64, 0.5) !important;
+}
+
+video {
+  width: 100%;
+  height: auto;
+}
+
+/* Style the video: 100% width and height to cover the entire window */
+#myVideo{
+  height: 32px;
+  width: 100px;
+  z-index: 0;
+  position: relative;
+  /*object-fit: cover;*/
+}
+.content {
+  z-index: 1;
+  position: absolute;
+  top: 0;
+  left: 0;
+  background: rgba(0, 0, 0, 0.5);
+  color: #f1f1f1;
+  width: 100%;
+  padding: 20px;
 }
