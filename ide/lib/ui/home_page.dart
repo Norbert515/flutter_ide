@@ -6,6 +6,7 @@ import 'package:flutter_visual_builder/generated/server.pbgrpc.dart';
 import 'package:grpc/grpc.dart';
 import 'package:flutter_visual_builder/editor/editor_widget.dart';
 import 'package:ide/client/client.dart';
+import 'package:ide/dependencies/property_editor_provider.dart';
 import 'package:ide/logic/property_bloc.dart';
 import 'package:ide/themeing/ide_theme.dart';
 import 'package:ide/ui/text_editor/basic.dart';
@@ -24,15 +25,17 @@ class HomePageState extends State<HomePage> {
 
   @override
   Widget build(BuildContext context) {
-    return PlaceholderManager(
-      child: Material(
-        color: IDETheme.of(context).darkerBackground,
-        child: Row(
-          children: <Widget>[
-            WidgetPalette(),
-            Expanded(child: EditingSection()),
-            PropertySettingSection(),
-          ],
+    return PropertyEditorProvider(
+      child: PlaceholderManager(
+        child: Material(
+          color: IDETheme.of(context).darkerBackground,
+          child: Row(
+            children: <Widget>[
+              WidgetPalette(),
+              Expanded(child: EditingSection()),
+              PropertySettingSection(),
+            ],
+          ),
         ),
       ),
     );

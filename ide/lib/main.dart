@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:ide/dependencies/property_editor_provider.dart';
 import 'package:ide/themeing/ide_theme.dart';
+import 'package:ide/tutorial/welcome.dart';
 import 'package:provider/provider.dart';
 import 'package:flutter/foundation.dart'
     show debugDefaultTargetPlatformOverride;
@@ -14,17 +15,15 @@ void main() {
 class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return PropertyEditorProvider(
-      child: Provider<IDETheme>(
-        value: IDETheme.standard(),
-        updateShouldNotify: (it, i2) => false,
-        child: new MaterialApp(
-          title: 'Flutter Demo',
-          theme: new ThemeData(
-            primarySwatch: Colors.blue,
-          ),
-          home: HomePage(),
+    return Provider<IDETheme>(
+      value: IDETheme.standard(),
+      updateShouldNotify: (it, i2) => false,
+      child: new MaterialApp(
+        title: 'Flutter Demo',
+        theme: new ThemeData(
+          primarySwatch: Colors.blue,
         ),
+        home: TutorialWelcome(),
       ),
     );
   }
