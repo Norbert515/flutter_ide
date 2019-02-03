@@ -62,8 +62,9 @@ class TutorialDisclaimer extends StatelessWidget {
         child: Text("Disclaimer: \n\n"
             "A lot of stuff is missing, especially widgets\n"
             "that's because I'm still refining the architecture "
-            "and less widgets mean less work for the time being. New widgets don't take very\n"
-        "long to implement so expect more of them coming soon.\n"
+            "and less widgets mean less work for the time being.\n "
+            "Once things become stable, you can expect to see all possible widgets (and custom ones) to "
+            "be available.\n"
             "You also might encounter a few bugs, feel free to report them to me.", textAlign: TextAlign.center,),
       ),
       floatingActionButton: Row(
