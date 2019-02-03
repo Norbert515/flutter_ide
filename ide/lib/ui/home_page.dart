@@ -45,7 +45,6 @@ class HomePageState extends State<HomePage> {
 class EditingSection extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    print("REBuild");
     return Padding(
       padding: const EdgeInsets.all(32.0),
       child: Row(

@@ -65,6 +65,9 @@ class _AppBarComponentState extends VisualState<AppBarComponent> {
     return AppBar(
       backgroundColor: getValue('backgroundColor'),
       centerTitle: getValue('centerTitle'),
+      // TODO release day bug fix because I added the tutorial it showed the back
+      // button
+      automaticallyImplyLeading: false,
       title: LayoutDragTarget(
         key: title,
         child: widget.title,

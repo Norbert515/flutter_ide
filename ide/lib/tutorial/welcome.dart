@@ -70,7 +70,7 @@ class TutorialDisclaimer extends StatelessWidget {
         children: <Widget>[
           Spacer(),
           OutlineButton(onPressed: (){
-            Navigator.of(context).push(FadeRoute(
+            Navigator.of(context).pushReplacement(FadeRoute(
               builder: (_) => HomePage(),
             ));
           }, child: Text("Skip tutorial"),),
@@ -152,7 +152,7 @@ class TutorialPropertyPage extends StatelessWidget {
         child: Text("Tap widgets on the screen to access the property editor"),
       ),
       floatingActionButton: OutlineButton(onPressed: (){
-        Navigator.of(context).push(FadeRoute(
+        Navigator.of(context).pushReplacement(FadeRoute(
           builder: (_) => HomePage(),
         ));
       }, child: Text("Let's go!"),),

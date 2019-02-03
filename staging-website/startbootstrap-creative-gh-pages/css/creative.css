@@ -178,7 +178,7 @@ img::-moz-selection {
 header.masthead {
   padding-top: 10rem;
   padding-bottom: calc(10rem - 56px);
-  background-image: url("../video.mp4");
+  background-image: url(../gifs/cover.gif);
   background-position: center center;
   background-size: cover;
 }

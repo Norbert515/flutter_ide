@@ -29,7 +29,7 @@ class _CenterComponentState extends VisualState<CenterComponent> {
   @override
   Widget buildWidget(BuildContext context) {
     return Center(
-      child: LayoutDragTarget(child: widget.child),
+      child: LayoutDragTarget(child: widget.child, key: childKey),
     );
   }
 
