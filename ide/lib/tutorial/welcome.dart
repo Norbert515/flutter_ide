@@ -47,6 +47,25 @@ class TutorialWelcome extends StatelessWidget {
       ),
       floatingActionButton: OutlineButton(onPressed: (){
         Navigator.of(context).push(FadeRoute(
+          builder: (_) => NetworkPermission(),
+        ));
+      }, child: Text("Next"),),
+    );
+  }
+}
+
+
+class NetworkPermission extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      body: Center(
+        child: Text("You will be asked for network permission. \n\n"
+        "That is because of the Image.network. If you don't want to try that widget \n"
+            "you can decline the request without a problem.", textAlign: TextAlign.center,),
+      ),
+      floatingActionButton: OutlineButton(onPressed: (){
+        Navigator.of(context).push(FadeRoute(
           builder: (_) => TutorialDisclaimer(),
         ));
       }, child: Text("Next"),),

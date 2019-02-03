@@ -19,6 +19,7 @@ class MyApp extends StatelessWidget {
       value: IDETheme.standard(),
       updateShouldNotify: (it, i2) => false,
       child: new MaterialApp(
+        debugShowCheckedModeBanner: false,
         title: 'Flutter Demo',
         theme: new ThemeData(
           primarySwatch: Colors.blue,
