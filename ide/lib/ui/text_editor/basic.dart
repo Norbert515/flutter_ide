@@ -41,8 +41,18 @@ class WIPTextEditor extends StatelessWidget {
         color: IDETheme.of(context).darkerBackground,
         child: Padding(
           padding: const EdgeInsets.all(16),
-          child: SingleChildScrollView(
-            child: Text(text, style: IDETheme.of(context).textEditorTheme.text,),
+          child: Column(
+            children: <Widget>[
+              OutlineButton(
+                child: Text("Print code to console", style: IDETheme.of(context).propertyChangerTheme.propertyContainer,),
+                onPressed: (){
+                  print(text);
+                },
+              ),
+              SingleChildScrollView(
+                child: Text(text, style: IDETheme.of(context).textEditorTheme.text,),
+              ),
+            ],
           ),
         ),
       ),
