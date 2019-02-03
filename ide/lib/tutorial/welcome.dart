@@ -42,8 +42,8 @@ class TutorialWelcome extends StatelessWidget {
     return Scaffold(
       body: Center(
         child: Text("Thank you for trying out this tech-demo of Widget Maker! \n\n"
-        "the following pages contain a mini tutorial walking though the very basics, \n"
-            "this won't take longer than one minute"),
+        "The following pages contain a mini tutorial walking though the very basics, \n"
+            "this won't take longer than one minute.", textAlign: TextAlign.center,),
       ),
       floatingActionButton: OutlineButton(onPressed: (){
         Navigator.of(context).push(FadeRoute(
@@ -64,7 +64,7 @@ class TutorialDisclaimer extends StatelessWidget {
             "that's because I'm still refining the architecture "
             "and less widgets mean less work for the time being. New widgets don't take very\n"
         "long to implement so expect more of them coming soon.\n"
-            "You also might encounter a few bugs, feel free to report them to me."),
+            "You also might encounter a few bugs, feel free to report them to me.", textAlign: TextAlign.center,),
       ),
       floatingActionButton: Row(
         children: <Widget>[
@@ -97,7 +97,7 @@ class TutorialPlaceholder extends StatelessWidget {
             SizedBox(height: 8,),
             SizedBox(width:100, height:100,child: Placeholder()),
             SizedBox(height: 8,),
-            Text("are placeholder for widgets. Every possible drag location is marked with one.")
+            Text("are placeholders for widgets. Every possible drag location is marked with one.", textAlign: TextAlign.center,)
           ],
         ),
       ),
@@ -118,7 +118,7 @@ class TutorialDraggableItem extends StatelessWidget {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
-            Text("Draggable widget are located at the left and look like this:"),
+            Text("Draggable widgets are located at the left and look like this:", textAlign: TextAlign.center,),
             SizedBox(height: 8,),
             SizedBox(
               height: 60,
@@ -132,7 +132,7 @@ class TutorialDraggableItem extends StatelessWidget {
               ),
             ),
             SizedBox(height: 8,),
-            Text("Just drag them into the placeholders"),
+            Text("Just drag them into one of the placeholders."),
           ],
         ),
       ),
@@ -149,7 +149,7 @@ class TutorialPropertyPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       body: Center(
-        child: Text("Tap widgets on the screen to access the property editor"),
+        child: Text("Tap widgets on the screen to access the property editor.", textAlign: TextAlign.center,),
       ),
       floatingActionButton: OutlineButton(onPressed: (){
         Navigator.of(context).pushReplacement(FadeRoute(
