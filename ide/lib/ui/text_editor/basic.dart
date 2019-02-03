@@ -1,6 +1,7 @@
 
 
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_visual_builder/generated/server.pb.dart';
 import 'package:ide/client/client.dart';
 import 'package:ide/themeing/ide_theme.dart';
@@ -44,9 +45,9 @@ class WIPTextEditor extends StatelessWidget {
           child: ListView(
             children: <Widget>[
               OutlineButton(
-                child: Text("Print code to console", style: IDETheme.of(context).propertyChangerTheme.propertyContainer,),
+                child: Text("Copy to Clipboard", style: IDETheme.of(context).propertyChangerTheme.propertyContainer,),
                 onPressed: (){
-                  print(text);
+                  Clipboard.setData(ClipboardData(text: text.replaceAll('\n', '\r\n')));
                 },
               ),
               Text(text, style: IDETheme.of(context).textEditorTheme.text,),

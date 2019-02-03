@@ -20,7 +20,7 @@ class MyApp extends StatelessWidget {
       updateShouldNotify: (it, i2) => false,
       child: new MaterialApp(
         debugShowCheckedModeBanner: false,
-        title: 'Flutter Demo',
+        title: 'Widget Maker',
         theme: new ThemeData(
           primarySwatch: Colors.blue,
         ),
