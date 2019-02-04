@@ -1,4 +1,4 @@
-import 'package:flutter_visual_builder/server/server.dart';
+import 'package:flutter_visual_builder/business_logic/server/server.dart';
 import 'package:grpc/grpc.dart';
 
 Future<void> main(List<String> args) async {

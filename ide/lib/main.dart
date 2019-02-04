@@ -1,11 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:ide/dependencies/property_editor_provider.dart';
+import 'package:ide/pages/welcome.dart';
 import 'package:ide/themeing/ide_theme.dart';
-import 'package:ide/tutorial/welcome.dart';
 import 'package:provider/provider.dart';
 import 'package:flutter/foundation.dart'
     show debugDefaultTargetPlatformOverride;
-import 'package:ide/ui/home_page.dart';
+
 void main() {
   debugDefaultTargetPlatformOverride = TargetPlatform.fuchsia;
   runApp(new MyApp());
