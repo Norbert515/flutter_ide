@@ -513,9 +513,7 @@ class LayoutDragTargetState extends State<LayoutDragTarget> {
       /// When everything is converted back, TODO
 
       if(widget.child is VisualStatefulWidget) {
-        VisualStatefulWidget it = widget.child as VisualStatefulWidget;
-        child = wrapInVisualDraggable(VisualProxyWrapper(child: widget.child, visualWidget: it, id: it.id,));
-
+        child = wrapInVisualDraggable(widget.child);
       } else {
         assert(false);
         //child = wrapInVisualDraggable(VisualWrapper(child: widget.child, id: "SOME",));
