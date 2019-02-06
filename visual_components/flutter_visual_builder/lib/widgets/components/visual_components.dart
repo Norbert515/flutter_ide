@@ -56,9 +56,9 @@ abstract class VisualStatefulWidget extends StatefulWidget {
 
   final String id;
 }
-abstract class VisualState<T extends VisualStatefulWidget> extends State<T> with PropertyStateMixin{
+abstract class VisualState<T extends VisualStatefulWidget> extends State<T>
+    with PropertyStateMixin, WidgetStateMixin {
 
-  Map<String, WidgetProperty> get modifiedWidgetProperties;
 
   /// This flag is only for the the Proxy width which should not register itself
   /// as editable widget
@@ -141,11 +141,10 @@ abstract class VisualState<T extends VisualStatefulWidget> extends State<T> with
     remoteValues.forEach((key, property) {
       _generateProperty(key, property, builder);
     });
-   // return '${remoteValues.map((key, prop) => _generateProperty(key, prop, builder)).values.join(",\n")}\n';
   }
   void _buildWidgets(StringBuilder builder) {
 
-    modifiedWidgetProperties.forEach((key, property) {
+    widgetProperties.forEach((key, property) {
       WidgetProperty that = property;
       if(property == null) {
         if(widget.widgetProperties.containsKey(key)) {
@@ -159,7 +158,6 @@ abstract class VisualState<T extends VisualStatefulWidget> extends State<T> with
       }
 
     });
-
   }
 
   void  _generateProperty(String key, Property property, StringBuilder builder) {
@@ -172,6 +170,22 @@ abstract class VisualState<T extends VisualStatefulWidget> extends State<T> with
 
 }
 
+mixin WidgetStateMixin<T extends VisualStatefulWidget> on State<T> {
+
+  //Map<String, WidgetProperty> _widgetProperties;
+  Map<String, WidgetProperty> get widgetProperties => getWidgets();
+
+  Map<String, WidgetProperty> getWidgets();
+
+  @override
+  void initState() {
+    super.initState();
+    //_widgetProperties = getWidgets();
+  }
+
+
+
+}
 
 mixin PropertyStateMixin<T extends VisualStatefulWidget> on State<T> {
 
@@ -189,7 +203,7 @@ mixin PropertyStateMixin<T extends VisualStatefulWidget> on State<T> {
   void setValue<K>(String key, Property value) {
    if(remoteValues[key].runtimeType != value.runtimeType) {
       throw Exception("${remoteValues[key].runtimeType} and ${value.runtimeType}"
-"do not have the same runtime type");
+      "do not have the same runtime type");
     }
     setState(() {
      remoteValues[key] = value;
@@ -335,7 +349,7 @@ class _VisualWrapperState extends VisualState<VisualWrapper> {
   }
 
   @override
-  Map<String, WidgetProperty> get modifiedWidgetProperties => {};
+  Map<String, WidgetProperty> getWidgets() => {};
 
   @override
   Map<String, Property> initRemoteValues() => {};
@@ -371,7 +385,7 @@ class _VisualProxyWrapperState extends VisualState<VisualProxyWrapper> {
   }
 
   @override
-  Map<String, WidgetProperty> get modifiedWidgetProperties => keyResolver.map[widget.visualWidget.id].currentState.modifiedWidgetProperties;
+  Map<String, WidgetProperty> getWidgets() => keyResolver.map[widget.visualWidget.id].currentState.getWidgets();
 
   @override
   void buildSourceCode(StringBuilder builder) {
@@ -508,6 +522,19 @@ class LayoutDragTargetState extends State<LayoutDragTarget> {
   }
 
 
+  @override
+  void didUpdateWidget(LayoutDragTarget oldWidget) {
+    super.didUpdateWidget(oldWidget);
+    if(widget.child != null) {
+      if(widget.child is VisualStatefulWidget) {
+        child = wrapInVisualDraggable(widget.child);
+      } else {
+        assert(false);
+      }
+    } else {
+      child = null;
+    }
+  }
 
 
   /// TODO The problem is that the state is lost when the widget is started to being dragged around.
@@ -516,7 +543,7 @@ class LayoutDragTargetState extends State<LayoutDragTarget> {
   ///
   /// This can only be called if there is no widget in the slot
   VisualStatefulWidget wrapInVisualDraggable(VisualStatefulWidget newChild) {
-    assert(child == null);
+    //assert(child == null);
     return VisualProxyWrapper(
       id: newChild.id,
       visualWidget: newChild,

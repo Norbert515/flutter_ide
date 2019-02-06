@@ -34,7 +34,7 @@ class _CenterComponentState extends VisualState<CenterComponent> {
 
   @override
   // TODO implement
-  Map<String, WidgetProperty> get modifiedWidgetProperties => {
+  Map<String, WidgetProperty> getWidgets() => {
     'child': WidgetProperty.keyed(childKey),
   };
 

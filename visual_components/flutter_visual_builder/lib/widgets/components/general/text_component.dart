@@ -40,7 +40,7 @@ class _TextComponentState extends VisualState<TextComponent> {
 
   @override
   // TODO implement
-  Map<String, WidgetProperty> get modifiedWidgetProperties => {};
+  Map<String, WidgetProperty> getWidgets() => {};
 
   @override
   // TODO implement

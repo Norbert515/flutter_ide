@@ -82,7 +82,7 @@ class _AppBarComponentState extends VisualState<AppBarComponent> {
 
   @override
   // TODO implement
-  Map<String, WidgetProperty> get modifiedWidgetProperties => {
+  Map<String, WidgetProperty> getWidgets() => {
     // No leader because it looks better without - later
     //'leading': WidgetProperty.keyed(leading),
     'title': WidgetProperty.keyed(title),

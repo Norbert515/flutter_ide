@@ -29,7 +29,7 @@ class _NetworkImageComponentState extends VisualState<NetworkImageComponent> {
 
   @override
   // TODO implement
-  Map<String, WidgetProperty> get modifiedWidgetProperties => {
+  Map<String, WidgetProperty> getWidgets() => {
 
   };
 

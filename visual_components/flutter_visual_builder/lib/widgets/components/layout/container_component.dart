@@ -53,7 +53,7 @@ class _VisualContainerState extends VisualState<VisualContainer> {
   }
 
   @override
-  Map<String, WidgetProperty> get modifiedWidgetProperties => {
+  Map<String, WidgetProperty> getWidgets() => {
     'child': WidgetProperty.keyed(childKey),
   };
 

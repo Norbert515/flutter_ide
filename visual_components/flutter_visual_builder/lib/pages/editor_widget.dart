@@ -54,7 +54,7 @@ class VisualEditorState extends State<VisualEditor> {
               child: Center(
                 child: AspectRatio(
                   aspectRatio: 9/16,
-                  child: AppWidget(),
+                  child: StatefulEditorStuff(),
                 ),
               ),
             );

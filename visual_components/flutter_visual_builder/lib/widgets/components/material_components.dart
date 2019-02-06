@@ -114,7 +114,7 @@ class _VisualFloatingActionButtonState extends VisualState<VisualFloatingActionB
   }
 
   @override
-  Map<String, WidgetProperty> get modifiedWidgetProperties => {
+  Map<String, WidgetProperty> getWidgets() => {
     'child': WidgetProperty.keyed(childKey),
   };
 
@@ -237,14 +237,13 @@ class _VisualScaffoldState extends VisualState<VisualScaffold> {
     );
   }
   @override
-  Map<String, WidgetProperty> get modifiedWidgetProperties => {
+  Map<String, WidgetProperty> getWidgets() =>  {
     'body': WidgetProperty.keyed(bodyKey),
     'floatingActionButton': WidgetProperty.keyed(fabKey),
     'appBar': WidgetProperty.keyed(appBarKey),
   };
 
   @override
-  // TODO: implement remoteValues
   Map<String, Property> initRemoteValues() => {
     'backgroundColor': ColorProperty(color: widget.backgroundColor),
   };

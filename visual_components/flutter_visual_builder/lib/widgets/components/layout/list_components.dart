@@ -107,7 +107,7 @@ class _VisualColumnState extends VisualState<VisualColumn> with _ListComponentMi
   }
 
   @override
-  Map<String, WidgetProperty> get modifiedWidgetProperties => {};
+  Map<String, WidgetProperty> getWidgets() => {};
 
 
   @override
