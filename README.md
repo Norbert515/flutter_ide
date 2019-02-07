@@ -118,6 +118,10 @@ $NAME$Changer - StringChanger
 If the widget has children itself wrap each child in a LayoutDragTarget, assign it a final GlobalKey. Then
 return each WidgetProperty
 
+
+kernel-transformer:
+Flutter repo - packages/tools/lib/src/compile.dart line 201 - starts engine-frontendserver
+
 # State of this project
 
 
