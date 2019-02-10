@@ -3,7 +3,7 @@ import 'package:flutter/rendering.dart';
 
 
 import 'package:flutter/foundation.dart'
-    show debugDefaultTargetPlatformOverride;
+    show AbstractNode, debugDefaultTargetPlatformOverride;
 void main() {
   debugDefaultTargetPlatformOverride = TargetPlatform.fuchsia;
   runApp(new MyApp());
@@ -98,7 +98,7 @@ class MultiView extends SingleChildRenderObjectWidget {
 class RenderMultiView extends RenderProxyBox {
 
 
-
+  Offset localOffset;
 
   @override
   void performLayout() {
@@ -117,11 +117,20 @@ class RenderMultiView extends RenderProxyBox {
   void paint(PaintingContext context, Offset offset) {
     if (child != null) {
       //child.layout(BoxConstraints.tight(Size(250, 250)));
-      context.canvas.drawRect(Rect.fromPoints(offset, offset + Offset(500, 500)), Paint()..color = Colors.yellow);
-      context.paintChild(child, offset);
+     // context.canvas.drawRect(Rect.fromPoints(offset, offset + Offset(500, 500)), Paint()..color = Colors.yellow);
+   //   context.paintChild(child, offset);
+
+   /*   RenderConstrainedBox(
+        additionalConstraints: BoxConstraints(
+          maxWidth: 50,
+          maxHeight: 50
+        ),
+        child: this
+      )..performLayout()
+       ..paint(context, offset);*/
 
     //  child.layout(BoxConstraints.tight(Size(230, 80)));
-     // context.paintChild(child, offset+ Offset(250, 250));
+      context.paintChild(child, localOffset);
     }
   }
 
