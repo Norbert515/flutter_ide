@@ -160,20 +160,6 @@ abstract class VisualState<T extends VisualStatefulWidget> extends State<T> with
 
     });
 
- /*   return modifiedWidgetProperties.entries.map((entry) {
-      WidgetProperty that = entry.value;
-      if(entry.value == null) {
-        if(widget.widgetProperties.containsKey(entry.key)) {
-          that = widget.widgetProperties[entry.key];
-        }
-        if(that == null) return;
-      }
-      if(that.dynamicWidget == null) {
-        return;
-      }
-
-      return '   ${entry.key}:${keyResolver.map[that.dynamicWidget.id]?.currentState?.buildSourceCode()}';
-    }).join(",\n");*/
   }
 
   void  _generateProperty(String key, Property property, StringBuilder builder) {
@@ -182,9 +168,6 @@ abstract class VisualState<T extends VisualStatefulWidget> extends State<T> with
       property.fillSourceCode(builder);
       builder.writeNoIndent(",\n");
     }
-   // return MapEntry(key, '   $key:${property.sourceCode}');
-
-
   }
 
 }
@@ -235,11 +218,12 @@ mixin PropertyStateMixin<T extends VisualStatefulWidget> on State<T> {
 /// it only contains a Visual widget which in turn has Properties and WidgetProperties
 class WidgetProperty {
 
-  WidgetProperty({this.dynamicWidget});
+  WidgetProperty({this.dynamicWidget, this.layoutDragTargetState});
   WidgetProperty.keyed(GlobalKey<LayoutDragTargetState> globalKey)
-    : dynamicWidget = globalKey.currentState?.child;
+    : dynamicWidget = globalKey.currentState?.child, layoutDragTargetState = globalKey.currentState;
 
   final VisualStatefulWidget dynamicWidget;
+  final LayoutDragTargetState layoutDragTargetState;
 
 }
 

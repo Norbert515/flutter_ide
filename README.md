@@ -3,6 +3,31 @@
 An IDE for Flutter written in Flutter.
 
 
+# State of this project
+
+I'm unsure. Every feature I thought about builds on one core premise.
+
+Visual widget building.
+
+Next steps:
+
+Building and polishing the very core. Once that is done, giving up the project is not a defeat.
+
+The very core MVP:
+
+- Improved UI and layout
+- More value changers
+- Better placeholder system
+- Tree representation with drag& drop
+- Column Expanded/Flexible
+
+Once these are done and building a login screen is something that is better done in the widget maker
+I can decide whether to give up, open source or continue.
+
+
+
+
+
 TODO insert 3D rendered mac with the Flutter-IDE running on it image.
 
 TODO Flutter style "landing-page", short descriptive summary of this project.
