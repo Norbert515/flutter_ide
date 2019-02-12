@@ -15,7 +15,6 @@ Building and polishing the very core. Once that is done, giving up the project i
 
 The very core MVP:
 
-- Multiple Views at the same time?
 - Improved UI and layout
 - More value changers
 - Better placeholder system

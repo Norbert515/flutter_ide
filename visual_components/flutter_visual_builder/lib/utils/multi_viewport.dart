@@ -1,3 +1,5 @@
+import 'dart:ui' as ui;
+
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 
@@ -116,7 +118,7 @@ class RenderMultiView extends RenderProxyBox {
   @override
   void paint(PaintingContext context, Offset offset) {
     if (child != null) {
-      //child.layout(BoxConstraints.tight(Size(250, 250)));
+    //  child.layout(BoxConstraints.tight(Size(250, 250)));
      // context.canvas.drawRect(Rect.fromPoints(offset, offset + Offset(500, 500)), Paint()..color = Colors.yellow);
    //   context.paintChild(child, offset);
 
@@ -130,6 +132,9 @@ class RenderMultiView extends RenderProxyBox {
        ..paint(context, offset);*/
 
     //  child.layout(BoxConstraints.tight(Size(230, 80)));
+
+
+
       context.paintChild(child, localOffset);
     }
   }
