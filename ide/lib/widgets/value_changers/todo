@@ -1,0 +1,14 @@
+
+TODO Refactor to use the following architecture:
+
+- Each property changer mixes in a generic mixin which has its property type as generic value.
+
+mixin MyMixin<T extends Property> {
+    T value;
+    ValueChanged<T> onChanged;
+}
+
+This makes the calls easily reusable across multiple projects (which these might eventually land in)
+
+- A sender takes in <MyMixin>s and uses the onChanged callback to send the generic type alongside additional
+information about the ID etc.
