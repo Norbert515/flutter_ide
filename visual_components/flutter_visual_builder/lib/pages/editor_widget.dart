@@ -4,6 +4,7 @@ import 'package:flutter_visual_builder/business_logic/server/server.dart';
 import 'package:flutter_visual_builder/widgets/components/general/text_component.dart';
 import 'package:flutter_visual_builder/widgets/components/material_components.dart';
 import 'package:flutter_visual_builder/widgets/components/visual_components.dart';
+import 'package:flutter_visual_builder/widgets/tree.dart';
 import 'package:grpc/grpc.dart';
 import 'package:ide/themeing/ide_theme.dart';
 import 'package:provider/provider.dart';
@@ -79,20 +80,37 @@ class AppWidget extends StatefulWidget {
 class AppWidgetState extends State<AppWidget> {
   final GlobalKey<VisualRootState> rootKey = GlobalKey();
 
+  ValueNotifier<bool> changed = ValueNotifier(false);
+
   void onChanged() {
     String source = rootKey.currentState.buildSourceCode();
     editorServer.updateSourceCode.add(SourceCode()..sourceCode = source);
+    changed.notifyListeners();
   }
 
   @override
   Widget build(BuildContext context) {
-    return VisualRoot(
-      onChanged: onChanged,
-      key: rootKey,
-      child: VisualScaffold(
-        backgroundColor: Colors.white,
-        id: "root",
-      ),
+    VisualStatefulWidget visualStatefulWidget = VisualScaffold(
+      backgroundColor: Colors.white,
+      id: "root",
+    );
+    return Row(
+      children: <Widget>[
+        SizedBox(
+          width: 200,
+          child: TreeView(
+            changed: changed,
+            visualStatefulWidget: visualStatefulWidget,
+          ),
+        ),
+        Expanded(
+          child: VisualRoot(
+              onChanged: onChanged,
+              key: rootKey,
+              child: visualStatefulWidget,
+            ),
+        ),
+      ],
     );
   }
 }
