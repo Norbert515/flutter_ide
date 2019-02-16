@@ -96,13 +96,13 @@ class AppWidgetState extends State<AppWidget> {
     );
     return Row(
       children: <Widget>[
-        SizedBox(
+        /*SizedBox(
           width: 200,
           child: TreeView(
             changed: changed,
             visualStatefulWidget: visualStatefulWidget,
           ),
-        ),
+        ),*/
         Expanded(
           child: VisualRoot(
               onChanged: onChanged,

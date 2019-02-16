@@ -48,58 +48,30 @@ class PropertyEditor extends StatelessWidget {
           Divider(
             color: IDETheme.of(context).fontColor,
           ),
-          /*Expanded(
-            child: Column(
-              children: _oneLiners(context),
-            ),
-          ),*/
-          /*GridView.count(crossAxisCount: 2, children: <Widget>[
-
-          ],),*/
-          Row(
-            children: <Widget>[
-              Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: _getIdentifiers(context),
-              ),
-              SizedBox(width: 4,),
-              Expanded(
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: _getValueChangers(context),
-                ),
-              ),
-            ],
+          Table(
+            defaultColumnWidth: IntrinsicColumnWidth(),
+            defaultVerticalAlignment: TableCellVerticalAlignment.middle,
+            children: _tableRows(context),
           ),
         ],
       ),
     );
   }
-
-  List<Widget> _oneLiners(BuildContext context) {
+  List<TableRow> _tableRows(BuildContext context) {
     return properties.map((entry) {
-      return Row(
+      return TableRow(
         children: <Widget>[
-          Text(entry.key, style: IDETheme.of(context).propertyChangerTheme.propertyContainer),
-          Spacer(),
-          Flexible(child: ConstrainedBox(constraints: BoxConstraints(maxHeight: 200),child: entry.value)),
-          Spacer(),
+          Padding(
+            padding: const EdgeInsets.only(top: 20.0),
+            child: Text(entry.key, style: IDETheme.of(context).propertyChangerTheme.propertyContainer),
+          ),
+          SizedBox(width: 16,),
+          Padding(
+            padding: const EdgeInsets.only(top : 20.0),
+            child: Align(alignment: Alignment.topCenter,child: entry.value),
+          ),
         ],
       );
-    }).toList();
-  }
-
-  List<Widget> _getIdentifiers(BuildContext context) {
-    return properties.map((entry) {
-      return SizedBox(height:70,child: Center(child: Text(entry.key, style: IDETheme.of(context).propertyChangerTheme.propertyContainer)));
-    }).toList();
-
-  }
-
-  List<Widget> _getValueChangers(BuildContext context) {
-    return properties.map((entry) {
-      return SizedBox(height:70,child: entry.value);
     }).toList();
   }
 
