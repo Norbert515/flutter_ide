@@ -20,16 +20,12 @@ class PropertyBloc {
   // TODO implement receiving widget removed events
   PropertyBloc._({this.editor, this.removedIds});
 
-  // TODO this shouldn't return a finished widget - instead a representation of
-  // it so the widget layer can take care of constructing the actual widget.
-
   factory PropertyBloc(VisualClient visualClient) {
 
     PublishSubject<String> removedIds = PublishSubject();
-    // TODO this is a mess. Please clean it up!
 
-    Observable<Widget> widgetStream = Observable(visualClient.serverClient.streamSelected(SelectStream())
-        .map(_convertToEditor)).asBroadcastStream();
+    Observable<SelectedWidgetWithProperties> widgetStream = Observable(visualClient.serverClient.streamSelected(SelectStream())
+        .asBroadcastStream());
 
     return PropertyBloc._(
       editor: widgetStream,
@@ -37,107 +33,9 @@ class PropertyBloc {
     );
   }
 
-  final Observable<Widget> editor;
+  final Observable<SelectedWidgetWithProperties> editor;
 
   final Sink<String> removedIds;
 
-  static Widget _convertToEditor(SelectedWidgetWithProperties it) {
 
-
-    var widgets = it.properties.map((key, value) {
-      var property = convertToProperty(value);
-      return MapEntry(key, property);
-    }).map((key, property) => MapEntry(key, _convertToPropertyChanger(it.id, key, property)))
-    .entries.toList();
-
-    return PropertyEditor(
-      widgetName: it.type,
-      properties: widgets,
-      id: it.id,
-    );
-  }
-
-  static Widget _convertToPropertyChanger(String id, String key, Property property) {
-
-    // TODO use a registry so each changer registers itself
-    PropertyType type = property.type;
-    switch(type) {
-      case PropertyType.alignment:
-        return AlignmentChanger(
-          key: ObjectKey(id),
-          id: id,
-          propertyName: key,
-          value: property.data,
-        );
-      case PropertyType.double:
-        return ChangeableDouble(
-          key: ObjectKey(id),
-          id: id,
-          propertyKey: key,
-          value: property.data,
-        );
-      case PropertyType.boxConstraints:
-        return ChangeableConstraints(
-          key: ObjectKey(id),
-          id: id,
-          value: property.data,
-          propertyKey: key,
-        );
-      case PropertyType.color:
-        return ColorChanger(
-          key: ObjectKey(id),
-          id: id,
-          value: property.data,
-          propertyKey: key,
-        );
-      case PropertyType.edgeInserts:
-        return ChangeableEdgeInsets(
-          key: ObjectKey(id),
-          id: id,
-          value: property.data,
-          propertyKey: key,
-        );
-      case PropertyType.crossAxisAlignment:
-        return EnumChanger(
-          key: ObjectKey(id),
-          id: id,
-          propertyKey: key,
-          enumProperty: property,
-        );
-
-      case PropertyType.mainAxisAlignment:
-        return EnumChanger(
-          key: ObjectKey(id),
-          id: id,
-          propertyKey: key,
-          enumProperty: property,
-        );
-      case PropertyType.string:
-        return StringChanger(
-          key: ObjectKey(id),
-          id: id,
-          propertyKey: key,
-          value: property.data,
-        );
-      case PropertyType.bool:
-        return BoolChanger(
-          key: ObjectKey(id),
-          id: id,
-          propertyKey: key,
-          value: property.data,
-        );
-      case PropertyType.int:
-        return IntChanger(
-          key: ObjectKey(id),
-          id: id,
-          propertyKey:key,
-          value: property.data
-        );
-      case PropertyType.unknown:
-        return Text("Unknown");
-    }
-
-    throw AssertionError("not handled it all");
-
-  }
 }

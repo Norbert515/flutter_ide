@@ -3,6 +3,7 @@ import 'package:flutter_visual_builder/widgets/components/visual_components.dart
 import 'package:ide/business_logic/property_bloc.dart';
 import 'package:ide/themeing/ide_theme.dart';
 import 'package:ide/widgets/dependencies/property_editor_provider.dart';
+import 'package:ide/widgets/property_editor.dart';
 import 'package:ide/widgets/text_editor/basic.dart';
 import 'package:provider/provider.dart';
 import 'package:flutter_visual_builder/pages/editor_widget.dart';
@@ -74,47 +75,7 @@ class EditingSection extends StatelessWidget {
   }
 }
 
-class PropertySettingSection extends StatelessWidget {
 
-
-  const PropertySettingSection({Key key}) : super(key: key);
-
-
-  @override
-  Widget build(BuildContext context) {
-    return new Container(
-      width: 400,
-      height: double.infinity,
-      child: StreamBuilder<Widget>(
-        stream: Provider.of<PropertyBloc>(context).editor,
-        builder: (context, snapshot) {
-          if(snapshot.hasError) {
-            if(snapshot.error is Error) {
-              Error error = snapshot.error;
-              print("Error $error \n ${error.stackTrace}");
-            }
-            print("Error ${snapshot.error}");
-
-          }
-          if(!snapshot.hasData) {
-            return Material(
-              color: IDETheme
-                        .of(context)
-                        .lightBackground,
-              child: Center(
-                  child: Text("Select something", style: IDETheme.of(context).propertyChangerTheme.propertyContainer,)
-              ),
-            );
-          }
-
-          return Material(
-            child: snapshot.requireData,
-          );
-        },
-      ),
-    );
-  }
-}
 
 class WidgetTrash extends StatefulWidget {
   @override
