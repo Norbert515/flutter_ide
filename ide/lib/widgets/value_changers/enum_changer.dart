@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_visual_builder/widgets/properties/enum_properties.dart';
-import 'package:ide/widgets/widget_editors/property_changers/property_editor.dart';
+import 'package:ide/widgets/property_editor.dart';
 
 class EnumChanger extends StatefulWidget {
 

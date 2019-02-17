@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_visual_builder/widgets/properties/property.dart';
-import 'package:ide/widgets/widget_editors/property_changers/property_editor.dart';
+import 'package:ide/widgets/property_editor.dart';
 import 'package:ide/widgets/widgets/general/text_fields.dart';
 
 class ChangeableConstraints extends StatefulWidget {
