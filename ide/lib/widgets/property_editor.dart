@@ -189,7 +189,6 @@ class PropertyEditor extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // TODO replace with table
     return Container(
       color: Provider.of<IDETheme>(context).lightBackground,
       padding: EdgeInsets.all(32),

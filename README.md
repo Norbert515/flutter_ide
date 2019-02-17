@@ -21,16 +21,8 @@ The very core MVP:
 - Tree representation with drag& drop
 - Column Expanded/Flexible
 
-Once these are done and building a login screen is something that is better done in the widget maker
-I can decide whether to give up, open source or continue.
 
 
-
-
-
-TODO insert 3D rendered mac with the Flutter-IDE running on it image.
-
-TODO Flutter style "landing-page", short descriptive summary of this project.
 
 Disclaimed: This is not an official Google product, I'm working on this in my free time.
 
