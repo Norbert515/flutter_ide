@@ -22,10 +22,6 @@ The very core MVP:
 - Column Expanded/Flexible
 
 
-
-
-Disclaimed: This is not an official Google product, I'm working on this in my free time.
-
 ## Uniqueness
 
 ### Stateful visual builder.
@@ -47,52 +43,6 @@ Don't want to use the Flutter-IDE but like the visual editor? Use the plugin!
 Need new tools? Write a plugin for this IDE!
 
 
-
-# Road-map
-
-- Creating new layouts and exporting the source code.
-
-- Tweaking values through the server
-
-- Writing a lot of tests
-
-- Building the basics IDE interface
-
-- Integrating the XI-Editor & implementing Dart features (syntax highlighting, 
-analysis, dartfm)
-
-- Dynamically changing existing source code (using dart kernel transformers)
-
-- Advanced layouting with CustomPainter, CustomMultiChildLayout
-
-- Advanced layouting through different tools (snapping, absolute values/ 
-percentages)
-
-- IntelliJ and VSCode plugin for visual builder
-
-- Getting a solid build system set up
-
-- Set automated testing and building artifacts 
-
-- Integrations test GUI (like espresso)
-
-- Adding and managing packages with a GUI and a in-IDE browser
-
-- Widget catalog (create a widget - publish it and drag and drop in a widget)
-
-- Interactive layout tutorial (step by step guide to understanding layouts
-and experimenting with it)
-
-- Infer common widget usage (for example, when being in a Flex it adds the ability to change the expanded behavior without
-explicitly wrapping it in a Expanded)
-
-- Keyframing animations (like in AE or similar - it automatically generates animation code needed)
-
-- Theme manager
-
-- Loading background image with transparency to match design
-
-- Loading images from disk (choose image & set up pubspec etc.) same for font
 
 
 ## Module overview
