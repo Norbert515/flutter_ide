@@ -3,49 +3,68 @@
 An IDE for Flutter written in Flutter.
 
 
-# State of this project
-
-I'm unsure. Every feature I thought about builds on one core premise.
-
-Visual widget building.
-
-Next steps:
-
-Building and polishing the very core. Once that is done, giving up the project is not a defeat.
-
-The very core MVP:
-
-- Improved UI and layout
-- More value changers
-- Better placeholder system
-- Tree representation with drag& drop
-- Column Expanded/Flexible
+TK image and gifs.
 
 
-## Uniqueness
+## What is already done?
 
-### Stateful visual builder.
+- A lot of research and trial and error
+- Server client communication (you can run the actual app on a phone for instance 
+and change properties on your work machine)
+- A working implementation of the interactive widget builder (though, I think
+there might be a better solution)
+- Basic IDE architecture
 
-Work on the layout while keeping state.
+## 1.0 features
 
-### Drag and drop that produces quality code
-
-Number one goal is not to replace coding layouts but enhance it.
-
-### Building for different screens at the same time
-
-Preview your live changes on as many different screen sizes as you want.
-
-### Extensible and hackable
-
-Don't want to use the Flutter-IDE but like the visual editor? Use the plugin!
-
-Need new tools? Write a plugin for this IDE!
+- Having a file browser for the Flutter project
+- Opening a file which contains a widget should open the visual builder
+ready to change the widget. The source could should be updated each time a 
+constant property is changed.
+- All Flutter widgets should be available
 
 
 
+## Challenges
 
-## Module overview
+First off, this is a pretty hard thing to implement correctly. In the following
+section I want to talk about problems that need to be solved to make this work.
+
+
+### Widget source code -> interactive builder
+
+There are two things widgets which are displayed in the interactive builder 
+can do which normal widgets can't and it's **being dragged** and 
+**state being modified from external sources**.
+
+### Code preservation 
+When editing widgets the code is run (source code doesn't matter any longer). 
+When converting back the runtime object to source code 
+
+
+### State
+
+
+
+
+## Solution ideas
+I came up with a bunch of ideas and possible solutions for theses. In addition
+I implemented a few features. Though, keep in mind, it is very experimental and things
+are likely going to be need to be re written.
+
+
+### Widget source code -> interactive builder
+
+
+### Code preservation  
+
+
+### State
+
+
+
+
+## Module overview TK add more 
 
 ### Visual Components
 
@@ -59,6 +78,8 @@ A server which handles all source code translations. Editing source values
 goes through this server.
 
 ### The IDE, which contains all the IDE code.
+
+
 
 
 # Components
@@ -96,3 +117,39 @@ $NAME$Changer - StringChanger
 
 If the widget has children itself wrap each child in a LayoutDragTarget, assign it a final GlobalKey. Then
 return each WidgetProperty
+
+# State of this project
+
+
+Visual widget building.
+
+Next steps:
+
+Building and polishing the very core. Once that is done, giving up the project is not a defeat.
+
+The very core MVP:
+
+- Improved UI and layout
+- More value changers
+- Better placeholder system
+- Tree representation with drag& drop
+- Column Expanded/Flexible
+
+
+### Stateful visual builder.
+
+Work on the layout while keeping state.
+
+### Drag and drop that produces quality code
+
+Number one goal is not to replace coding layouts but enhance it.
+
+### Building for different screens at the same time
+
+Preview your live changes on as many different screen sizes as you want.
+
+### Extensible and hackable
+
+Don't want to use the Flutter-IDE but like the visual editor? Use the plugin!
+
+Need new tools? Write a plugin for this IDE!
