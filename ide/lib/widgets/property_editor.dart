@@ -18,22 +18,19 @@ import 'dart:convert';
 import 'package:flutter/foundation.dart';
 import 'package:flutter_visual_builder/widgets/properties/property.dart' as prop;
 import 'package:flutter_visual_builder/business_logic/server/generated/server.pb.dart';
+import 'value_changers/value_changer.dart';
 
 
 class PropertySettingSection extends StatelessWidget {
 
   const PropertySettingSection({Key key}) : super(key: key);
 
-
   static Widget _convertToEditor(SelectedWidgetWithProperties it) {
-
-
     var widgets = it.properties.map((key, value) {
       var property = convertToProperty(value);
       return MapEntry(key, property);
     }).map((key, property) => MapEntry(key, _convertToPropertyChanger(it.id, key, property)))
     .entries.toList();
-
     return PropertyEditor(
       widgetName: it.type,
       properties: widgets,
@@ -43,7 +40,17 @@ class PropertySettingSection extends StatelessWidget {
 
   static Widget _convertToPropertyChanger(String id, String key, Property property) {
 
-    // TODO use a registry so each changer registers itself
+    /*
+    ValueWidget valueChanger = ValueWidget(
+      id: id,
+      valueChanger: StringWithConfirmChanger(
+        value: property.data,
+        onChange: (it) => {},
+      ),
+    );*/
+
+
+    // TODO maybe use a registry so each changer registers itself
     PropertyType type = property.type;
     switch(type) {
       case PropertyType.alignment:
@@ -88,7 +95,6 @@ class PropertySettingSection extends StatelessWidget {
           propertyKey: key,
           enumProperty: property,
         );
-
       case PropertyType.mainAxisAlignment:
         return EnumChanger(
           key: ObjectKey(id),
@@ -122,7 +128,6 @@ class PropertySettingSection extends StatelessWidget {
     }
 
     throw AssertionError("not handled it all");
-
   }
 
   @override

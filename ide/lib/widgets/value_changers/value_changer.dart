@@ -2,8 +2,15 @@
 
 import 'package:flutter/material.dart';
 
+typedef ValueChangerFactory<T> = ValueChanger Function(dynamic value, dynamic onChanged);
+
+class ValueChangerRegistry {
+
+  static Map<Type, ValueChangerFactory> map;
+}
+
 mixin ValueChanger<T> on Widget{
-  ValueChanged<T> get onUpdate;
+  ValueChanged<T> get onChange;
   T get value;
 
 }

@@ -36,7 +36,7 @@ abstract class Property<T> {
 
   void fillSourceCode(StringBuilder builder);
 
-  T data;
+  final T data;
 
   PropertyType get type;
 
