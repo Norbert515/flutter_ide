@@ -75,14 +75,14 @@ class TreeNode extends StatelessWidget {
   }
 
   List<Widget> getChildren() {
-    return visualState.modifiedWidgetProperties.keys.map((key) {
+    return visualState.getWidgets().keys.map((key) {
       return Row(
         children: <Widget>[
           Text("$key: "),
           TreeView(
             changed: changed,
             visualStatefulWidget: visualState
-                .modifiedWidgetProperties[key].layoutDragTargetState.child,
+                .getWidgets()[key].layoutDragTargetState.child,
           ),
         ],
       );
