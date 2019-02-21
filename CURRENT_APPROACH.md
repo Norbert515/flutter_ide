@@ -243,6 +243,10 @@ Possible solutions:
  }
  ```
  
+ Using something like this would make the system pretty flexible because it
+ would handle all different cases of instantiation (in a function, global or static
+ reference etc).
+ 
 
 #### From visual to code and back
 

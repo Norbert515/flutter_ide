@@ -24,43 +24,6 @@ constant property is changed.
 - All Flutter widgets should be available
 
 
-
-## Challenges and possible solutions
-
-First off, this is a pretty hard thing to implement correctly. In the following
-section I want to talk about problems that need to be solved to make this work.
-
-
-I came up with a bunch of ideas and possible solutions for theses. In addition
-I implemented a few features. Though, keep in mind, it is very experimental and things
-are likely going to be need to be re written.
-
-### Widget source code -> interactive builder
-
-There are two things widgets which are displayed in the interactive builder 
-can do which normal widgets can't and it's **being dragged** and 
-**state being modified from external sources**.
-
-#### Possible solution
-
-Dart Kernel Transformers. TK
-
-
-### Code preservation 
-When editing widgets the code is run (source code doesn't matter any longer). 
-When converting back the runtime object to source code information is lost.
-For example take a look at this function:
-TK FUNCTION EXAMPLE
-
-Passing in the source code TK
-
-
-
-
-
-
-
-
 ## Module overview TK add more 
 
 ### Visual Components
