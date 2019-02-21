@@ -75,7 +75,7 @@ Widget build(BuildContext context) {
   }
 ```
 
-1. Naive approach: RegEx
+##### Naive approach: RegEx
 
 This example would certainly be possible to parse via regex, but regex would 
 probably fail miserably once things become more complex.
@@ -89,6 +89,30 @@ Brief overview of what it is:
 WHen compiling dart code, it is first compiled to something called 
 "dart kernel binaries" (those are the .dill files you see when you look
 into a compiles dart project). This "language" is then handed to the VM for execution.
+
+Before the kernel file is haded to the VM, a set of kernel transformers are 
+executed, these operate on the kernel-AST.
+
+Here are a few examples of how kernel-transformers are used inside the 
+dart language: https://github.com/dart-lang/sdk/tree/cb6127570889bed147cbe6292cb2c0ba35271d58/pkg/kernel/lib/transformations
+
+Fun fact: here the famous tree shaking happens! (https://github.com/dart-lang/sdk/blob/cb6127570889bed147cbe6292cb2c0ba35271d58/pkg/kernel/lib/transformations/treeshaker.dart)
+
+
+Flutter also uses this kernel transformation when adding the [file location](https://github.com/flutter/engine/blob/master/flutter_kernel_transformers/lib/track_widget_constructor_locations.dart)
+to widgets.
+
+![](assets/_location.png)
+
+This allows the inspector to open up the actual instantiation of the selected
+widget compared to only the declaration. 
+
+##### Using kernel transformers
+
+
+
+
+
 
 
 
