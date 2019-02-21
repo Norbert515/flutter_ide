@@ -235,13 +235,14 @@ Possible solutions:
       origin: Origin(
         lineNumber: 42,
         caretStart: 4,
-        caretEdn: 34,
+        caretEnd: 34,
       ),
       widget: child,
      ),
    );
  }
  ```
+ 
 
 #### From visual to code and back
 
