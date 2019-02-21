@@ -109,11 +109,162 @@ widget compared to only the declaration.
 
 ##### Using kernel transformers
 
+Converting widgets to their representative visual-widget is pretty easy because
+we have access to the AST (meaning we have comments etc. already stripped out).
+
+**Retaining source code**:
+
+An example: Functions.
+Consider this code snipped.
+
+```dart
+
+FloatingActionButton(
+  onPressed: () {
+    print("Hello");
+  }
+);
+```
+
+We are passing a function to the FAB. When parsing back to the source code
+we might call `toString()` on each property. Unfortunately calling `toString()`
+on a function yields `Closure: () => Null`, which is the correct type but the 
+actual source code is lost.
+
+My idea was to modify the parameters to include necessary source code as
+string.
+
+```dart
+VisualFloatingActionButton(
+  properties: {
+    'onPressed': '() {'
+    '  print("Hello");'
+    '}'
+  }
+  onPressed: () {
+    print("Hello");
+  }
+);
+```
+or
+
+```dart
+
+FloatingActionButton(
+  onPressed: FunctionProperty(
+    source: 'print("Hello");',
+    function: () {
+      print("Hello");
+    }
+  ), 
+);
+```
+
+When converting back we have all necessary information needed to reconstruct the
+original source code.
 
 
+##### Edge cases
 
+There are a bunch of edge cases which fortunately can all be handled gracefully.
 
+**Property is not constant**:
+```dart
 
+Container(
+  color: widget.color
+);
+
+```
+
+Possible solution: disable editing this property in the editor, or make
+an option to unbind from the data.
+
+**Child is not a constructor invocation**:
+
+```dart
+Container(
+  child: widget.child,
+);
+```
+
+Possible solution: again disable editing/ moving that child.
+
+On the other hand, build methods like these are pretty common:
+
+```dart
+Widget build(BuildContext context) {
+  Widget child = Text("Hey");
+  
+  return Container(
+    child: child,
+  );
+}
+```
+
+All the tools needed to figure out where the widget is originally created are 
+available through the kernel transformer, it would be possible to make widgets 
+originating from withing the same class editable.
+
+Problem 2: Generating the original code 
+
+Generating the original source code from the above 
+example the naive way would result in this:
+
+```dart
+Widget build(BuildContext context) {
+  Widget child = Text("Hey");
+  
+  return Container(
+    child: Text("Hey"),
+  );
+}
+```
+
+The container recursively builds the widgets but disregards widgets potentially
+being instantiated somewhere else.
+
+Possible solutions:
+
+ ```dart
+ Widget build(BuildContext context) {
+   Widget child = VisualWidget("Hey");
+   
+   return VisualContainer(
+     child: DifferentOriginWidget(
+      origin: Origin(
+        lineNumber: 42,
+        caretStart: 4,
+        caretEdn: 34,
+      ),
+      widget: child,
+     ),
+   );
+ }
+ ```
+
+#### From visual to code and back
+
+When visually editing the widget, it should still be possible to edit 
+the underlying source code. 
+This should be pretty easy to implement because all that would have to be done
+is hot reload the (always up to date) source code. 
+
+ 
+ 
+## Result
+
+When all of this is implemented, the IDE will be capable of running 
+independent widgets and applying any modifications (even on a smartphone). 
+
+Possible workflow:
+
+- Open up a .dart file.
+- Each widget has a run button besides it (like IntelliJ has for main methods)
+- When pressing the run button, the view is split the widget is rendered on the
+right and the code is shown on the left.
+- Visually changing the widget results in instant source code updates.
+- Code updates result in a hot-reloaded visual representation
 
 
 
