@@ -3,8 +3,25 @@
 An IDE for Flutter written in Flutter.
 
 
-TK image and gifs.
+![Header](docs/website/img/still_image.png)
 
+### Stateful visual builder.
+
+Work on the layout while keeping state.
+
+### Drag and drop that produces quality code
+
+Number one goal is not to replace coding layouts but enhance it.
+
+### Building for different screens at the same time
+
+Preview your live changes on as many different screen sizes as you want.
+
+### Extensible and hackable
+
+Don't want to use the Flutter-IDE but like the visual editor? Use the plugin!
+
+Need new tools? Write a plugin for this IDE!
 
 ## What is already done?
 
@@ -24,7 +41,9 @@ constant property is changed.
 - All Flutter widgets should be available
 
 
-## Module overview TK add more 
+## Module overview 
+
+_More documentation coming_
 
 ### Visual Components
 
@@ -67,7 +86,7 @@ $NAME$Changer - StringChanger
 ### Creating a new property
 
 1. Creating the property class and updating the converter
-2. Implementing the changer and returning it in the propertyBloc
+2. Implementing the changer and returning it in the property_editor.dart widget 
 
 
 ### Creating a new widget
@@ -82,38 +101,4 @@ return each WidgetProperty
 kernel-transformer:
 Flutter repo - packages/tools/lib/src/compile.dart line 201 - starts engine-frontendserver
 
-# State of this project
 
-
-Visual widget building.
-
-Next steps:
-
-Building and polishing the very core. Once that is done, giving up the project is not a defeat.
-
-The very core MVP:
-
-- Improved UI and layout
-- More value changers
-- Better placeholder system
-- Tree representation with drag& drop
-- Column Expanded/Flexible
-
-
-### Stateful visual builder.
-
-Work on the layout while keeping state.
-
-### Drag and drop that produces quality code
-
-Number one goal is not to replace coding layouts but enhance it.
-
-### Building for different screens at the same time
-
-Preview your live changes on as many different screen sizes as you want.
-
-### Extensible and hackable
-
-Don't want to use the Flutter-IDE but like the visual editor? Use the plugin!
-
-Need new tools? Write a plugin for this IDE!
