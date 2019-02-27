@@ -1,5 +1,5 @@
 
-# Current Approach
+# Interactive Widget editing
 
 
 
