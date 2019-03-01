@@ -31,15 +31,3 @@ Need new tools? Write a plugin for this IDE!
 and change properties on your work machine)
 - A working implementation of the interactive widget builder (though, I think
 there might be a better solution)
-
-
-
-
-
-
-
-
-
-
-
-
