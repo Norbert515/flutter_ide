@@ -23,8 +23,8 @@ dependencies:
 
   provider: ^1.1.1
 
-  flutter_desktop_widgets:
-    path: ..\..\flutter_desktop_widgets
+  #flutter_desktop_widgets:
+   # path: ..\..\flutter_desktop_widgets
   grpc: ^1.0.0
 
   rxdart: ^0.20.0

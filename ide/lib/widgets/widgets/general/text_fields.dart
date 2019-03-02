@@ -1,6 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_desktop_widgets/desktop/hover/cursor_widget.dart';
-import 'package:flutter_desktop_widgets/desktop/hover/hoverable_element.dart';
 import 'package:ide/themeing/ide_theme.dart';
 /// Widget outside has to keep track of its state, similar to the radio button
 class NumericChangeableTextField extends StatefulWidget {
@@ -61,11 +59,11 @@ class NumericChangeableTextFieldState
   }
 
   void setCursor() {
-    CursorManager.instance.setCursor(CursorType.ResizeY);
+    //CursorManager.instance.setCursor(CursorType.ResizeY);
   }
 
   void resetCursor() {
-    if (!dragging && !hovering) CursorManager.instance.resetCursor();
+   // if (!dragging && !hovering) CursorManager.instance.resetCursor();
   }
 
   @override
@@ -88,7 +86,29 @@ class NumericChangeableTextFieldState
             dragging = false;
             resetCursor();
           },
-          child: HoveringBuilder(
+          child: SizedBox(
+                width: 40,
+                child: Theme(
+                  data: ThemeData(
+                    unselectedWidgetColor: Colors.red
+                  ),
+                  child: TextField(
+                    decoration: InputDecoration(
+                      contentPadding: EdgeInsets.all(1),
+                      enabledBorder: UnderlineInputBorder(
+                        borderSide: BorderSide(
+                          color: Colors.white
+                        ),
+                      )
+                    ),
+                    controller: textEditingController,
+                    onSubmitted: update,
+                    style: IDETheme.of(context)
+                        .propertyChangerTheme
+                        .propertyNumericValue,
+                  ),
+                ),
+              )/*HoveringBuilder(
             onHoverStart: (it) {
               hovering = true;
               setCursor();
@@ -122,7 +142,7 @@ class NumericChangeableTextFieldState
                 ),
               );
             },
-          ),
+          ),*/
         ),
         Text(
           widget.name,
