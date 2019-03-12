@@ -5,7 +5,7 @@ import 'package:ide/business_logic/client/client.dart';
 import 'package:ide/themeing/ide_theme.dart';
 import 'package:provider/provider.dart';
 
-class TextEditor extends StatelessWidget {
+class TextShower extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return StreamBuilder<SourceCode>(
@@ -17,7 +17,7 @@ class TextEditor extends StatelessWidget {
        } else {
          source = snapshot.requireData.sourceCode;
        }
-       return WIPTextEditor(
+       return _WIPTextEditor(
          text: source,
        );
       },
@@ -25,9 +25,9 @@ class TextEditor extends StatelessWidget {
   }
 }
 
-class WIPTextEditor extends StatelessWidget {
+class _WIPTextEditor extends StatelessWidget {
 
-  const WIPTextEditor({Key key, this.text}) : super(key: key);
+  const _WIPTextEditor({Key key, this.text}) : super(key: key);
 
   final String text;
 

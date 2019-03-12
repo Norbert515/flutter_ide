@@ -4,7 +4,7 @@ import 'package:ide/business_logic/property_bloc.dart';
 import 'package:ide/themeing/ide_theme.dart';
 import 'package:ide/widgets/dependencies/property_editor_provider.dart';
 import 'package:ide/widgets/property_editor.dart';
-import 'package:ide/widgets/text_editor/basic.dart';
+import 'package:ide/widgets/text_editor/text_showcase.dart';
 import 'package:provider/provider.dart';
 import 'package:flutter_visual_builder/pages/editor_widget.dart';
 import 'package:flutter_visual_builder/widgets/widget_palette/palette.dart';
@@ -58,7 +58,7 @@ class EditingSection extends StatelessWidget {
                   }),
                 ],
               ),
-              Expanded(child: TextEditor()),
+              Expanded(child: TextShower()),
             ],
           )),
           Expanded(
