@@ -22,8 +22,10 @@ dependencies:
   flutter_colorpicker: ^0.2.1
 
   provider: ^1.1.1
+  path: ^1.6.2
 
-  #flutter_desktop_widgets:
+
+    #flutter_desktop_widgets:
    # path: ..\..\flutter_desktop_widgets
   grpc: ^1.0.0
 
