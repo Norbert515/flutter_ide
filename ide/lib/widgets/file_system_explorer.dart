@@ -50,12 +50,17 @@ class _FileSystemExplorerState extends State<FileSystemExplorer> {
     return Provider<String>(
       value: _selectedEntity,
       child: Material(
-        child: Container(
-          width: 200,
-          height: 400,
-          color: Colors.green,
-          child: _Folder(
-            directory: root,
+        child: SizedBox(
+          height: 600,
+          child: SingleChildScrollView(
+            child: Container(
+              width: 200,
+              color: Colors.green,
+              child: _Folder(
+                directory: root,
+                depth: 0,
+              ),
+            ),
           ),
         ),
       )
@@ -68,9 +73,10 @@ class _FileSystemExplorerState extends State<FileSystemExplorer> {
 
 class _Folder extends StatefulWidget {
 
-  const _Folder({Key key, this.directory}) : super(key: key);
+  const _Folder({Key key, this.directory, this.depth}) : super(key: key);
 
   final Directory directory;
+  final int depth;
 
   @override
   _FolderState createState() =>  _FolderState();
@@ -82,32 +88,40 @@ class _FolderState extends State<_Folder> {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
+    return Row(
       children: <Widget>[
-        GestureDetector(
-          onTap: () {
-            _FileSystemExplorerState.setSelectedEntity(context, widget.directory.path);
-          },
-          onDoubleTap: () {
-            setState(() {
-              open = !open;
-            });
-          },
-          child: Container(
-            child: Text(path.basename(widget.directory.path)),
-          ),
+        SizedBox(
+          width: 20.0 * widget.depth,
         ),
-        FutureBuilder<List<FileSystemEntity>>(
-          future: widget.directory.list().toList(),
-          builder: (context, snapshot) {
-            if(!snapshot.hasData) return CircularProgressIndicator();
-            return Column(
-              children: snapshot.data.map((it) {
-                if(it is Directory) return _Folder(directory: it,);
-                if(it is File) return _File(file: it);
-              }).toList(),
-            );
-          },
+        Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: <Widget>[
+            GestureDetector(
+              onTap: () {
+                _FileSystemExplorerState.setSelectedEntity(context, widget.directory.path);
+              },
+              onDoubleTap: () {
+                setState(() {
+                  open = !open;
+                });
+              },
+              child: Container(
+                child: Text(path.basename(widget.directory.path)),
+              ),
+            ),
+            open ? FutureBuilder<List<FileSystemEntity>>(
+              future: widget.directory.list().toList(),
+              builder: (context, snapshot) {
+                if(!snapshot.hasData) return CircularProgressIndicator();
+                return Column(
+                  children: snapshot.data.map((it) {
+                    if(it is Directory) return _Folder(directory: it, depth: widget.depth + 1,);
+                    if(it is File) return _File(file: it);
+                  }).toList(),
+                );
+              },
+            ): SizedBox(),
+          ],
         ),
       ],
     );
