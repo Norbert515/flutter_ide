@@ -31,6 +31,15 @@ class _FileSystemExplorerState extends State<FileSystemExplorer> {
     });
   }
 
+  Directory root;
+
+
+  @override
+  void initState() {
+    super.initState();
+    root = Directory(path.absolute(""));
+  }
+
   static void setSelectedEntity(BuildContext context, String selectedEntity) {
     _FileSystemExplorerState state = context.ancestorStateOfType(TypeMatcher<_FileSystemExplorerState>());
     state.selectedEntity = selectedEntity;
@@ -40,7 +49,16 @@ class _FileSystemExplorerState extends State<FileSystemExplorer> {
   Widget build(BuildContext context) {
     return Provider<String>(
       value: _selectedEntity,
-      child: Container()
+      child: Material(
+        child: Container(
+          width: 200,
+          height: 400,
+          color: Colors.green,
+          child: _Folder(
+            directory: root,
+          ),
+        ),
+      )
     );
   }
 }

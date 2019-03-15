@@ -3,6 +3,7 @@ import 'package:flutter_visual_builder/widgets/components/visual_components.dart
 import 'package:ide/business_logic/property_bloc.dart';
 import 'package:ide/themeing/ide_theme.dart';
 import 'package:ide/widgets/dependencies/property_editor_provider.dart';
+import 'package:ide/widgets/menue_bar.dart';
 import 'package:ide/widgets/property_editor.dart';
 import 'package:ide/widgets/text_editor/text_showcase.dart';
 import 'package:provider/provider.dart';
@@ -23,19 +24,26 @@ class HomePageState extends State<HomePage> {
 
   @override
   Widget build(BuildContext context) {
-    return PropertyEditorProvider(
-      child: PlaceholderManager(
-        child: Material(
-          color: IDETheme.of(context).darkerBackground,
-          child: Row(
-            children: <Widget>[
-              WidgetPalette(),
-              Expanded(child: EditingSection()),
-              PropertySettingSection(),
-            ],
+    return Column(
+      children: <Widget>[
+        MenuBar(),
+        Expanded(
+          child: PropertyEditorProvider(
+            child: PlaceholderManager(
+              child: Material(
+                color: IDETheme.of(context).darkerBackground,
+                child: Row(
+                  children: <Widget>[
+                    WidgetPalette(),
+                    Expanded(child: EditingSection()),
+                    PropertySettingSection(),
+                  ],
+                ),
+              ),
+            ),
           ),
         ),
-      ),
+      ],
     );
   }
 }
