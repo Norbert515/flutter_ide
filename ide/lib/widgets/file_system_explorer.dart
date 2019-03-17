@@ -1,9 +1,71 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'dart:io';
 import 'package:path/path.dart' as path;
 import 'package:provider/provider.dart';
+import 'package:rxdart/rxdart.dart';
 
 enum SearchFor { File, Folder }
+
+
+// TODO this recursive widget solution does work, but there are a few
+// advantages in using a linear approach
+
+// 1. Can use a ListView.builder which will especially help with longer lists
+// 2. Navigating with arrow keys will be significantly easier
+
+class _FlutterFileSystem {
+
+  _FlutterFileSystemEntity _root;
+
+  _FlutterFileSystemEntity selectedEntity;
+
+
+  _FlutterFileSystemEntity getAt(int index) {
+
+  }
+
+  void selectNext() {
+
+  }
+
+  void selectPrevious() {
+
+  }
+
+  void open() {
+
+  }
+
+
+
+}
+
+class _FlutterFileSystemEntity {
+
+  _FlutterFileSystemEntity(this.depth);
+
+  final int depth;
+
+}
+
+class _FlutterFile extends _FlutterFileSystemEntity {
+  _FlutterFile(int depth) : super(depth);
+
+
+}
+
+class _FlutterFolder extends _FlutterFileSystemEntity {
+  _FlutterFolder(int depth) : super(depth);
+
+
+  bool open;
+
+}
+
+
+
+
 
 class FileSystemExplorer extends StatefulWidget {
   const FileSystemExplorer({Key key, this.searchFor}) : super(key: key);
@@ -15,6 +77,12 @@ class FileSystemExplorer extends StatefulWidget {
 }
 
 class _FileSystemExplorerState extends State<FileSystemExplorer> {
+
+
+  FocusNode focusNode;
+
+  PublishSubject<void> _onPressedSubject = PublishSubject();
+
   String _selectedEntity;
   set selectedEntity(String it) {
     setState(() {
@@ -27,7 +95,22 @@ class _FileSystemExplorerState extends State<FileSystemExplorer> {
   @override
   void initState() {
     super.initState();
-    root = Directory(path.absolute(""));
+    root = Directory(path.absolute("C:\\\\"));
+    focusNode = FocusNode();
+  }
+
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    FocusScope.of(context).requestFocus(focusNode);
+  }
+
+
+  @override
+  void dispose() {
+    focusNode.dispose();
+    _onPressedSubject.close();
+    super.dispose();
   }
 
   static void setSelectedEntity(BuildContext context, String selectedEntity) {
@@ -42,25 +125,60 @@ class _FileSystemExplorerState extends State<FileSystemExplorer> {
     return state._selectedEntity;
   }
 
+  static Observable<void> getEnterStream(BuildContext context) {
+    _FileSystemExplorerState state = context.ancestorStateOfType(TypeMatcher<_FileSystemExplorerState>());
+    return state._onPressedSubject.stream;
+  }
+
+
+  void moveUp() {
+
+  }
+
+  void moveDown() {
+
+  }
+
+  void select() {
+    _onPressedSubject.add(null);
+  }
+
   @override
   Widget build(BuildContext context) {
-    return Provider<String>(
-        value: _selectedEntity,
-        child: Material(
-          child: SizedBox(
-            height: 600,
-            child: SingleChildScrollView(
-              child: Container(
-                width: 200,
-                color: Colors.green,
-                child: _Folder(
-                  directory: root,
-                  depth: 1,
+    return RawKeyboardListener(
+      focusNode: focusNode,
+      onKey: (rawKey) {
+        // TODO dart embedder doesn't send all raw event right now, this is going to
+        // be fixed at some point.
+        if(rawKey is RawKeyUpEvent) {
+
+        } else if(rawKey is RawKeyDownEvent) {
+          RawKeyDownEvent event = rawKey;
+          var it = event.data as RawKeyEventDataFuchsia;
+          if(it.hidUsage == 81) moveDown();
+          if(it.hidUsage == 82) moveUp();
+          if(it.hidUsage == 40) select();
+        }
+
+      },
+      child: Provider<String>(
+          value: _selectedEntity,
+          child: Material(
+            child: SizedBox(
+              height: 600,
+              child: SingleChildScrollView(
+                child: Container(
+                  width: 200,
+                  color: Colors.green,
+                  child: _Folder(
+                    directory: root,
+                    depth: 1,
+                  ),
                 ),
               ),
             ),
-          ),
-        ));
+          )),
+    );
   }
 }
 
@@ -89,6 +207,26 @@ class _FolderState extends State<_Folder> {
 
   /// In milliseconds
   static const int _DOUBLE_TAP_TIME = 500;
+
+
+  Future _openDirectoryFuture;
+
+  @override
+  void initState() {
+    super.initState();
+    _openDirectoryFuture = widget.directory.list().toList();
+    _FileSystemExplorerState.getEnterStream(context).listen((_) {
+      if(_FileSystemExplorerState.getSelectedEntity(context) == widget.directory.path) {
+        setState(() {
+          open = !open;
+        });
+      }
+    });
+  }
+
+  void openDirectory() {
+
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -148,7 +286,7 @@ class _FolderState extends State<_Folder> {
         ),
         open
             ? FutureBuilder<List<FileSystemEntity>>(
-                future: widget.directory.list().toList(),
+                future: _openDirectoryFuture,
                 builder: (context, snapshot) {
                   if (!snapshot.hasData) return CircularProgressIndicator();
                   return Column(
