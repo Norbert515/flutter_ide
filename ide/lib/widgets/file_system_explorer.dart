@@ -4,8 +4,10 @@ import 'dart:io';
 import 'package:path/path.dart' as path;
 import 'package:provider/provider.dart';
 import 'package:rxdart/rxdart.dart';
+import 'dart:async';
 
 enum SearchFor { File, Folder }
+enum _FlutterFileType {File, Folder}
 
 
 // TODO this recursive widget solution does work, but there are a few
@@ -16,13 +18,54 @@ enum SearchFor { File, Folder }
 
 class _FlutterFileSystem {
 
+  _FlutterFileSystem(Directory root, this.onChanged) {
+    _root = _FlutterFolder(
+      depth: 0,
+      directory: root,
+    );
+  }
+
   _FlutterFileSystemEntity _root;
 
   _FlutterFileSystemEntity selectedEntity;
 
+  //List<_FlutterFileSystemEntity> items;
 
-  _FlutterFileSystemEntity getAt(int index) {
+  final VoidCallback onChanged;
 
+
+  Iterable<_FlutterFileSystemEntity> convertToLinear() => _convertToLinear(_root);
+  Iterable<_FlutterFileSystemEntity> _convertToLinear(_FlutterFileSystemEntity root) sync* {
+    yield _root;
+
+    assert(_root is _FlutterFolder);
+
+    _FlutterFolder rootFolder = _root;
+
+    // Can't yield in forEach call
+    for(_FlutterFileSystemEntity it in rootFolder.children) {
+      if(it.type == _FlutterFileType.Folder) {
+        _FlutterFolder folder = it;
+        if(folder.opened) {
+          yield* _convertToLinear(folder);
+        }
+      } else {
+        yield it;
+      }
+    }
+  }
+
+  void open() {
+    if(selectedEntity.type == _FlutterFileType.Folder) {
+      _FlutterFolder folder = selectedEntity;
+      folder.open().then((_) {
+        onChanged();
+      });
+    }
+  }
+
+  void select(_FlutterFileSystemEntity entity) {
+    this.selectedEntity = entity;
   }
 
   void selectNext() {
@@ -33,33 +76,54 @@ class _FlutterFileSystem {
 
   }
 
-  void open() {
-
-  }
-
-
 
 }
 
 class _FlutterFileSystemEntity {
 
-  _FlutterFileSystemEntity(this.depth);
+  _FlutterFileSystemEntity(this.depth, this.type);
 
   final int depth;
+  final _FlutterFileType type;
 
 }
 
 class _FlutterFile extends _FlutterFileSystemEntity {
-  _FlutterFile(int depth) : super(depth);
+  _FlutterFile({int depth, this.file}) : super(depth, _FlutterFileType.File);
 
+  final File file;
 
 }
 
 class _FlutterFolder extends _FlutterFileSystemEntity {
-  _FlutterFolder(int depth) : super(depth);
+  _FlutterFolder({int depth, this.directory}) : super(depth, _FlutterFileType.File);
 
 
-  bool open;
+  final Directory directory;
+  bool opened = false;
+
+  bool alreadyLoaded = false;
+  List<_FlutterFileSystemEntity> children;
+
+
+  Future open() {
+    if(alreadyLoaded) return Future.value();
+    return directory.list().toList().then((it) {
+      this.children = it.map((it) {
+        if(it is File) {
+          return _FlutterFile(
+            depth: depth + 1,
+            file: it,
+          );
+        } else if(it is Directory) {
+          return _FlutterFolder(
+            depth: depth + 1,
+            directory: it,
+          );
+        }
+      });
+    });
+  }
 
 }
 
