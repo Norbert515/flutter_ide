@@ -67,42 +67,56 @@ class _FlutterFileSystem {
     onChanged();
   }
 
-  void closeCurrent() {
-    if (selectedEntity.type == _FlutterFileType.Folder) {
-      _FlutterFolder folder = selectedEntity;
-      folder.close();
-      _invalidate();
+  void toggleCurrent() => _toggleFolder(_maybeGetCurrentFolder());
 
+  void toggle(int index) => _toggleFolder(_maybeGetFolder(index));
+
+  void _toggleFolder(_FlutterFolder folder) {
+    if(folder != null) {
+      if(folder.opened) {
+        folder.close();
+        _invalidate();
+      } else {
+        folder.open().then((_) => _invalidate());
+      }
     }
+  }
+
+  void closeCurrent() {
+    _maybeGetCurrentFolder()?.close();
+    _invalidate();
   }
 
   void close(int index) {
-    _FlutterFileSystemEntity entity = items[index];
-    if (entity.type == _FlutterFileType.Folder) {
-      _FlutterFolder folder = entity;
-      folder.close();
-      _invalidate();
-    }
+    _maybeGetFolder(index)?.close();
+    _invalidate();
   }
 
   void openCurrent() {
-    if (selectedEntity.type == _FlutterFileType.Folder) {
-      _FlutterFolder folder = selectedEntity;
-      folder.open().then((_) {
-        _invalidate();
-      });
-    }
+    _maybeGetCurrentFolder()?.open()?.then((_) => _invalidate());
   }
 
   void open(int index) {
+    _maybeGetFolder(index)?.open()?.then((_) => _invalidate());
+  }
+
+  _FlutterFolder _maybeGetCurrentFolder() {
+    if(selectedEntity.type == _FlutterFileType.Folder) {
+      return selectedEntity as _FlutterFolder;
+    } else {
+      return null;
+    }
+  }
+  _FlutterFolder _maybeGetFolder(int index) {
     _FlutterFileSystemEntity entity = items[index];
     if (entity.type == _FlutterFileType.Folder) {
       _FlutterFolder folder = entity;
-      folder.open().then((_) {
-        _invalidate();
-      });
+      return folder;
+    } else {
+      return null;
     }
   }
+
 
   void select(int index) {
     this.selectedIndex = index;
@@ -261,7 +275,7 @@ class _FileSystemExplorerState extends State<FileSystemExplorer> {
   }
 
   void select() {
-    
+    fileSystem.toggleCurrent();
   }
 
   @override
@@ -303,8 +317,8 @@ class _FileSystemExplorerState extends State<FileSystemExplorer> {
                       onSelect: () {
                         fileSystem.select(index);
                       },
-                      onOpen: () {
-                        fileSystem.open(index);
+                      onToggle: () {
+                        fileSystem.toggle(index);
                       },
                     ),
                   );
@@ -331,12 +345,12 @@ class _FileSystemExplorerState extends State<FileSystemExplorer> {
 }
 
 class _Folder extends StatefulWidget {
-  _Folder({Key key, this.entity, this.onOpen, this.onSelect, this.selected})
+  _Folder({Key key, this.entity, this.onToggle, this.onSelect, this.selected})
       : super(key: key);
 
   final _FlutterFolder entity;
 
-  final VoidCallback onOpen;
+  final VoidCallback onToggle;
   final VoidCallback onSelect;
 
   final bool selected;
@@ -368,7 +382,7 @@ class _FolderState extends State<_Folder> {
           widget.onSelect();
           DateTime now = DateTime.now();
           if (now.millisecondsSinceEpoch - lastTapTime < _DOUBLE_TAP_TIME) {
-            widget.onOpen();
+            widget.onToggle();
           }
           lastTapTime = now.millisecondsSinceEpoch;
         },
@@ -380,7 +394,7 @@ class _FolderState extends State<_Folder> {
               width: 20.0 * widget.entity.depth,
             ),
             IconButton(
-              onPressed: widget.onOpen,
+              onPressed: widget.onToggle,
               icon: Icon(widget.entity.opened
                   ? Icons.keyboard_arrow_up
                   : Icons.keyboard_arrow_down),
