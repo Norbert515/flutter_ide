@@ -9,11 +9,11 @@ import 'dart:async';
 enum SearchFor { File, Folder }
 enum _FlutterFileType { File, Folder }
 
-// TODO this recursive widget solution does work, but there are a few
-// advantages in using a linear approach
 
-// 1. Can use a ListView.builder which will especially help with longer lists
-// 2. Navigating with arrow keys will be significantly easier
+// TODO implement pattern matching (search for files, just as IntelliJ does)
+
+// TODO implement actual chooser which wraps this widgets and adds
+// search patterns and confirm buttons
 
 class _FlutterFileSystem {
   _FlutterFileSystem(Directory root,
@@ -33,31 +33,50 @@ class _FlutterFileSystem {
 
   List<_FlutterFileSystemEntity> items;
 
+
+  int maxDepth = 0;
+
   final VoidCallback onChanged;
   final VoidCallback onMovedToNext;
   final VoidCallback onMovedToPrevious;
 
-  Iterable<_FlutterFileSystemEntity> convertToLinear() =>
-      _convertToLinear(_root);
+
+  int bufferMaxDepth = 0;
+
+  Iterable<_FlutterFileSystemEntity> convertToLinear() {
+    bufferMaxDepth = 0;
+    return _convertToLinear(_root);
+  }
   Iterable<_FlutterFileSystemEntity> _convertToLinear(
       _FlutterFileSystemEntity root) sync* {
-    yield root;
 
+    yield root;
     assert(root is _FlutterFolder);
 
     _FlutterFolder rootFolder = root;
 
-    // Can't yield in forEach call
-    for (_FlutterFileSystemEntity it in rootFolder.children) {
-      if (it.type == _FlutterFileType.Folder) {
-        _FlutterFolder folder = it;
-        if (folder.opened) {
+    if(rootFolder.opened) {
+      // The max depth is used because the ListView.builder builds its children
+      // lazily, therefore we have no idea what the "deepest" (and thus biggest
+      // in x direction) item is.
+      // This is intended behavior because the ListView.builder is only supposed
+      // to know about the items currently being showcased.
+
+      // But for the horizontal scroll we need some sort of maximum width.
+      // We can approximate that width by taking the max depth and multiplying it
+      // with the the space added each depth level + max item width
+      if(rootFolder.depth > bufferMaxDepth) {
+        maxDepth = rootFolder.depth;
+        bufferMaxDepth = rootFolder.depth;
+      }
+      // Can't yield in forEach call
+      for (_FlutterFileSystemEntity it in rootFolder.children) {
+        if (it.type == _FlutterFileType.Folder) {
+          _FlutterFolder folder = it;
           yield* _convertToLinear(folder);
         } else {
-          yield folder;
+          yield it;
         }
-      } else {
-        yield it;
       }
     }
   }
@@ -161,7 +180,7 @@ class _FlutterFolder extends _FlutterFileSystemEntity {
   bool opened = false;
 
   bool alreadyLoaded = false;
-  List<_FlutterFileSystemEntity> children;
+  List<_FlutterFileSystemEntity> children = [];
 
   Future open() {
     opened = true;
@@ -180,6 +199,10 @@ class _FlutterFolder extends _FlutterFileSystemEntity {
           );
         }
       }).toList();
+      alreadyLoaded = true;
+    })..catchError((it) {
+      opened = false;
+      this.children = [];
     });
   }
 
@@ -232,7 +255,7 @@ class _FileSystemExplorerState extends State<FileSystemExplorer> {
         currentOffset;
     if (remainingSpace < _ITEM_HEIGHT * _NUM_ITEMS_BEFORE_SCROLL) {
       double jumpTo = controller.offset + _ITEM_HEIGHT;
-      double maxHeight = (fileSystem.items.length * _ITEM_HEIGHT) - controller.position.extentBefore;
+      double maxHeight = (fileSystem.items.length * _ITEM_HEIGHT) - controller.position.viewportDimension;
       if(jumpTo <= maxHeight) {
         controller.jumpTo(jumpTo);
       } else {
@@ -297,46 +320,57 @@ class _FileSystemExplorerState extends State<FileSystemExplorer> {
       child: Material(
         child: SizedBox(
           height: 600,
-          child: Scrollbar(
-            child: ListView.builder(
-              itemExtent: _ITEM_HEIGHT,
-              controller: controller,
-              itemCount: fileSystem.items.length,
-              itemBuilder: (context, index) {
-                _FlutterFileSystemEntity entity = fileSystem.items[index];
+          child: LayoutBuilder(
+            builder: (context, constraints) {
+              return SingleChildScrollView(
+                scrollDirection: Axis.horizontal,
+                child: Scrollbar(
+                  child: SizedBox(
+                    width: fileSystem.maxDepth * 20 + 400.0 < constraints.maxWidth?
+                      constraints.maxWidth : constraints.maxWidth + fileSystem.maxDepth * 20,
+                    child: ListView.builder(
+                      itemExtent: _ITEM_HEIGHT,
+                      controller: controller,
+                      itemCount: fileSystem.items.length,
+                      itemBuilder: (context, index) {
+                        _FlutterFileSystemEntity entity = fileSystem.items[index];
 
-                bool selected = fileSystem.selectedIndex == index;
+                        bool selected = fileSystem.selectedIndex == index;
 
-                if (entity.type == _FlutterFileType.Folder) {
-                  return SizedBox(
-                    height: _ITEM_HEIGHT,
-                    child: _Folder(
-                      key: ObjectKey((entity as _FlutterFolder).directory.path),
-                      entity: entity as _FlutterFolder,
-                      selected: selected,
-                      onSelect: () {
-                        fileSystem.select(index);
-                      },
-                      onToggle: () {
-                        fileSystem.toggle(index);
+                        if (entity.type == _FlutterFileType.Folder) {
+                          return SizedBox(
+                            height: _ITEM_HEIGHT,
+                            child: _Folder(
+                              key: ObjectKey((entity as _FlutterFolder).directory.path),
+                              entity: entity as _FlutterFolder,
+                              selected: selected,
+                              onSelect: () {
+                                fileSystem.select(index);
+                              },
+                              onToggle: () {
+                                fileSystem.toggle(index);
+                              },
+                            ),
+                          );
+                        } else if (entity.type == _FlutterFileType.File) {
+                          return SizedBox(
+                            height: _ITEM_HEIGHT,
+                            child: _File(
+                              key: ObjectKey((entity as _FlutterFile).file.path),
+                              entity: entity as _FlutterFile,
+                              selected: selected,
+                              onSelect: () {
+                                fileSystem.select(index);
+                              },
+                            ),
+                          );
+                        }
                       },
                     ),
-                  );
-                } else if (entity.type == _FlutterFileType.File) {
-                  return SizedBox(
-                    height: _ITEM_HEIGHT,
-                    child: _File(
-                      key: ObjectKey((entity as _FlutterFile).file.path),
-                      entity: entity as _FlutterFile,
-                      selected: selected,
-                      onSelect: () {
-                        fileSystem.select(index);
-                      },
-                    ),
-                  );
-                }
-              },
-            ),
+                  ),
+                ),
+              );
+            }
           ),
         ),
       ),
@@ -388,7 +422,7 @@ class _FolderState extends State<_Folder> {
         },
         child: Row(
           mainAxisAlignment: MainAxisAlignment.start,
-          mainAxisSize: MainAxisSize.max,
+          mainAxisSize: MainAxisSize.min,
           children: <Widget>[
             SizedBox(
               width: 20.0 * widget.entity.depth,
