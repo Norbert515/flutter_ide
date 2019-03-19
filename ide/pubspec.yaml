@@ -25,6 +25,10 @@ dependencies:
   path: ^1.6.2
 
 
+  file_system_explorer:
+    path: ..\packages\file_system_explorer
+
+
     #flutter_desktop_widgets:
    # path: ..\..\flutter_desktop_widgets
   grpc: ^1.0.0

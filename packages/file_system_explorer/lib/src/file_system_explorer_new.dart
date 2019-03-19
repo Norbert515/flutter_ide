@@ -2,8 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'dart:io';
 import 'package:path/path.dart' as path;
-import 'package:provider/provider.dart';
-import 'package:rxdart/rxdart.dart';
 import 'dart:async';
 
 enum SearchFor { File, Folder }
@@ -17,7 +15,7 @@ enum _FlutterFileType { File, Folder }
 
 class _FlutterFileSystem {
   _FlutterFileSystem(Directory root,
-      {this.onChanged, this.onMovedToNext, this.onMovedToPrevious}) {
+      {this.onChanged, this.onMovedToNext, this.onMovedToPrevious, this.onFileSelected}) {
     _root = _FlutterFolder(
       depth: 0,
       directory: root,
@@ -39,6 +37,8 @@ class _FlutterFileSystem {
   final VoidCallback onChanged;
   final VoidCallback onMovedToNext;
   final VoidCallback onMovedToPrevious;
+
+  final ValueChanged<String> onFileSelected;
 
 
   int bufferMaxDepth = 0;
@@ -86,9 +86,24 @@ class _FlutterFileSystem {
     onChanged();
   }
 
-  void toggleCurrent() => _toggleFolder(_maybeGetCurrentFolder());
+  void toggleCurrent() {
+    if(selectedEntity.type == _FlutterFileType.Folder) {
+      _FlutterFolder folder = selectedEntity as _FlutterFolder;
+      _toggleFolder(folder);
+    } else if(selectedEntity.type == _FlutterFileType.File){
+      onFileSelected(selectedEntity.path);
+    }
+  }
 
-  void toggle(int index) => _toggleFolder(_maybeGetFolder(index));
+  void toggle(int index) {
+    _FlutterFileSystemEntity entity = items[index];
+    if (entity.type == _FlutterFileType.Folder) {
+      _FlutterFolder folder = entity;
+      _toggleFolder(folder);
+    } else if(entity.type == _FlutterFileType.File){
+      onFileSelected(entity.path);
+    }
+  }
 
   void _toggleFolder(_FlutterFolder folder) {
     if(folder != null) {
@@ -100,7 +115,7 @@ class _FlutterFileSystem {
       }
     }
   }
-
+/*
   void closeCurrent() {
     _maybeGetCurrentFolder()?.close();
     _invalidate();
@@ -117,24 +132,7 @@ class _FlutterFileSystem {
 
   void open(int index) {
     _maybeGetFolder(index)?.open()?.then((_) => _invalidate());
-  }
-
-  _FlutterFolder _maybeGetCurrentFolder() {
-    if(selectedEntity.type == _FlutterFileType.Folder) {
-      return selectedEntity as _FlutterFolder;
-    } else {
-      return null;
-    }
-  }
-  _FlutterFolder _maybeGetFolder(int index) {
-    _FlutterFileSystemEntity entity = items[index];
-    if (entity.type == _FlutterFileType.Folder) {
-      _FlutterFolder folder = entity;
-      return folder;
-    } else {
-      return null;
-    }
-  }
+  }*/
 
 
   void select(int index) {
@@ -159,17 +157,21 @@ class _FlutterFileSystem {
   }
 }
 
-class _FlutterFileSystemEntity {
+abstract class _FlutterFileSystemEntity {
   _FlutterFileSystemEntity(this.depth, this.type);
 
   final int depth;
   final _FlutterFileType type;
+
+  String get path;
 }
 
 class _FlutterFile extends _FlutterFileSystemEntity {
   _FlutterFile({int depth, this.file}) : super(depth, _FlutterFileType.File);
 
   final File file;
+
+  String get path => file.path;
 }
 
 class _FlutterFolder extends _FlutterFileSystemEntity {
@@ -182,6 +184,8 @@ class _FlutterFolder extends _FlutterFileSystemEntity {
   bool alreadyLoaded = false;
   List<_FlutterFileSystemEntity> children = [];
 
+
+  String get path => directory.path;
   Future open() {
     opened = true;
     if (alreadyLoaded) return Future.value();
@@ -212,9 +216,18 @@ class _FlutterFolder extends _FlutterFileSystemEntity {
 }
 
 class FileSystemExplorer extends StatefulWidget {
-  const FileSystemExplorer({Key key, this.searchFor}) : super(key: key);
+  const FileSystemExplorer({
+    Key key,
+    this.searchFor,
+    this.onPathChanged,
+    this.onPathSelected
+  }) : super(key: key);
 
   final SearchFor searchFor;
+
+  final ValueChanged<String> onPathChanged;
+
+  final ValueChanged<String> onPathSelected;
 
   @override
   _FileSystemExplorerState createState() => _FileSystemExplorerState();
@@ -239,10 +252,12 @@ class _FileSystemExplorerState extends State<FileSystemExplorer> {
     fileSystem = _FlutterFileSystem(
       root,
       onChanged: () {
+        widget.onPathChanged(fileSystem.selectedEntity.path);
         setState(() {});
       },
       onMovedToNext: moveToNext,
       onMovedToPrevious: moveToPrevious,
+      onFileSelected: widget.onPathSelected
     );
     focusNode = FocusNode();
     controller = ScrollController();
@@ -301,6 +316,13 @@ class _FileSystemExplorerState extends State<FileSystemExplorer> {
     fileSystem.toggleCurrent();
   }
 
+  void selectAfterTap(int index) {
+    fileSystem.select(index);
+    if(!focusNode.hasFocus) {
+      FocusScope.of(context).requestFocus(focusNode);
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return RawKeyboardListener(
@@ -345,7 +367,7 @@ class _FileSystemExplorerState extends State<FileSystemExplorer> {
                               entity: entity as _FlutterFolder,
                               selected: selected,
                               onSelect: () {
-                                fileSystem.select(index);
+                                selectAfterTap(index);
                               },
                               onToggle: () {
                                 fileSystem.toggle(index);
@@ -360,7 +382,10 @@ class _FileSystemExplorerState extends State<FileSystemExplorer> {
                               entity: entity as _FlutterFile,
                               selected: selected,
                               onSelect: () {
-                                fileSystem.select(index);
+                                selectAfterTap(index);
+                              },
+                              onFinalSelect: () {
+                                fileSystem.toggle(index);
                               },
                             ),
                           );
@@ -378,7 +403,7 @@ class _FileSystemExplorerState extends State<FileSystemExplorer> {
   }
 }
 
-class _Folder extends StatefulWidget {
+class _Folder extends StatefulWidget{
   _Folder({Key key, this.entity, this.onToggle, this.onSelect, this.selected})
       : super(key: key);
 
@@ -396,30 +421,13 @@ class _Folder extends StatefulWidget {
 class _FolderState extends State<_Folder> {
   List<FileSystemEntity> cachedEntities;
 
-  /// Custom double tap behavior
-  ///
-  /// Because the [GestureDetector] shouldn't wait until a possible
-  /// second tap has occurred. Instead it should select the item and open the folder
-  /// on the second tap.
-  int lastTapTime = 0;
-
-  /// In milliseconds
-  static const int _DOUBLE_TAP_TIME = 500;
-
   @override
   Widget build(BuildContext context) {
-    return Container(
-      color: widget.selected ? Colors.blue : Colors.green,
-      child: GestureDetector(
-        behavior: HitTestBehavior.opaque,
-        onTap: () {
-          widget.onSelect();
-          DateTime now = DateTime.now();
-          if (now.millisecondsSinceEpoch - lastTapTime < _DOUBLE_TAP_TIME) {
-            widget.onToggle();
-          }
-          lastTapTime = now.millisecondsSinceEpoch;
-        },
+    return SelectDetector(
+      onSelect: widget.onSelect,
+      onToggle: widget.onToggle,
+      child: Container(
+        color: widget.selected ? Colors.blue : Colors.green,
         child: Row(
           mainAxisAlignment: MainAxisAlignment.start,
           mainAxisSize: MainAxisSize.min,
@@ -446,18 +454,19 @@ class _FolderState extends State<_Folder> {
 }
 
 class _File extends StatelessWidget {
-  _File({Key key, this.entity, this.onSelect, this.selected}) : super(key: key);
+  _File({Key key, this.entity, this.onSelect, this.selected, this.onFinalSelect}) : super(key: key);
 
   final _FlutterFile entity;
   final VoidCallback onSelect;
+  final VoidCallback onFinalSelect;
 
   final bool selected;
 
   @override
   Widget build(BuildContext context) {
-    return GestureDetector(
-      behavior: HitTestBehavior.opaque,
-      onTap: onSelect,
+    return SelectDetector(
+      onSelect: onSelect,
+      onToggle: onFinalSelect,
       child: Container(
         color: selected ? Colors.blue : Colors.green,
         child: Row(
@@ -477,6 +486,48 @@ class _File extends StatelessWidget {
           ],
         ),
       ),
+    );
+  }
+}
+
+
+class SelectDetector extends StatefulWidget {
+
+  const SelectDetector({Key key, this.onSelect, this.onToggle, this.child}) : super(key: key);
+
+  final VoidCallback onSelect;
+  final VoidCallback onToggle;
+  final Widget child;
+
+  @override
+  _SelectDetectorState createState() => _SelectDetectorState();
+}
+
+class _SelectDetectorState extends State<SelectDetector> {
+
+   /// Custom double tap behavior
+  ///
+  /// Because the [GestureDetector] shouldn't wait until a possible
+  /// second tap has occurred. Instead it should select the item and open the folder
+  /// on the second tap.
+  int lastTapTime = 0;
+
+  /// In milliseconds
+  static const int _DOUBLE_TAP_TIME = 500;
+
+  @override
+  Widget build(BuildContext context) {
+    return GestureDetector(
+      behavior: HitTestBehavior.opaque,
+      onTap: () {
+        widget.onSelect();
+        DateTime now = DateTime.now();
+        if (now.millisecondsSinceEpoch - lastTapTime < _DOUBLE_TAP_TIME) {
+          widget.onToggle();
+        }
+        lastTapTime = now.millisecondsSinceEpoch;
+        },
+      child: widget.child,
     );
   }
 }
