@@ -27,9 +27,11 @@ class _FlutterFileSystem {
 
   _FlutterFileSystemEntity _root;
 
-  _FlutterFileSystemEntity selectedEntity;
 
-  //List<_FlutterFileSystemEntity> items;
+  int selectedIndex;
+  _FlutterFileSystemEntity get selectedEntity => items[selectedIndex];
+
+  List<_FlutterFileSystemEntity> items;
 
   final VoidCallback onChanged;
 
@@ -60,20 +62,25 @@ class _FlutterFileSystem {
       _FlutterFolder folder = selectedEntity;
       folder.open().then((_) {
         onChanged();
+        items = convertToLinear();
       });
     }
   }
 
-  void select(_FlutterFileSystemEntity entity) {
-    this.selectedEntity = entity;
+  void select(int index) {
+    this.selectedIndex = index;
   }
 
   void selectNext() {
-
+    if(selectedIndex != null) {
+      selectedIndex++;
+    }
   }
 
   void selectPrevious() {
-
+    if(selectedIndex != null) {
+      selectedIndex--;
+    }
   }
 
 

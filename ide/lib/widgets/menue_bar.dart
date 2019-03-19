@@ -1,6 +1,6 @@
 
 import 'package:flutter/material.dart';
-import 'package:ide/widgets/file_system_explorer.dart';
+import 'package:ide/widgets/file_system_explorer_new.dart';
 
 // TODO implement
 class MenuBar extends StatefulWidget {
