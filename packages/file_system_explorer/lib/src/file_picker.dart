@@ -26,7 +26,7 @@ Future<String> showPicker(BuildContext context) {
 class FilePicker extends StatelessWidget {
 
 
-  TextEditingController textEditingController = TextEditingController();
+  final TextEditingController textEditingController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
