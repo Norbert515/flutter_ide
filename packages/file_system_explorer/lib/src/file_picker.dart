@@ -31,23 +31,28 @@ class FilePicker extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
+      color: Color(0xff3c3f41),
       height: 700,
       width: 500,
-      padding: EdgeInsets.all(8),
+      padding: EdgeInsets.symmetric(
+        horizontal: 16,
+        vertical: 16,
+      ),
       child: Material(
+        color: Color(0xff3c3f41),
         child: Column(
           children: <Widget>[
             TextField(
               controller: textEditingController,
+              style: TextStyle(color: Color(0xffbbbbbb)),
               decoration: InputDecoration(
                 contentPadding: EdgeInsets.all(12),
-                border: OutlineInputBorder(
-                  borderRadius: BorderRadius.all(Radius.circular(2)),
+                enabledBorder: OutlineInputBorder(
                   borderSide: BorderSide(
-                    width: 5,
-                    color: Colors.red
-                  )
-                )
+                    color: Color(0xff323232),
+                    width: 2
+                  ),
+                ),
 
               ),
 
@@ -56,7 +61,9 @@ class FilePicker extends StatelessWidget {
             Expanded(
               child: Container(
                 decoration: BoxDecoration(
-                  border: Border.all()
+                  border: Border.all(
+                    color: Color(0xff323232)
+                  )
                 ),
                 child: FileSystemExplorer(
                   onPathChanged: (path) {
@@ -68,18 +75,23 @@ class FilePicker extends StatelessWidget {
                 ),
               ),
             ),
+            SizedBox(height: 8,),
             Row(
               children: <Widget>[
                 Spacer(),
-                RaisedButton(
-                  child: Text("Ok"),
+                MaterialButton(
+                  color: Color(0xff365880),
+                  elevation: 2,
+                  child: Text("Ok", style: TextStyle(color: Color(0xffbbbbbb), fontWeight: FontWeight.w600),),
                   onPressed: (){
                     Navigator.pop(context, textEditingController.text);
                   },
                 ),
                 SizedBox(width: 16,),
-                RaisedButton(
-                  child: Text("Cancle"),
+                MaterialButton(
+                  elevation: 2,
+                  color: Color(0xff4c5052),
+                  child: Text("Cancle", style: TextStyle(color: Color(0xffbbbbbb)),),
                   onPressed: (){
                     Navigator.pop(context);
                   },

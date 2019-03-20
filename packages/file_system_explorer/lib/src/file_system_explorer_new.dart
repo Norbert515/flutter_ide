@@ -340,6 +340,7 @@ class _FileSystemExplorerState extends State<FileSystemExplorer> {
         }
       },
       child: Material(
+        color: Color(0xff3c3f41),
         child: SizedBox(
           height: 600,
           child: LayoutBuilder(
@@ -427,7 +428,7 @@ class _FolderState extends State<_Folder> {
       onSelect: widget.onSelect,
       onToggle: widget.onToggle,
       child: Container(
-        color: widget.selected ? Colors.blue : Colors.green,
+        color: widget.selected ? Color(0xff0d293e) : Color(0xff3c3f41),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.start,
           mainAxisSize: MainAxisSize.min,
@@ -439,13 +440,13 @@ class _FolderState extends State<_Folder> {
               onPressed: widget.onToggle,
               icon: Icon(widget.entity.opened
                   ? Icons.keyboard_arrow_up
-                  : Icons.keyboard_arrow_down),
+                  : Icons.keyboard_arrow_down, color: Color(0xffbbbbbb),),
             ),
-            Icon(Icons.folder),
+            Icon(Icons.folder, color: Color(0xffbbbbbb)),
             SizedBox(
               width: 8,
             ),
-            Text(path.basename(widget.entity.directory.path)),
+            Text(path.basename(widget.entity.directory.path), style: TextStyle(color: Color(0xffbbbbbb))),
           ],
         ),
       ),
@@ -468,7 +469,7 @@ class _File extends StatelessWidget {
       onSelect: onSelect,
       onToggle: onFinalSelect,
       child: Container(
-        color: selected ? Colors.blue : Colors.green,
+        color: selected ? Color(0xff0d293e) : Color(0xff3c3f41),
         child: Row(
           children: <Widget>[
             SizedBox(
@@ -477,11 +478,11 @@ class _File extends StatelessWidget {
             SizedBox(
               width: 24 + 8.0 + 8.0 + 8.0,
             ),
-            Icon(Icons.insert_drive_file),
+            Icon(Icons.insert_drive_file, color: Color(0xffbbbbbb),),
             Container(
               padding:
                   EdgeInsets.only(left: 8, top: 16, right: 8, bottom: 16), //
-              child: Text(path.basename(entity.file.path)),
+              child: Text(path.basename(entity.file.path), style: TextStyle(color: Color(0xffbbbbbb)),),
             ),
           ],
         ),
