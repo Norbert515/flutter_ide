@@ -220,8 +220,8 @@ class FileSystemExplorer extends StatefulWidget {
     Key key,
     this.searchFor,
     this.onPathChanged,
-    this.onPathSelected
-  }) : super(key: key);
+    @required this.onPathSelected
+  }) : assert(onPathSelected != null), super(key: key);
 
   final SearchFor searchFor;
 
@@ -252,7 +252,9 @@ class _FileSystemExplorerState extends State<FileSystemExplorer> {
     fileSystem = _FlutterFileSystem(
       root,
       onChanged: () {
-        widget.onPathChanged(fileSystem.selectedEntity.path);
+        if(widget.onPathChanged != null) {
+          widget.onPathChanged(fileSystem.selectedEntity.path);
+        }
         setState(() {});
       },
       onMovedToNext: moveToNext,
