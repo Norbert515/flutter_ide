@@ -5,6 +5,8 @@ import 'package:provider/provider.dart';
 import 'package:flutter/foundation.dart'
     show debugDefaultTargetPlatformOverride;
 
+import 'ui/desktop/choose_workspace_page.dart';
+
 void main() {
   debugDefaultTargetPlatformOverride = TargetPlatform.fuchsia;
   runApp(new MyApp());
@@ -21,8 +23,12 @@ class MyApp extends StatelessWidget {
         title: 'Widget Maker',
         theme: new ThemeData(
           primarySwatch: Colors.blue,
+          backgroundColor: Colors.red,
         ),
-        home: TutorialWelcome(),
+        routes: {
+          '/welcome' : (context) => TutorialWelcome(),
+        },
+        home: ChooseWorkspacePage(),
       ),
     );
   }
