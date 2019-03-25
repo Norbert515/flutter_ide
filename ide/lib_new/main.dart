@@ -5,6 +5,7 @@ import 'package:provider/provider.dart';
 import 'package:flutter/foundation.dart'
     show debugDefaultTargetPlatformOverride;
 
+import 'data/blocs/project_bloc.dart';
 import 'ui/desktop/choose_workspace_page.dart';
 import 'ui/desktop/project_page.dart';
 
@@ -14,6 +15,18 @@ void main() {
 }
 
 class MyApp extends StatelessWidget {
+
+  /// TODO move out routing for this class once it gets bigger
+  /// Routing is interesting for an app which will run on desktop and mobile
+  /// because mobile apps make have use of different pages but desktop doesn't.
+  /// On desktop most of the things are one page which no "back navigation"
+  ///
+  /// Therefore the navigation will depending on the platform.
+  /// The common_ui package contains all widget which will be reusable across
+  /// desktop and mobile but each platform will have to implement a custom layout
+  /// of those elements.
+
+
   @override
   Widget build(BuildContext context) {
     return Provider<IDETheme>(
@@ -35,8 +48,14 @@ class MyApp extends StatelessWidget {
         ),
         routes: {
           '/welcome' : (context) => TutorialWelcome(),
-          '/workspace': (context) => ProjectPage(),
+          '/workspace': (context) => Provider<ProjectBloc>(
+            value: ProjectBloc(),
+            child: ProjectPage(),
+          ),
         },
+        onGenerateRoute: (settings) {
+
+        } ,
 
         home: ChooseWorkspacePage(),
       ),
