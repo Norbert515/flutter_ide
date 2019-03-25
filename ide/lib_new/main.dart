@@ -6,6 +6,7 @@ import 'package:flutter/foundation.dart'
     show debugDefaultTargetPlatformOverride;
 
 import 'ui/desktop/choose_workspace_page.dart';
+import 'ui/desktop/project_page.dart';
 
 void main() {
   debugDefaultTargetPlatformOverride = TargetPlatform.fuchsia;
@@ -34,6 +35,7 @@ class MyApp extends StatelessWidget {
         ),
         routes: {
           '/welcome' : (context) => TutorialWelcome(),
+          '/workspace': (context) => ProjectPage(),
         },
 
         home: ChooseWorkspacePage(),

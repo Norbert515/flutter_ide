@@ -43,6 +43,19 @@ class SyntaxHighlighterStyle {
     );
   }
 
+  static SyntaxHighlighterStyle customThemeStyle() {
+    return SyntaxHighlighterStyle(
+      baseStyle: const TextStyle(color: Color(0xFFE0E2E4)),
+      numberStyle: const TextStyle(color: Color(0xFFFFCD22)),
+      commentStyle: const TextStyle(color: Color(0xFF7D8C93)),
+      keywordStyle: const TextStyle(color: Color(0xFF93C763)),
+      stringStyle: const TextStyle(color: Color(0xFFEC7600)),
+      punctuationStyle: const TextStyle(color: Color(0xFFE8E2B7)),
+      classStyle: const TextStyle(color: Color(0xFF678CB1)),
+      constantStyle: const TextStyle(color: Color(0xFFE0E2E4)),
+    );
+  }
+
   final TextStyle baseStyle;
   final TextStyle numberStyle;
   final TextStyle commentStyle;

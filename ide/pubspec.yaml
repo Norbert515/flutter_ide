@@ -18,6 +18,8 @@ dependencies:
 
   flutter_visual_builder:
     path: ..\visual_components\flutter_visual_builder
+  text_editor:
+    path: ..\packages\text_editor
 
   flutter_colorpicker: ^0.2.1
 

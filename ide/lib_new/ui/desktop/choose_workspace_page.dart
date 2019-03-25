@@ -6,8 +6,8 @@ class ChooseWorkspacePage extends StatelessWidget {
 
 
 
-  void selectFolder(String path) {
-
+  void selectFolder(BuildContext context, String path) {
+    Navigator.pushNamed(context, "/workspace");
   }
 
   @override
@@ -22,15 +22,18 @@ class ChooseWorkspacePage extends StatelessWidget {
               Navigator.pushNamed(context, "/welcome");
             },
           ),
-          Container(
-            constraints: BoxConstraints(
-              minWidth: 400,
-              maxWidth: 800,
-              minHeight: 600,
-              maxHeight: 1000,
-            ),
-            child: FileSystemExplorer(
-              onPathSelected: selectFolder,
+          Material(
+            elevation: 8,
+            child: Container(
+              constraints: BoxConstraints(
+                minWidth: 400,
+                maxWidth: 800,
+                minHeight: 600,
+                maxHeight: 1000,
+              ),
+              child: FileSystemExplorer(
+                onPathSelected: (it) => selectFolder(context, it),
+              ),
             ),
           ),
         ],

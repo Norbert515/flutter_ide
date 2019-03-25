@@ -7,7 +7,7 @@ class CodeShowcase extends StatelessWidget {
 
   final String sourceCode;
 
-  final DartSyntaxHighlighter highlighter = DartSyntaxHighlighter(SyntaxHighlighterStyle.darkThemeStyle());
+  final DartSyntaxHighlighter highlighter = DartSyntaxHighlighter(SyntaxHighlighterStyle.customThemeStyle());
 
   @override
   Widget build(BuildContext context) {
