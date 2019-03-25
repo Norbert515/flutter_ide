@@ -12,26 +12,29 @@ class ChooseWorkspacePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children: <Widget>[
-        RaisedButton(
-          child: Text("Check out the old demo while this is being worked on"),
-          onPressed: () {
-            Navigator.pushNamed(context, "/welcome");
-          },
-        ),
-        Container(
-          constraints: BoxConstraints(
-            minWidth: 400,
-            maxWidth: 800,
-            minHeight: 600,
-            maxHeight: 1000,
+    return Material(
+      color: Theme.of(context).backgroundColor,
+      child: Column(
+        children: <Widget>[
+          RaisedButton(
+            child: Text("Check out the old demo while this is being worked on"),
+            onPressed: () {
+              Navigator.pushNamed(context, "/welcome");
+            },
           ),
-          child: FileSystemExplorer(
-            onPathSelected: selectFolder,
+          Container(
+            constraints: BoxConstraints(
+              minWidth: 400,
+              maxWidth: 800,
+              minHeight: 600,
+              maxHeight: 1000,
+            ),
+            child: FileSystemExplorer(
+              onPathSelected: selectFolder,
+            ),
           ),
-        ),
-      ],
+        ],
+      ),
     );
   }
 }

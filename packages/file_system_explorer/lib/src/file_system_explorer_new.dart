@@ -220,7 +220,11 @@ class FileSystemExplorer extends StatefulWidget {
     Key key,
     this.searchFor,
     this.onPathChanged,
-    @required this.onPathSelected
+    @required this.onPathSelected,
+    this.backgroundColor,
+    this.iconColor,
+    this.selectedItemColor,
+    this.textColor,
   }) : assert(onPathSelected != null), super(key: key);
 
   final SearchFor searchFor;
@@ -228,6 +232,27 @@ class FileSystemExplorer extends StatefulWidget {
   final ValueChanged<String> onPathChanged;
 
   final ValueChanged<String> onPathSelected;
+
+  /// The color of the background of the IDE.
+  ///
+  /// If not set, [ThemeData.backgroundColor] will be used.
+  final Color backgroundColor;
+
+  /// The color of the default icons.
+  ///
+  /// If not set, [IconThemeData.iconColor] will be used.
+  final Color iconColor;
+
+  /// The color of the file name text.
+  ///
+  /// If not set, the default text color will be used.
+  final Color textColor;
+
+  /// The color of the item currently selected.
+  ///
+  /// If not set, [ThemeData.accentColor] will be used.
+  final Color selectedItemColor;
+
 
   @override
   _FileSystemExplorerState createState() => _FileSystemExplorerState();
@@ -327,78 +352,90 @@ class _FileSystemExplorerState extends State<FileSystemExplorer> {
 
   @override
   Widget build(BuildContext context) {
-    return RawKeyboardListener(
-      focusNode: focusNode,
-      onKey: (rawKey) {
-        // TODO dart embedder doesn't send all raw event right now, this is going to
-        // be fixed at some point.
-        if (rawKey is RawKeyUpEvent) {
-        } else if (rawKey is RawKeyDownEvent) {
-          RawKeyDownEvent event = rawKey;
-          var it = event.data as RawKeyEventDataFuchsia;
-          if (it.hidUsage == 81) moveDown();
-          if (it.hidUsage == 82) moveUp();
-          if (it.hidUsage == 40) select();
-        }
-      },
-      child: Material(
-        color: Color(0xff3c3f41),
-        child: SizedBox(
-          height: 600,
-          child: LayoutBuilder(
-            builder: (context, constraints) {
-              return SingleChildScrollView(
-                scrollDirection: Axis.horizontal,
-                child: Scrollbar(
-                  child: SizedBox(
-                    width: fileSystem.maxDepth * 20 + 400.0 < constraints.maxWidth?
-                      constraints.maxWidth : constraints.maxWidth + fileSystem.maxDepth * 20,
-                    child: ListView.builder(
-                      itemExtent: _ITEM_HEIGHT,
-                      controller: controller,
-                      itemCount: fileSystem.items.length,
-                      itemBuilder: (context, index) {
-                        _FlutterFileSystemEntity entity = fileSystem.items[index];
-
-                        bool selected = fileSystem.selectedIndex == index;
-
-                        if (entity.type == _FlutterFileType.Folder) {
-                          return SizedBox(
-                            height: _ITEM_HEIGHT,
-                            child: _Folder(
-                              key: ObjectKey((entity as _FlutterFolder).directory.path),
-                              entity: entity as _FlutterFolder,
-                              selected: selected,
-                              onSelect: () {
-                                selectAfterTap(index);
-                              },
-                              onToggle: () {
-                                fileSystem.toggle(index);
-                              },
-                            ),
-                          );
-                        } else if (entity.type == _FlutterFileType.File) {
-                          return SizedBox(
-                            height: _ITEM_HEIGHT,
-                            child: _File(
-                              key: ObjectKey((entity as _FlutterFile).file.path),
-                              entity: entity as _FlutterFile,
-                              selected: selected,
-                              onSelect: () {
-                                selectAfterTap(index);
-                              },
-                              onFinalSelect: () {
-                                fileSystem.toggle(index);
-                              },
-                            ),
-                          );
-                        }
-                      },
-                    ),
-                  ),
-                ),
-              );
+    return Theme(
+      data: Theme.of(context).copyWith(
+        backgroundColor: widget.backgroundColor,
+        iconTheme: Theme.of(context).iconTheme.copyWith(
+          color: widget.iconColor
+        ),
+        accentColor: widget.selectedItemColor,
+      ),
+      child: DefaultTextStyle.merge(
+        style: TextStyle(color: widget.textColor),
+        child: RawKeyboardListener(
+          focusNode: focusNode,
+          onKey: (rawKey) {
+            // TODO dart embedder doesn't send all raw event right now, this is going to
+            // be fixed at some point.
+            if (rawKey is RawKeyUpEvent) {
+            } else if (rawKey is RawKeyDownEvent) {
+              RawKeyDownEvent event = rawKey;
+              var it = event.data as RawKeyEventDataFuchsia;
+              if (it.hidUsage == 81) moveDown();
+              if (it.hidUsage == 82) moveUp();
+              if (it.hidUsage == 40) select();
             }
+          },
+          child: Material(
+            color: Theme.of(context).backgroundColor,
+            child: SizedBox(
+              height: 600,
+              child: LayoutBuilder(
+                builder: (context, constraints) {
+                  return SingleChildScrollView(
+                    scrollDirection: Axis.horizontal,
+                    child: Scrollbar(
+                      child: SizedBox(
+                        width: fileSystem.maxDepth * 20 + 400.0 < constraints.maxWidth?
+                          constraints.maxWidth : constraints.maxWidth + fileSystem.maxDepth * 20,
+                        child: ListView.builder(
+                          itemExtent: _ITEM_HEIGHT,
+                          controller: controller,
+                          itemCount: fileSystem.items.length,
+                          itemBuilder: (context, index) {
+                            _FlutterFileSystemEntity entity = fileSystem.items[index];
+
+                            bool selected = fileSystem.selectedIndex == index;
+
+                            if (entity.type == _FlutterFileType.Folder) {
+                              return SizedBox(
+                                height: _ITEM_HEIGHT,
+                                child: _Folder(
+                                  key: ObjectKey((entity as _FlutterFolder).directory.path),
+                                  entity: entity as _FlutterFolder,
+                                  selected: selected,
+                                  onSelect: () {
+                                    selectAfterTap(index);
+                                  },
+                                  onToggle: () {
+                                    fileSystem.toggle(index);
+                                  },
+                                ),
+                              );
+                            } else if (entity.type == _FlutterFileType.File) {
+                              return SizedBox(
+                                height: _ITEM_HEIGHT,
+                                child: _File(
+                                  key: ObjectKey((entity as _FlutterFile).file.path),
+                                  entity: entity as _FlutterFile,
+                                  selected: selected,
+                                  onSelect: () {
+                                    selectAfterTap(index);
+                                  },
+                                  onFinalSelect: () {
+                                    fileSystem.toggle(index);
+                                  },
+                                ),
+                              );
+                            }
+                          },
+                        ),
+                      ),
+                    ),
+                  );
+                }
+              ),
+            ),
           ),
         ),
       ),
@@ -426,11 +463,13 @@ class _FolderState extends State<_Folder> {
 
   @override
   Widget build(BuildContext context) {
+    ThemeData theme = Theme.of(context);
+
     return SelectDetector(
       onSelect: widget.onSelect,
       onToggle: widget.onToggle,
       child: Container(
-        color: widget.selected ? Color(0xff0d293e) : Color(0xff3c3f41),
+        color: widget.selected ? theme.accentColor : theme.backgroundColor,
         child: Row(
           mainAxisAlignment: MainAxisAlignment.start,
           mainAxisSize: MainAxisSize.min,
@@ -442,13 +481,13 @@ class _FolderState extends State<_Folder> {
               onPressed: widget.onToggle,
               icon: Icon(widget.entity.opened
                   ? Icons.keyboard_arrow_up
-                  : Icons.keyboard_arrow_down, color: Color(0xffbbbbbb),),
+                  : Icons.keyboard_arrow_down,),
             ),
-            Icon(Icons.folder, color: Color(0xffbbbbbb)),
+            Icon(Icons.folder),
             SizedBox(
               width: 8,
             ),
-            Text(path.basename(widget.entity.directory.path), style: TextStyle(color: Color(0xffbbbbbb))),
+            Text(path.basename(widget.entity.directory.path)),
           ],
         ),
       ),
@@ -467,11 +506,12 @@ class _File extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    ThemeData theme = Theme.of(context);
     return SelectDetector(
       onSelect: onSelect,
       onToggle: onFinalSelect,
       child: Container(
-        color: selected ? Color(0xff0d293e) : Color(0xff3c3f41),
+        color: selected ? theme.accentColor : theme.backgroundColor,
         child: Row(
           children: <Widget>[
             SizedBox(
@@ -480,11 +520,11 @@ class _File extends StatelessWidget {
             SizedBox(
               width: 24 + 8.0 + 8.0 + 8.0,
             ),
-            Icon(Icons.insert_drive_file, color: Color(0xffbbbbbb),),
+            Icon(Icons.insert_drive_file,),
             Container(
               padding:
                   EdgeInsets.only(left: 8, top: 16, right: 8, bottom: 16), //
-              child: Text(path.basename(entity.file.path), style: TextStyle(color: Color(0xffbbbbbb)),),
+              child: Text(path.basename(entity.file.path)),
             ),
           ],
         ),
