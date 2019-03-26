@@ -17,8 +17,9 @@ abstract class FlutterProject {
 
   File get pubspec;
 
+  Directory get rootFolder;
   Directory get getTestFolder;
-  Directory getLibFolder;
+  Directory get getLibFolder;
 }
 
 
@@ -26,10 +27,10 @@ class LocalFlutterProject extends FlutterProject {
 
 
   LocalFlutterProject({
-    @required this.rootDirectory
+    @required this.rootFolder
   });
 
-  final Directory rootDirectory;
+  final Directory rootFolder;
 
 
   @override
@@ -57,5 +58,10 @@ class LocalFlutterProject extends FlutterProject {
   @override
   // TODO: implement pubspec
   File get pubspec => null;
+
+  @override
+  // TODO: implement getLibFolder
+  Directory get getLibFolder => null;
+
 
 }
