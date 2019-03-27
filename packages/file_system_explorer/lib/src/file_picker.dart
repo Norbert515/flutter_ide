@@ -4,11 +4,31 @@ import 'package:file_system_explorer/src/file_system_explorer_new.dart';
 Future<String> showPicker(BuildContext context) {
   return showDialog(context: context, builder: (context) {
     return Dialog(
-      child: FilePicker()
+      child: FilePickerDialog()
     );
   });
 }
 
+
+
+class FilePickerDialog extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      height: 700,
+      width: 500,
+      child: FilePicker(
+        onPathSelected: (path) {
+          if(path != null) {
+            Navigator.pop(context, path);
+          } else {
+            Navigator.pop(context);
+          }
+        },
+      ),
+    );
+  }
+}
 
 
 /// TODO this is the base implementation, this is going to need a few Desktop
@@ -26,25 +46,28 @@ Future<String> showPicker(BuildContext context) {
 class FilePicker extends StatelessWidget {
 
 
+  FilePicker({Key key, this.onPathSelected}) : super(key: key);
+
   final TextEditingController textEditingController = TextEditingController();
+
+  final ValueChanged<String> onPathSelected;
 
   @override
   Widget build(BuildContext context) {
+    ThemeData theme = Theme.of(context);
     return Container(
-      color: Color(0xff3c3f41),
-      height: 700,
-      width: 500,
+      color: theme.backgroundColor,
       padding: EdgeInsets.symmetric(
         horizontal: 16,
         vertical: 16,
       ),
       child: Material(
-        color: Color(0xff3c3f41),
+        color: theme.backgroundColor,
         child: Column(
           children: <Widget>[
             TextField(
+              style: theme.textTheme.body1,
               controller: textEditingController,
-              style: TextStyle(color: Color(0xffbbbbbb)),
               decoration: InputDecoration(
                 contentPadding: EdgeInsets.all(12),
                 enabledBorder: OutlineInputBorder(
@@ -70,7 +93,7 @@ class FilePicker extends StatelessWidget {
                     textEditingController.text = path;
                   },
                   onPathSelected: (path) {
-                    Navigator.pop(context, path);
+                    onPathSelected(path);
                   },
                 ),
               ),
@@ -82,18 +105,18 @@ class FilePicker extends StatelessWidget {
                 MaterialButton(
                   color: Color(0xff365880),
                   elevation: 2,
-                  child: Text("Ok", style: TextStyle(color: Color(0xffbbbbbb), fontWeight: FontWeight.w600),),
+                  child: Text("Ok", style: TextStyle(color: theme.textTheme.body1.color, fontWeight: FontWeight.w600),),
                   onPressed: (){
-                    Navigator.pop(context, textEditingController.text);
+                    onPathSelected(textEditingController.text);
                   },
                 ),
                 SizedBox(width: 16,),
                 MaterialButton(
                   elevation: 2,
                   color: Color(0xff4c5052),
-                  child: Text("Cancle", style: TextStyle(color: Color(0xffbbbbbb)),),
+                  child: Text("Cancle", style: theme.textTheme.body1,),
                   onPressed: (){
-                    Navigator.pop(context);
+                    onPathSelected(null);
                   },
                 ),
               ],
@@ -104,3 +127,5 @@ class FilePicker extends StatelessWidget {
     );
   }
 }
+
+

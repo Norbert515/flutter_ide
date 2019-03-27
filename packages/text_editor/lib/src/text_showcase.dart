@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:text_editor/src/syntax_highlighter.dart';
 
@@ -13,6 +15,42 @@ class CodeShowcase extends StatelessWidget {
   Widget build(BuildContext context) {
     return RichText(
       text: highlighter.format(sourceCode),
+    );
+  }
+}
+
+class CodeShowcaseFile extends StatefulWidget {
+
+  const CodeShowcaseFile({Key key, this.pathToFile}) : super(key: key);
+
+  final String pathToFile;
+
+  @override
+  _CodeShowcaseFileState createState() => _CodeShowcaseFileState();
+}
+
+class _CodeShowcaseFileState extends State<CodeShowcaseFile> {
+
+
+  Future<String> file;
+
+  @override
+  void initState() {
+    super.initState();
+    file = File(widget.pathToFile).readAsString();
+
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return FutureBuilder(
+      future: file,
+      builder: (context, snapshot) {
+        if(!snapshot.hasData) return Center(child: CircularProgressIndicator(),);
+        return CodeShowcase(
+          sourceCode: snapshot.requireData,
+        );
+      },
     );
   }
 }

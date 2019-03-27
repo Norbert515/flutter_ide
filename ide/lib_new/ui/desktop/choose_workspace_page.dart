@@ -1,12 +1,14 @@
 import 'package:file_system_explorer/file_system_explorer.dart';
 import 'package:flutter/material.dart';
 
+import '../../data/blocs/project_bloc.dart';
+
 class ChooseWorkspacePage extends StatelessWidget {
 
 
 
-
   void selectFolder(BuildContext context, String path) {
+    ProjectBloc.of(context).setProject(path);
     Navigator.pushNamed(context, "/workspace");
   }
 
@@ -22,17 +24,17 @@ class ChooseWorkspacePage extends StatelessWidget {
               Navigator.pushNamed(context, "/welcome");
             },
           ),
-          Material(
-            elevation: 8,
-            child: Container(
-              constraints: BoxConstraints(
-                minWidth: 400,
-                maxWidth: 800,
-                minHeight: 600,
-                maxHeight: 1000,
-              ),
-              child: FileSystemExplorer(
-                onPathSelected: (it) => selectFolder(context, it),
+          Expanded(
+            child: Material(
+              elevation: 8,
+              child: Container(
+                constraints: BoxConstraints(
+                  minWidth: 400,
+                  maxWidth: 800,
+                ),
+                child: FilePicker(
+                  onPathSelected: (it) => selectFolder(context, it),
+                ),
               ),
             ),
           ),

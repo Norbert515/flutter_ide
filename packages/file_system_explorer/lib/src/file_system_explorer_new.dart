@@ -225,6 +225,7 @@ class FileSystemExplorer extends StatefulWidget {
     this.iconColor,
     this.selectedItemColor,
     this.textColor,
+    this.rootDirectory,
   }) : assert(onPathSelected != null), super(key: key);
 
   final SearchFor searchFor;
@@ -254,6 +255,13 @@ class FileSystemExplorer extends StatefulWidget {
   final Color selectedItemColor;
 
 
+  /// The root directory of the explorer.
+  ///
+  /// It will not be possible to traverse files above this root directory.
+  /// Defaults to C:\\
+  final Directory rootDirectory;
+
+
   @override
   _FileSystemExplorerState createState() => _FileSystemExplorerState();
 }
@@ -273,7 +281,7 @@ class _FileSystemExplorerState extends State<FileSystemExplorer> {
   @override
   void initState() {
     super.initState();
-    root = Directory(path.absolute("C:\\\\"));
+    root = widget.rootDirectory ?? Directory(path.absolute("C:\\\\"));
     fileSystem = _FlutterFileSystem(
       root,
       onChanged: () {

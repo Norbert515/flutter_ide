@@ -26,38 +26,42 @@ class MyApp extends StatelessWidget {
   /// desktop and mobile but each platform will have to implement a custom layout
   /// of those elements.
 
+  /// Until there is a better solution for scoped model
+  /// access, the state is going to be in here.
+  final ProjectBloc projectBloc = ProjectBloc();
+
 
   @override
   Widget build(BuildContext context) {
-    return Provider<IDETheme>(
-      value: IDETheme.standard(),
-      updateShouldNotify: (it, i2) => false,
-      child: new MaterialApp(
-        debugShowCheckedModeBanner: false,
-        title: 'Widget Maker',
-        theme: new ThemeData(
-          primarySwatch: Colors.blue,
-          backgroundColor: Color(0xff3c3f41),
-          accentColor:  Color(0xff0d293e),
-          iconTheme: IconThemeData(
-            color: Color(0xffbbbbbb),
+    return Provider<ProjectBloc>(
+      value: projectBloc,
+      child: Provider<IDETheme>(
+        value: IDETheme.standard(),
+        updateShouldNotify: (it, i2) => false,
+        child: new MaterialApp(
+          debugShowCheckedModeBanner: false,
+          title: 'Widget Maker',
+          theme: new ThemeData(
+            primarySwatch: Colors.blue,
+            backgroundColor: Color(0xff3c3f41),
+            accentColor:  Color(0xff0d293e),
+            iconTheme: IconThemeData(
+              color: Color(0xffbbbbbb),
+            ),
+            textTheme: TextTheme(
+              body1: TextStyle(color: Color(0xffbbbbbb)),
+            )
           ),
-          textTheme: TextTheme(
-            body1: TextStyle(color: Color(0xffbbbbbb)),
-          )
+          routes: {
+            '/welcome' : (context) => TutorialWelcome(),
+            '/workspace': (context) => ProjectPage(),
+          },
+          onGenerateRoute: (settings) {
+
+          } ,
+
+          home: ChooseWorkspacePage(),
         ),
-        routes: {
-          '/welcome' : (context) => TutorialWelcome(),
-          '/workspace': (context) => Provider<ProjectBloc>(
-            value: ProjectBloc(),
-            child: ProjectPage(),
-          ),
-        },
-        onGenerateRoute: (settings) {
-
-        } ,
-
-        home: ChooseWorkspacePage(),
       ),
     );
   }
