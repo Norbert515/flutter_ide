@@ -49,7 +49,7 @@ class MyApp extends StatelessWidget {
               color: Color(0xffbbbbbb),
             ),
             textTheme: TextTheme(
-              body1: TextStyle(color: Color(0xffbbbbbb)),
+              body1: TextStyle(color: Color(0xffbbbbbb), fontSize: 16),
             )
           ),
           routes: {
