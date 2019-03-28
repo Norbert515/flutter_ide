@@ -1,10 +1,8 @@
-
-
 import 'package:file_system_explorer/file_system_explorer.dart';
 import 'package:flutter/material.dart';
 import 'package:text_editor/text_editor.dart';
 
-import '../../../data/blocs/project_bloc.dart';
+import '../../../data/business_logic/blocs/project_bloc.dart';
 
 
 class ProjectPage extends StatefulWidget {
