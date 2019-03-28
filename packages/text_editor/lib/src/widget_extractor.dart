@@ -10,7 +10,7 @@ class WidgetExtractor {
 
   final _BracketMatcher _bracketMatcher;
 
-  RegExp regExp = RegExp("class\s+\S+\s+extends\s+StatelessWidget\s+{");
+  RegExp regExp = RegExp(r"class\s+\S+\s+extends\s+StatelessWidget\s+{");
 
 
   bool isExecutable() {
@@ -21,7 +21,22 @@ class WidgetExtractor {
   }
 
   WidgetCode extractWidget() {
-    
+    List<Match> matches = regExp.allMatches(sourceCode).toList();
+    assert(matches.length == 1);
+
+    Match match = matches[0];
+    int end = match.end;
+    String stripped = sourceCode.substring(end);
+
+    _BracketMatcher _bracketMatcher = _BracketMatcher(stripped);
+
+    int widgetEnd = _bracketMatcher.getEnd();
+    int realWidgetEnd = widgetEnd + end;
+
+    String strippedWiget = sourceCode.substring(match.start, realWidgetEnd);
+    print("Result: $strippedWiget");
+    return null;
+
   }
 
 }
@@ -32,11 +47,11 @@ class _BracketMatcher {
 
   final String codeSegment;
 
-  final RegExp brackets = RegExp("{|}");
+  final RegExp brackets = RegExp(r"{|}");
   int numberOfOpenBrackets = 1;
 
 
-  int getEndLineNumber() {
+  int getEnd() {
     for(Match it in brackets.allMatches(codeSegment)) {
       assert(it.groupCount == 0);
       if(it.group(0) == "{") {
@@ -45,7 +60,7 @@ class _BracketMatcher {
         numberOfOpenBrackets--;
       }
       if(numberOfOpenBrackets == 0) {
-        return it.start;
+        return it.end;
       }
     }
     return -1;

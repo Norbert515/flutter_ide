@@ -1,6 +1,7 @@
 import 'package:file_system_explorer/file_system_explorer.dart';
 import 'package:flutter/material.dart';
-import '../../data/blocs/project_bloc.dart';
+
+import '../../../data/blocs/project_bloc.dart';
 
 class ChooseWorkspacePage extends StatelessWidget {
 

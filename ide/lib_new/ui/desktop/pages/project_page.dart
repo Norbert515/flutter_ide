@@ -4,7 +4,8 @@ import 'package:file_system_explorer/file_system_explorer.dart';
 import 'package:flutter/material.dart';
 import 'package:text_editor/text_editor.dart';
 
-import '../../data/blocs/project_bloc.dart';
+import '../../../data/blocs/project_bloc.dart';
+
 
 class ProjectPage extends StatefulWidget {
   @override
@@ -62,23 +63,26 @@ class ProjectPageState extends State<ProjectPage> {
                 ),
                 VerticalDivider(),
                 Expanded(
-                  child: Material(
-                    color: Theme.of(context).backgroundColor,
-                    child: SingleChildScrollView(
-                      child: StreamBuilder(
-                        stream: projectBloc.openFileSubject,
-                        builder: (context, snapshot) {
-                          if(!snapshot.hasData) {
-                            return Center(
-                              child: Text("Open a file :)"),
-                            );
-                          }
+                  child: Align(
+                    alignment: Alignment.topCenter,
+                    child: Material(
+                      color: Theme.of(context).backgroundColor,
+                      child: SingleChildScrollView(
+                        child: StreamBuilder(
+                          stream: projectBloc.openFileSubject,
+                          builder: (context, snapshot) {
+                            if(!snapshot.hasData) {
+                              return Center(
+                                child: Text("Open a file :)"),
+                              );
+                            }
 
-                          return CodeShowcaseFile(
-                            key: ValueKey(snapshot.requireData),
-                            pathToFile: snapshot.requireData,
-                          );
-                        },
+                            return CodeShowcaseFile(
+                              key: ValueKey(snapshot.requireData),
+                              pathToFile: snapshot.requireData,
+                            );
+                          },
+                        ),
                       ),
                     ),
                   ),

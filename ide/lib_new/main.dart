@@ -6,8 +6,8 @@ import 'package:flutter/foundation.dart'
     show debugDefaultTargetPlatformOverride;
 
 import 'data/blocs/project_bloc.dart';
-import 'ui/desktop/choose_workspace_page.dart';
-import 'ui/desktop/project_page.dart';
+import 'ui/desktop/pages/choose_workspace_page.dart';
+import 'ui/desktop/pages/project_page.dart';
 
 void main() {
   debugDefaultTargetPlatformOverride = TargetPlatform.fuchsia;
