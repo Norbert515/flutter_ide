@@ -11,10 +11,32 @@ class CodeShowcase extends StatelessWidget {
 
   final DartSyntaxHighlighter highlighter = DartSyntaxHighlighter(SyntaxHighlighterStyle.customThemeStyle());
 
+
   @override
   Widget build(BuildContext context) {
-    return RichText(
-      text: highlighter.format(sourceCode),
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: <Widget>[
+        Container(
+          width: double.infinity,
+          color: Theme.of(context).accentColor,
+          child: Row(
+            children: <Widget>[
+              Text("This widget is executable!"),
+              Spacer(),
+              MaterialButton(
+                onPressed: () {
+                  
+                },
+                child: Text("Execute"),
+              ),
+            ],
+          ),
+        ),
+        RichText(
+          text: highlighter.format(sourceCode),
+        ),
+      ],
     );
   }
 }

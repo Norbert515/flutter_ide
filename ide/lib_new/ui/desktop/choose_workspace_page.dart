@@ -1,11 +1,8 @@
 import 'package:file_system_explorer/file_system_explorer.dart';
 import 'package:flutter/material.dart';
-
 import '../../data/blocs/project_bloc.dart';
 
 class ChooseWorkspacePage extends StatelessWidget {
-
-
 
   void selectFolder(BuildContext context, String path) {
     ProjectBloc.of(context).setProject(path);
