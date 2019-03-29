@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:rxdart/rxdart.dart';
 
+import '../../services/meta_manipulator.dart';
 import '../../model/flutter_project.dart';
 
 
@@ -13,6 +14,8 @@ import '../../model/flutter_project.dart';
 ///
 /// Common project state, such as open files are handled by this.
 class ProjectBloc {
+  ProjectBloc(this.metaManipulator);
+
 
   // Todo remove reference to context from logic classes
   static ProjectBloc of(BuildContext context) {
@@ -23,6 +26,8 @@ class ProjectBloc {
   BehaviorSubject<String> openFileSubject = BehaviorSubject();
 
   FlutterProject project;
+
+  final MetaManipulator metaManipulator;
 
 
   void setProject(String path) {

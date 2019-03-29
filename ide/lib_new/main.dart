@@ -6,7 +6,8 @@ import 'package:flutter/foundation.dart'
     show debugDefaultTargetPlatformOverride;
 
 import 'data/business_logic/blocs/project_bloc.dart';
-import 'data/business_logic/meta_manipulator.dart';
+import 'data/services/ide_source_code_modifier.dart';
+import 'data/services/meta_manipulator.dart';
 import 'ui/desktop/pages/choose_workspace_page.dart';
 import 'ui/desktop/pages/project_page.dart';
 
@@ -29,45 +30,41 @@ class MyApp extends StatelessWidget {
 
   /// Until there is a better solution for scoped model
   /// access, the state is going to be in here.
-  final ProjectBloc projectBloc = ProjectBloc();
+  final ProjectBloc projectBloc = ProjectBloc(MetaManipulator(IdeSourceCodeModifier()));
 
 
-  final MetaManipulator metaManipulator = MetaManipulator();
 
 
   @override
   Widget build(BuildContext context) {
-    return Provider<MetaManipulator>(
-      value: metaManipulator,
-      child: Provider<ProjectBloc>(
-        value: projectBloc,
-        child: Provider<IDETheme>(
-          value: IDETheme.standard(),
-          updateShouldNotify: (it, i2) => false,
-          child: new MaterialApp(
-            debugShowCheckedModeBanner: false,
-            title: 'Widget Maker',
-            theme: new ThemeData(
-              primarySwatch: Colors.blue,
-              backgroundColor: Color(0xff3c3f41),
-              accentColor:  Color(0xff0d293e),
-              iconTheme: IconThemeData(
-                color: Color(0xffbbbbbb),
-              ),
-              textTheme: TextTheme(
-                body1: TextStyle(color: Color(0xffbbbbbb), fontSize: 16),
-              )
+    return Provider<ProjectBloc>(
+      value: projectBloc,
+      child: Provider<IDETheme>(
+        value: IDETheme.standard(),
+        updateShouldNotify: (it, i2) => false,
+        child: new MaterialApp(
+          debugShowCheckedModeBanner: false,
+          title: 'Widget Maker',
+          theme: new ThemeData(
+            primarySwatch: Colors.blue,
+            backgroundColor: Color(0xff3c3f41),
+            accentColor:  Color(0xff0d293e),
+            iconTheme: IconThemeData(
+              color: Color(0xffbbbbbb),
             ),
-            routes: {
-              '/welcome' : (context) => TutorialWelcome(),
-              '/workspace': (context) => ProjectPage(),
-            },
-            onGenerateRoute: (settings) {
-
-            } ,
-
-            home: ChooseWorkspacePage(),
+            textTheme: TextTheme(
+              body1: TextStyle(color: Color(0xffbbbbbb), fontSize: 16),
+            )
           ),
+          routes: {
+            '/welcome' : (context) => TutorialWelcome(),
+            '/workspace': (context) => ProjectPage(),
+          },
+          onGenerateRoute: (settings) {
+
+          } ,
+
+          home: ChooseWorkspacePage(),
         ),
       ),
     );

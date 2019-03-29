@@ -2,7 +2,6 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:text_editor/src/syntax_highlighter.dart';
-import 'package:text_editor/src/widget_extractor.dart';
 
 
 class CodeShowcase extends StatelessWidget {
@@ -16,31 +15,8 @@ class CodeShowcase extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: <Widget>[
-        Container(
-          width: double.infinity,
-          color: Theme.of(context).accentColor,
-          child: Row(
-            children: <Widget>[
-              Text("This widget is executable!"),
-              Spacer(),
-              MaterialButton(
-                textColor: Theme.of(context).textTheme.body1.color,
-                onPressed: () {
-                  WidgetExtractor extractor = WidgetExtractor(sourceCode);
-                  extractor.extractWidget();
-                },
-                child: Text("Execute"),
-              ),
-            ],
-          ),
-        ),
-        RichText(
-          text: highlighter.format(sourceCode),
-        ),
-      ],
+    return RichText(
+       text: highlighter.format(sourceCode),
     );
   }
 }
