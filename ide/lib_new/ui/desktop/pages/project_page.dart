@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:text_editor/text_editor.dart';
 
 import '../../../data/business_logic/blocs/project_bloc.dart';
+import '../misc/editor_area.dart';
 
 
 class ProjectPage extends StatefulWidget {
@@ -74,11 +75,11 @@ class ProjectPageState extends State<ProjectPage> {
                                 child: Text("Open a file :)"),
                               );
                             }
-
-                            return CodeShowcaseFile(
+                            return EditorAreaFile(
                               key: ValueKey(snapshot.requireData),
                               pathToFile: snapshot.requireData,
                             );
+
                           },
                         ),
                       ),

@@ -1,13 +1,52 @@
+import 'dart:async';
+import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:text_editor/text_editor.dart';
 
+import '../../../data/business_logic/blocs/project_bloc.dart';
 import '../../../data/services/widget_extractor.dart';
 
+
+class EditorAreaFile extends StatefulWidget {
+
+  const EditorAreaFile({Key key, this.pathToFile}) : super(key: key);
+
+  final String pathToFile;
+
+  @override
+  _EditorAreaFileState createState() => _EditorAreaFileState();
+}
+
+class _EditorAreaFileState extends State<EditorAreaFile> {
+
+  Future<String> file;
+
+  @override
+  void initState() {
+    super.initState();
+    file = File(widget.pathToFile).readAsString();
+
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return FutureBuilder(
+      future: file,
+      builder: (context, snapshot) {
+        if(!snapshot.hasData) return Center(child: CircularProgressIndicator(),);
+        return EditorArea(
+          sourceCode: snapshot.requireData,
+        );
+      },
+    );
+  }
+
+}
+
+
+
 class EditorArea extends StatefulWidget {
-
-
-
   const EditorArea({Key key, this.sourceCode}) : super(key: key);
 
   final String sourceCode;
@@ -20,31 +59,45 @@ class EditorArea extends StatefulWidget {
 
 class EditorAreaState extends State<EditorArea> {
 
+  bool canExecute;
+  WidgetExtractor widgetExtractor = WidgetExtractor();
+
+  @override
+  void initState() {
+    super.initState();
+    canExecute = widgetExtractor.isExecutable(widget.sourceCode);
+  }
 
   @override
   Widget build(BuildContext context) {
+    Widget topWidget = SizedBox();
+    if (canExecute) {
+      topWidget = Container(
+        width: double.infinity,
+        color: Theme.of(context).accentColor,
+        child: Row(
+          children: <Widget>[
+            Text("This widget is executable!"),
+            Spacer(),
+            MaterialButton(
+              textColor: Theme.of(context).textTheme.body1.color,
+              onPressed: () {
+                widgetExtractor.renderWidgetInIDE(widget.sourceCode);
+              },
+              child: Text("Execute"),
+            ),
+          ],
+        ),
+      );
+    }
+
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: <Widget>[
-        Container(
-          width: double.infinity,
-          color: Theme.of(context).accentColor,
-          child: Row(
-            children: <Widget>[
-              Text("This widget is executable!"),
-              Spacer(),
-              MaterialButton(
-                textColor: Theme.of(context).textTheme.body1.color,
-                onPressed: () {
-                  WidgetExtractor extractor = WidgetExtractor(widget.sourceCode);
-                  extractor.extractWidget();
-                },
-                child: Text("Execute"),
-              ),
-            ],
-          ),
+        topWidget,
+        CodeShowcase(
+          sourceCode: widget.sourceCode,
         ),
-        CodeShowcase(sourceCode: widget.sourceCode,),
       ],
     );
   }

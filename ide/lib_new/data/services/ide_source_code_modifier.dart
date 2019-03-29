@@ -1,4 +1,5 @@
 import 'dart:io';
+import 'package:path/path.dart' as path;
 
 /// Handles code modification of the the IDE itself.
 ///
@@ -8,9 +9,19 @@ class IdeSourceCodeModifier {
 
 
 
-  void writeWidget(String widgetSourceCode) {
-    Directory currentDirectory = Directory.current;
-    print("Current directory path: ${currentDirectory.path}");
+  void writeWidget(String widgetName, String widgetSourceCode) async {
+    var file = File("C:\\Users\\Norbert\\workspace\\flutter_ide\\ide\\generated\\&gen_code.dart");
+
+    String content = """
+import 'package:flutter/material.dart';
+
+Widget \$displayWidget = $widgetName();
+    
+$widgetSourceCode
+    
+    """;
+
+    await file.writeAsString(content);
   }
 
 }

@@ -1,32 +1,39 @@
 
 
+import 'ide_source_code_modifier.dart';
+
 class WidgetExtractor {
 
+  WidgetExtractor._();
+
+  factory WidgetExtractor () => _widgetExtractor;
+  static WidgetExtractor _widgetExtractor = WidgetExtractor._();
+
+  final IdeSourceCodeModifier _sourceCodeModifier = IdeSourceCodeModifier();
+
+  final RegExp regExp = RegExp(r"class\s+\S+\s+extends\s+StatelessWidget\s+{");
 
 
-  WidgetExtractor(this.sourceCode): _bracketMatcher = _BracketMatcher(sourceCode);
-
-  final String sourceCode;
-
-  final _BracketMatcher _bracketMatcher;
-
-  RegExp regExp = RegExp(r"class\s+\S+\s+extends\s+StatelessWidget\s+{");
-
-
-  bool isExecutable() {
+  void renderWidgetInIDE(String sourceCode) {
+    WidgetCode widgetCode = _extractWidget(sourceCode);
+    _sourceCodeModifier.writeWidget(widgetCode.className, widgetCode.code);
+  }
+  
+  bool isExecutable(String sourceCode) {
     List<Match> matches = regExp.allMatches(sourceCode).toList();
     if(matches.length != 1) return false;
     return true;
-
   }
 
-  WidgetCode extractWidget() {
+  WidgetCode _extractWidget(String sourceCode) {
     List<Match> matches = regExp.allMatches(sourceCode).toList();
     assert(matches.length == 1);
 
     Match match = matches[0];
     int end = match.end;
     String stripped = sourceCode.substring(end);
+
+    String className = match.group(0).split(RegExp(r"\s+")).elementAt(1);
 
     _BracketMatcher _bracketMatcher = _BracketMatcher(stripped);
 
@@ -35,7 +42,10 @@ class WidgetExtractor {
 
     String strippedWiget = sourceCode.substring(match.start, realWidgetEnd);
     print("Result: $strippedWiget");
-    return null;
+    return WidgetCode(
+      code: strippedWiget,
+      className: className,
+    );
 
   }
 

@@ -6,8 +6,6 @@ import 'package:flutter/foundation.dart'
     show debugDefaultTargetPlatformOverride;
 
 import 'data/business_logic/blocs/project_bloc.dart';
-import 'data/services/ide_source_code_modifier.dart';
-import 'data/services/meta_manipulator.dart';
 import 'ui/desktop/pages/choose_workspace_page.dart';
 import 'ui/desktop/pages/project_page.dart';
 
@@ -30,7 +28,7 @@ class MyApp extends StatelessWidget {
 
   /// Until there is a better solution for scoped model
   /// access, the state is going to be in here.
-  final ProjectBloc projectBloc = ProjectBloc(MetaManipulator(IdeSourceCodeModifier()));
+  final ProjectBloc projectBloc = ProjectBloc();
 
 
 
