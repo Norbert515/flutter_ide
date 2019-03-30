@@ -5,7 +5,9 @@ import 'package:flutter/material.dart';
 import 'package:text_editor/text_editor.dart';
 
 import '../../../data/business_logic/blocs/project_bloc.dart';
+import '../../../data/services/source_code_reloader.dart';
 import '../../../data/services/widget_extractor.dart';
+import 'widget_visualizer.dart';
 
 
 class EditorAreaFile extends StatefulWidget {
@@ -61,6 +63,7 @@ class EditorAreaState extends State<EditorArea> {
 
   bool canExecute;
   WidgetExtractor widgetExtractor = WidgetExtractor();
+  SourceCodeReloader sourceCodeReloader = SourceCodeReloader();
 
   @override
   void initState() {
@@ -81,8 +84,9 @@ class EditorAreaState extends State<EditorArea> {
             Spacer(),
             MaterialButton(
               textColor: Theme.of(context).textTheme.body1.color,
-              onPressed: () {
-                widgetExtractor.renderWidgetInIDE(widget.sourceCode);
+              onPressed: () async {
+                await widgetExtractor.renderWidgetInIDE(widget.sourceCode);
+                sourceCodeReloader.reloadSourceCode();
               },
               child: Text("Execute"),
             ),
@@ -91,13 +95,20 @@ class EditorAreaState extends State<EditorArea> {
       );
     }
 
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
+    return Row(
       children: <Widget>[
-        topWidget,
-        CodeShowcase(
-          sourceCode: widget.sourceCode,
+        Expanded(
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: <Widget>[
+              topWidget,
+              CodeShowcase(
+                sourceCode: widget.sourceCode,
+              ),
+            ],
+          ),
         ),
+        WidgetVisualizer(),
       ],
     );
   }

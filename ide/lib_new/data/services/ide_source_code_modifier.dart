@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'dart:io';
 import 'package:path/path.dart' as path;
 
@@ -9,14 +10,19 @@ class IdeSourceCodeModifier {
 
 
 
-  void writeWidget(String widgetName, String widgetSourceCode) async {
+  Future writeWidget(String widgetName, String widgetSourceCode) async {
     var file = File("C:\\Users\\Norbert\\workspace\\flutter_ide\\ide\\generated\\&gen_code.dart");
 
     String content = """
 import 'package:flutter/material.dart';
 
-Widget \$displayWidget = $widgetName();
-    
+class \$displayWidget extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return $widgetName() ?? SizedBox();
+  }
+}
+
 $widgetSourceCode
     
     """;

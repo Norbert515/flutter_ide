@@ -1,5 +1,7 @@
 
 
+import 'dart:async';
+
 import 'ide_source_code_modifier.dart';
 
 class WidgetExtractor {
@@ -14,9 +16,9 @@ class WidgetExtractor {
   final RegExp regExp = RegExp(r"class\s+\S+\s+extends\s+StatelessWidget\s+{");
 
 
-  void renderWidgetInIDE(String sourceCode) {
+  Future renderWidgetInIDE(String sourceCode) {
     WidgetCode widgetCode = _extractWidget(sourceCode);
-    _sourceCodeModifier.writeWidget(widgetCode.className, widgetCode.code);
+    return _sourceCodeModifier.writeWidget(widgetCode.className, widgetCode.code);
   }
   
   bool isExecutable(String sourceCode) {
