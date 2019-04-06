@@ -1,8 +1,14 @@
 
 
 import 'dart:io';
+//import 'ide/lib_new/data/services/ide_source_code_modifier.dart';
 
 void main() async {
+
+
+  //var modifier = IdeSourceCodeModifier();
+//  await modifier.reset();
+
   Process process = await Process.start("flutter", ['run', '-dDesktop', '-tlib_new/main.dart'], workingDirectory: "ide", runInShell: true,
       mode: ProcessStartMode.normal);
 

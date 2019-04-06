@@ -9,6 +9,24 @@ import 'package:path/path.dart' as path;
 class IdeSourceCodeModifier {
 
 
+  Future reset() async {
+    var file = File("C:\\Users\\Norbert\\workspace\\flutter_ide\\ide\\generated\\&gen_code.dart");
+
+    String content = """
+import 'package:flutter/material.dart';
+
+class \$displayWidget extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return SizedBox() ?? SizedBox();
+  }
+}
+    
+    """;
+
+    await file.writeAsString(content);
+  }
+
 
   Future writeWidget(String widgetName, String widgetSourceCode) async {
     var file = File("C:\\Users\\Norbert\\workspace\\flutter_ide\\ide\\generated\\&gen_code.dart");

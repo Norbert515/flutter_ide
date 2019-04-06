@@ -35,6 +35,7 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    projectBloc.setProject("C:\\Users\\Norbert\\workspace\\flutter_ide");
     return Provider<ProjectBloc>(
       value: projectBloc,
       child: Provider<IDETheme>(
@@ -52,7 +53,12 @@ class MyApp extends StatelessWidget {
             ),
             textTheme: TextTheme(
               body1: TextStyle(color: Color(0xffbbbbbb), fontSize: 16),
-            )
+              button: TextStyle(color: Color(0xffbbbbbb))
+            ),
+            buttonColor: Color(0xffbbbbbb),
+            buttonTheme: ButtonThemeData(
+              buttonColor: Colors.red,
+            ),
           ),
           routes: {
             '/welcome' : (context) => TutorialWelcome(),
@@ -62,7 +68,7 @@ class MyApp extends StatelessWidget {
 
           } ,
 
-          home: ChooseWorkspacePage(),
+          home: ProjectPage(),
         ),
       ),
     );

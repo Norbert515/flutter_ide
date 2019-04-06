@@ -4,14 +4,11 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:text_editor/text_editor.dart';
 
-import '../../../data/business_logic/blocs/project_bloc.dart';
 import '../../../data/services/source_code_reloader.dart';
 import '../../../data/services/widget_extractor.dart';
 import 'widget_visualizer.dart';
 
-
 class EditorAreaFile extends StatefulWidget {
-
   const EditorAreaFile({Key key, this.pathToFile}) : super(key: key);
 
   final String pathToFile;
@@ -21,14 +18,12 @@ class EditorAreaFile extends StatefulWidget {
 }
 
 class _EditorAreaFileState extends State<EditorAreaFile> {
-
   Future<String> file;
 
   @override
   void initState() {
     super.initState();
     file = File(widget.pathToFile).readAsString();
-
   }
 
   @override
@@ -36,17 +31,17 @@ class _EditorAreaFileState extends State<EditorAreaFile> {
     return FutureBuilder(
       future: file,
       builder: (context, snapshot) {
-        if(!snapshot.hasData) return Center(child: CircularProgressIndicator(),);
+        if (!snapshot.hasData)
+          return Center(
+            child: CircularProgressIndicator(),
+          );
         return EditorArea(
           sourceCode: snapshot.requireData,
         );
       },
     );
   }
-
 }
-
-
 
 class EditorArea extends StatefulWidget {
   const EditorArea({Key key, this.sourceCode}) : super(key: key);
@@ -60,7 +55,6 @@ class EditorArea extends StatefulWidget {
 }
 
 class EditorAreaState extends State<EditorArea> {
-
   bool canExecute;
   WidgetExtractor widgetExtractor = WidgetExtractor();
   SourceCodeReloader sourceCodeReloader = SourceCodeReloader();
@@ -96,14 +90,41 @@ class EditorAreaState extends State<EditorArea> {
     }
 
     return Row(
+      crossAxisAlignment: CrossAxisAlignment.start,
       children: <Widget>[
         Expanded(
           child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
+            mainAxisSize: MainAxisSize.min,
             children: <Widget>[
               topWidget,
-              CodeShowcase(
-                sourceCode: widget.sourceCode,
+              Expanded(
+                child: SingleChildScrollView(
+                  child: Container(
+                    padding: EdgeInsets.all(8),
+                    alignment: Alignment.topLeft,
+                    child: CodeShowcase(
+                      sourceCode: widget.sourceCode,
+                    ),
+                  ),
+                ),
+              ),
+              Container(
+                color: Theme.of(context).accentColor,
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: <Widget>[
+                    MaterialButton(
+                      textColor: Theme.of(context).buttonColor,
+                      onPressed: () {},
+                      child: Text("Code mode"),
+                    ),
+                    MaterialButton(
+                      textColor: Theme.of(context).buttonColor,
+                      onPressed: () {},
+                      child: Text("Visual mode"),
+                    ),
+                  ],
+                ),
               ),
             ],
           ),

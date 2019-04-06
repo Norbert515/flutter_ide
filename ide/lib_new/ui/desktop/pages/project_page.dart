@@ -60,28 +60,28 @@ class ProjectPageState extends State<ProjectPage> {
                     },
                   ),
                 ),
-                VerticalDivider(),
+                VerticalDivider(
+                  width: 0,
+                ),
                 Expanded(
                   child: Align(
                     alignment: Alignment.topCenter,
                     child: Material(
                       color: Theme.of(context).backgroundColor,
-                      child: SingleChildScrollView(
-                        child: StreamBuilder(
-                          stream: projectBloc.openFileSubject,
-                          builder: (context, snapshot) {
-                            if(!snapshot.hasData) {
-                              return Center(
-                                child: Text("Open a file :)"),
-                              );
-                            }
-                            return EditorAreaFile(
-                              key: ValueKey(snapshot.requireData),
-                              pathToFile: snapshot.requireData,
+                      child: StreamBuilder(
+                        stream: projectBloc.openFileSubject,
+                        builder: (context, snapshot) {
+                          if(!snapshot.hasData) {
+                            return Center(
+                              child: Text("Open a file :)"),
                             );
+                          }
+                          return EditorAreaFile(
+                            key: ValueKey(snapshot.requireData),
+                            pathToFile: snapshot.requireData,
+                          );
 
-                          },
-                        ),
+                        },
                       ),
                     ),
                   ),
