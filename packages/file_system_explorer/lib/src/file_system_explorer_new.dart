@@ -14,17 +14,22 @@ enum _FlutterFileType { File, Folder }
 // search patterns and confirm buttons
 
 class _FlutterFileSystem {
-  _FlutterFileSystem(Directory root,
+  _FlutterFileSystem(List<Directory> roots,
       {this.onChanged, this.onMovedToNext, this.onMovedToPrevious, this.onFileSelected}) {
-    _root = _FlutterFolder(
-      depth: 0,
-      directory: root,
-    );
 
-    items = [_root];
+    // Allow multiple roots
+    _roots = roots.map((it) {
+      return _FlutterFolder(
+        depth: 0,
+        directory: it
+      );
+    }).toList();
+
+
+    items = _roots;
   }
 
-  _FlutterFileSystemEntity _root;
+  List<_FlutterFileSystemEntity> _roots;
 
   int selectedIndex;
   _FlutterFileSystemEntity get selectedEntity => items[selectedIndex];
@@ -43,9 +48,11 @@ class _FlutterFileSystem {
 
   int bufferMaxDepth = 0;
 
-  Iterable<_FlutterFileSystemEntity> convertToLinear() {
+  Iterable<_FlutterFileSystemEntity> convertToLinear() sync* {
     bufferMaxDepth = 0;
-    return _convertToLinear(_root);
+    for(_FlutterFileSystemEntity it in _roots) {
+      yield* _convertToLinear(it);
+    }
   }
   Iterable<_FlutterFileSystemEntity> _convertToLinear(
       _FlutterFileSystemEntity root) sync* {
@@ -271,7 +278,6 @@ class _FileSystemExplorerState extends State<FileSystemExplorer> {
 
   _FlutterFileSystem fileSystem;
 
-  Directory root;
 
   ScrollController controller;
 
@@ -281,9 +287,25 @@ class _FileSystemExplorerState extends State<FileSystemExplorer> {
   @override
   void initState() {
     super.initState();
-    root = widget.rootDirectory ?? Directory(path.absolute("C:\\\\"));
+    List<Directory> roots = [];
+
+    if(widget.rootDirectory != null) {
+      roots = [widget.rootDirectory];
+    } else {
+      // Dirty hack because I could not find a way to list the partitions on
+      // windows systems.
+      for(int i = 'A'.codeUnitAt(0); i < 'Z'.codeUnitAt(0); i++) {
+        Directory partition = Directory(path.absolute("${String.fromCharCode(i)}://"));
+        if(partition.existsSync()) {
+          roots.add(partition);
+        }
+      }
+
+    }
+
+
     fileSystem = _FlutterFileSystem(
-      root,
+      roots,
       onChanged: () {
         if(widget.onPathChanged != null) {
           widget.onPathChanged(fileSystem.selectedEntity.path);
