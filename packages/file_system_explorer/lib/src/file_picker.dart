@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:file_system_explorer/src/file_system_explorer_new.dart';
 
-Future<String> showPicker(BuildContext context) {
+Future<String> showPicker(BuildContext context, {Widget topInfo}) {
   return showDialog(context: context, builder: (context) {
     return Dialog(
-      child: FilePickerDialog()
+      child: FilePickerDialog(
+        topInfo: topInfo,
+      )
     );
   });
 }
@@ -12,19 +14,31 @@ Future<String> showPicker(BuildContext context) {
 
 
 class FilePickerDialog extends StatelessWidget {
+
+  final Widget topInfo;
+
+  const FilePickerDialog({Key key, this.topInfo}) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: 700,
+      height: 800,
       width: 500,
-      child: FilePicker(
-        onPathSelected: (path) {
-          if(path != null) {
-            Navigator.pop(context, path);
-          } else {
-            Navigator.pop(context);
-          }
-        },
+      child: Column(
+        children: <Widget>[
+          topInfo?? SizedBox(),
+          Expanded(
+            child: FilePicker(
+              onPathSelected: (path) {
+                if(path != null) {
+                  Navigator.pop(context, path);
+                } else {
+                  Navigator.pop(context);
+                }
+              },
+            ),
+          ),
+        ],
       ),
     );
   }
