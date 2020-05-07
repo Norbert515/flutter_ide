@@ -6,8 +6,8 @@ import 'package:flutter_visual_builder/widgets/components/material_components.da
 import 'package:flutter_visual_builder/widgets/components/visual_components.dart';
 import 'package:flutter_visual_builder/widgets/tree.dart';
 import 'package:grpc/grpc.dart';
-import 'package:ide/themeing/ide_theme.dart';
 import 'package:provider/provider.dart';
+import 'package:ide/themeing/ide_theme.dart';
 
 class VisualEditor extends StatefulWidget {
 

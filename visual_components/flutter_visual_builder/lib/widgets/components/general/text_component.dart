@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_visual_builder/utils/string_builder.dart';
 import 'package:flutter_visual_builder/widgets/components/visual_components.dart';
 import 'package:flutter_visual_builder/widgets/properties/property.dart';
-import 'package:ide/utils/string_builder.dart';
 
 
 class TextComponent extends VisualStatefulWidget {

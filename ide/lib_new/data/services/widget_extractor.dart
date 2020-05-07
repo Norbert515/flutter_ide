@@ -14,11 +14,12 @@ class WidgetExtractor {
   final IdeSourceCodeModifier _sourceCodeModifier = IdeSourceCodeModifier();
 
   final RegExp regExp = RegExp(r"class\s+\S+\s+extends\s+StatelessWidget\s+{");
+  final RegExp importRegExp = RegExp(r"""import\s+(('.+')|(".+"))\s*;""");
 
 
   Future renderWidgetInIDE(String sourceCode) {
     WidgetCode widgetCode = _extractWidget(sourceCode);
-    return _sourceCodeModifier.writeWidget(widgetCode.className, widgetCode.code);
+    return _sourceCodeModifier.writeWidget(widgetCode.className, widgetCode.code, widgetCode.imports);
   }
   
   bool isExecutable(String sourceCode) {
@@ -31,6 +32,7 @@ class WidgetExtractor {
     List<Match> matches = regExp.allMatches(sourceCode).toList();
     assert(matches.length == 1);
 
+    // prepare for bracket matching
     Match match = matches[0];
     int end = match.end;
     String stripped = sourceCode.substring(end);
@@ -42,11 +44,17 @@ class WidgetExtractor {
     int widgetEnd = _bracketMatcher.getEnd();
     int realWidgetEnd = widgetEnd + end;
 
+    List<Match> importMatches = importRegExp.allMatches(sourceCode).toList();
+    List<String> imports = importMatches.map((it) {
+      return sourceCode.substring(it.start, it.end);
+    }).toList();
+
     String strippedWiget = sourceCode.substring(match.start, realWidgetEnd);
     print("Result: $strippedWiget");
     return WidgetCode(
       code: strippedWiget,
       className: className,
+      imports: imports
     );
 
   }
@@ -84,11 +92,12 @@ class _BracketMatcher {
 
 class WidgetCode {
 
-  WidgetCode({this.startLine, this.endLine, this.code, this.className});
+  WidgetCode({this.startLine, this.endLine, this.code, this.className, this.imports});
 
   final int startLine;
   final int endLine;
   final String code;
   final String className;
+  final List<String> imports;
 
 }

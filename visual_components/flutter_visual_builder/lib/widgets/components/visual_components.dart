@@ -3,12 +3,12 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:flutter_visual_builder/business_logic/server/generated/server.pb.dart';
 import 'package:flutter_visual_builder/business_logic/server/server.dart';
+import 'package:flutter_visual_builder/utils/string_builder.dart';
 import 'package:flutter_visual_builder/widgets/key_resolver.dart';
 import 'package:flutter_visual_builder/widgets/properties/property.dart';
 import 'package:provider/provider.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:flutter/widgets.dart';
-import 'package:ide/utils/string_builder.dart';
 
 // TODO MetaData widget might also be interesting
 
@@ -588,7 +588,13 @@ class LayoutDragTargetState extends State<LayoutDragTarget> {
 
   @override
   Widget build(BuildContext context) {
-    bool showing = Provider.of<bool>(context);
+    bool showing;
+    try {
+      showing = Provider.of<bool>(context);
+    } catch(e) {
+      // Instead of of returning null Provider now throws an error
+      print("Implementation of provider changed and I im too lazy to change code.");
+    }
     // Showing == null is when its being dragged
     if(showing == null || !showing) {
       return child?? SizedBox();

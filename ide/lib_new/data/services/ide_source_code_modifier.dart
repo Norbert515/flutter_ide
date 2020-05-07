@@ -28,11 +28,12 @@ class \$displayWidget extends StatelessWidget {
   }
 
 
-  Future writeWidget(String widgetName, String widgetSourceCode) async {
+  Future writeWidget(String widgetName, String widgetSourceCode, List<String> imports) async {
     var file = File("C:\\Users\\Norbert\\workspace\\flutter_ide\\ide\\generated\\&gen_code.dart");
 
     String content = """
 import 'package:flutter/material.dart';
+${(){return imports.join("\n");}()}
 
 class \$displayWidget extends StatelessWidget {
   @override

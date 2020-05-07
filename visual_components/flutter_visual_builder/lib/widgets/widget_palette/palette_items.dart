@@ -2,6 +2,7 @@
 
 
 import 'package:flutter/material.dart';
+
 import 'package:ide/themeing/ide_theme.dart';
 
 class PaletteCategory extends StatelessWidget {

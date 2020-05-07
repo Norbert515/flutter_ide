@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:ide/utils/string_builder.dart';
+import 'package:flutter_visual_builder/utils/string_builder.dart';
 import 'package:meta/meta.dart';
 
 
