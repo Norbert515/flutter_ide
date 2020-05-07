@@ -1,2 +1,0 @@
-
-const bool debug = false;
