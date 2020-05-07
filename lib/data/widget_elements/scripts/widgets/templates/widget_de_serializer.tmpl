@@ -1,0 +1,91 @@
+import 'package:widget_maker_2_0/data/widget_elements/base/widget_element.dart';
+import 'package:widget_maker_2_0/data/widget_elements/generated/widgets/aaimporter.dart';
+import 'package:widget_maker_2_0/data/bs/widget_board/widget_board.dart';
+import 'package:uuid/uuid.dart';
+import 'package:flutter/material.dart';
+import 'package:widget_maker_2_0/data/properties/wrappers/wrappers.dart';
+import 'package:widget_maker_2_0/data/widget_elements/base/literal_widget.dart';
+import 'package:widget_maker_2_0/data/properties/serialization/deserializers.dart';
+
+dynamic _deserialize(dynamic it) {
+    if(it == null) return it;
+    if(it is String || it is bool || it is int || it is double)
+        return it;
+
+    assert(it is Map);
+
+    Map<String, dynamic> map = it;
+    return WidgetElementDeserializer._deserializeObjectProperty(map);
+}
+
+class WidgetElementDeserializer {
+
+    static WidgetBoard buildWidgetBoard(Map<String, dynamic> map) {
+
+        Uuid uuid= Uuid();
+
+        WidgetBoard board = WidgetBoard();
+
+        var literalWidgetElement = LiteralWidgetElement(
+            id: uuid.v1(),
+            name: "Hello World Page"
+        );
+
+        board.acceptNewChild(board.rootKey, literalWidgetElement);
+
+        _deserializeWidgetElement(map, board, literalWidgetElement.id, null);
+
+        return board;
+
+    }
+
+    static void _deserializeWidgetElement(Map<String, dynamic> map, WidgetBoard widgetBoard, String parentId, SlotData slotData) {
+        var type = map['&&type'];
+        switch (type){
+            {{#widgets}}
+            case "{{name}}": return _parse{{name}}(map, widgetBoard, parentId, slotData);
+            {{/widgets}}
+        }
+    }
+
+
+    {{#widgets}}
+    static void _parse{{name}}(Map<String,dynamic> map, WidgetBoard widgetBoard, String parentId, SlotData slotData) {
+        var element = {{elementName}}(
+            id: Uuid().v1(),
+            {{#properties}}
+            {{name}}: _deserialize(map['{{name}}'])?? {{defaultValue}},
+            {{/properties}}
+        );
+
+        widgetBoard.acceptNewChild(parentId, element, slotData);
+
+        {{#generalInfo.layoutModel}}
+        _deserializeWidgetElement(map['{{name}}'], widgetBoard, element.id, SlotData(slotName: '{{name}}', data: null));
+        {{/generalInfo.layoutModel}}
+
+    }
+    {{/widgets}}
+
+    static dynamic _deserializeObjectProperty(Map<String, dynamic> map) {
+        var type = map['&&type'];
+        switch (type){
+            {{#props}}
+            case "{{wrapper}}": return _parse{{wrapper}}(map);
+            {{/props}}
+            {{#external}}
+            case "{{it}}": return parse{{it}}(map);
+            {{/external}}
+        }
+    }
+
+    {{#props}}
+    static {{wrapper}} _parse{{wrapper}}(Map<String, dynamic> map) {
+        return {{wrapper}}(
+            {{#props}}
+            {{name}}: map['{{name}}'],
+            {{/props}}
+        );
+    }
+    {{/props}}
+}

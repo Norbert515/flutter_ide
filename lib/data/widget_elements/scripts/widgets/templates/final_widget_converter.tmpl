@@ -1,0 +1,69 @@
+import 'package:flutter/material.dart';
+import 'package:uuid/uuid.dart';
+import 'package:widget_maker_2_0/data/bs/widget_board/widget_board.dart';
+import 'package:widget_maker_2_0/data/widget_elements/base/literal_widget.dart';
+import 'package:widget_maker_2_0/data/widget_elements/generated/widgets/aaimporter.dart';
+import 'package:widget_maker_2_0/data/widget_elements/base/widget_element.dart';
+import 'package:flutter/cupertino.dart';
+import 'package:widget_maker_2_0/data/widget_elements/wrappers/wrappers.dart';
+
+
+class WidgetElementDeserializer2 {
+
+    static WidgetBoard buildWidgetBoard(Widget widget) {
+
+        Uuid uuid= Uuid();
+
+        WidgetBoard board = WidgetBoard();
+
+        var literalWidgetElement = LiteralWidgetElement(
+            id: uuid.v1(),
+            name: "Hello World Page"
+        );
+
+        board.acceptNewChild(board.rootKey, literalWidgetElement);
+
+        _deserializeWidgetElement(widget, board, literalWidgetElement.id, null);
+
+        return board;
+
+    }
+
+
+    static void _deserializeWidgetElement(Widget widget, WidgetBoard widgetBoard, String parentId, SlotData slotData) {
+
+        switch(widget.runtimeType) {
+
+            {{#widgets}}
+            case {{name}}: _parse{{name}}(widget, widgetBoard, parentId, slotData);
+                break;
+            {{/widgets}}
+            default:
+                if(widget != null) {
+                    throw Exception("Widget ${widget.runtimeType} not supported");
+                }
+
+        }
+    }
+
+    {{#widgets}}
+
+        static void _parse{{name}}({{name}} widget, WidgetBoard widgetBoard, String parentId, SlotData slotData) {
+            var element = {{elementName}}(
+                id: Uuid().v1(),
+                {{#properties}}
+                {{name}}: widget.{{name}},
+                {{/properties}}
+
+            );
+
+            widgetBoard.acceptNewChild(parentId, element, slotData);
+
+            {{#generalInfo.layoutModel}}
+            {{fCode}}
+                //_deserializeWidgetElement(widget.{{name}}, widgetBoard, element.id, SlotData(slotName: '{{name}}', data: null));
+            {{/generalInfo.layoutModel}}
+        }
+    {{/widgets}}
+}
+

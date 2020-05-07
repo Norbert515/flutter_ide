@@ -1,0 +1,13 @@
+class M{{enumName}}Property extends MEnumProperty<{{enumName}}> {
+  M{{enumName}}Property({ {{enumName}} value, String name, bool isNamed = true, bool isRequired = false, {{enumName}} defaultValue})
+      : super(value: value, name: name, possibleValues: {{enumName}}.values, isNamed: isNamed, isRequired: isRequired, defaultValue: defaultValue);
+  @override
+  M{{enumName}}Property copy() {
+    return M{{enumName}}Property(
+      value: value,
+      name: name,
+      isNamed: isNamed,
+      isRequired: isRequired,
+    );
+  }
+}

@@ -1,0 +1,53 @@
+class M{{name}}Property extends MObjectProperty<{{name}}> {
+
+  M{{name}}Property({ {{name}} value, String name, {{name}} defaultValue}):
+      props = {
+        {{#props}}
+        "{{name}}": M{{uType}}Property(
+            name: "{{name}}",
+            value: value?.{{name}},
+            {{#additional}}
+            {{name}}: {{value}},
+            {{/additional}}
+            defaultValue: const {{objectPropName}}().{{name}},
+          ),
+        {{/props}}
+      }, super(name: "{{name}}", value: value, defaultValue: defaultValue);
+
+  final Map<String, MProperty> props;
+
+  @override
+  M{{name}}Property copy() {
+    return M{{name}}Property(
+      value: value,
+      name: name,
+    );
+  }
+
+  @override
+  List<MProperty> getProperties() {
+    return props.values.toList();
+  }
+  @override
+  {{name}} get value => internalValue == null? null: {{wrapper}}(
+    {{#props}}
+    {{name}}: props["{{name}}"].value,
+    {{/props}}
+  );
+
+  Map<String, dynamic> toMap() {
+    return {
+       {{#props}}
+       "{{name}}": props["{{name}}"].value.serialize(),
+       {{/props}}
+    };
+  }
+
+  @override
+  Expression toCode() {
+    return propertyConstructor("{{name}}", props.values);
+  }
+  @override
+  {{name}} constructEmpty() => {{wrapper}}();
+
+}

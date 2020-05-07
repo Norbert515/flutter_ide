@@ -1,0 +1,107 @@
+
+external:
+  - Alignment
+  - Color
+
+properties:
+
+  Axis:
+    type: enum
+  # or
+  MainAxisAlignment: enum
+  MainAxisSize: enum
+  CrossAxisAlignment: enum
+  VerticalDirection: enum
+  TextBaseline: enum
+  TextDirection: enum
+  TextOverflow: enum
+  TextAlign: enum
+  BoxFit: enum
+  Brightness: enum
+  FontWeight: enum
+  FontStyle: enum
+  BorderStyle: enum
+  Clip: enum
+
+  # Object Property
+  #Duration:
+  #  type:
+  #    composite:
+  #      days: double
+  #      minutes: double
+  #      seconds: double
+
+  # Different constructors
+  #EdgeInsets:
+  #  type:
+  #    constructors:
+  #      only:
+  #        type:
+  #          composite:
+  #            left: double
+  #            right: double
+  #            bottom: double
+  #            top: double
+  #      all: double
+
+
+  #Offset:
+  #  wrapper: WOffset
+  #  type:
+  #    composite:
+  #      dx:
+  #        type: double
+  #        allowNegative: true
+  #      dy:
+  #        type: double
+  #        allowNegative: true
+
+  WDuration:
+    type:
+      composite:
+        days:
+          type: int
+          allowNegative: false
+        hours:
+          type: int
+          allowNegative: false
+        minutes:
+          type: int
+          allowNegative: false
+        seconds:
+          type: int
+          allowNegative: false
+        milliseconds:
+          type: int
+          allowNegative: false
+        microseconds:
+          type: int
+          allowNegative: false
+
+
+  # Subclass property
+
+  TextStyle:
+    type:
+      composite:
+        fontSize:
+          type: double
+          allowNegative: false
+          showDescription: false
+        inherit: bool
+        color: Color
+        backgroundColor: Color
+        fontWeight: FontWeight
+        fontStyle: FontStyle
+        letterSpacing:
+          type: double
+          showDescription: false
+          allowNegative: false
+        wordSpacing:
+          type: double
+          allowNegative: false
+          showDescription: false
+        textBaseline: TextBaseline
+        height:
+          type: double
+          allowNegative: false

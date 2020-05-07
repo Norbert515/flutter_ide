@@ -1,0 +1,359 @@
+<!DOCTYPE html>
+<html lang="en">
+
+  <head>
+
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-133737406-1"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+
+      gtag('config', 'UA-133737406-1', { 'anonymize_ip': true});
+
+
+function topFunction() {
+  document.body.scrollTop = 0; // For Safari
+  document.documentElement.scrollTop = 0; // For Chrome, Firefox, IE and Opera
+}
+    </script>
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>Widget Maker</title>
+
+    <!-- Bootstrap core CSS -->
+    <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Custom fonts for this template -->
+    <link href="vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
+    <link href='https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/css'>
+    <link href='https://fonts.googleapis.com/css?family=Merriweather:400,300,300italic,400italic,700,700italic,900,900italic' rel='stylesheet' type='text/css'>
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <!-- Plugin CSS -->
+    <link href="vendor/magnific-popup/magnific-popup.css" rel="stylesheet">
+
+    <!-- Custom styles for this template -->
+    <link href="css/landing-page.min.css" rel="stylesheet">
+    <link href="css/creative.css" rel="stylesheet">
+    <style>
+      .nopadding {
+        padding: 0 !important;
+        margin: 0 !important;
+      }
+    </style>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/Wruczek/Bootstrap-Cookie-Alert@gh-pages/cookiealert.css">
+
+  </head>
+  <!-- START Bootstrap-Cookie-Alert -->
+  <div class="alert text-center cookiealert" role="alert">
+    <b>Do you like cookies?</b> &#x1F36A; We use cookies to ensure you get the best experience on our website. <a href="https://cookiesandyou.com/" target="_blank">Learn more</a>
+
+    <button type="button" class="btn btn-primary btn-sm acceptcookies" aria-label="Close">
+      I agree
+    </button>
+  </div>
+  <!-- END Bootstrap-Cookie-Alert -->
+  <script src="https://cdn.jsdelivr.net/gh/Wruczek/Bootstrap-Cookie-Alert@gh-pages/cookiealert.js"></script>
+
+
+  <body id="page-top">
+
+    <!-- Navigation -->
+    <nav class="navbar navbar-expand-lg navbar-light fixed-top" id="mainNav">
+      <div class="container">
+        <a class="navbar-brand js-scroll-trigger" href="#page-top">Widget-Maker</a>
+        <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarResponsive">
+          <ul class="navbar-nav ml-auto">
+            <li class="nav-item">
+              <a class="nav-link js-scroll-trigger" href="#showcase">Showcase</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link js-scroll-trigger" href="#download">Download</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link js-scroll-trigger" href="#contact">Contact</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link js-scroll-trigger" href="docs.html">Read-me</a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+
+    <header class="masthead text-center text-white d-flex">
+      <div class="container my-auto bg_dark">
+        <div class="row max_h">
+          <div class="col-lg-6 mx-auto ord0">
+            <h1 class="text-faded">
+              Widget-Maker (α)
+            </h1>
+              <h3>
+                (Alpha Version)
+              </h3>
+            <h4 class="text-faded mt-5">A Flutter UI builder</h4>
+            <div class="col-lg-8 mx-auto ord1">
+              <!--<a class="btn btn-primary btn-xl js-scroll-trigger" href="#download">Download</a>-->
+              <div class="mb-5"></div>
+              <!-- Begin Mailchimp Signup Form -->
+              <link href="//cdn-images.mailchimp.com/embedcode/horizontal-slim-10_7.css" rel="stylesheet" type="text/css">
+              <style type="text/css">
+	#mc_embed_signup{clear:left; font:14px Helvetica,Arial,sans-serif; width:100%;}
+	/* Add your own Mailchimp form style overrides in your site stylesheet or in this style block.
+	   We recommend moving this block and the preceding CSS link to the HEAD of your HTML file. */
+</style>
+              <style type="text/css">
+	#mc-embedded-subscribe-form input[type=checkbox]{display: inline; width: auto;margin-right: 10px;}
+	#mergeRow-gdpr {margin-top: 20px;}
+	#mergeRow-gdpr fieldset label {font-weight: normal;}
+	#mc-embedded-subscribe-form .mc_fieldset{border:none;min-height: 0px;padding-bottom:0px;}
+	#mce-EMAIL {padding: 10px; border: 2px solid white; border-radius: 7px; transition: all 300ms}
+	#mce-EMAIL:hover {background: #FAFAFA}
+	#mce-EMAIL:focus {outline: none; background: white; border: 2px solid #F05F40;}
+</style>
+              <div id="mc_embed_signup row ord1">
+                <form action="https://twitter.us20.list-manage.com/subscribe/post?u=748867c8383565a76ea4812ed&amp;id=3f4436da17" method="post" id="mc-embedded-subscribe-form" name="mc-embedded-subscribe-form" class="validate" target="_blank" novalidate>
+                  <div id="mc_embed_signup_scroll">
+                    <input type="email" value="" name="EMAIL" class="email" id="mce-EMAIL" placeholder="Email address" required>
+                    <!-- real people should not fill this in and expect good things - do not remove this or risk form bot signups-->
+                    <div style="position: absolute; left: -5000px;" aria-hidden="true"><input type="text" name="b_748867c8383565a76ea4812ed_3f4436da17" tabindex="-1" value=""></div>
+                    <div class="mb-4"></div>
+                    <div class="clear"><input type="submit" value="Subscribe for updates" name="subscribe" id="mc-embedded-subscribe" class="btn btn-primary btn-xl"></div>
+                  </div>
+                </form>
+              </div>
+
+              <!--End mc_embed_signup-->
+            </div>
+            <div class="p-md-4 ord2"></div>
+          </div>
+          <div class="col-lg-6 mx-auto bg_img ord3">
+          </div>
+        </div>
+      </div>
+    </header>
+
+    <!-- Core features -->
+    <!--
+    <section id="core" class="bg-primary">
+      <div class="container">
+        <div class="row">
+          <div class="col-lg-12 text-center">
+            <h2 class="section-heading text-white">Core featues</h2>
+            <hr class="my-4 ">
+          </div>
+        </div>
+      </div>
+      <div class="container">
+        <div class="row">
+          <div class="col-lg-3 col-md-6 text-center">
+            <div class="service-box mt-5 mx-auto">
+              <i class="fas fa-4x fa-gem text-white mb-3 sr-icon-1"></i>
+              <h3 class="mb-3 text-white">Seamless integration</h3>
+              <p class="text-faded mb-0">The IDE is one with the code</p>
+            </div>
+          </div>
+          <div class="col-lg-3 col-md-6 text-center">
+            <div class="service-box mt-5 mx-auto">
+              <i class="fas fa-4x fa-paper-plane text-white mb-3 sr-icon-2"></i>
+              <h3 class="mb-3 text-white">Run everywhere</h3>
+              <p class="text-faded mb-0">Desktop, Mobile or Web - it's all going to be possible</p>
+            </div>
+          </div>
+          <div class="col-lg-3 col-md-6 text-center">
+            <div class="service-box mt-5 mx-auto">
+              <i class="fas fa-4x fa-code text-white mb-3 sr-icon-3"></i>
+              <h3 class="mb-3 text-white">Build for efficiency</h3>
+              <p class="text-faded mb-0">Update values in real time</p>
+            </div>
+          </div>
+          <div class="col-lg-3 col-md-6 text-center">
+            <div class="service-box mt-5 mx-auto">
+              <i class="fas fa-4x fa-heart text-white mb-3 sr-icon-4"></i>
+              <h3 class="mb-3 text-white">Made to improve - not replace</h3>
+              <p class="text-faded mb-0">Embraces to power of the code</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+-->
+
+    <!-- Image Showcases -->
+    <section id="showcase" class="showcase nopadding">
+      <div class="container-fluid p-0">
+        <div class="row no-gutters">
+          <div class="col-lg-6 order-lg-2 text-white showcase-img defOrd2" style="background-image: url('gifs/empty.gif'); background-size: contain; background-repeat: no-repeat; background-position: center; min-height: 10cm"></div>
+          <div class="col-lg-6 order-lg-1 my-auto showcase-text defOrd1">
+            <h2>Build UIs in record time</h2>
+            <p class="lead mb-0">Build UIs without ever having to recompile.</p>
+          </div>
+        </div>
+        <div class="row no-gutters">
+          <div class="col-lg-6 text-white showcase-img ord0" style="background-image: url('gifs/card.gif'); background-size: contain; background-repeat: no-repeat; background-position: center; min-height: 10cm"></div>
+          <div class="col-lg-6 my-auto showcase-text ord1">
+            <h2>Adjust until it looks just right</h2>
+            <p class="lead mb-0">
+                Iterate quickly on different UI ideas.
+            </p>
+          </div>
+        </div>
+        <div class="row no-gutters">
+          <div class="col-lg-6 order-lg-2 text-white showcase-img defOrd2" style="background-image: url('gifs/multi_canvas.gif'); background-size: contain; background-repeat: no-repeat; background-position: center; min-height: 10cm"></div>
+          <div class="col-lg-6 order-lg-1 my-auto showcase-text defOrd1">
+            <h2>Work on multiple widgets at once</h2>
+            <p class="lead mb-0">
+                Gain an overview over your project and never get lost in your code again!
+            </p>
+          </div>
+        </div>
+        <div class="row no-gutters">
+          <div class="col-lg-6 text-white showcase-img ord0" style="background-image: url('gifs/code.gif'); background-size: contain; background-repeat: no-repeat; background-position: center; min-height: 10cm"></div>
+          <div class="col-lg-6 my-auto showcase-text ord1">
+            <h2>Export and use it in your app</h2>
+            <p class="lead mb-0">
+                Add the generated code to your project.
+            </p>
+          </div>
+        </div>
+      </div>
+      <!-- <div class="row no-gutters">
+        <div class="col-lg-6 text-white showcase-img" style="background-image: url('img/still_image.png'); background-size: contain; background-repeat: no-repeat; background-position: center"></div>
+        <div class="col-lg-6 my-auto showcase-text">
+          <h2>Made to improve - not replace</h2>
+          <p class="lead mb-0">This is not intended to be a replacement for Flutters awesome way of writing UI’s. Rather - it is a way to speed up the process. That’s why I aim to output professional quality code in every situation.
+            Don’t wanna build you whole app using drag& drop? No problem - just build one widget and continue working on it in code! </p>
+        </div>
+      </div>-->
+    </section>
+    <!-- FAQ -->
+    <!--
+    <section class="bg-primary" id="faq">
+        <div class="container">
+            <div class="row">
+              <h1 class="col-lg-8 mx-auto section-heading text-white text-center pb-5">FAQ</h1>
+              <div style= "font-size: 200%" class="col-lg-8 mx-auto text-center p-5">
+                <a class="text-white" href="https://medium.com/flutter-community/introducing-flutter-widget-maker-a-flutter-app-builder-written-in-flutter-231e8d959348"> Check out the Medium post</a>
+              </div>
+              <div class="col-lg-8 mx-auto text-center">
+                    <h3 class="section-heading text-white">Is this production ready?</h3>
+                    <hr class="light my-4">
+                    <p class="text-faded mb-4">No. This is just a demo of what it might look like in the future.</p>
+                </div>
+                <div class="col-lg-8 mx-auto text-center pt-5">
+                    <h3 class="section-heading text-white">Why are there widgets missing?</h3>
+                    <hr class="light my-4">
+                    <p class="text-faded mb-4">
+                      A lot of stuff is missing, especially widgets
+                      that's because I'm still refining the architecture
+                      and less widgets mean less work for the time being.
+                      Once things become stable you can expect to see all possible widgets (and custom ones) to
+                      be available.
+                      You also might encounter a few bugs, feel free to report them to me.
+                    </p>
+                </div>
+              <div class="col-lg-8 mx-auto text-center pt-5">
+                <h3 class="section-heading text-white">What can you do to make this happen?</h3>
+                <hr class="light my-4">
+                <p class="text-faded mb-4">
+                  I believe this could be a huge thing - but I need feedback.
+                </p>
+                <p class="text-faded mb-4">
+                  Before diving in heads deep into this project (what some argue I already have) I need to find out whether people are actually interested in this.
+                </p>
+                <p class="text-faded mb-4">
+                  For that purpose, I made the current demo available to download and play around with. But please keep in my, it's just a demo. There are a few bugs in it and it's nowhere near finished.
+                </p>
+                <p class="text-faded mb-4">
+                  If you do like this project or have feedback please let me know on Twitter, through an e-mail or other communication channels. The more feedback I get the better I can make an informed decision about the future of this project.
+                </p>
+                <a href="https://twitter.com/norbertkozsir?ref_src=twsrc%5Etfw" class="twitter-follow-button" data-show-count="false">Follow @norbertkozsir</a><script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
+              </div>
+
+            </div>
+        </div>
+    </section>-->
+
+    <section id="download" class="bg-dark text-white">
+      <div class="container text-center">
+        <div class="row justify-content-center">
+          <h2 class="mb-4 mr-3">Download early build</h2>
+          <h2 class="mb-4"><a href="docs.html">(Read the introduction)</a></h2>
+        </div>
+        <a class="btn btn-light btn-xl sr-button mt-4" href="https://github.com/Norbert515/widget_maker_2_0_public/releases/download/0.1/widget_maker.zip">
+          Download for Windows
+          <img src="https://img.icons8.com/ios-filled/20/000000/windows-logo.png">
+        </a>
+        <a class="btn btn-light btn-xl sr-button disabled ml-4 mt-4" href="https://github.com/Norbert515/widget_maker_2_0_public/releases/download/0.1/widget_maker.zip">
+          Mac version coming soon
+        </a>
+        <a class="btn btn-light btn-xl sr-button disabled ml-4 mt-4" href="https://github.com/Norbert515/widget_maker_2_0_public/releases/download/0.1/widget_maker.zip">
+          Linux version coming soon
+        </a>
+        <a class="btn btn-light btn-xl sr-button disabled ml-4 mt-4" href="https://github.com/Norbert515/widget_maker_2_0_public/releases/download/0.1/widget_maker.zip">
+          Android version coming soon
+        </a>
+      </div>
+
+        <div class="row justify-content-center mt-4">
+          <h2 class="mb-4"><a onclick="topFunction()" href="#top">Subscribe for updates</a></h2>
+        </div>
+    </section>
+
+    <section id="contact">
+      <div class="container">
+        <div class="row">
+          <div class="col-lg-8 mx-auto text-center">
+            <h2 class="section-heading">Get in touch.</h2>
+            <hr class="my-4">
+            <p class="mb-5">
+                Feel free to reach out to me with your ideas and wishes
+            </p>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-lg-4 ml-auto text-center">
+            <i class="fa fa-twitter fa-3x mb-3"></i>
+            <p>
+              <a href="https://twitter.com/norbertkozsir?lang=en">Twitter</a>
+            </p>
+          </div>
+          <div class="col-lg-4 mr-auto text-center">
+            <i class="fa fa-medium fa-3x mb-3"></i>
+            <p>
+              <a href="https://medium.com/@norbertkozsir">Medium</a>
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <div class="row">
+      <a class="col-lg-12" href="https://icons8.com/icon/38795/windows-xp">Windows XP icon by Icons8</a>
+      <a class="col-lg-12" href="legal-notice.html">Legal-Notice</a>
+    </div>
+
+    <!-- Bootstrap core JavaScript -->
+    <script src="vendor/jquery/jquery.min.js"></script>
+    <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+
+    <!-- Plugin JavaScript -->
+    <script src="vendor/jquery-easing/jquery.easing.min.js"></script>
+    <script src="vendor/scrollreveal/scrollreveal.min.js"></script>
+    <script src="vendor/magnific-popup/jquery.magnific-popup.min.js"></script>
+
+    <!-- Custom scripts for this template -->
+    <script src="js/creative.min.js"></script>
+
+  </body>
+
+</html>

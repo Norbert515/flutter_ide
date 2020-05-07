@@ -1,0 +1,50 @@
+import 'package:flutter/material.dart' hide
+{{#props}}
+{{name}}{{#last}};{{/last}}{{^last}},{{/last}}
+{{/props}}
+
+import 'package:widget_maker_2_0/data/widget_elements/generated/properties/fake_objects.dart';
+
+abstract class Widget2 {
+    Map<String, dynamic> toMap();
+}
+
+{{#widgets}}
+
+class {{name}} extends Widget2{
+
+    {{name}}({
+        this.id,
+        {{#generalInfo.layoutModel}}
+        this.{{name}},
+        {{/generalInfo.layoutModel}}
+        {{#properties}}
+        this.{{name}},
+        {{/properties}}
+    });
+
+    final String id;
+
+    {{#generalInfo.layoutModel}}
+    final {{type}} {{name}};
+    {{/generalInfo.layoutModel}}
+
+    {{#properties}}
+    final {{type}} {{name}};
+    {{/properties}}
+
+
+    Map<String, dynamic> toMap() {
+        return {
+            "&&type": "{{name}}",
+        {{#properties}}
+            "{{name}}": this.{{name}}?.toMap(),
+        {{/properties}}
+
+        {{#generalInfo.layoutModel}}
+            "{{name}}": {{serializer}},
+        {{/generalInfo.layoutModel}}
+        };
+    }
+}
+{{/widgets}}

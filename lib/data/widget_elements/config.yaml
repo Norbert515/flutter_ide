@@ -1,0 +1,613 @@
+
+widgets:
+
+  Text:
+    meta:
+      display: DText
+    prop:
+      data:
+        type: String
+        default: \Hello
+        positional: true
+        isRequired: true
+        isNamed: false
+      overflow:
+        type: TextOverflow
+        default: TextOverflow.clip
+      textAlign:
+        type: TextAlign
+        default: TextAlign.start
+      style:
+        type: TextStyle
+        default: const TextStyle()
+
+
+#  BottomNavigationBar:
+#    gernal:
+#      layout:
+#        slots:
+#          - slot:
+#              type: list
+#              name: items
+#    prop:
+#      currentIndex:
+#        type: int
+#       default: 0
+#        isRequired: true
+#      elevation:
+#        type: double
+#        default: 8.0
+#      backgroundColor: Color
+#      iconSize:
+#        type: double
+#        default: 24.0
+#      selectedFontSize:
+#        type: double
+#        default: 14.0
+#      unselectedFontSize:
+#        type: double
+#        default: 12.0
+#      showSelectedLabels:
+#        type: bool
+#        default: true
+
+
+  AppBar:
+    meta:
+      display: DAppBar
+      categories:
+        - App Essentials
+    general:
+      layout:
+        slots:
+          - title
+          - leading
+    prop:
+      automaticallyImplyLeading:
+        type: bool
+        default: true
+      backgroundColor: Color
+      brightness: Brightness
+      bottomOpacity:
+        type: double
+        default: 1
+      toolbarOpacity:
+        type: double
+        default: 1
+      centerTitle: bool
+      titleSpacing:
+        type: double
+        default: NavigationToolbar.kMiddleSpacing
+      primary:
+        type: bool
+        default: true
+      elevation: double
+
+  CupertinoNavigationBar:
+    general:
+      layout:
+        slots:
+          - leading
+          - middle
+          - trailing
+    prop:
+      backgroundColor: Color
+
+  Icon:
+    prop:
+      icon:
+        type: IconData
+        default: Icons.add
+        positional: true
+        isRequired: true
+        isNamed: false
+      size: double
+      color: Color
+
+  Form:
+    general:
+      layout: single
+
+  Material:
+    general:
+      layout: single
+
+  Flexible:
+    general:
+      layout: single
+    prop:
+      flex: int
+
+  TextFormField:
+    props:
+      obscureText:
+        type: bool
+        default: false
+
+  GestureDetector:
+    general:
+      layout: single
+
+  WNetworkImage:
+    actualName: NetworkImage
+    general:
+      widget: ImageElementWidget
+    prop:
+      width:
+        type: double
+        allowNegative: false
+      height:
+        type: double
+        allowNegative: false
+      src:
+        type: String
+        positional: true
+        default: \https://images.unsplash.com/photo-1558945657-484aa38065ec?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=633&q=80
+      fit: BoxFit
+
+  SizedBox:
+    general:
+      layout: single
+    meta:
+      icon: add
+      categories:
+        - Layout
+    prop:
+      width:
+        type: double
+        default: 100
+        allowNegative: false
+      height:
+        type: double
+        default: 100
+        allowNegative: false
+
+  CircularProgressIndicator:
+    meta:
+      display: CircularProgressIndicator
+    prop:
+      strokeWidth:
+        type: double
+        default: 4
+      backgroundColor: Color
+
+  LinearProgressIndicator:
+    meta:
+      display: LinearProgressIndicator
+    general:
+      layout: none
+
+  CupertinoActivityIndicator:
+    meta:
+      display: CupertinoActivityIndicator
+    prop:
+      animating:
+        type: bool
+        default: true
+      radius:
+        type: double
+        default: 10.0
+
+  FloatingActionButton:
+    meta:
+      display: DFloatingActionButton
+      categories:
+        - App Essentials
+    general:
+      layout: single
+    prop:
+      elevation: double
+      tooltip: String
+      foregroundColor: Color
+      backgroundColor: Color
+      focusColor: Color
+      hoverColor: Color
+      onPressed:
+        type: VoidCallback
+        wip: true
+
+  Scaffold:
+    general:
+      widget: ScaffoldElementWidget
+      layout:
+        slots:
+          - body
+          - appBar
+          - floatingActionButton
+    prop:
+      backgroundColor: Color
+    meta:
+      display: DScaffold
+      categories:
+        - Layout
+        - App Essentials
+
+
+  ListTile:
+    general:
+      widget: ListTileElementWidget
+      layout:
+        slots:
+          - leading
+          - title
+          - subtitle
+          - trailing
+    prop:
+      isThreeLine:
+        type: bool
+        default: false
+      dense: bool
+      contentPadding: EdgeInsets
+      enabled:
+        type: bool
+        default: true
+    meta:
+      categories:
+        - App Essentials
+  Center:
+    meta:
+      display: DCenter
+    general:
+      layout: single
+
+  Padding:
+    general:
+      layout: single
+    prop:
+      padding:
+        type: EdgeInsets
+        default: const EdgeInsets.all(0)
+    meta:
+      categories:
+        - Layout
+
+  RotatedBox:
+    general:
+      layout: single
+    prop:
+      quarterTurns:
+        type: int
+        default: 0
+    meta:
+      display: DRotatedBox
+      categories:
+        - Child Transformation
+
+  AspectRatio:
+    general:
+      layout: single
+    prop:
+      aspectRatio:
+        type: double
+        default: 16/9
+    meta:
+      categories:
+        - Child Transformation
+
+
+  TextField:
+    general:
+      widget: TextFieldElementWidget
+    prop:
+      obscureText:
+        type: bool
+        default: false
+
+  FractionallySizedBox:
+    general:
+      layout: single
+    prop:
+      heightFactor:
+        type: double
+        allowNegative: false
+      widthFactor:
+        type: double
+        allowNegative: false
+      alignment:
+        type: Alignment
+        default: Alignment.center
+    meta:
+      categories:
+        - Child Transformation
+
+  Divider:
+    general:
+      layout: none
+    prop:
+      height:
+        type: double
+        default: 16
+      indent:
+        type: double
+        default: 0
+      endIndent:
+        type: double
+        default: 0
+      color: Color
+
+  Align:
+    general:
+      layout: single
+    prop:
+      heightFactor: double
+      widthFactor: double
+      alignment:
+        type: Alignment
+        default: Alignment.center
+    meta:
+      categories:
+        - Child Transformation
+
+  UnconstrainedBox:
+    general:
+      layout: single
+    prop:
+      constrainedAxis: Axis
+      textDirection: TextDirection
+      alignment:
+        type: Alignment
+        default: Alignment.center
+
+  ConstrainedBox:
+    general:
+      layout: single
+    prop:
+      constraints:
+        type: BoxConstraints
+        default: const BoxConstraints()
+
+  WContainer:
+    actualName: Container
+    general:
+      layout: single
+    prop:
+      width: double
+      height: double
+      color:
+        type: Color
+      alignment:
+        type: Alignment
+        default: Alignment.center
+      padding:
+        type: EdgeInsets
+        default: const EdgeInsets.all(0)
+      decoration: Decoration
+      foregroundDecoration: Decoration
+      constraints: BoxConstraints
+      margin: EdgeInsets
+      transform:
+        type: Matrix4
+        wip: true
+    meta:
+      categories:
+        - Layout
+
+  # Semantics
+  AbsorbPointer:
+    meta:
+      categories:
+        - Semantics
+    general:
+      layout: single
+    porp:
+      absorbing: bool
+      ignoringSemantics: bool
+
+
+  WCircleAvatar:
+    actualName: CircleAvatar
+    general:
+      layout: single
+      widget: CircleAvatarElementWidget
+    prop:
+      radius:
+        type: double
+        default: 32
+      imageUrl:
+        type: String
+        default: "\"https://images.unsplash.com/photo-1537815749002-de6a533c64db?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=845&q=80\""
+  Card:
+    meta:
+      display: DCard
+    general:
+      layout: single
+    prop:
+      clipBehavior: Clip
+      color: Color
+      elevation: double
+      margin: EdgeInsets
+      semanticContainer:
+        type: bool
+        default: true
+
+
+  Checkbox:
+    meta:
+      display: DCheckbox
+    prop:
+      activeColor: Color
+      checkColor: Color
+      tristate:
+        type: bool
+        default: false
+      value:
+        type: bool
+        default: true
+        isRequired: true
+
+  Chip:
+    general:
+      layout:
+        slots:
+          - avatar
+          - deleteIcon
+          - label
+    prop:
+      backgroundColor: Color
+      clipBehavior:
+        type: Clip
+        default: Clip.none
+      deleteButtonTooltipMessage: String
+      deleteIconColor: Color
+      elevation: double
+      labelPadding: EdgeInsets
+      labelStyle: TextStyle
+      padding: EdgeInsets
+      shadowColor: Color
+
+
+
+  # Lists
+
+
+  WPageView:
+    actualName: PageView
+    general:
+      widget: PageViewElementWidget
+      layout:
+        slots:
+          - slot:
+              name: children
+              type: list
+
+    prop:
+      pageSnapping:
+        type: bool
+        default: true
+
+
+  Column:
+    meta:
+      display: DColumn
+    general:
+      layout:
+        slots:
+          - slot:
+              name: children
+              type: list
+      widget: ColumnElementWidget
+    prop:
+      crossAxisAlignment:
+        type: CrossAxisAlignment
+        default: CrossAxisAlignment.center
+      mainAxisSize:
+        type: MainAxisSize
+        default: MainAxisSize.max
+      mainAxisAlignment:
+        type: MainAxisAlignment
+        default: MainAxisAlignment.start
+  Row:
+    meta:
+      display: DRow
+    general:
+      layout:
+        slots:
+          - slot:
+              name: children
+              type: list
+      widget: RowElementWidget
+    prop:
+      crossAxisAlignment:
+        type: CrossAxisAlignment
+        default: CrossAxisAlignment.center
+      mainAxisSize:
+        type: MainAxisSize
+        default: MainAxisSize.max
+      mainAxisAlignment:
+        type: MainAxisAlignment
+        default: MainAxisAlignment.start
+      textBaseline: TextBaseline
+      textDirection: TextDirection
+
+  Expanded:
+    general:
+      layout: single
+      widget: ExpandedElementWidget
+    prop:
+      flex:
+        type: int
+        default: 1
+
+  # Buttons
+  MaterialButton:
+    meta:
+      display: DMaterialButton
+    prop:
+      color: Color
+      elevation: double
+      padding: EdgeInsets
+    general:
+      layout:
+        single:
+          maxWidth: 100.0
+          maxHeight: 60.0
+
+  OutlineButton:
+    meta:
+      display: DOutlineButton
+    prop:
+      color: Color
+      padding: EdgeInsets
+    general:
+      layout:
+        single:
+          maxWidth: 100.0
+          maxHeight: 60.0
+
+  RaisedButton:
+    meta:
+      display: DRaisedButton
+    prop:
+      elevation: double
+      padding: EdgeInsets
+      color: Color
+    general:
+      layout:
+        single:
+          maxWidth: 100.0
+          maxHeight: 60.0
+  CupertinoButton:
+    meta:
+      display: DCupertinoButton
+    general:
+      layout:
+        single:
+          maxWidth: 100.0
+          maxHeight: 60.0
+    prop:
+      color: Color
+      disabledColor: Color
+      minSize: double
+      padding: EdgeInsets
+      pressedOpacity: double
+
+
+# Animated Widgets
+  WAnimatedContainer:
+    actualName: AnimatedContainer
+    general:
+      layout: single
+    prop:
+      duration:
+        type: WDuration
+        default: const WDuration(seconds:1)
+      width: double
+      height: double
+      color:
+        type: Color
+      alignment:
+        type: Alignment
+        default: Alignment.center
+      padding:
+        type: EdgeInsets
+        default: const EdgeInsets.all(0)
+      decoration: Decoration
+      foregroundDecoration: Decoration
+      constraints: BoxConstraints
+      margin: EdgeInsets
+      transform:
+        type: Matrix4
+        wip: true
+    meta:
+      categories:
+        - Layout
