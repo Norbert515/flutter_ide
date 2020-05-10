@@ -8,8 +8,6 @@ environment:
   sdk: '>=2.1.0 <3.0.0'
 
 dependencies:
-  widget_converter:
-    path: ../widget_converter/
   flutter:
     sdk: flutter
 
