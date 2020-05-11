@@ -1,6 +1,6 @@
-import 'package:widget_maker_2_0/data/bs/widget_board/widget_board.dart';
 import 'package:flutter/material.dart';
 import 'package:uuid/uuid.dart';
+import 'package:widget_maker_2_0/modules/workspace/widget_board.dart';
 import 'package:widget_maker_2_0/properties/meta_properties.dart';
 import 'package:widget_maker_2_0/widget_elements/base/literal_widget.dart';
 import 'package:widget_maker_2_0/widget_elements/base/widget_element.dart';

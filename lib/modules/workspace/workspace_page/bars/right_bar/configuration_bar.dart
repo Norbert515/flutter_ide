@@ -1,8 +1,8 @@
 import 'dart:async';
 import 'package:flutter/cupertino.dart';
 import 'package:widget_maker_2_0/data/app_scope/app_scope.dart';
-import 'package:widget_maker_2_0/data/bs/widget_board/widget_board.dart';
 import 'package:flutter/material.dart';
+import 'package:widget_maker_2_0/modules/workspace/widget_board.dart';
 import 'package:widget_maker_2_0/widget_elements/base/widget_element.dart';
 import 'package:widget_maker_2_0/widgets/dialogs/quick_widget_access_dialog.dart';
 import 'package:widget_maker_2_0/widgets/routes.dart';

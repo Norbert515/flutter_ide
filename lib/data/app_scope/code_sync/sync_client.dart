@@ -1,7 +1,7 @@
 import 'dart:convert';
 import 'dart:io';
 import 'package:flutter/material.dart';
-import 'package:widget_maker_2_0/data/bs/widget_board/widget_board.dart';
+import 'file:///C:/Users/Norbert/workspace/flutter_ide/lib/modules/workspace/widget_board.dart';
 //import "../../../pkg/widget_converter/lib/converter.dart";
 
 class SyncServer {

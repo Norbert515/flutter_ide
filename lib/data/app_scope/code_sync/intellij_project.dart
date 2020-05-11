@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:widget_maker_2_0/data/app_scope/app_scope.dart';
 import 'package:widget_maker_2_0/data/app_scope/code_sync/sync_client.dart';
-import 'package:widget_maker_2_0/data/bs/widget_board/widget_board.dart';
+import 'package:widget_maker_2_0/modules/workspace/widget_board.dart';
 
 class IntellijPusher extends StatefulWidget {
 

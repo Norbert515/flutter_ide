@@ -1,6 +1,6 @@
 import 'package:widget_maker_2_0/data/app_scope/code_sync/sync_client.dart';
 import 'package:flutter/material.dart';
-import 'package:widget_maker_2_0/data/bs/widget_board/widget_board.dart';
+import 'file:///C:/Users/Norbert/workspace/flutter_ide/lib/modules/workspace/widget_board.dart';
 import 'package:provider/provider.dart';
 
 class BoardWidget extends StatefulWidget {

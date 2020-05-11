@@ -1,5 +1,5 @@
 import 'package:flutter_test/flutter_test.dart';
-import 'package:widget_maker_2_0/data/bs/widget_board/widget_board.dart';
+import 'file:///C:/Users/Norbert/workspace/flutter_ide/lib/modules/workspace/widget_board.dart';
 
 void main() {
   test('Widget board default canvas', () async {

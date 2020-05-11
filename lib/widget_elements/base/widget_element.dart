@@ -1,7 +1,7 @@
 import 'package:code_builder/code_builder.dart';
-import 'package:widget_maker_2_0/data/bs/widget_board/widget_board.dart';
 import 'package:flutter/material.dart';
 import 'package:widget_maker_2_0/modules/code_generation/code_builder.dart';
+import 'package:widget_maker_2_0/modules/workspace/widget_board.dart';
 import 'package:widget_maker_2_0/properties/basic_properties.dart';
 
 

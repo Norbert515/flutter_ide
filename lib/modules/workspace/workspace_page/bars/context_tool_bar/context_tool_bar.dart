@@ -3,7 +3,6 @@ import 'package:widget_maker_2_0/data/app_scope/app_scope.dart';
 import 'package:widget_maker_2_0/modules/theme.dart';
 import 'package:widget_maker_2_0/modules/workspace/interactors/context_tool_bar_interactor.dart';
 import 'package:widget_maker_2_0/widgets/custom_stream_builder.dart';
-
 import 'board_tool_bar.dart';
 import 'literal_widget_tool_bar.dart';
 
