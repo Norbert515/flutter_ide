@@ -7,7 +7,7 @@ import 'package:widget_maker_2_0/data/app_scope/app_scope.dart';
 import 'package:widget_maker_2_0/data/properties/value_changers/constraints_changer.dart';
 import 'package:widget_maker_2_0/data/widget_elements/base/instanced_widget_element.dart';
 import 'package:widget_maker_2_0/data/widget_elements/base/literal_widget.dart';
-import 'package:widget_maker_2_0/material.dart';
+import 'package:flutter/material.dart';
 import 'package:widget_maker_2_0/ui/board_widget.dart';
 import 'package:widget_maker_2_0/ui/theme.dart';
 import 'package:widget_maker_2_0/ui/widgets/dialogs/select_variable_dialog.dart';

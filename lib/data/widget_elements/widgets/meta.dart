@@ -1,6 +1,6 @@
 import 'package:widget_maker_2_0/data/widget_elements/base/meta.dart';
 import 'package:widget_maker_2_0/data/widget_elements/base/widget_element.dart';
-import 'package:widget_maker_2_0/material.dart';
+import 'package:flutter/material.dart';
 import 'package:widget_maker_2_0/ui/theme.dart';
 import 'package:widget_maker_2_0/ui/widgets/general/simple_2D_canvas.dart';
 

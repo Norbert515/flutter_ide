@@ -1,4 +1,4 @@
-import 'package:widget_maker_2_0/material.dart';
+import 'package:flutter/material.dart';
 import 'package:widget_maker_2_0/ui/widgets/dialogs/general.dart';
 import 'package:flutter_desktop_widgets2/flutter_desktop_widgets2.dart';
 

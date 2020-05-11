@@ -4,7 +4,7 @@ import 'package:flutter/scheduler.dart';
 import 'package:flutter/services.dart';
 import 'package:widget_maker_2_0/data/app_scope/app_scope.dart';
 import 'package:widget_maker_2_0/interactors/board_interactor.dart';
-import 'package:widget_maker_2_0/material.dart';
+import 'package:flutter/material.dart';
 import 'package:widget_maker_2_0/ui/pages/workspace_page/canvas.dart';
 import 'package:widget_maker_2_0/ui/pages/workspace_page/dart_code.dart';
 import 'package:widget_maker_2_0/ui/widgets/dialogs/new_project_dialog.dart';

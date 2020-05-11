@@ -2,7 +2,7 @@ import 'package:file_system_explorer/file_system_explorer.dart';
 import 'package:widget_maker_2_0/data/app_scope/app_scope.dart';
 import 'package:widget_maker_2_0/data/app_scope/code_sync/intellij_project.dart';
 import 'package:widget_maker_2_0/data/app_scope/project.dart';
-import 'package:widget_maker_2_0/material.dart';
+import 'package:flutter/material.dart';
 import 'package:widget_maker_2_0/ui/theme.dart';
 import 'package:widget_maker_2_0/ui/widgets/dialogs/new_project_dialog.dart';
 

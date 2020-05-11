@@ -1,5 +1,5 @@
 import 'package:widget_maker_2_0/data/app_scope/app_scope.dart';
-import 'package:widget_maker_2_0/material.dart';
+import 'package:flutter/material.dart';
 import 'package:widget_maker_2_0/ui/board_widget.dart';
 
 class Trash extends StatelessWidget {

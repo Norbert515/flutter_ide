@@ -1,6 +1,6 @@
 import 'package:widget_maker_2_0/data/properties/value_changers/base.dart';
 import 'package:widget_maker_2_0/data/properties/value_changers/widgets/changers.dart';
-import 'package:widget_maker_2_0/material.dart';
+import 'package:flutter/material.dart';
 import 'package:widget_maker_2_0/ui/theme.dart';
 import 'package:widget_maker_2_0/data/properties/icon_property/m_icons.dart';
 import 'package:flutter_desktop_widgets2/flutter_desktop_widgets2.dart';

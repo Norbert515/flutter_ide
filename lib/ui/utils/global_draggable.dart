@@ -3,7 +3,7 @@ import 'dart:async';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter_desktop_widgets2/flutter_desktop_widgets2.dart';
-import 'package:widget_maker_2_0/material.dart';
+import 'package:flutter/material.dart';
 
 typedef DragTargetMove<T> = void Function(T data, Offset localPosition);
 typedef _OnDragEnd = void Function(Velocity velocity, Offset offset, bool wasAccepted);

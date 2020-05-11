@@ -1,4 +1,4 @@
-import 'package:widget_maker_2_0/material.dart';
+import 'package:flutter/material.dart';
 
 
 mixin ValueChanger<T> {

@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'package:flutter/material.dart';
 import 'package:rxdart/rxdart.dart';
 import 'package:uuid/uuid.dart';
 import 'package:widget_maker_2_0/data/bs/code_generator.dart';
@@ -8,7 +9,6 @@ import 'package:widget_maker_2_0/data/properties/meta_properties.dart';
 import 'package:widget_maker_2_0/data/widget_elements/base/instanced_widget_element.dart';
 import 'package:widget_maker_2_0/data/widget_elements/base/meta.dart';
 import 'package:widget_maker_2_0/data/widget_elements/base/widget_element.dart';
-import 'package:widget_maker_2_0/material.dart';
 import 'package:widget_maker_2_0/r2d2wrapper.dart';
 import 'package:widget_maker_2_0/ui/pages/workspace_page/bars/palette/palette_bar.dart';
 import 'package:widget_maker_2_0/utils/utils.dart';

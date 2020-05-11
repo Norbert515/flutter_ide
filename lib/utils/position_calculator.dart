@@ -1,4 +1,5 @@
-import '../material.dart';
+
+import 'package:flutter/material.dart';
 
 class PositionedObject {
   final Offset position;

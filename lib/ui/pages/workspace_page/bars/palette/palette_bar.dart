@@ -1,5 +1,5 @@
 import 'package:widget_maker_2_0/data/widget_elements/base/widget_element.dart';
-import 'package:widget_maker_2_0/material.dart';
+import 'package:flutter/material.dart';
 import 'package:uuid/uuid.dart';
 
 typedef WidgetElementGenerator = WidgetElement Function(String id);

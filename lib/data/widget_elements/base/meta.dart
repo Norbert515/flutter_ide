@@ -1,7 +1,7 @@
 import 'package:widget_maker_2_0/data/properties/offset_property.dart';
 import 'package:widget_maker_2_0/data/widget_elements/base/widget_element.dart';
 import 'package:widget_maker_2_0/data/widget_elements/generated/properties/objects.dart';
-import 'package:widget_maker_2_0/material.dart';
+import 'package:flutter/material.dart';
 import 'package:widget_maker_2_0/data/properties/basic_properties.dart';
 import 'package:widget_maker_2_0/data/properties/meta_properties.dart';
 import 'package:widget_maker_2_0/data/string_builder.dart';

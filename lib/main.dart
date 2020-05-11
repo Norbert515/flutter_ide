@@ -1,9 +1,8 @@
 import 'dart:io';
-import 'package:widget_maker_2_0/material.dart';
 import 'package:flutter/foundation.dart'
     show debugDefaultTargetPlatformOverride;
+import 'package:flutter/material.dart';
 import 'package:widget_maker_2_0/data/app_scope/app_scope.dart';
-import 'package:widget_maker_2_0/ui/board_widget.dart';
 import 'package:widget_maker_2_0/ui/pages/workspace_page/workspace_page.dart';
 import 'package:widget_maker_2_0/ui/theme.dart';
 import 'package:flutter_desktop_widgets2/flutter_desktop_widgets2.dart';
@@ -18,7 +17,6 @@ void main() {
 
   //ga.sendEvent("navigation", "started");
   //ga.sendScreenView("viewName");
-  debugDefaultTargetPlatformOverride = TargetPlatform.fuchsia;
   runApp(new MyApp());
 }
 

@@ -1,5 +1,5 @@
 import 'package:widget_maker_2_0/data/properties/value_changers/base.dart';
-import 'package:widget_maker_2_0/material.dart';
+import 'package:flutter/material.dart';
 
 
 class AlignmentChanger extends StatelessValueChanger<Alignment> {

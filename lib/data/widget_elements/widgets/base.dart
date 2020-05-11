@@ -4,7 +4,7 @@ import 'package:widget_maker_2_0/data/app_scope/project.dart';
 import 'package:widget_maker_2_0/data/bs/widget_board/widget_board.dart';
 import 'package:widget_maker_2_0/data/widget_elements/base/instanced_widget_element.dart';
 import 'package:widget_maker_2_0/data/widget_elements/base/widget_element.dart';
-import 'package:widget_maker_2_0/material.dart';
+import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:widget_maker_2_0/ui/board_widget.dart';
 import 'package:widget_maker_2_0/data/app_scope/currently_dragging.dart';

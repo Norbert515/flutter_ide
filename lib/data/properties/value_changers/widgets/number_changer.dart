@@ -1,5 +1,5 @@
 import 'package:flutter/scheduler.dart';
-import 'package:widget_maker_2_0/material.dart';
+import 'package:flutter/material.dart';
 
 import 'decoration.dart';
 

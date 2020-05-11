@@ -12,7 +12,7 @@ import 'package:widget_maker_2_0/data/widget_elements/generated/widgets/Row.dart
 import 'package:widget_maker_2_0/data/widget_elements/generated/widgets/Scaffold.dart';
 import 'package:widget_maker_2_0/data/widget_elements/generated/widgets/Text.dart';
 import 'package:widget_maker_2_0/data/widget_elements/generated/widgets/aaimporter.dart';
-import 'package:widget_maker_2_0/material.dart';
+import 'package:flutter/material.dart';
 import 'package:uuid/uuid.dart';
 import 'package:widget_maker_2_0/data/properties/meta_properties.dart';
 
@@ -20,12 +20,11 @@ Uuid _uuid = Uuid();
 
 String get _i => _uuid.v1();
 
-WidgetBoard syntaxText () {
-
+WidgetBoard syntaxText() {
   WidgetBoard b = WidgetBoard();
 
   var s = ScaffoldElement(id: _i);
-  b.rootWidgetElement.tAccept(b,s);
+  b.rootWidgetElement.tAccept(b, s);
 
   var a = AppBarElement(id: _i);
   s.tAccept(b, a, ScaffoldElement.APPBAR);
@@ -59,19 +58,14 @@ WidgetBoard syntaxText () {
       )
   );*/
   return b;
-
 }
-WidgetBoard getHelloWorldWidgetBoard() {
 
+WidgetBoard getHelloWorldWidgetBoard() {
   var uuid = Uuid();
   WidgetBoard board = WidgetBoard();
 
-
   // TODO remove this later on when this is added by default
-  var literalWidgetElement = LiteralWidgetElement(
-    id: uuid.v1(),
-    name: "Hello World Page"
-  );
+  var literalWidgetElement = LiteralWidgetElement(id: uuid.v1(), name: "Hello World Page");
 
   board.acceptNewChild(board.rootKey, literalWidgetElement);
 
@@ -80,7 +74,6 @@ WidgetBoard getHelloWorldWidgetBoard() {
   );
 
   board.acceptNewChild(literalWidgetElement.id, scaffold);
-
 
   var appBar = AppBarElement(
     id: uuid.v1(),
@@ -98,10 +91,7 @@ WidgetBoard getHelloWorldWidgetBoard() {
     id: uuid.v1(),
   );
 
-  var text = TextElement(
-    id: uuid.v1(),
-    data: "Hello World!"
-  );
+  var text = TextElement(id: uuid.v1(), data: "Hello World!");
 
   board.acceptNewChild(scaffold.id, bodyCenter, SlotData(slotName: ScaffoldElement.BODY));
   board.acceptNewChild(bodyCenter.id, text);
@@ -109,14 +99,10 @@ WidgetBoard getHelloWorldWidgetBoard() {
   var fab = FloatingActionButtonElement(
     id: uuid.v1(),
   );
-  var icon = IconElement(
-    id: uuid.v1(),
-    icon: Icons.add
-  );
+  var icon = IconElement(id: uuid.v1(), icon: Icons.add);
 
   board.acceptNewChild(scaffold.id, fab, SlotData(slotName: ScaffoldElement.FLOATINGACTIONBUTTON));
   board.acceptNewChild(fab.id, icon);
-
 
   return board;
 }
@@ -126,19 +112,11 @@ WidgetBoard getCardWidgetBoard() {
   WidgetBoard board = WidgetBoard();
 
   // TODO remove this later on when this is added by default
-  var literalWidgetElement = LiteralWidgetElement(
-      id: uuid.v1(),
-      name: "Card Example"
-  );
+  var literalWidgetElement = LiteralWidgetElement(id: uuid.v1(), name: "Card Example");
 
   board.acceptNewChild(board.rootKey, literalWidgetElement);
 
-  var size = WContainerElement(
-    id: uuid.v1(),
-    width: 344,
-    height: 382,
-    color: Colors.transparent
-  );
+  var size = WContainerElement(id: uuid.v1(), width: 344, height: 382, color: Colors.transparent);
 
   board.acceptNewChild(literalWidgetElement.id, size);
 
@@ -152,15 +130,8 @@ WidgetBoard getCardWidgetBoard() {
   );
   board.acceptNewChild(card.id, column);
 
-
-
-  var topSize = WContainerElement(
-    id: uuid.v1(),
-    height: 72,
-    color: Colors.white
-  );
+  var topSize = WContainerElement(id: uuid.v1(), height: 72, color: Colors.white);
   board.acceptNewChild(column.id, topSize, SlotData(slotName: "children"));
-
 
   var topRow = RowElement(
     id: uuid.v1(),
@@ -168,20 +139,17 @@ WidgetBoard getCardWidgetBoard() {
   );
   board.acceptNewChild(topSize.id, topRow);
 
-  var topImagePad = WContainerElement(
-    id: uuid.v1(),
-    color: Colors.transparent,
-    padding: const EdgeInsets.symmetric(horizontal: 16)
-  );
+  var topImagePad =
+      WContainerElement(id: uuid.v1(), color: Colors.transparent, padding: const EdgeInsets.symmetric(horizontal: 16));
   board.acceptNewChild(topRow.id, topImagePad, SlotData(slotName: "children"));
 
   var profileImage = WCircleAvatarElement(
     id: uuid.v1(),
     radius: 20,
-    imageUrl: "https://images.unsplash.com/photo-1536164261511-3a17e671d380?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=630&q=80",
+    imageUrl:
+        "https://images.unsplash.com/photo-1536164261511-3a17e671d380?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=630&q=80",
   );
   board.acceptNewChild(topImagePad.id, profileImage);
-
 
   var titleColumn = ColumnElement(
     id: uuid.v1(),
@@ -204,12 +172,7 @@ WidgetBoard getCardWidgetBoard() {
   );
   board.acceptNewChild(titleColumn.id, subTitle, SlotData(slotName: "children"));
 
-  var bigImage = WNetworkImageElement(
-    id: uuid.v1(),
-    height: 194,
-    width: 344,
-    fit: BoxFit.cover
-  );
+  var bigImage = WNetworkImageElement(id: uuid.v1(), height: 194, width: 344, fit: BoxFit.cover);
   board.acceptNewChild(column.id, bigImage, SlotData(slotName: "children"));
 
   var bottomPadding = WContainerElement(
@@ -233,10 +196,9 @@ WidgetBoard getCardWidgetBoard() {
   board.acceptNewChild(bottomPadding.id, bColumn);
 
   var bottomText = TextElement(
-    id: uuid.v1(),
-    style: TextStyle(color: Colors.black, fontSize: 14),
-    data: "Lorem ipsum dolor sit amet, consectetur adisicing elit, sed do eisumo tempor"
-  );
+      id: uuid.v1(),
+      style: TextStyle(color: Colors.black, fontSize: 14),
+      data: "Lorem ipsum dolor sit amet, consectetur adisicing elit, sed do eisumo tempor");
 
   board.acceptNewChild(bColumn.id, bottomText, SlotData(slotName: "children"));
 
@@ -253,10 +215,7 @@ WidgetBoard getCardWidgetBoard() {
 
   board.acceptNewChild(bColumn.id, actionRow, SlotData(slotName: "children"));
 
-  var b1 = MaterialButtonElement(
-    id: uuid.v1(),
-    padding: EdgeInsets.only(right: 8)
-  );
+  var b1 = MaterialButtonElement(id: uuid.v1(), padding: EdgeInsets.only(right: 8));
   board.acceptNewChild(actionRow.id, b1, SlotData(slotName: "children"));
 
   var b1Text = TextElement(
@@ -267,17 +226,16 @@ WidgetBoard getCardWidgetBoard() {
   board.acceptNewChild(b1.id, b1Text);
 
   var b2 = MaterialButtonElement(
-      id: uuid.v1(),
+    id: uuid.v1(),
   );
   board.acceptNewChild(actionRow.id, b2, SlotData(slotName: "children"));
 
   var b2Text = TextElement(
-      id: uuid.v1(),
-      data: "Action 2",
-      style: TextStyle(color: Colors.purple),
+    id: uuid.v1(),
+    data: "Action 2",
+    style: TextStyle(color: Colors.purple),
   );
   board.acceptNewChild(b2.id, b2Text);
-
 
   return board;
 }
@@ -287,12 +245,8 @@ WidgetBoard getPixelWidgetBoard() {
 
   Uuid uuid = Uuid();
   // TODO remove this later on when this is added by default
-  var literalWidgetElement = LiteralWidgetElement(
-      id: uuid.v1(),
-      name: "Pixel"
-  );
+  var literalWidgetElement = LiteralWidgetElement(id: uuid.v1(), name: "Pixel");
   board.acceptNewChild(board.rootKey, literalWidgetElement);
-
 
   return board;
 }
@@ -304,12 +258,8 @@ WidgetBoard getDesktopWidgetBoard() {
 
   Uuid uuid = Uuid();
   // TODO remove this later on when this is added by default
-  var literalWidgetElement = LiteralWidgetElement(
-      id: uuid.v1(),
-      name: "Desktop"
-  );
+  var literalWidgetElement = LiteralWidgetElement(id: uuid.v1(), name: "Desktop");
   board.acceptNewChild(board.rootKey, literalWidgetElement);
-
 
   return board;
 }

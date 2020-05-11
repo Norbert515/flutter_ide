@@ -1,4 +1,4 @@
-import 'package:widget_maker_2_0/material.dart';
+import 'package:flutter/material.dart';
 import 'package:widget_maker_2_0/ui/theme.dart';
 import 'package:widget_maker_2_0/ui/pages/workspace_page/canvas.dart';
 import 'configuration_bar.dart';

@@ -1,6 +1,6 @@
 import 'dart:async';
 
-import 'package:widget_maker_2_0/material.dart';
+import 'package:flutter/material.dart';
 
 const double _kScrollbarThickness = 6.0;
 const Duration _kScrollbarFadeDuration = Duration(milliseconds: 300);

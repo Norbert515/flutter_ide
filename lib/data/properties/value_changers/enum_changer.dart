@@ -1,6 +1,6 @@
 import 'package:widget_maker_2_0/data/properties/value_changers/base.dart';
 import 'package:widget_maker_2_0/data/properties/value_changers/widgets/common.dart';
-import 'package:widget_maker_2_0/material.dart';
+import 'package:flutter/material.dart';
 
 
 class EnumChanger<T> extends StatelessValueChanger<T>{

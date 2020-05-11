@@ -1,7 +1,7 @@
 import 'package:code_builder/code_builder.dart';
 import 'package:widget_maker_2_0/data/properties/value_changers/enum_changer.dart';
 import 'package:widget_maker_2_0/data/string_builder.dart';
-import 'package:widget_maker_2_0/material.dart';
+import 'package:flutter/material.dart';
 import 'basic_properties.dart';
 
 abstract class MEnumProperty<T> extends MProperty<T> with SingleChangerMixin{
