@@ -20,6 +20,9 @@ abstract class StatefulValueChanger<T> extends StatefulWidget with ValueChanger<
   final T value;
   final ValueChanged<T> onUpdate;
 
+  /// Indicates whether this value can be nullable
+  final bool nullable;
+
   @mustCallSuper
-  StatefulValueChanger({Key key, @required this.value, @required this.onUpdate}) : super(key: key);
+  StatefulValueChanger({Key key, @required this.value, @required this.onUpdate, @required this.nullable}) : super(key: key);
 }

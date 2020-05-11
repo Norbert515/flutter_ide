@@ -1,12 +1,33 @@
 import 'package:widget_maker_2_0/data/properties/value_changers/base.dart';
 import 'package:widget_maker_2_0/material.dart';
 
-class StringChanger extends StatelessValueChanger<String> {
+class StringChanger extends StatefulValueChanger<String> {
 
 
   StringChanger({Key key, String value, ValueChanged<String> onUpdate, bool nullable})
     : super(key: key, value: value, onUpdate: onUpdate, nullable: nullable);
 
+
+
+  @override
+  State<StatefulWidget> createState() => _StringChangerState();
+
+}
+class _StringChangerState extends State<StringChanger> {
+
+  TextEditingController controller = TextEditingController();
+
+  @override
+  void initState() {
+    super.initState();
+    controller.text = widget.value;
+  }
+
+  @override
+  void didUpdateWidget(StringChanger oldWidget) {
+    super.didUpdateWidget(oldWidget);
+    //controller.text = widget.value;
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -20,12 +41,14 @@ class StringChanger extends StatelessValueChanger<String> {
               contentPadding: EdgeInsets.all(8),
               border: OutlineInputBorder()
           ),
-          onChanged: onUpdate,
-          controller: TextEditingController(text: value),
+          onChanged: widget.onUpdate,
+          controller: controller,
         ),
       ),
     );
   }
+
+
 }
 
 class AutoFocusTextField extends StatefulWidget {
