@@ -2,6 +2,8 @@
 
 ![title](docs/gifs/main2.gif)
 
+<a href="https://www.buymeacoffee.com/norbertkozsir" target="_blank"><img src="https://cdn.buymeacoffee.com/buttons/default-orange.png" alt="Buy Me A Coffee" style="height: 51px !important;width: 217px !important;" ></a>
+
 ## State of the project
 
 The project is currently not maintained by me and the code could probably use a bit
@@ -95,5 +97,3 @@ The docs folder contains the source for www.widgetmaker.dev
 ## Donations
 
 Feel free to donate a pizza/ coffee :)
-
-<a href="https://www.buymeacoffee.com/norbertkozsir" target="_blank"><img src="https://cdn.buymeacoffee.com/buttons/default-orange.png" alt="Buy Me A Coffee" style="height: 51px !important;width: 217px !important;" ></a>
