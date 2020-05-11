@@ -3,14 +3,13 @@ import 'package:flutter/foundation.dart'
     show debugDefaultTargetPlatformOverride;
 import 'package:flutter/material.dart';
 import 'package:widget_maker_2_0/data/app_scope/app_scope.dart';
-import 'package:widget_maker_2_0/ui/pages/workspace_page/workspace_page.dart';
-import 'package:widget_maker_2_0/ui/theme.dart';
 import 'package:flutter_desktop_widgets2/flutter_desktop_widgets2.dart';
-import 'package:widget_maker_2_0/ui/utils/desktop_scroll_behavior.dart';
 import 'package:flutter/services.dart';
-import 'package:usage/usage_io.dart';
+import 'package:widget_maker_2_0/modules/theme.dart';
+import 'package:widget_maker_2_0/widgets/desktop_scroll_behavior.dart';
 
-import 'data/widget_elements/scripts/utils/utils.dart';
+import 'modules/workspace/workspace_page/workspace_page.dart';
+
 
 void main() {
   //Analytics ga = new AnalyticsIO("UA-133737406-2", 'widget_maker_app_2', '0.1',);

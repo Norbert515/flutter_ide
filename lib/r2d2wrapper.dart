@@ -1,6 +1,7 @@
-import 'package:widget_maker_2_0/ui/pages/workspace_page/bars/palette/palette_bar.dart';
+import 'package:widget_maker_2_0/widget_elements/generated/registry.dart';
 
-import 'data/widget_elements/generated/registry.dart';
+import 'modules/workspace/workspace_page/bars/palette/palette_bar.dart';
+
 
 /// Wrapper around R2D2 which provides the widget elements which are possible
 /// to instantiate

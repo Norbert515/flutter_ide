@@ -1,20 +1,10 @@
-import 'package:widget_maker_2_0/data/widget_elements/base/literal_widget.dart';
 import 'package:widget_maker_2_0/data/bs/widget_board/widget_board.dart';
-import 'package:widget_maker_2_0/data/widget_elements/base/widget_element.dart';
-import 'package:widget_maker_2_0/data/widget_elements/generated/widgets/AppBar.dart';
-import 'package:widget_maker_2_0/data/widget_elements/generated/widgets/Card.dart';
-import 'package:widget_maker_2_0/data/widget_elements/generated/widgets/Center.dart';
-import 'package:widget_maker_2_0/data/widget_elements/generated/widgets/Column.dart';
-import 'package:widget_maker_2_0/data/widget_elements/generated/widgets/FloatingActionButton.dart';
-import 'package:widget_maker_2_0/data/widget_elements/generated/widgets/Icon.dart';
-import 'package:widget_maker_2_0/data/widget_elements/generated/widgets/MaterialButton.dart';
-import 'package:widget_maker_2_0/data/widget_elements/generated/widgets/Row.dart';
-import 'package:widget_maker_2_0/data/widget_elements/generated/widgets/Scaffold.dart';
-import 'package:widget_maker_2_0/data/widget_elements/generated/widgets/Text.dart';
-import 'package:widget_maker_2_0/data/widget_elements/generated/widgets/aaimporter.dart';
 import 'package:flutter/material.dart';
 import 'package:uuid/uuid.dart';
-import 'package:widget_maker_2_0/data/properties/meta_properties.dart';
+import 'package:widget_maker_2_0/properties/meta_properties.dart';
+import 'package:widget_maker_2_0/widget_elements/base/literal_widget.dart';
+import 'package:widget_maker_2_0/widget_elements/base/widget_element.dart';
+import 'package:widget_maker_2_0/widget_elements/generated/widgets/aaimporter.dart';
 
 Uuid _uuid = Uuid();
 

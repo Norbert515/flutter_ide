@@ -1,9 +1,8 @@
 import 'package:code_builder/code_builder.dart';
 import 'package:dart_style/dart_style.dart';
-import 'package:flutter/material.dart';
-import 'package:widget_maker_2_0/data/widget_elements/base/meta.dart';
-import 'package:widget_maker_2_0/data/widget_elements/base/widget_element.dart';
-import '../widget_elements/base/literal_widget.dart';
+import 'package:widget_maker_2_0/widget_elements/base/literal_widget.dart';
+import 'package:widget_maker_2_0/widget_elements/base/meta.dart';
+import 'package:widget_maker_2_0/widget_elements/base/widget_element.dart';
 
 
 abstract class ICodeGenerator {

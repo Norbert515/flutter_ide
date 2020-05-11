@@ -42,7 +42,7 @@ A few words about the code architecture.
 
 Widget-Elements play a central part in the Widget-Maker as these are actual widgets
 you drag around and style. 
-The Widget-Elements can be found under [`lib/data/widget_elements`](lib/data/widget_elements).
+The Widget-Elements can be found under [`lib/data/widget_elements`](lib/widget_elements).
 
 Widget-Elements form a forth tree (on top of Widgets/RenderObjects and Elements) they include
 a lot of meta information.
@@ -62,7 +62,7 @@ there is a generator which does that for you.
 
 Take a look at (lib/Data/widget_elements/config.yaml and README.md) to get a sense of the schema.
 
-To generated those widget simply execute the [`lib/data/widget_elements/scripts/build.dart`](lib/data/widget_elements/scripts/build.dart) file.
+To generated those widget simply execute the [`lib/data/widget_elements/scripts/build.dart`](lib/widget_elements/scripts/build.dart) file.
 Be sure to be inside the script folder when running that script because it relies on relative paths!
 
 ```
@@ -72,12 +72,12 @@ dart build.dart
 
 ### Properties
 
-The [`MProperty`](lib/data/properties/basic_properties.dart) is the base class for all properties inside the Widget-Maker.
+The [`MProperty`](lib/properties/basic_properties.dart) is the base class for all properties inside the Widget-Maker.
 Each Widget-Element has a list of properties. These properties reflect the constructor parameters
 of the widgets in code.
 Properties are responsible for providing a way of changing themselves and providing meta information.
 
-For more information take a look at [lib/data/properties/basic_properties.dart](lib/data/properties/basic_properties.dart) 
+For more information take a look at [lib/data/properties/basic_properties.dart](lib/properties/basic_properties.dart) 
 
 
 

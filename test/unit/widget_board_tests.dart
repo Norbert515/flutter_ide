@@ -1,15 +1,9 @@
 import 'package:flutter_test/flutter_test.dart';
 import 'package:widget_maker_2_0/data/bs/widget_board/widget_board.dart';
-import 'package:widget_maker_2_0/data/properties/meta_properties.dart';
-import 'package:widget_maker_2_0/data/widget_elements/base/meta.dart';
-import 'package:widget_maker_2_0/data/widget_elements/base/widget_element.dart';
-import 'package:widget_maker_2_0/data/widget_elements/generated/widgets/AppBar.dart';
-import 'package:widget_maker_2_0/data/widget_elements/generated/widgets/Center.dart';
-import 'package:widget_maker_2_0/data/widget_elements/generated/widgets/Column.dart';
-import 'package:widget_maker_2_0/data/widget_elements/generated/widgets/Icon.dart';
-import 'package:widget_maker_2_0/data/widget_elements/generated/widgets/Padding.dart';
-import 'package:widget_maker_2_0/data/widget_elements/generated/widgets/Row.dart';
-import 'package:widget_maker_2_0/data/widget_elements/generated/widgets/aaimporter.dart';
+import 'package:widget_maker_2_0/properties/meta_properties.dart';
+import 'package:widget_maker_2_0/widget_elements/base/meta.dart';
+import 'package:widget_maker_2_0/widget_elements/base/widget_element.dart';
+import 'package:widget_maker_2_0/widget_elements/generated/widgets/aaimporter.dart';
 
 void main() {
   test('Widget boards smoke tests', () async {

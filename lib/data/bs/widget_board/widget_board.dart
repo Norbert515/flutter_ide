@@ -3,16 +3,16 @@ import 'package:flutter/material.dart';
 import 'package:rxdart/rxdart.dart';
 import 'package:uuid/uuid.dart';
 import 'package:widget_maker_2_0/data/bs/code_generator.dart';
-import 'package:widget_maker_2_0/data/widget_elements/base/literal_widget.dart';
 import 'package:widget_maker_2_0/data/bs/widget_board/board_flattern.dart';
-import 'package:widget_maker_2_0/data/properties/meta_properties.dart';
-import 'package:widget_maker_2_0/data/widget_elements/base/instanced_widget_element.dart';
-import 'package:widget_maker_2_0/data/widget_elements/base/meta.dart';
-import 'package:widget_maker_2_0/data/widget_elements/base/widget_element.dart';
+import 'package:widget_maker_2_0/modules/workspace/workspace_page/bars/palette/palette_bar.dart';
+import 'package:widget_maker_2_0/properties/meta_properties.dart';
 import 'package:widget_maker_2_0/r2d2wrapper.dart';
-import 'package:widget_maker_2_0/ui/pages/workspace_page/bars/palette/palette_bar.dart';
 import 'package:widget_maker_2_0/utils/utils.dart';
 import 'package:widget_maker_2_0/utils/position_calculator.dart';
+import 'package:widget_maker_2_0/widget_elements/base/instanced_widget_element.dart';
+import 'package:widget_maker_2_0/widget_elements/base/literal_widget.dart';
+import 'package:widget_maker_2_0/widget_elements/base/meta.dart';
+import 'package:widget_maker_2_0/widget_elements/base/widget_element.dart';
 
 import 'models.dart';
 

@@ -1,7 +1,7 @@
 
 
 import 'package:flutter/material.dart';
-import 'package:widget_maker_2_0/data/properties/meta_properties.dart';
+import 'package:widget_maker_2_0/properties/meta_properties.dart';
 
 /// A canvas is an object which lies on the infinite board
 ///
