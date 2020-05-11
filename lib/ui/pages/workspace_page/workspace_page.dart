@@ -1,4 +1,5 @@
 import 'package:file_system_explorer/file_system_explorer.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:flutter/services.dart';
 import 'package:widget_maker_2_0/data/app_scope/app_scope.dart';
@@ -254,6 +255,12 @@ class CodeWorkspace extends StatelessWidget {
                   child: Center(
                     child: RaisedButton(
                       onPressed: () async {
+                        if(kIsWeb) {
+                          Clipboard.setData(ClipboardData(
+                            text: AppScope.of(context).getCode(),
+                          ));
+                          return;
+                        }
                         String path = await showPicker(
                             context,
                             searchFor: FlutterFileType.Folder,
@@ -264,7 +271,7 @@ class CodeWorkspace extends StatelessWidget {
                         ));
                         AppScope.of(context).saveToFolder(path);
                       },
-                      child: Text("Export"),
+                      child: Text(kIsWeb? "Copy to clipboard": "Export"),
                     ),
                   ),
                 ),

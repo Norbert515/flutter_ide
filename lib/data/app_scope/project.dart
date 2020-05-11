@@ -94,6 +94,9 @@ class Project with ChangeNotifier{
     }
   }
 
+  String getCode() {
+    return widgetBoard.getLayoutCode();
+  }
 
 
   Future save() async {
