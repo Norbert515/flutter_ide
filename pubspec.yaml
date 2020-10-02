@@ -35,7 +35,7 @@ dependencies:
   flutter_desktop_widgets2:
     git:
       url: https://github.com/Norbert515/flutter_desktop_widgets2.git
-  flutter_highlight: ^0.2.1
+  flutter_highlight: ^0.6.0
   usage: 3.4.1
   flutter_hooks: ^0.7.0
   mustache:
