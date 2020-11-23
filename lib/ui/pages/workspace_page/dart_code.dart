@@ -19,7 +19,7 @@ class DartCode extends StatelessWidget {
   }
   @override
   Widget build(BuildContext context) {
-    return Highlight(
+    return HighlightView(
       code,
       language: 'dart',
       theme: themeMap['darcula'],

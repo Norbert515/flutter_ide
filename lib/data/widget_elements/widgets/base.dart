@@ -204,7 +204,7 @@ class ElementDragTarget extends StatelessWidget {
   final Widget child;
   final String id;
   final SlotData data;
-  final DragTargetMove<String> onMove;
+  final MyDragTargetMove<String> onMove;
 
   const ElementDragTarget({Key key, @required this.acceptingWidget, @required this.id, @required this.child, this.data, this.onMove}) : super(key: key);
 

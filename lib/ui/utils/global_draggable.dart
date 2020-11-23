@@ -5,7 +5,7 @@ import 'package:flutter/rendering.dart';
 import 'package:flutter_desktop_widgets2/flutter_desktop_widgets2.dart';
 import 'package:widget_maker_2_0/material.dart';
 
-typedef DragTargetMove<T> = void Function(T data, Offset localPosition);
+typedef MyDragTargetMove<T> = void Function(T data, Offset localPosition);
 typedef _OnDragEnd = void Function(Velocity velocity, Offset offset, bool wasAccepted);
 
 /// A class which accepts draggable coming from the Flutter
@@ -17,7 +17,7 @@ class GlobalDragTarget<T> extends StatefulWidget {
 
   final DragTargetBuilder<T> builder;
   final DragTargetAccept<T> onAccept;
-  final DragTargetMove<T> onMove;
+  final MyDragTargetMove<T> onMove;
   final DragTargetWillAccept<T> onWillAccept;
 
   @override
